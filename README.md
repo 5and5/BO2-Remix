@@ -26,6 +26,9 @@
 * Timer
 * Round timer
 
+## Power Ups
+* Drop rate increased from 2 to 3%
+
 ### Dvars
 ```
 hud_timer

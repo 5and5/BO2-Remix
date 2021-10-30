@@ -9,6 +9,7 @@ init()
 { 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
+	replaceFunc( maps/mp/zombies/_zm_powerups::func_should_drop_fire_sale, ::func_should_drop_fire_sale_override );
 
     level.inital_spawn = true;
     level thread onConnect();
@@ -90,7 +91,7 @@ powerup_drop_override( drop_point ) //checked partially changed to match cerberu
 		return;
 	}
 	rand_drop = randomint( 100 );
-	if ( rand_drop > 3 ) // 2 -> 3
+	if ( rand_drop > 99 ) // 2 -> 3
 	{
 		if ( !level.zombie_vars[ "zombie_drop_item" ] )
 		{
@@ -141,7 +142,14 @@ powerup_drop_override( drop_point ) //checked partially changed to match cerberu
 	level notify( "powerup_dropped" );
 }
 
-
+func_should_drop_fire_sale_override() //checked partially changed to match cerberus output
+{
+	if ( level.zombie_vars[ "zombie_powerup_fire_sale_on" ] == 1 || level.chest_moves < 1 || is_true( level.disable_firesale_drop ) && level.round_number > 5)
+	{
+		return 1; // firesale now drop untill you move the first box
+	}
+	return 0;
+}
 /*
 * *************************************************
 *	

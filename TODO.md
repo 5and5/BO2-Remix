@@ -52,5 +52,4 @@
 ## Power Ups 
 -remove firesales after first box
 -insta and x2 timers stack
--change drop rate from 2% to 3%
 
