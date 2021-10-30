@@ -1,0 +1,3 @@
+tools/*.gsc
+tools/*.zip
+tools/*/
