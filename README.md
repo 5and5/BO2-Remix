@@ -24,3 +24,9 @@
 
 ## HUD
 
+## Credit
+
+* JBleezy
+* ZECxR3ap3r
+* Bandit
+* Naomi_

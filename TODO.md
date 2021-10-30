@@ -1,6 +1,7 @@
 # Remix 2
 
 ## Tranzit
+-jetgun 
 -jetgun kills more zombies
 -*all players can have the jet gun
 
@@ -19,10 +20,8 @@
 -
 
 ## Origins
--maxs give ammo to all staffs 
-OR
 -can hold multiple staffs at onces
--
+-dig spots are revealed always
  
 ## general
 -zombie health scaling linearly 
@@ -35,12 +34,22 @@ OR
 -In game timer
 ### TAB Only
 -Round timer (shows at the end of a rounds)
+-Shield
+-traps
 -Remaining
 -drop cycle
 
 ## Spawn Delay
 -reduce round one spawn delay from 2 to 1
 
-## Weapons
+## Weapons 
 -remove some shitty weapons from the box
--increase probability of getting wonder weapons
+-increase probability of getting wonder weapons (perma perk maybe?)
+-box sharing
+-first box mk2 on maps that need it
+-change mk2 prb from 0.33 to 0.5
+
+## Power Ups 
+-remove firesales after first box
+-insta and x2 timers stack
+

@@ -1,0 +1,29 @@
+name: Compile Mod
+on:
+  push:
+    branches: [ main ]
+jobs:
+  create_release:
+    name: Create GitHub Release
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Compile Mod
+        shell: cmd
+        # Arguments:
+          # onefile = Compile all the GSC inside of src\gsc into one GSC file (doesn't support folders)
+          # multifile = Compile files separately (supports folders)
+          # release.gsc/.zip = File Name to have under your GitHub Release.
+              # Note that if you change this, you should change the very last line in this file to match.
+        # By Default, we compile everything on it's own and ZIP it. If you want to change this, simply replace "multifile release.zip" with "onefile release.gsc"
+        run: cd tools && call compile.bat multifile release.zip
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: false
+          title: "Release"
+          files: |
+            tools/release.zip
