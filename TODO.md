@@ -17,16 +17,15 @@
 * always have a way to call the elevator (even with power off)
 
 ## Buried
-* 
+* delete camping jug 
 
 ## Origins
 * can hold multiple staffs at onces
 * dig spots are revealed always
  
 ## general
-* zombie health scaling linearly 
+* zombie health scaling linearly
 * Enabled sprint while drinking perks
-* 12 Reset
 
 ## HUD
 ### Always
@@ -44,7 +43,6 @@
 ## Weapons 
 * remove some shitty weapons from the box
 * increase probability of getting wonder weapons (perma perk maybe?)
-* box sharing
 * first box mk2 on maps that need it
 * change mk2 prb from 0.33 to 0.5
 

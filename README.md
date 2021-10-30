@@ -22,6 +22,8 @@
 ## General
 * Zombies start running at round 1
 * Starting points set to 555
+* Coop pause
+* 12 hour fake reset
 
 ## HUD
 * Timer
@@ -38,6 +40,9 @@
 hud_timer
 hud_round_timer
 ```
+
+## Weapons
+* Sharing weapons from the box
 
 ## Credits
 
