@@ -21,6 +21,7 @@
 
 ## General
 * Zombies start running at round 1
+* Starting points set to 555
 
 ## HUD
 * Timer

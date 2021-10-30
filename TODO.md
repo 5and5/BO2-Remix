@@ -25,7 +25,6 @@
  
 ## general
 * zombie health scaling linearly 
-* change starting points to 555
 * Enabled sprint while drinking perks
 * 12 Reset
 
