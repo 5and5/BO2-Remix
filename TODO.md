@@ -1,7 +1,6 @@
 # Remix 2
 
 ## Tranzit
--jetgun 
 -jetgun kills more zombies
 -*all players can have the jet gun
 
@@ -14,6 +13,7 @@
 -patch shaft (patch camping in one spot all together)
 -unpatch sliq
 -unpatch spawns
+-reduce ammo in sliq
 -always have a way to call the elevator (even with power off)
 
 ## Buried
@@ -52,4 +52,5 @@
 ## Power Ups 
 -remove firesales after first box
 -insta and x2 timers stack
+-change drop rate from 2% to 3%
 

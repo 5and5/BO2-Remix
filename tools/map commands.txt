@@ -1,0 +1,18 @@
+TRANZIT = g_gametype zclassic;ui_zm_gamemodegroup zclassic;ui_zm_mapstartlocation transit;map zm_transit
+BUS DEPOT = g_gametype zstandard;ui_zm_gamemodegroup zsurvival;ui_zm_mapstartlocation transit;map zm_transit
+TOWN = g_gametype zstandard;ui_zm_gamemodegroup zsurvival;ui_zm_mapstartlocation town;map zm_transit
+FARM = g_gametype zstandard;ui_zm_gamemodegroup zsurvival;ui_zm_mapstartlocation farm;map zm_transit
+NUKETOWN = g_gametype zstandard;ui_zm_gamemodegroup zsurvival;ui_zm_mapstartlocation nuked;map zm_nuked
+DIE RISE = g_gametype zclassic;ui_zm_gamemodegroup zclassic;ui_zm_mapstartlocation rooftop;map zm_highrise
+MOB OF THE DEAD = g_gametype zclassic;ui_zm_gamemodegroup zclassic;ui_zm_mapstartlocation prison;map zm_prison
+BURIED = g_gametype zclassic;ui_zm_gamemodegroup zclassic;ui_zm_mapstartlocation processing;map zm_buried
+ORIGINS = g_gametype zclassic;ui_zm_gamemodegroup zclassic;ui_zm_mapstartlocation tomb;map zm_tomb
+ 
+ 
+gametype_setting + [name] + [value]
+ 
+[bool] zmdifficulty (0 = EASY)
+[int] startround (1-31)
+[bool] magic (1 = ENABLED)
+[bool] headshotsonly (1 = ENABLED)
+[bool] allowdogs (1 = ENABLED)

@@ -23,6 +23,14 @@
 * Zombies start running at round 1
 
 ## HUD
+* Timer
+* Round timer
+
+### Dvars
+```
+hud_timer
+hud_round_timer
+```
 
 ## Credits
 

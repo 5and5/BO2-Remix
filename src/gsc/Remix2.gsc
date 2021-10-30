@@ -28,7 +28,7 @@ connected()
     {
         self waittill("spawned_player");
 
-        self iprintlnbold("^2GSC from %LocalAppdata%\\Plutonium\\storage\\t6\\scripts\\mp\\test.gsc ^1(Compiled)");
+        self iprintln("Welcome to Remix!");
         self setClientDvar( "cg_fov", 90 );
         self setClientDvar( "cg_fovScale", 1.1 );
         self setClientDvar( "com_maxfps", 101 );
@@ -38,8 +38,6 @@ connected()
             self.initial_spawn = false;
 
             self on_initial_spawn();
-            //self thread timer_hud();
-
         }
 
         if(level.inital_spawn)
@@ -60,12 +58,31 @@ post_all_players_spawned()
 {
 	flag_wait( "start_zombie_round_logic" );
     wait 0.05;
+
+
 }
+
+/*
+* *****************************************************
+*	
+* ********************* Override **********************
+*
+* *****************************************************
+*/
 
 set_run_speed_override()
 {
 	self.zombie_move_speed = "sprint";
 }
+
+
+/*
+* *************************************************
+*	
+* ********************* HUD ***********************
+*
+* *************************************************
+*/
 
 timer_hud()
 {
@@ -84,13 +101,28 @@ timer_hud()
 	timer_hud.alpha = 0;
 	timer_hud.color = ( 1, 1, 1 );
 	timer_hud.hidewheninmenu = 1;
-	timer_hud.label = &"Time: ";
 
 	flag_wait( "initial_blackscreen_passed" );
 	
-    //timer_hud fadeOverTime(0.5);
-	timer_hud.alpha = 1;
 	timer_hud setTimerUp(0);
+
+	if( getDvar( "hud_timer") == "" )
+		setDvar( "hud_timer", 1 );
+
+	while(1)
+	{	
+		if( getDvarInt( "hud_timer" ) == 0 )
+		{
+			wait 0.1;
+		}
+		timer_hud.alpha = 1;
+
+		if( getDvarInt( "hud_timer" ) >= 1 )
+		{
+			wait 0.1;
+		}
+		timer_hud.alpha = 0;
+	}
 }
 
 round_timer_hud()
@@ -108,11 +140,10 @@ round_timer_hud()
 	round_timer_hud.alpha = 0;
 	round_timer_hud.color = ( 1, 1, 1 );
 	round_timer_hud.hidewheninmenu = 1;
-	round_timer_hud.label = &"Round Time: ";
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	round_timer_hud.alpha = 1;
+	self thread round_timer_watcher(round_timer_hud);
 
 	while (1)
 	{
@@ -124,11 +155,33 @@ round_timer_hud()
 		end_time = int(getTime() / 1000);
 		time = end_time - start_time;
 
-		set_time_frozen(round_timer_hud, time);
+		round_timer_set_time_frozen(round_timer_hud, time);
 	}
 }
 
-set_time_frozen(hud, time)
+round_timer_watcher(round_timer_hud)
+{
+	if( getDvar( "hud_round_timer") == "" )
+		setDvar( "hud_round_timer", 0 );
+
+	while(1)
+	{	
+		if( getDvarInt( "hud_round_timer" ) == 0 )
+		{
+			wait 0.1;
+		}
+		round_timer_hud.y = (2 + (15 * getDvarInt("hud_timer")));
+		round_timer_hud.alpha = 1;
+
+		if( getDvarInt( "hud_round_timer" ) >= 1 )
+		{
+			wait 0.1;
+		}
+		round_timer_hud.alpha = 0;
+	}
+}
+
+round_timer_set_time_frozen(hud, time)
 {
 	level endon( "start_of_round" );
 
