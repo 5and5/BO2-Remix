@@ -63,6 +63,7 @@ on_initial_spawn()
 {
     self thread timer_hud();
 	self thread max_ammo_refill_clip();
+	self thread set_players_score();
 }
 
 post_all_players_spawned()
@@ -413,5 +414,13 @@ max_ammo_refill_clip()
 			self setweaponammoclip( weap, weaponclipsize( weap ) );
 		}
 	}
+}
+
+
+set_players_score()
+{
+	flag_wait( "start_zombie_round_logic" );
+
+	self.score = 555;
 }
 
