@@ -9,8 +9,13 @@ try
     {
         if (Test-Path .\release\Remix2-compiled.gsc) 
         {
-            Write-Output "Removing old result-compiled.gsc"
+            Write-Output "Removing old release compiled gsc"
             Remove-Item .\release\Remix2-compiled.gsc
+        }
+        if (Test-Path ..\Remix2-compiled.gsc) 
+        {
+            Write-Output "Removing old active compiled gsc"
+            Remove-Item ..\Remix2-compiled.gsc
         }
         Write-Output "Loading main"
         get-content .\src\gsc\Remix2.gsc > result-uncompiled.gsc
@@ -22,7 +27,7 @@ try
         Write-Output "Removing result-uncompiled.gsc"
         Remove-Item .\result-uncompiled.gsc
         Write-Output "Compile phase ended"
-        get-content .\result-uncompiled-compiled.gsc > ..\Remix2-compiled.gsc
+        Copy-Item .\result-uncompiled-compiled.gsc ..\Remix2-compiled.gsc -Force
         Write-Output "Copy File"
         Move-Item .\result-uncompiled-compiled.gsc .\release\Remix2.gsc -Force 
         Write-Output "File moved in bin folder"

@@ -24,10 +24,11 @@
 
 ## HUD
 
-## Credit
+## Credits
 
 * JBleezy
 * ZECxR3ap3r
 * Bandit
 * Naomi_
 * Chase
+* DoktorSAS
