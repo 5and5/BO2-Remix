@@ -53,7 +53,9 @@ connected()
         if(level.inital_spawn)
 		{
 			level.inital_spawn = false;
-
+			
+			level thread coop_pause();
+			level thread fake_reset();
 			level thread post_all_players_spawned();
 		}
 	}
@@ -98,7 +100,7 @@ powerup_drop_override( drop_point ) //checked partially changed to match cerberu
 		return;
 	}
 	rand_drop = randomint( 100 );
-	if ( rand_drop > 99 ) // 2 -> 3
+	if ( rand_drop > 3 ) // 2 -> 3
 	{
 		if ( !level.zombie_vars[ "zombie_drop_item" ] )
 		{
@@ -278,164 +280,28 @@ point_doubler_on_hud_override( drop_item, player_team ) //checked matches cerber
 * *************************************************
 */
 
-coop_pause(timer_hud)
-{	
-	level endon("disconnect");
-	level endon("end_game");
-
-	setDvar( "coop_pause", 0 );
-
-	paused_time = 0;
-	paused_start_time = 0;
-	paused = false;
-
-	start_time = int(getTime() / 1000);
-
-	players = get_players();
-
-	while(1)//(players.size > 1)
-	{
-		if( getDvarInt( "coop_pause" ) == 1 )
-		{	
-			iPrintLn("1");
-			if(get_round_enemy_array().size + level.zombie_total != 0 )//|| flag( "dog_round" ) )
-			{
-				iprintln("All players will be paused at the start of the next round");
-				level waittill( "end_of_round" );
-			}
-			iPrintLn("2");
-
-			players[0] SetClientDvar( "ai_disableSpawn", "1" );
-
-			level waittill( "start_of_round" );
-			iPrintLn("3");
-
-			black_hud = newhudelem();
-			black_hud.horzAlign = "fullscreen";
-			black_hud.vertAlign = "fullscreen";
-			//black_hud.foreground = true;
-			black_hud SetShader( "black", 640, 480 );
-			black_hud.alpha = 0;
-
-			black_hud FadeOverTime( 1.0 );
-			black_hud.alpha = 0.7;
-
-			paused_hud = newhudelem();
-			paused_hud.horzAlign = "center";
-			paused_hud.vertAlign = "middle";
-			paused_hud setText("GAME PAUSED");
-			paused_hud.foreground = true;
-			paused_hud.fontScale = 2.3;
-			paused_hud.x -= 63;
-			paused_hud.y -= 20;
-			paused_hud.alpha = 0;
-			paused_hud.color = ( 1.0, 1.0, 1.0 );
-
-			paused_hud FadeOverTime( 1.0 );
-			paused_hud.alpha = 0.85;
-
-			for(i = 0; players.size > i; i++)
-			{
-				players[i] freezecontrols(true);
-			}
-
-			paused = true;
-			paused_start_time = int(getTime() / 1000);
-			total_time = 0 - (paused_start_time - level.paused_time - start_time) - 0.05;
-			previous_paused_time = level.paused_time;
-
-			while(paused)
-			{
-				timer_hud SetTimerUp(total_time);
-				wait 0.2;
-
-				current_time = int(getTime() / 1000);
-				current_paused_time = current_time - paused_start_time;
-				level.paused_time = previous_paused_time + current_paused_time;
-
-				if( getDvarInt( "coop_pause" ) == 0 )
-				{
-					paused = false;
-
-					for(i = 0; players.size > i; i++)
-					{
-						players[i] freezecontrols(false);
-					}
-
-					players[0] SetClientDvar( "ai_disableSpawn", "0");
-
-					paused_hud FadeOverTime( 0.5 );
-					paused_hud.alpha = 0;
-					black_hud FadeOverTime( 0.5 );
-					black_hud.alpha = 0;
-					wait 0.5;
-					black_hud destroy();
-					paused_hud destroy();
-				}
-			}
-		}
-		wait 0.05;
-	}
-}
-
-fake_reset()
-{
-    level endon("disconnect");
-	level endon("end_game");
-
-    level.win_game = false;
-	level.total_time = 0;
-	level.paused_time = 0;
-
-	flag_wait( "initial_blackscreen_passed" );
-
-	start_time = int(getTime() / 1000);
-
-    while(1)
-    {
-        current_time = int(getTime() / 1000);
-		level.total_time = (current_time - level.paused_time) - start_time;
-		
-        if (level.total_time >= 43200) // 12h reset
-        {
-			players = Get_Players();	
-			for(i=0;i<players.size;i++)
-			{
-				players[i] FreezeControls( true );
-			}
-            level.win_game = true;
-            level notify( "end_game" );
-			break;
-        }
-
-        wait 0.05;
-    }
-}
-
 timer_hud()
 {	
 	self endon("disconnect");
 
 	self thread round_timer_hud();
-	level thread fake_reset();
 
-	timer_hud = newClientHudElem(self);
-	timer_hud.alignx = "left";
-	timer_hud.aligny = "top";
-	timer_hud.horzalign = "user_left";
-	timer_hud.vertalign = "user_top";
-	timer_hud.x += 4;
-	timer_hud.y += 2;
-	timer_hud.fontscale = 1.4;
-	timer_hud.alpha = 0;
-	timer_hud.color = ( 1, 1, 1 );
-	timer_hud.hidewheninmenu = 1;
+	level.timer_hud = newClientHudElem(self);
+	level.timer_hud.alignx = "left";
+	level.timer_hud.aligny = "top";
+	level.timer_hud.horzalign = "user_left";
+	level.timer_hud.vertalign = "user_top";
+	level.timer_hud.x += 4;
+	level.timer_hud.y += 2;
+	level.timer_hud.fontscale = 1.4;
+	level.timer_hud.alpha = 0;
+	level.timer_hud.color = ( 1, 1, 1 );
+	level.timer_hud.hidewheninmenu = 1;
 
 	flag_wait( "initial_blackscreen_passed" );
-	timer_hud setTimerUp(0);
+	level.timer_hud setTimerUp(0);
 
-	//level thread coop_pause(timer_hud);
-	self thread timer_hud_watcher(timer_hud);
+	self thread timer_hud_watcher();
 
 	level waittill( "end_game" );
 	level.total_time -= .1; // need to set it below the number or it shows the next number
@@ -447,7 +313,21 @@ timer_hud()
 	}
 }
 
-timer_hud_watcher(timer_hud)
+// coop_pause_watcher()
+// {
+
+// 	paused_start_time = int(getTime() / 1000);
+// 	total_time = 0 - (paused_start_time - level.paused_time) - (start_time - 0.05);
+// 	previous_paused_time = level.paused_time;
+
+// 	while(paused)
+// 	{
+// 		timer_hud SetTimerUp(total_time);
+// 		wait 0.2;
+// 	}
+// }
+
+timer_hud_watcher()
 {
 	if( getDvar( "hud_timer") == "" )
 		setDvar( "hud_timer", 1 );
@@ -458,13 +338,13 @@ timer_hud_watcher(timer_hud)
 		{
 			wait 0.1;
 		}
-		timer_hud.alpha = 1;
+		level.timer_hud.alpha = 1;
 
 		if( getDvarInt( "hud_timer" ) >= 1 )
 		{
 			wait 0.1;
 		}
-		timer_hud.alpha = 0;
+		level.timer_hud.alpha = 0;
 	}
 }
 
@@ -584,5 +464,132 @@ set_players_score()
 */
 
 
+fake_reset()
+{
+    level endon("disconnect");
+	level endon("end_game");
 
+    level.win_game = false;
+	level.total_time = 0;
+	level.paused_time = 0;
 
+	flag_wait( "initial_blackscreen_passed" );
+
+	start_time = int(getTime() / 1000);
+
+    while(1)
+    {
+        current_time = int(getTime() / 1000);
+		level.total_time = (current_time - level.paused_time) - start_time;
+		
+        if (level.total_time >= 43200) // 12h reset
+        {
+			players = Get_Players();	
+			for(i=0;i<players.size;i++)
+			{
+				players[i] FreezeControls( true );
+			}
+            level.win_game = true;
+            level notify( "end_game" );
+			break;
+        }
+
+        wait 0.05;
+    }
+}
+
+coop_pause()
+{	
+	level endon("disconnect");
+	level endon("end_game");
+
+	setDvar( "coop_pause", 0 );
+
+	paused_time = 0;
+	paused_start_time = 0;
+	paused = false;
+
+	start_time = int(getTime() / 1000);
+
+	players = get_players();
+
+	while(1)//(players.size > 1)
+	{
+		if( getDvarInt( "coop_pause" ) == 1 )
+		{	
+			if(get_round_enemy_array().size + level.zombie_total != 0 || flag( "dog_round" ) )
+			{
+				iprintln("All players will be paused at the start of the next round");
+				level waittill( "end_of_round" );
+			}
+
+			players[0] SetClientDvar( "ai_disableSpawn", "1" );
+
+			level waittill( "start_of_round" );
+
+			black_hud = newhudelem();
+			black_hud.horzAlign = "fullscreen";
+			black_hud.vertAlign = "fullscreen";
+			black_hud SetShader( "black", 640, 480 );
+			black_hud.alpha = 0;
+
+			black_hud FadeOverTime( 1.0 );
+			black_hud.alpha = 0.7;
+
+			paused_hud = newhudelem();
+			paused_hud.horzAlign = "center";
+			paused_hud.vertAlign = "middle";
+			paused_hud setText("GAME PAUSED");
+			paused_hud.foreground = true;
+			paused_hud.fontScale = 2.3;
+			paused_hud.x -= 63;
+			paused_hud.y -= 20;
+			paused_hud.alpha = 0;
+			paused_hud.color = ( 1.0, 1.0, 1.0 );
+
+			paused_hud FadeOverTime( 1.0 );
+			paused_hud.alpha = 0.85;
+
+			for(i = 0; players.size > i; i++)
+			{
+				players[i] freezecontrols(true);
+			}
+
+			paused = true;
+			paused_start_time = int(getTime() / 1000);
+			total_time = 0 - (paused_start_time - level.paused_time) - (start_time - 0.05);
+			previous_paused_time = level.paused_time;
+
+			while(paused)
+			{
+				level.timer_hud SetTimerUp(total_time);
+				wait 0.2;
+
+				current_time = int(getTime() / 1000);
+				current_paused_time = current_time - paused_start_time;
+				level.paused_time = previous_paused_time + current_paused_time;
+
+				if( getDvarInt( "coop_pause" ) == 0 )
+				{
+					paused = false;
+
+					for(i = 0; players.size > i; i++)
+					{
+						players[i] freezecontrols(false);
+					}
+
+					players[0] SetClientDvar( "ai_disableSpawn", "0");
+
+					paused_hud FadeOverTime( 0.5 );
+					paused_hud.alpha = 0;
+					black_hud FadeOverTime( 0.5 );
+					black_hud.alpha = 0;
+					wait 0.5;
+					black_hud destroy();
+					paused_hud destroy();
+				}
+			}
+		}
+		wait 0.05;
+	}
+}
