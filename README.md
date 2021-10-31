@@ -18,9 +18,9 @@
 [Twitter](https://twitter.com/5and55)
 
 ## How to Install
-* Download and install BO2 Plutonium (free) [Plutonium](https://plutonium.pw/)
+* Download and install BO2 Plutonium [Plutonium Download](https://plutonium.pw/)
 * Download the latest version of Remix
-* Inside release copy "Remix2.gsc" into ``` %localappdata%\Plutonium\storage\t6\scripts ```
+* Inside release copy "Remix2.gsc" into ```%localappdata%\Plutonium\storage\t6\scripts\zm```
 * Launch the game and Enjoy!
 
 ## Change Notes
@@ -49,6 +49,9 @@ hud_round_timer
 
 ## Weapons
 * Sharing weapons from the box
+
+## Die Rise
+* Un-patched Sliquifier
 
 ## Credits
 

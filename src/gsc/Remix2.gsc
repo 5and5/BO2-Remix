@@ -76,7 +76,21 @@ connected()
 
 			flag_wait( "start_zombie_round_logic" );
    			wait 0.05;
-			
+
+			switch( getDvar("mapname") )
+			{
+				case "zm_transit":
+				case "zm_nuked":
+				case "zm_highrise":
+					slipgun_disable_reslip();
+					slipgun_always_kill();
+				case "zm_prison":
+				case "zm_buried":
+				case "zm_tomb":
+			}
+	}
+}
+
 			setDvar("r_fog", 0);
 		}
 	}
@@ -1100,4 +1114,25 @@ reset_box()
     self thread maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( self.unitrigger_stub, ::magicbox_unitrigger_think );
     self.unitrigger_stub run_visibility_function_for_all_triggers();
     self thread treasure_chest_think_override();
+}
+
+
+/*
+* *********************************************************************
+*
+* *************************** Die Rise ********************************
+*
+* *********************************************************************
+*/
+
+slipgun_always_kill()
+{
+	level.slipgun_damage = maps/mp/zombies/_zm::ai_zombie_health( 666 );
+	level.zombie_vars["slipgun_max_kill_round"] = 666; 
+}
+
+slipgun_disable_reslip()
+{
+	level.zombie_vars["slipgun_reslip_rate"] = 0;
+    level.zombie_vars["slipgun_reslip_max_spots"] = 0; //
 }

@@ -11,7 +11,6 @@
 
 ## Die Rise
 * patch shaft (patch camping in one spot all together)
-* unpatch sliq
 * unpatch spawns
 * reduce ammo in sliq
 * always have a way to call the elevator (even with power off)
