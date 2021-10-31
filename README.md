@@ -41,7 +41,7 @@
 * Drop rate increased from 2% to 3%
 * Max ammos now refill clip as well
 * Insta kill timer now stacks
-* Double points timer now stacks and if it does points are 4x
+* Double points timer now stacks
 * Carpenters now repair shields
 
 ### Weapons

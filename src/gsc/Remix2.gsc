@@ -2,17 +2,14 @@
 #include maps/mp/zombies/_zm_utility;
 #include common_scripts/utility;
 #include maps/mp/_utility;
-
 #include maps/mp/zombies/_zm_powerups;
 #include maps/mp/zombies/_zm_weapons;
 #include maps/mp/zombies/_zm_magicbox;
 #include maps/mp/zombies/_zm;
 #include maps/mp/zombies/_zm_unitrigger;
 #include maps/mp/zombies/_zm_utility;
-
 #include maps/mp/zombies/_zm_blockers;
 #include maps/mp/zombies/_zm_pers_upgrades_system;
-
 #include maps/mp/zombies/_zm_perks;
 
 init()
@@ -256,10 +253,7 @@ double_points_powerup_override( drop_item, player ) //checked partially matches 
 			}
 		}
 	}
-	if ( level.zombie_vars[ player_team ][ "zombie_powerup_point_doubler_on" ] )
-		level.zombie_vars[ team ][ "zombie_point_scalar" ] = 4;
-	else
-		level.zombie_vars[ team ][ "zombie_point_scalar" ] = 2;
+	level.zombie_vars[ team ][ "zombie_point_scalar" ] = 2;
 	players = get_players();
 	for ( player_index = 0; player_index < players.size; player_index++ )
 	{
@@ -766,7 +760,7 @@ custom_special_weapon_magicbox_check( weapon ) {
         
         // (# of weapons in box) * .5 = (odds of getting Mark 2 from box)
         // Not as even as every other weapon, but more probable than it already was
-        if (randomint (100) >= 100) {
+        if (randomint (100) >= 50) {
             return 0;
         }
 	}
