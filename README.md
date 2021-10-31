@@ -38,7 +38,7 @@
 * Health bar
 
 ### Power Ups
-* Drop rate increased from 2 to 3%
+* Drop rate increased from 2% to 3%
 * Max ammos now refill clip as well
 * Insta kill timer now stacks
 * Double points timer now stacks and if it does points are 4x
@@ -46,7 +46,7 @@
 
 ### Weapons
 * Sharing weapons from the box
-* Mark 2 Odds are even with all other weapons in the box
+* Mark 2 are probability increased from 33% to 50%
 
 ### Tranzit
 * Jetgun buffed
