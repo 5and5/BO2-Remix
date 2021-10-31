@@ -46,6 +46,7 @@
 
 ### Weapons
 * Sharing weapons from the box
+* Mark 2 Odds are even with all other weapons in the box
 
 ### Tranzit
 * Jetgun buffed

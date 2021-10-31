@@ -28,6 +28,9 @@ init()
     replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_think, ::treasure_chest_think_override );
     replaceFunc( maps/mp/zombies/_zm_magicbox_lock::watch_for_lock, ::watch_for_lock_override );
 	replaceFunc( maps/mp/zombies/_zm::round_think, ::round_think_override );
+
+	register_weapon_mods();
+
 	
     level.inital_spawn = true;
     level thread onConnect();
