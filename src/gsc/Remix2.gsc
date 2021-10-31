@@ -60,6 +60,7 @@ connected()
 			self iprintln("^6Welcome ^6to ^6Remix!");
        		self setClientDvar( "com_maxfps", 101 );
 			self graphic_tweaks();
+			self set_movement_dvars();
 			
             self thread timer_hud();
 			self thread max_ammo_refill_clip();
@@ -85,6 +86,7 @@ connected()
 				case "zm_highrise":
 					slipgun_disable_reslip();
 					slipgun_always_kill();
+					die_rise_zone_changes();
 				case "zm_prison":
 				case "zm_buried":
 				case "zm_tomb":
@@ -713,15 +715,21 @@ round_think_override( restart ) //checked changed to match cerberus output
 	}
 }
 
+
 /*
 * *************************************************
 *	
-* ********************* Func **********************
+* ****************** Functions ********************
 *
 * *************************************************
 */
 
-
+set_movement_dvars()
+{
+    self setclientdvar("player_backSpeedScale", 1);
+    self setclientdvar("player_strafeSpeedScale", 1);
+    self setclientdvar("player_sprintStrafeSpeedScale", 1);
+}
 
 /*
 * *************************************************
@@ -1145,4 +1153,20 @@ slipgun_disable_reslip()
 {
 	level.zombie_vars["slipgun_reslip_rate"] = 0;
     level.zombie_vars["slipgun_reslip_max_spots"] = 0; //
+}
+
+die_rise_zone_changes()
+{
+    if(is_classic())
+    {
+        if(level.scr_zm_map_start_location == "rooftop")
+        {
+            // AN94 to Debris
+            level.zones[ "zone_orange_level3a" ].adjacent_zones[ "zone_orange_level3b" ].is_connected = 0;
+
+            // Trample Steam to Skyscraper
+            level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] structdelete();
+            level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] = undefined;
+        }
+    }
 }

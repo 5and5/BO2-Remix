@@ -36,16 +36,16 @@ try
 
         if (Test-Path -Path .\release\Remix2.gsc)
         {
-            Add-Type -AssemblyName System.Windows.Forms 
-            $global:balloon = New-Object System.Windows.Forms.NotifyIcon
-            $path = (Get-Process -id $pid).Path
-            $balloon.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon($path) 
-            $balloon.BalloonTipIcon = [System.Windows.Forms.ToolTipIcon]::Info 
-            $balloon.BalloonTipText = 'File compiled as intended'
-            $currentPathLocation = Split-Path -Path $pwd -Leaf
-            $balloon.BalloonTipTitle = "$currentPathLocation Compiled!" 
-            $balloon.Visible = $true 
-            $balloon.ShowBalloonTip(5000)
+            # Add-Type -AssemblyName System.Windows.Forms 
+            # $global:balloon = New-Object System.Windows.Forms.NotifyIcon
+            # $path = (Get-Process -id $pid).Path
+            # $balloon.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon($path) 
+            # $balloon.BalloonTipIcon = [System.Windows.Forms.ToolTipIcon]::Info 
+            # $balloon.BalloonTipText = 'File compiled as intended'
+            # $currentPathLocation = Split-Path -Path $pwd -Leaf
+            # $balloon.BalloonTipTitle = "$currentPathLocation Compiled!" 
+            # $balloon.Visible = $true 
+            # $balloon.ShowBalloonTip(5000)
         }
         else
         {
