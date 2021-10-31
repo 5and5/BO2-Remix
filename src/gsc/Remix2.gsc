@@ -59,11 +59,12 @@ connected()
 
 			self iprintln("^6Welcome ^6to ^6Remix!");
        		self setClientDvar( "com_maxfps", 101 );
+			self graphic_tweaks();
 			
             self thread timer_hud();
 			self thread max_ammo_refill_clip();
 			self thread set_players_score();
-
+			
         }
 
         if(level.inital_spawn)
@@ -88,13 +89,10 @@ connected()
 				case "zm_buried":
 				case "zm_tomb":
 			}
-	}
-}
-
-			setDvar("r_fog", 0);
 		}
 	}
 }
+
 
 /*
 * *****************************************************
@@ -929,6 +927,18 @@ give_all_perks()
 		}
 		wait 0.05;
 	}
+}
+
+graphic_tweaks()
+{
+	self setclientdvar("r_fog", 0);
+	self setclientdvar("r_dof_enable", 0);
+	self setclientdvar("r_lodBiasRigid", -1000);
+	self setclientdvar("r_lodBiasSkinned", -1000);
+	self setClientDvar("r_lodScaleRigid", 1);
+	self setClientDvar("r_lodScaleSkinned", 1);
+	self setclientdvar("sm_sunquality", 2);
+	self setclientdvar("r_enablePlayerShadow", 1);
 }
 
 /*
