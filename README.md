@@ -2,7 +2,7 @@
 
 ## Download
 
-[Download](https://www.mediafire.com/file/5u4g0dxdnf7rsjw/BO1-Remix.zip/file)
+[Download](https://github.com/5and5/BO2-Remix/releases/tag/latest)
 
 ## Leaderboards
 [Leaderboards](https://docs.google.com/spreadsheets/d/14oRX3aQFWWz5VaLz3B_nt_YOe-9zHf3HTQNuCU9Xqcs/)
@@ -16,6 +16,12 @@
 [Twitch](https://twitch.tv/5and5)
 
 [Twitter](https://twitter.com/5and55)
+
+## How to Install
+* Download and install BO2 Plutonium (free) [Plutonium](https://plutonium.pw/)
+* Download the latest version of Remix
+* Inside release copy "Remix2.gsc" into ``` %localappdata%\Plutonium\storage\t6\scripts ```
+* Launch the game and Enjoy!
 
 ## Change Notes
 
