@@ -83,6 +83,7 @@ connected()
 			switch( getDvar("mapname") )
 			{
 				case "zm_transit":
+					self thread jetgun_buff();
 				case "zm_nuked":
 				case "zm_highrise":
 					slipgun_disable_reslip();
@@ -1180,5 +1181,33 @@ die_rise_zone_changes()
             level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] structdelete();
             level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] = undefined;
         }
+    }
+}
+
+
+/*
+* *********************************************************************
+*
+* *************************** Tranzit *********************************
+*
+* *********************************************************************
+*/
+
+jetgun_buff()
+{
+    level endon("end_game");
+    self endon("disconnect");
+    for(;;)
+    {
+        if (self hasweapon("jetgun_zm"))
+        {
+            self.jetgun_heatval -= 1;
+            if (self.jetgun_heatval < 0)
+            {
+                self.jetgun_heatval = 0;
+            }
+            self setweaponoverheating( self.jetgun_overheating, self.jetgun_heatval );
+        }
+        wait 0.25;
     }
 }

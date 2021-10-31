@@ -25,23 +25,32 @@
 
 ## Change Notes
 
-## General
+### General
 * Zombies start running at round 1
 * Starting points set to 555
 * Tweaked graphics
 * Coop pause
 * 12 hour reset
 
-## HUD
+### HUD
 * Timer
 * Round timer
 
-## Power Ups
+### Power Ups
 * Drop rate increased from 2 to 3%
 * Max ammos now refill clip as well
 * Insta kill timer now stacks
 * Double points timer now stacks and if it does points are 4x
 * Carpenters now repair shields
+
+### Weapons
+* Sharing weapons from the box
+
+### Tranzit
+* Jetgun buffed
+
+### Die Rise
+* Un-patched Sliquifier
 
 ### Dvars
 ```
@@ -50,13 +59,7 @@ hud_timer
 hud_round_timer
 ```
 
-## Weapons
-* Sharing weapons from the box
-
-## Die Rise
-* Un-patched Sliquifier
-
-## Credits
+### Credits
 
 * JBleezy
 * ZECxR3ap3r
