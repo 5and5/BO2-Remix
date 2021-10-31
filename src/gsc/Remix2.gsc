@@ -66,6 +66,7 @@ connected()
 			self thread max_ammo_refill_clip();
 			self thread set_players_score();
 			self thread carpenter_repair_shield();
+			self thread inspect_weapon();
 			
         }
 
@@ -774,20 +775,6 @@ timer_hud()
 	}
 }
 
-// coop_pause_watcher()
-// {
-
-// 	paused_start_time = int(getTime() / 1000);
-// 	total_time = 0 - (paused_start_time - level.paused_time) - (start_time - 0.05);
-// 	previous_paused_time = level.paused_time;
-
-// 	while(paused)
-// 	{
-// 		timer_hud SetTimerUp(total_time);
-// 		wait 0.2;
-// 	}
-// }
-
 timer_hud_watcher()
 {
 	if( getDvar( "hud_timer") == "" )
@@ -960,6 +947,20 @@ carpenter_repair_shield()
         level waittill( "carpenter_finished" );
         self.shielddamagetaken = 0; 
     }
+}
+
+inspect_weapon()
+{
+	level endon( "end_game" );
+	self endon( "disconnect" );
+	for(;;)
+	{
+		if( self actionslotthreebuttonpressed() )
+		{
+			self initialweaponraise( self getcurrentweapon() );
+		}
+		wait 0.05;
+	}
 }
 
 /*

@@ -51,6 +51,7 @@
 
 ### Die Rise
 * Un-patched Sliquifier
+* Un-patched trample steam zone changes
 
 ### Dvars
 ```
