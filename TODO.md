@@ -25,7 +25,6 @@
  
 ## general
 * zombie health scaling linearly
-* Enabled sprint while drinking perks
 
 ## HUD
 ### TAB Only
@@ -44,7 +43,6 @@
 * first box mk2 on maps that need it
 
 ## Power Ups 
-* remove firesales after first box (not working atm)
 
 ## Perks
 

@@ -45,6 +45,9 @@
 * Double points timer now stacks
 * Carpenters now repair shields
 
+### Perks
+* Players can sprint while drinking perks
+
 ### Weapons
 * Sharing weapons from the box
 * Mark 2 are probability increased from 33% to 50%

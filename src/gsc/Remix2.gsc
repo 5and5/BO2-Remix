@@ -25,6 +25,7 @@ init()
     replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_think, ::treasure_chest_think_override );
     replaceFunc( maps/mp/zombies/_zm_magicbox_lock::watch_for_lock, ::watch_for_lock_override );
 	replaceFunc( maps/mp/zombies/_zm::round_think, ::round_think_override );
+	replaceFunc( maps/mp/zombies/_zm_utility::disable_player_move_states, ::disable_player_move_states_override );
 
 	register_weapon_mods();
 
@@ -705,6 +706,23 @@ round_think_override( restart ) //checked changed to match cerberus output
 		level round_over();
 		level notify( "between_round_over" );
 		restart = 0;
+	}
+}
+
+disable_player_move_states_override( forcestancechange ) //checked matches cerberus output
+{
+	self allowcrouch( 1 );
+	self allowlean( 0 );
+	self allowads( 0 );
+	self allowsprint( 1 );
+	self allowprone( 0 );
+	self allowmelee( 0 );
+	if ( isDefined( forcestancechange ) && forcestancechange == 1 )
+	{
+		if ( self getstance() == "prone" )
+		{
+			self setstance( "crouch" );
+		}
 	}
 }
 
