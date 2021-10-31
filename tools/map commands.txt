@@ -19,4 +19,4 @@ gametype_setting + [name] + [value]
 
 
 
-g_gametype zstandard;ui_zm_gamemodegroup zsurvival;ui_zm_mapstartlocation nuked;map zm_nuked
+g_gametype zstandard;ui_zm_gamemodegroup zsurvival;ui_zm_mapstartlocation town;map zm_transit

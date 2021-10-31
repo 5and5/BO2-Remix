@@ -35,6 +35,7 @@
 ### HUD
 * Timer
 * Round timer
+* Health bar
 
 ### Power Ups
 * Drop rate increased from 2 to 3%
@@ -58,6 +59,7 @@
 coop_pause
 hud_timer
 hud_round_timer
+hud_health_bar
 ```
 
 ### Credits

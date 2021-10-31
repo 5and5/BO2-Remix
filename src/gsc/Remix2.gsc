@@ -57,12 +57,13 @@ connected()
 		{
             self.initial_spawn = false;
 
-			self iprintln("^6Welcome ^6to ^6Remix!");
+			self iprintln("Welcome to Remix!");
        		self setClientDvar( "com_maxfps", 101 );
 			self graphic_tweaks();
 			self set_movement_dvars();
 			
             self thread timer_hud();
+			self thread health_bar_hud();
 			self thread max_ammo_refill_clip();
 			self thread set_players_score();
 			self thread carpenter_repair_shield();
@@ -748,51 +749,55 @@ timer_hud()
 
 	self thread round_timer_hud();
 
-	level.timer_hud = newClientHudElem(self);
-	level.timer_hud.alignx = "left";
-	level.timer_hud.aligny = "top";
-	level.timer_hud.horzalign = "user_left";
-	level.timer_hud.vertalign = "user_top";
-	level.timer_hud.x += 4;
-	level.timer_hud.y += 2;
-	level.timer_hud.fontscale = 1.4;
-	level.timer_hud.alpha = 0;
-	level.timer_hud.color = ( 1, 1, 1 );
-	level.timer_hud.hidewheninmenu = 1;
+	self.timer_hud = newClientHudElem(self);
+	self.timer_hud.alignx = "left";
+	self.timer_hud.aligny = "top";
+	self.timer_hud.horzalign = "user_left";
+	self.timer_hud.vertalign = "user_top";
+	self.timer_hud.x += 4;
+	self.timer_hud.y += 2;
+	self.timer_hud.fontscale = 1.4;
+	self.timer_hud.alpha = 0;
+	self.timer_hud.color = ( 1, 1, 1 );
+	self.timer_hud.hidewheninmenu = 1;
 
 	flag_wait( "initial_blackscreen_passed" );
-	level.timer_hud setTimerUp(0);
+	self.timer_hud setTimerUp(0);
 
 	self thread timer_hud_watcher();
 
 	level waittill( "end_game" );
+
 	level.total_time -= .1; // need to set it below the number or it shows the next number
 	while(1)
 	{	
-		timer_hud setTimer(level.total_time);
-		setDvar("hud_round_timer", 0);
+		self.timer_hud setTimer(level.total_time);
+		self.timer_hud.alpha = 1;
+		self.round_timer_hud.alpha = 0;
 		wait 0.1;
 	}
 }
 
 timer_hud_watcher()
-{
+{	
+	self endon("disconnect");
+
 	if( getDvar( "hud_timer") == "" )
 		setDvar( "hud_timer", 1 );
 
 	while(1)
 	{	
-		if( getDvarInt( "hud_timer" ) == 0 )
+		while( getDvarInt( "hud_timer" ) == 0 )
 		{
 			wait 0.1;
 		}
-		level.timer_hud.alpha = 1;
+		self.timer_hud.alpha = 1;
 
-		if( getDvarInt( "hud_timer" ) >= 1 )
+		while( getDvarInt( "hud_timer" ) >= 1 )
 		{
 			wait 0.1;
 		}
-		level.timer_hud.alpha = 0;
+		self.timer_hud.alpha = 0;
 	}
 }
 
@@ -800,25 +805,25 @@ round_timer_hud()
 {
 	self endon("disconnect");
 
-	round_timer_hud = newClientHudElem(self);
-	round_timer_hud.alignx = "left";
-	round_timer_hud.aligny = "top";
-	round_timer_hud.horzalign = "user_left";
-	round_timer_hud.vertalign = "user_top";
-	round_timer_hud.x += 4;
-	round_timer_hud.y += 17;
-	round_timer_hud.fontscale = 1.4;
-	round_timer_hud.alpha = 0;
-	round_timer_hud.color = ( 1, 1, 1 );
-	round_timer_hud.hidewheninmenu = 1;
+	self.round_timer_hud = newClientHudElem(self);
+	self.round_timer_hud.alignx = "left";
+	self.round_timer_hud.aligny = "top";
+	self.round_timer_hud.horzalign = "user_left";
+	self.round_timer_hud.vertalign = "user_top";
+	self.round_timer_hud.x += 4;
+	self.round_timer_hud.y += 17;
+	self.round_timer_hud.fontscale = 1.4;
+	self.round_timer_hud.alpha = 0;
+	self.round_timer_hud.color = ( 1, 1, 1 );
+	self.round_timer_hud.hidewheninmenu = 1;
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	self thread round_timer_watcher(round_timer_hud);
+	self thread round_timer_hud_watcher();
 
 	while (1)
-	{
-		round_timer_hud setTimerUp(0);
+	{	
+		self.round_timer_hud setTimerUp(0);
 		start_time = int(getTime() / 1000);
 
 		level waittill( "end_of_round" );
@@ -826,11 +831,43 @@ round_timer_hud()
 		end_time = int(getTime() / 1000);
 		time = end_time - start_time;
 
-		set_time_frozen(round_timer_hud, time);
+		self display_round_time(time);
 	}
 }
 
-round_timer_watcher(round_timer_hud)
+display_round_time(time)
+{
+	time -= .1; // need to set it below the number or it shows the next number
+
+	self.round_timer_hud FadeOverTime(0.2);
+	self.round_timer_hud.alpha = 0;
+
+	wait 0.4;
+
+	self.round_timer_hud.label = &"Round Time: ";
+	self.round_timer_hud FadeOverTime(0.2);
+	self.round_timer_hud.alpha = 1;
+
+	for ( i = 0; i < 20; i++ ) // wait 10s
+	{
+		self.round_timer_hud setTimer(time);
+		wait 0.5;
+	}
+
+	self.round_timer_hud FadeOverTime(0.2);
+	self.round_timer_hud.alpha = 0;
+	
+	level waittill( "start_of_round" );
+	self.round_timer_hud.label = &"";
+
+	if( getDvarInt( "hud_round_timer" ) >= 1 )
+	{
+		self.round_timer_hud FadeOverTime(0.2);
+		self.round_timer_hud.alpha = 1;
+	}
+}
+
+round_timer_hud_watcher()
 {	
 	self endon("disconnect");
 
@@ -838,36 +875,120 @@ round_timer_watcher(round_timer_hud)
 		setDvar( "hud_round_timer", 0 );
 
 	while(1)
-	{	
-		if( getDvarInt( "hud_round_timer" ) == 0 )
+	{
+		while( getDvarInt( "hud_round_timer" ) == 0 )
 		{
 			wait 0.1;
 		}
-		round_timer_hud.y = (2 + (15 * getDvarInt("hud_timer")));
-		round_timer_hud.alpha = 1;
+		self.round_timer_hud.y = (2 + (15 * getDvarInt("hud_timer") ) );
+		self.round_timer_hud.alpha = 1;
 
-		if( getDvarInt( "hud_round_timer" ) >= 1 )
+		while( getDvarInt( "hud_round_timer" ) >= 1 )
 		{
 			wait 0.1;
 		}
-		round_timer_hud.alpha = 0;
+		self.round_timer_hud.alpha = 0;
+
 	}
 }
 
-set_time_frozen(hud, time)
+health_bar_hud()
 {
-	level endon( "start_of_round" );
+	level endon("end_game");
+	self endon("disconnect");
 
-	time -= .1; // need to set it below the number or it shows the next number
+	flag_wait("initial_blackscreen_passed");
+
+	if( getDvar( "hud_health_bar") == "" )
+		setDvar( "hud_health_bar", 0 );
+
+	health_bar = self createprimaryprogressbar();
+	if (level.script == "zm_buried")
+	{
+		health_bar setpoint(undefined, "BOTTOM", -335, -95);
+	}
+	else if (level.script == "zm_tomb")
+	{
+		health_bar setpoint(undefined, "BOTTOM", -335, -100);
+	}
+	else
+	{
+		health_bar setpoint(undefined, "BOTTOM", -335, -70);
+	}
+	health_bar.hidewheninmenu = 1;
+	health_bar.bar.hidewheninmenu = 1;
+	health_bar.barframe.hidewheninmenu = 1;
+
+	health_bar_text = self createprimaryprogressbartext();
+	if (level.script == "zm_buried")
+	{
+		health_bar_text setpoint(undefined, "BOTTOM", -410, -95);
+	}
+	else if (level.script == "zm_tomb")
+	{
+		health_bar_text setpoint(undefined, "BOTTOM", -410, -100);
+	}
+	else
+	{
+		health_bar_text setpoint(undefined, "BOTTOM", -410, -70);
+	}
+	health_bar_text.hidewheninmenu = 1;
 
 	while (1)
 	{
-		hud setTimer(time);
+		if( getDvarInt( "hud_health_bar" ) == 0)
+		{	
+			if (health_bar.alpha != 0)
+			{
+				health_bar.alpha = 0;
+				health_bar.bar.alpha = 0;
+				health_bar.barframe.alpha = 0;
+				health_bar_text.alpha = 0;
+			}
+		}
+		else
+		{
+			if (isDefined(self.e_afterlife_corpse))
+			{
+				if (health_bar.alpha != 0)
+				{
+					health_bar.alpha = 0;
+					health_bar.bar.alpha = 0;
+					health_bar.barframe.alpha = 0;
+					health_bar_text.alpha = 0;
+				}
+				wait 0.05;
+				continue;
+			}
 
-		wait 0.5;
+			if ( ( isDefined( self.waiting_to_revive ) && self.waiting_to_revive == 1) || self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+			{
+				if (health_bar.alpha != 0)
+				{
+					health_bar.alpha = 0;
+					health_bar.bar.alpha = 0;
+					health_bar.barframe.alpha = 0;
+					health_bar_text.alpha = 0;
+				}
+				wait 0.05;
+				continue;
+			}
+
+			if (health_bar.alpha != 1)
+			{
+				health_bar.alpha = 1;
+				health_bar.bar.alpha = 1;
+				health_bar.barframe.alpha = 1;
+				health_bar_text.alpha = 1;
+			}
+
+			health_bar updatebar(self.health / self.maxhealth);
+			health_bar_text setvalue(self.health);
+		}
+
+		wait 0.05;
 	}
 }
-
 
 
 /*
@@ -877,7 +998,6 @@ set_time_frozen(hud, time)
 *
 * *********************************************************************
 */
-
 
 max_ammo_refill_clip()
 {
@@ -1057,7 +1177,8 @@ coop_pause()
 
 			paused_hud FadeOverTime( 1.0 );
 			paused_hud.alpha = 0.85;
-
+			
+			players = get_players();
 			for(i = 0; players.size > i; i++)
 			{
 				players[i] freezecontrols(true);
@@ -1069,8 +1190,13 @@ coop_pause()
 			previous_paused_time = level.paused_time;
 
 			while(paused)
-			{
-				level.timer_hud SetTimerUp(total_time);
+			{	
+				players = get_players();
+				for(i = 0; players.size > i; i++)
+				{
+					players[i].timer_hud SetTimerUp(total_time);
+				}
+				
 				wait 0.2;
 
 				current_time = int(getTime() / 1000);
