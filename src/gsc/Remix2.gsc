@@ -68,7 +68,9 @@ connected()
             self thread timer_hud();
 			self thread max_ammo_refill_clip();
 			self thread set_players_score();
-			self thread carpenter_repair_shield();			
+			self thread carpenter_repair_shield();
+			self thread inspect_weapon();
+			
         }
 
         if(level.inital_spawn)
@@ -85,6 +87,7 @@ connected()
 			switch( getDvar("mapname") )
 			{
 				case "zm_transit":
+					self thread jetgun_buff();
 				case "zm_nuked":
 				case "zm_highrise":
 					slipgun_disable_reslip();
@@ -775,20 +778,6 @@ timer_hud()
 	}
 }
 
-// coop_pause_watcher()
-// {
-
-// 	paused_start_time = int(getTime() / 1000);
-// 	total_time = 0 - (paused_start_time - level.paused_time) - (start_time - 0.05);
-// 	previous_paused_time = level.paused_time;
-
-// 	while(paused)
-// 	{
-// 		timer_hud SetTimerUp(total_time);
-// 		wait 0.2;
-// 	}
-// }
-
 timer_hud_watcher()
 {
 	if( getDvar( "hud_timer") == "" )
@@ -961,6 +950,20 @@ carpenter_repair_shield()
         level waittill( "carpenter_finished" );
         self.shielddamagetaken = 0; 
     }
+}
+
+inspect_weapon()
+{
+	level endon( "end_game" );
+	self endon( "disconnect" );
+	for(;;)
+	{
+		if( self actionslotthreebuttonpressed() )
+		{
+			self initialweaponraise( self getcurrentweapon() );
+		}
+		wait 0.05;
+	}
 }
 
 /*
@@ -1182,5 +1185,33 @@ die_rise_zone_changes()
             level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] structdelete();
             level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] = undefined;
         }
+    }
+}
+
+
+/*
+* *********************************************************************
+*
+* *************************** Tranzit *********************************
+*
+* *********************************************************************
+*/
+
+jetgun_buff()
+{
+    level endon("end_game");
+    self endon("disconnect");
+    for(;;)
+    {
+        if (self hasweapon("jetgun_zm"))
+        {
+            self.jetgun_heatval -= 1;
+            if (self.jetgun_heatval < 0)
+            {
+                self.jetgun_heatval = 0;
+            }
+            self setweaponoverheating( self.jetgun_overheating, self.jetgun_heatval );
+        }
+        wait 0.25;
     }
 }
