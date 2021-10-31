@@ -13,6 +13,8 @@
 #include maps/mp/zombies/_zm_blockers;
 #include maps/mp/zombies/_zm_pers_upgrades_system;
 
+#include maps/mp/zombies/_zm_perks;
+
 init()
 { 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
@@ -49,16 +51,19 @@ connected()
     {
         self waittill("spawned_player");
 
-        self iprintln("Welcome to Remix!");
-        self setClientDvar( "cg_fov", 90 );
-        self setClientDvar( "cg_fovScale", 1.1 );
-        self setClientDvar( "com_maxfps", 101 );
+		//self thread give_all_perks(); // testing
 
     	if(self.initial_spawn)
 		{
             self.initial_spawn = false;
 
-            self on_initial_spawn();
+			self iprintln("^6Welcome ^6to ^6Remix!");
+       		self setClientDvar( "com_maxfps", 101 );
+			
+            self thread timer_hud();
+			self thread max_ammo_refill_clip();
+			self thread set_players_score();
+
         }
 
         if(level.inital_spawn)
@@ -68,29 +73,19 @@ connected()
 			level thread coop_pause();
 			level thread fake_reset();
 			level thread shared_magic_box();
-			level thread post_all_players_spawned();
+
+			flag_wait( "start_zombie_round_logic" );
+   			wait 0.05;
+			
+			setDvar("r_fog", 0);
 		}
 	}
-}
-
-on_initial_spawn()
-{
-    self thread timer_hud();
-	self thread max_ammo_refill_clip();
-	self thread set_players_score();
-}
-
-post_all_players_spawned()
-{
-	flag_wait( "start_zombie_round_logic" );
-    wait 0.05;
-
 }
 
 /*
 * *****************************************************
 *	
-* ********************* Override **********************
+* ********************* Overrides **********************
 *
 * *****************************************************
 */
@@ -709,6 +704,16 @@ round_think_override( restart ) //checked changed to match cerberus output
 /*
 * *************************************************
 *	
+* ********************* Func **********************
+*
+* *************************************************
+*/
+
+
+
+/*
+* *************************************************
+*	
 * ********************* HUD ***********************
 *
 * *************************************************
@@ -881,12 +886,35 @@ max_ammo_refill_clip()
 	}
 }
 
-
 set_players_score()
 {
 	flag_wait( "start_zombie_round_logic" );
 
 	self.score = 555;
+}
+
+give_all_perks()
+{	
+	flag_wait( "initial_blackscreen_passed" );
+
+	vending_triggers = getentarray( "zombie_vending", "targetname" );
+	for ( i = 0; i < vending_triggers.size; i++ )
+	{
+		perk = vending_triggers[ i ].script_noteworthy;
+		if ( isDefined( self.perk_purchased ) && self.perk_purchased == perk )
+		{
+			continue;
+		}
+		if ( perk == "specialty_weapupgrade" )
+		{
+			continue;
+		}
+		if ( !self hasperk( perk ) && !self has_perk_paused( perk ) )
+		{
+			self give_perk(perk, 1);
+		}
+		wait 0.05;
+	}
 }
 
 /*
