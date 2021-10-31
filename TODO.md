@@ -20,7 +20,8 @@
 * delete camping jug 
 
 ## Origins
-* can hold multiple staffs at onces
+* can hold multiple staffs at onces (maybe)
+* emptying staff destroys it and puts it in the box
 * dig spots are revealed always
  
 ## general
@@ -28,8 +29,6 @@
 * Enabled sprint while drinking perks
 
 ## HUD
-### Always
-* In game timer
 ### TAB Only
 * Round timer (shows at the end of a rounds)
 * Shield
@@ -47,6 +46,9 @@
 * change mk2 prb from 0.33 to 0.5
 
 ## Power Ups 
-*  remove firesales after first box (not working atm)
+* remove firesales after first box (not working atm)
+
+## Perks
+
 
 

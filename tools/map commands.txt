@@ -16,3 +16,7 @@ gametype_setting + [name] + [value]
 [bool] magic (1 = ENABLED)
 [bool] headshotsonly (1 = ENABLED)
 [bool] allowdogs (1 = ENABLED)
+
+
+
+g_gametype zstandard;ui_zm_gamemodegroup zsurvival;ui_zm_mapstartlocation nuked;map zm_nuked
