@@ -11,6 +11,7 @@
 #include maps/mp/zombies/_zm_blockers;
 #include maps/mp/zombies/_zm_pers_upgrades_system;
 #include maps/mp/zombies/_zm_perks;
+#include maps/mp/zombies/_zm_stats;
 
 init()
 { 
@@ -68,6 +69,8 @@ connected()
 			self thread set_players_score();
 			self thread carpenter_repair_shield();
 			self thread inspect_weapon();
+			self thread give_perma_perks();
+			self thread give_bank_fridge();
 			
         }
 
@@ -78,11 +81,12 @@ connected()
 			level thread coop_pause();
 			level thread fake_reset();
 			level thread shared_magic_box();
+			level thread zombie_health_fix();
 
 			flag_wait( "start_zombie_round_logic" );
    			wait 0.05;
 
-			when_file_sales_should_drop();
+			when_fire_sales_should_drop();
 
 			switch( getDvar("mapname") )
 			{
@@ -929,7 +933,7 @@ func_should_drop_fire_sale_override() //checked partially changed to match cerbe
 	return 0;
 }
 
-when_file_sales_should_drop()
+when_fire_sales_should_drop()
 {
 	level.zombie_powerups[ "fire_sale" ].func_should_drop_with_regular_powerups = ::func_should_drop_fire_sale_override;
 }
@@ -1282,6 +1286,35 @@ inspect_weapon()
 	}
 }
 
+give_perma_perks()
+{
+
+	flag_wait("initial_blackscreen_passed");
+	permaperks = strTok("pers_revivenoperk,pers_insta_kill,pers_jugg,pers_sniper_counter,pers_flopper_counter,pers_perk_lose_counter,pers_box_weapon_counter,pers_multikill_headshots", ",");
+	for (i = 0; i < permaperks.size; i++)
+	{
+
+		self increment_client_stat(permaperks[i], 0);
+		wait 0.25;
+
+	}
+
+}
+
+give_bank_fridge()
+{
+
+	flag_wait("initial_blackscreen_passed");
+	self set_map_stat("depositBox", 250, level.banking_map);
+	self.account_value = 250000;
+
+	self clear_stored_weapondata();
+	self setdstat( "PlayerStatsByMap", "zm_transit", "weaponLocker", "name", "an94_upgraded_zm+mms" ); //setting new weapon
+	self setdstat( "PlayerStatsByMap", "zm_transit", "weaponLocker", "clip", 50 );
+	self setdstat( "PlayerStatsByMap", "zm_transit", "weaponLocker", "stock", 600 );
+
+}
+
 /*
 * *********************************************************************
 *
@@ -1471,6 +1504,33 @@ reset_box()
     self thread maps/mp/zombies/_zm_unitrigger::register_static_unitrigger( self.unitrigger_stub, ::magicbox_unitrigger_think );
     self.unitrigger_stub run_visibility_function_for_all_triggers();
     self thread treasure_chest_think_override();
+}
+
+zombie_health_fix()
+{
+	for( ; ; ) 
+	{
+		if(level.round_number > 158) 
+		{ 
+			zombies = GetAIArray("axis");
+
+            for(i = 0; i < zombies.size; i++) 
+			{
+			    if (zombies[i].targetname != "zombie") 
+				{ 
+				}
+                else if(zombies[i].targetname == "zombie") 
+				{
+					if(!isDefined(zombies[i].health_override)) 
+					{
+						zombies[i].health_override = true;
+                        zombies[i].health = 1390371547;
+                    }
+                }
+            }
+        }
+        wait(0.05);
+    }
 }
 
 

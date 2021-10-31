@@ -32,6 +32,11 @@
 * Coop pause
 * 12 hour reset
 
+### Gameplay
+* Bank automatically full
+* Fridge has AN94
+* Zombie health fixed
+
 ### HUD
 * Timer
 * Round timer
