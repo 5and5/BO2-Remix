@@ -41,6 +41,7 @@
 * Max ammos now refill clip as well
 * Insta kill timer now stacks
 * Double points timer now stacks and if it does points are 4x
+* Carpenters now repair shields
 
 ### Dvars
 ```

@@ -65,6 +65,7 @@ connected()
             self thread timer_hud();
 			self thread max_ammo_refill_clip();
 			self thread set_players_score();
+			self thread carpenter_repair_shield();
 			
         }
 
@@ -947,6 +948,17 @@ graphic_tweaks()
 	self setClientDvar("r_lodScaleSkinned", 1);
 	self setclientdvar("sm_sunquality", 2);
 	self setclientdvar("r_enablePlayerShadow", 1);
+}
+
+carpenter_repair_shield()
+{
+    level endon("end_game");
+    self endon("disconnect");
+    for(;;)
+    {
+        level waittill( "carpenter_finished" );
+        self.shielddamagetaken = 0; 
+    }
 }
 
 /*
