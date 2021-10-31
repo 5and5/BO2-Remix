@@ -42,7 +42,6 @@
 * remove some shitty weapons from the box
 * increase probability of getting wonder weapons (perma perk maybe?)
 * first box mk2 on maps that need it
-* change mk2 prb from 0.33 to 0.5
 
 ## Power Ups 
 * remove firesales after first box (not working atm)

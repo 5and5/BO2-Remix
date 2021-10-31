@@ -81,6 +81,8 @@ connected()
 			flag_wait( "start_zombie_round_logic" );
    			wait 0.05;
 
+			when_file_sales_should_drop();
+
 			switch( getDvar("mapname") )
 			{
 				case "zm_transit":
@@ -172,15 +174,6 @@ powerup_drop_override( drop_point ) //checked partially changed to match cerberu
 	powerup thread powerup_emp();
 	level.zombie_vars[ "zombie_drop_item" ] = 0;
 	level notify( "powerup_dropped" );
-}
-
-func_should_drop_fire_sale_override() //checked partially changed to match cerberus output
-{
-	if ( level.zombie_vars[ "zombie_powerup_fire_sale_on" ] == 1 || level.chest_moves < 1 || is_true( level.disable_firesale_drop ) && level.round_number > 5)
-	{
-		return 1; // firesale now drop untill you move the first box
-	}
-	return 0;
 }
 
 insta_kill_powerup_override( drop_item, player ) //checked matches cerberus output
@@ -907,6 +900,20 @@ afterlife_weapon_limit_check( limited_weapon )
 		}
 	}
 	return 0;
+}
+
+func_should_drop_fire_sale_override() //checked partially changed to match cerberus output
+{
+	if ( level.zombie_vars[ "zombie_powerup_fire_sale_on" ] == 1 || level.chest_moves < 1 || is_true( level.disable_firesale_drop ) && level.round_number > 5 )
+	{
+		return 1; // firesale now drop untill you move the first box
+	}
+	return 0;
+}
+
+when_file_sales_should_drop()
+{
+	level.zombie_powerups[ "fire_sale" ].func_should_drop_with_regular_powerups = ::func_should_drop_fire_sale_override;
 }
 
 /*

@@ -39,6 +39,7 @@
 
 ### Power Ups
 * Drop rate increased from 2% to 3%
+* Fire sales now starting dropping on round 5 til you more the first box
 * Max ammos now refill clip as well
 * Insta kill timer now stacks
 * Double points timer now stacks
