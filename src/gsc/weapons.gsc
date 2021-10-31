@@ -8,6 +8,8 @@ register_weapon_mods() {
 
 custom_special_weapon_magicbox_check( weapon ) {
 
+    map = getDvar("mapname");
+    
     if ( weapon == "ray_gun_zm" )
 	{
 		if ( self has_weapon_or_upgrade( "raygun_mark2_zm" ) )
@@ -21,9 +23,19 @@ custom_special_weapon_magicbox_check( weapon ) {
 		{
 			return 0;
 		}
+
+        // Buried has Mark 2 weighted equally to all others
+        if( map == "zm_buried") {
+            return 1;
+        }
+        
+        // (# of weapons in box) * .5 = (odds of getting Mark 2 from box)
+        // Not as even as every other weapon, but more probable than it already was
+        if (randomint (100) >= 50) {
+            return 0;
+        }
 	}
 
-    map = getDvar("mapname");
 
     if(map == "zm_alcatraz") {
         return alcatraz_special_weapon_check(weapon);
