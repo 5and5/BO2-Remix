@@ -35,7 +35,8 @@
 ### Gameplay
 * Bank automatically full
 * Fridge has AN94
-* Zombie health fixed
+* Zombie health fix
+* Characters can be selected with ```character``` 
 
 ### HUD
 * Timer
@@ -68,6 +69,7 @@
 ### Dvars
 ```
 coop_pause
+character
 hud_timer
 hud_round_timer
 hud_health_bar

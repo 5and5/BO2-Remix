@@ -36,12 +36,10 @@
 * drop cycle
 
 ## Spawn Delay
-* reduce round one spawn delay from 2 to 1
 
 ## Weapons 
 * remove some shitty weapons from the box
 * increase probability of getting wonder weapons (perma perk maybe?)
-* first box mk2 on maps that need it
 
 ## Power Ups 
 

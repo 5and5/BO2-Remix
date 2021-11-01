@@ -65,6 +65,7 @@ connected()
        		self setClientDvar( "com_maxfps", 101 );
 			self graphic_tweaks();
 			self set_movement_dvars();
+			self thread set_character();
 			
             self thread timer_hud();
 			self thread health_bar_hud();
@@ -1205,6 +1206,36 @@ func_should_drop_fire_sale_override() //checked partially changed to match cerbe
 when_fire_sales_should_drop()
 {
 	level.zombie_powerups[ "fire_sale" ].func_should_drop_with_regular_powerups = ::func_should_drop_fire_sale_override;
+}
+
+set_character()
+{	
+	if( getDvar("character") == "")
+		setDvar("character", 0);
+
+	if ( level.force_team_characters != 1 && getDvar("mapname") != "zm_tomb" && getDvar("mapname") != "zm_prison" ) 
+	{	
+		switch( getDvarInt("character") )
+		{
+			case 1:
+				self setviewmodel( "c_zom_farmgirl_viewhands" );
+				self.characterindex = 2;
+				break;
+			case 2:
+				self setviewmodel( "c_zom_oldman_viewhands" );
+				self.characterindex = 0;
+				break;
+			case 3:
+				self setviewmodel( "c_zom_reporter_viewhands" );
+				self.characterindex = 1;
+				break;
+			case 4:
+				self setviewmodel( "c_zom_engineer_viewhands" );
+				self.characterindex = 3;
+				break;
+
+		}
+	}
 }
 
 
