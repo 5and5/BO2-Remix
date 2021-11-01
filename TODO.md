@@ -19,17 +19,20 @@
 * delete camping jug 
 
 ## Origins
-* can hold multiple staffs at onces (maybe)
+* (maybe) can hold multiple staffs at onces 
 * emptying staff destroys it and puts it in the box
 * dig spots are revealed always
  
 ## general
 * zombie health scaling linearly
+* insta rounds 99 and onwards every other round
+- (maybe) Player can have 3 weapons at all times on any map - Remove Mule from the game
+
 * shield cost money
 
 ## HUD
 ### TAB Only
-* Round timer (shows at the end of a rounds)
+* Round timer
 * Shield
 * traps
 * Remaining

@@ -16,7 +16,7 @@
 
 init()
 { 
-	level.VERSION = "0.3.1";
+	level.VERSION = "0.3.2";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -804,16 +804,51 @@ treasure_chest_weapon_spawn_override( chest, player, respin ) //checked changed 
 		rand = treasure_chest_chooseweightedrandomweapon( player );
 	}
 
-	// guaranteed mark2 within the first 8 box hits
-	if ( !isDefined(level.mark2_acquired) && randomInt(8 - level.chest_accessed) == 0 && level.chest_moves == 0 )
+	// first box
+	if ( !isDefined(level.chest_max_move_usage) )
+	{
+		level.chest_max_move_usage = 8;
+		
+	}
+	if ( !isDefined(level.weapons_needed) )
+	{
+		level.weapons_needed = 1 + level.players.size;
+	}
+
+	ran = randomInt( (level.chest_max_move_usage - level.weapons_needed) - level.chest_accessed );
+	if ( ran == 0 && level.chest_accessed <= level.chest_max_move_usage && level.chest_moves == 0 )
 	{	
 		pap_triggers = getentarray( "specialty_weapupgrade", "script_noteworthy" );
+
 		if ( treasure_chest_canplayerreceiveweapon( player, "raygun_mark2_zm", pap_triggers ) )
 		{
-			level.mark2_acquired = 1;
 			rand = "raygun_mark2_zm";
 		}
+		else if( treasure_chest_canplayerreceiveweapon( player, "ray_gun_zm", pap_triggers ) )
+		{
+			rand = "ray_gun_zm";
+		}
+		else if( treasure_chest_canplayerreceiveweapon( player, "cymbal_monkey_zm", pap_triggers ) && getDvar("mapname") != "zm_prison")
+		{
+			rand = "cymbal_monkey_zm";
+		}
+		else if( treasure_chest_canplayerreceiveweapon( player, "blundergat_zm", pap_triggers ) && getDvar("mapname") == "zm_prison")
+		{
+			rand = "blundergat_zm";
+		}
+		else if( treasure_chest_canplayerreceiveweapon( player, "emp_grenade_zm", pap_triggers ) && getDvar("mapname") == "zm_transit" && is_classic() )
+		{
+			rand = "emp_grenade_zm";
+		}
+		else if( treasure_chest_canplayerreceiveweapon( player, "m32_zm", pap_triggers ) && getDvar("mapname") == "zm_tomb")
+		{
+			rand = "m32_zm";
+		}
+
+		if( level.weapons_needed != 0 )
+			level.weapons_needed--;
 	}
+
 	
 	self.weapon_string = rand;
 	wait 0.1;
@@ -845,13 +880,13 @@ treasure_chest_weapon_spawn_override( chest, player, respin ) //checked changed 
 		else
 		{
 			chance_of_joker = level.chest_accessed + 20;
-			if ( level.chest_moves == 0 && level.chest_accessed >= 8 )
+			if ( level.chest_moves == 0 && level.chest_accessed >= level.chest_max_move_usage )
 			{
 				chance_of_joker = 100;
 			}
 			if ( level.chest_accessed >= 4 && level.chest_accessed < 8 )
 			{
-				if ( random < 15 && !isDefined(level.mark2_acquired) )
+				if ( random < 15 && level.weapons_needed == 0 ) // always get mark2 and monkeys before the box moves
 				{
 					chance_of_joker = 100;
 				}
@@ -1044,6 +1079,12 @@ custom_special_weapon_magicbox_check( weapon ) {
 		if ( self has_weapon_or_upgrade( "ray_gun_zm" ) )
 		{
 			return 0;
+		}
+
+		// Always give Mark2 until the box moves for first time
+		if ( level.chest_moves == 0 )
+		{
+			return 1;
 		}
 
         // Buried has Mark 2 weighted equally to all others

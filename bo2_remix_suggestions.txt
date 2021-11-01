@@ -1,17 +1,12 @@
-- Reset set to 12h (survival maps 16 or 18 maybe to keep the vibe)
-- Add dogs to Green Run survival maps by default (R5 1st round, then every 4 rounds)
+-* Add dogs to Green Run survival maps by default (R5 1st round, then every 4 rounds)
 - Insta rounds 99 and onwards every other round
-- Player can have 3 weapons at all times on any map - Remove Mule from the game
-- Bank is always full at the beginning of the game for every player
-- Upgraded AN-94 in the fridge at the beginning of the game for every 
-- HUD Timer & Last Trap Timer
+-* Player can have 3 weapons at all times on any map - Remove Mule from the game
+- Trap Timer
 
 #balance
     ## Mystery Box
     - Time for the weapon to appear in the box after a spin reduced to 2 seconds
     - Cooldown time between boxes reduced to 0.5 seconds
-    - Decrease the nerf on getting MK2 from the box to 33%
-    - If MK1 is suppose come out of the box, have it have 33% of chance to become MK2 (if MK2 can be obtained at that time)
     - First Box:
         Maybe using a good old apprach with just taking guns out of the box for first X round is the play, due to fixed order becoming complicated the more players are in, but let's try
         ###
@@ -52,15 +47,13 @@
     - Remove shitty guns from the box: M8A1, SMR, Type25, M1216, S12, KAP-40, RPD, B23R, AK74u, MP40, KSG, PDW-57
 
     ## Drop Cycle
-    - On maps that have shield, 1-59 - Insta, Double, Max, Nuke (Sale only until box moves); 60+ - Insta, Carp, Max, Nuke
-    - Remove Zombie Blood from Origins (keep the carriots EE so main EE is possible to finish)
-    - Remove Carpenters from maps without shield
-    - Carp doesn't repair the barriers, but repairs the shield/renews cooling down equipment such as Electric Trap or Jet Gun
-    - Fire Sale on every map until box moves, on Depot and Farm until Round 20
+    -* On maps that have shield, 1-59 - Insta, Double, Max, Nuke (Sale only until box moves); 60+ - Insta, Carp, Max, Nuke
+    -* Remove Zombie Blood from Origins (keep the carriots EE so main EE is possible to finish)
+    -*** Remove Carpenters from maps without shield
+    -* Carp doesn't repair the barriers, but repairs the shield/renews cooling down equipment such as Electric Trap or Jet Gun
 
     ## JetGun
     - JetGun does not break if overheated.
-    - JetGun also cools down while hidden.
     - Percentages are always shown for how heated the weapon is
     ## Electric Trap
     - Electric Trap works without external power source

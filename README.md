@@ -36,7 +36,7 @@
 * Bank automatically full
 * Fridge has AN94
 * Zombie health fix
-* Characters can be selected with ```character``` 
+* Characters can be selected with ```character``` dvar
 
 ### HUD
 * Timer

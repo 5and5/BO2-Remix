@@ -1,4 +1,4 @@
 tools/*.gsc
 tools/*.zip
 tools/*/
-.txt
+*.txt
