@@ -1,0 +1,197 @@
+- Reset set to 12h (survival maps 16 or 18 maybe to keep the vibe)
+- Add dogs to Green Run survival maps by default (R5 1st round, then every 4 rounds)
+- Insta rounds 99 and onwards every other round
+- Player can have 3 weapons at all times on any map - Remove Mule from the game
+- Bank is always full at the beginning of the game for every player
+- Upgraded AN-94 in the fridge at the beginning of the game for every 
+- HUD Timer & Last Trap Timer
+
+#balance
+    ## Mystery Box
+    - Time for the weapon to appear in the box after a spin reduced to 2 seconds
+    - Cooldown time between boxes reduced to 0.5 seconds
+    - Decrease the nerf on getting MK2 from the box to 33%
+    - If MK1 is suppose come out of the box, have it have 33% of chance to become MK2 (if MK2 can be obtained at that time)
+    - First Box:
+        Maybe using a good old apprach with just taking guns out of the box for first X round is the play, due to fixed order becoming complicated the more players are in, but let's try
+        ###
+        - MK2 guaranteed first hit on every map
+        ### Town, Farm, Depot, Nuketown
+        - Monkeys guaranteed first hit for each player (after the MK2)
+        - RayGun guaratneed 2nd hit for each player (after monkeys, unless MK2 is picked)
+        ### Tranzit
+        - Monkeys guaranteed first hit for each player (after the MK2)
+        - RayGun guaratneed 2nd hit for each player (after monkeys, unless MK2 is picked)
+        - EMP guaranteed 3rd hit for each player (after the Raygun)
+        ### Die Rise
+        - Monkeys guaranteed first hit for each player (after the MK2)
+        ### Mob of the Dead
+        - Blundergat guaranteed first hit (after the MK2)
+        - RayGun guaratneed second hit for each player (after MK2 & Gat, unless they're taken from the box already)
+        ### Buried
+        fuck knows what's needed for this god forsaken map lol
+        ### Origins
+        - Monkeys guaranteed first hit for each player (after the MK2)
+        - War Machine guaranteed second hit for each player (after monkeys)
+        - RayGun guaratneed third hit for each player (after war machine)
+
+        otherwise
+        ### Town, Farm, Depot & Nuketown
+        - MK2, MK1, Monkeys
+        ### Tranzit
+        - MK2, MK1, Monkeys, EMP
+        ### Die Rise
+        - MK2, Monkeys
+        ### Mob of the Dead
+        - MK2, MK1, Blundergat
+        ### Buried
+        again fuck knows
+        ### Origins
+        - MK2, MK1, Monkeys, War Machine
+
+    - Remove shitty guns from the box: M8A1, SMR, Type25, M1216, S12, KAP-40, RPD, B23R, AK74u, MP40, KSG, PDW-57
+
+    ## Drop Cycle
+    - On maps that have shield, 1-59 - Insta, Double, Max, Nuke (Sale only until box moves); 60+ - Insta, Carp, Max, Nuke
+    - Remove Zombie Blood from Origins (keep the carriots EE so main EE is possible to finish)
+    - Remove Carpenters from maps without shield
+    - Carp doesn't repair the barriers, but repairs the shield/renews cooling down equipment such as Electric Trap or Jet Gun
+    - Fire Sale on every map until box moves, on Depot and Farm until Round 20
+
+    ## JetGun
+    - JetGun does not break if overheated.
+    - JetGun also cools down while hidden.
+    - Percentages are always shown for how heated the weapon is
+    ## Electric Trap
+    - Electric Trap works without external power source
+    - Instakills all zombies
+    - Works for 20 seconds after placed on the ground
+    - After it stops working, it has to be picked up and held in the equipment for (solo-2 minutes;coop-3 minutes;3p-4 minutes;4p-5 minutes) before it's ready again.
+    ## Shield
+    - Shield durability always shows on HUD
+    - Shild will always instakill crawlers, but breaks immidiately
+    ## Maxis Drone
+    - Deals 25% od max zombies HP on that round per shoot
+    - Flies for 50 seconds, cools down for 5 minutes
+    ## EMP
+    - Max quantity increased to 3
+    ## M14
+    - Stats do not change, but it shoots in full auto mode
+    ## M27
+    - Only one player can have M27
+    ## Blundergat
+    - Every pellet deals damage equal to 20% of max zombies HP on that round
+    ## Blundergat (Upgraded)
+    - Every pellet deals damage equal to 33% of max zombies HP on that round
+    - Kills Brutus instantly
+    ## Acid Gat
+    - Every explosion deals damage equal to 33% of max zombies HP on that round
+    - Set max ammo to 3/36
+    ## Acid Gat (Upgraded)
+    - After Pack-A-Punching, every explosion deals damage equal to 50% of max zombies HP on that round
+    - Set max ammo to 3/108
+    ## Claymores
+    - Work the same as BO1
+    ## Semtex
+    - Can be bought only once a game (stays with player if he bleeds out)
+    - Deals 50% of max zombies HP on that round
+    ## G-Strikes
+    - Fix zombies attraction
+    - Gstrike explosion deals 50% of max zombies HP on that round
+    - Max quantity increased to 3
+
+
+#town
+- Remove an option to open jug doors, move mp5 wallbuy to where olympia currently is
+- Remove Tombstone
+- Replace Galvaknockles wallbuy with Claymores
+- All players have Galvaknockles on spawn
+- First Box is set to be in Double Tap area
+
+#farm
+- Replace Galvaknockles wallbuy with Claymores
+- Replace Olympia wallbuy with M14
+- All players have Galvaknockles on spawn
+
+#depot
+- Add Pack-A-Punch
+- All players have Galvaknockles on spawn
+
+#Tranzit
+    ##map
+    - All teleports are always active
+    - Remove an option to open farm
+    - Remove Box Location on farm
+    - Move Double Tap outside of farm
+    - Remove Tombstone
+    - Pach-A-Punch opens premanently when power is turned on.
+    - Power doors in Power Plant are always open.
+    - All power doors across the map (except ones in power plant) open when power is turned on.
+    ##wallbuys
+    - Replace B23R wallbuy with Claymores
+    - Replace Bowie Knife wallbuy with Semtex
+    - Remove original Semtex wallbuy
+    ##buildables
+    - Bus has all parts mounted by default
+    - JetGun part from Power Plant moved to Pack-A-Punch
+    - JetGun part from Nacht moved to power doors on Town
+    - Remove turbine
+    - Shield, Electric Trap, Power Switch and Pack-A-Punch are already assembled
+    ##gameplay
+    - All players have Bowie Knife on spawn
+    - Quick Revive is always powered on (regardless of amount of players)
+    - Disable Denizens
+    - Avogadro always leaves a Max Ammo when he's defeated, spawns 2 rounds after Quick Revive has been purchased for the first time and then every 3 rounds regardless if power is on or the weather.
+    - JetGun kills zombies faster
+    - Bus moves to new location instantly if TEDD is knifed 3 times, if EMP'd bus stays on location for the entire round. To move him again throw another EMP
+
+#Nuketown
+- Pack-A-Punch is always behind the Green House
+- Remove all machines locations in or behind yellow house
+
+#Die Rise
+    ##map
+    - Mule Kick evelator is always closed
+    - Prevent one-spawn in the shaft
+    ##buildables
+    - Set all Sliquifier parts to always be in their downstairs locations
+    - Trample Steam is aleady assembled
+    ##gameplay
+    - Set spawning points to the corridor below actual first room
+    - Player can always call elevators without keys
+    - Remove keys from the map
+    - Set special rounds to start on R5 and then every 4 rounds
+    - Fix error with Who's Who on coop
+
+#Mob of the Dead
+    ##map
+    - Set a key to always be next to the Cafeteria
+    - Set first box to always be in Cafeteria
+    ##buildables
+    - Parts for Acid Gat and Shield are in players equipment from the beginning of the game
+    ##wallbuys
+    - Replace MP5 wallbuy (the one in the docks only) for Semtex
+    ##gameplay
+    - All players have Golden Spork on spawn
+    - Sniper Trap now instakill on any round
+
+#Origins
+    ##map
+    - Set first box to always be on Gen2
+    - Remove golden dig sites
+    - Every robot has set entrance to left foot at all times
+    - All teleports from Crazy Place side are possible to open even without opening them with gramophone previously
+    ##buildables
+    - Parts for Maxis Drone and Shield are in players equipment from the beginning of the game
+    - All disks are in players equipment from the beginning of the game
+    ##gameplay
+    - All players have perk limit set to 8
+    - All players have Punches on spawn
+    - Remove STG from the gun pool for headshot challenge
+    - Player gets a golden shovel after 20 digs and obtains golden helmet instantly
+    - Tank has the same instant cooldown on any round
+    - Increase Max Ammo chances from digging to 10%
+    - Remove items from Dig Sites if player has golden shovel: Remington 870, Ballista, Grenade, 2 Grenades, M1216, KSG
+    ##fixes (if these can occur in 12h gametime)
+    - Fix Lighting and Fire Staff crashes
+    - Fix robot crashing zombies crash 

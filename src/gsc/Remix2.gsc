@@ -16,6 +16,8 @@
 
 init()
 { 
+	level.VERSION = "0.3.1";
+
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::func_should_drop_fire_sale, ::func_should_drop_fire_sale_override );
@@ -61,16 +63,16 @@ connected()
             self.initial_spawn = false;
 
 			self iprintln("Welcome to Remix!");
-			self iPrintLn("Version 0.3.0");
+			self iPrintLn("Version " + level.VERSION);
        		self setClientDvar( "com_maxfps", 101 );
 			self graphic_tweaks();
 			self set_movement_dvars();
-			self thread set_character();
+			self set_players_score();
+			self set_character_option();
 			
             self thread timer_hud();
 			self thread health_bar_hud();
 			self thread max_ammo_refill_clip();
-			self thread set_players_score();
 			self thread carpenter_repair_shield();
 			self thread inspect_weapon();
 			self thread give_perma_perks();
@@ -318,11 +320,17 @@ boxstub_update_prompt_override( player )
         {
             if (isDefined( level.magic_box_check_equipment ) && [[ level.magic_box_check_equipment ]]( self.stub.trigger_target.grab_weapon_name ) )
             {
-                self.hint_string = "Hold ^3&&1^7 for Equipment ^1or ^7Press ^3[{+melee}]^7 for teammates to pick it up";
+				if(level.players.size < 2)
+					self.hint_string = "Hold ^3&&1^7 for Equipment";
+				else
+                	self.hint_string = "Hold ^3&&1^7 for Equipment ^1or ^7Press ^3[{+melee}]^7 for teammates to pick it up";
             }
             else 
             {
-                self.hint_string = "Hold ^3&&1^7 for Weapon ^1or ^7Press ^3[{+melee}]^7 for teammates to pick it up";
+				if(level.players.size < 2)
+					self.hint_string = "Hold ^3&&1^7 for Weapon";
+				else
+                	self.hint_string = "Hold ^3&&1^7 for Weapon ^1or ^7Press ^3[{+melee}]^7 for teammates to pick it up";
             }
         }
     }
@@ -1208,7 +1216,7 @@ when_fire_sales_should_drop()
 	level.zombie_powerups[ "fire_sale" ].func_should_drop_with_regular_powerups = ::func_should_drop_fire_sale_override;
 }
 
-set_character()
+set_character_option()
 {	
 	if( getDvar("character") == "")
 		setDvar("character", 0);
@@ -1343,13 +1351,13 @@ display_round_time(time)
 {
 	time -= .1; // need to set it below the number or it shows the next number
 
-	self.round_timer_hud FadeOverTime(0.2);
+	self.round_timer_hud FadeOverTime(0.25);
 	self.round_timer_hud.alpha = 0;
 
-	wait 0.4;
+	wait 0.5;
 
 	self.round_timer_hud.label = &"Round Time: ";
-	self.round_timer_hud FadeOverTime(0.2);
+	self.round_timer_hud FadeOverTime(0.25);
 	self.round_timer_hud.alpha = 1;
 
 	for ( i = 0; i < 20; i++ ) // wait 10s
@@ -1358,7 +1366,7 @@ display_round_time(time)
 		wait 0.5;
 	}
 
-	self.round_timer_hud FadeOverTime(0.2);
+	self.round_timer_hud FadeOverTime(0.25);
 	self.round_timer_hud.alpha = 0;
 	
 	level waittill( "start_of_round" );
@@ -1366,7 +1374,7 @@ display_round_time(time)
 
 	if( getDvarInt( "hud_round_timer" ) >= 1 )
 	{
-		self.round_timer_hud FadeOverTime(0.2);
+		self.round_timer_hud FadeOverTime(0.25);
 		self.round_timer_hud.alpha = 1;
 	}
 }
@@ -1756,7 +1764,7 @@ coop_pause()
 }
 
 shared_magic_box()
-{	
+{
 	add_zombie_hint( "default_shared_box", "Hold ^3&&1^7 for weapon");
 	level.shared_box = 0;
 
