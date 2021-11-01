@@ -53,9 +53,10 @@
 ### Perks
 * Players can sprint while drinking perks
 
-### Weapons
-* Sharing weapons from the box
-* Mark 2 are probability increased from 33% to 50%
+### Mystery Box
+* Weapons can be shared by knifing the box
+* Mark 2 is guaranteed to be in the first box
+* Mark 2 probability increased from 33% to 50%
 
 ### Tranzit
 * Jetgun buffed

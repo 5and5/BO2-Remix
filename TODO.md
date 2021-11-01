@@ -25,6 +25,7 @@
  
 ## general
 * zombie health scaling linearly
+* shield cost money
 
 ## HUD
 ### TAB Only
