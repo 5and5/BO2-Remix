@@ -1369,7 +1369,7 @@ round_timer_hud()
 	self.round_timer_hud.horzalign = "user_left";
 	self.round_timer_hud.vertalign = "user_top";
 	self.round_timer_hud.x += 4;
-	self.round_timer_hud.y += 17;
+	self.round_timer_hud.y += (2 + (15 * getDvarInt("hud_timer") ) );
 	self.round_timer_hud.fontscale = 1.4;
 	self.round_timer_hud.alpha = 0;
 	self.round_timer_hud.color = ( 1, 1, 1 );
@@ -1379,8 +1379,13 @@ round_timer_hud()
 
 	self thread round_timer_hud_watcher();
 
+	level.FADE_TIME = 0.2;
+
 	while (1)
-	{	
+	{
+		zombies_this_round = level.zombie_total + get_round_enemy_array().size;
+		hordes = zombies_this_round / 24;
+
 		self.round_timer_hud setTimerUp(0);
 		start_time = int(getTime() / 1000);
 
@@ -1389,40 +1394,72 @@ round_timer_hud()
 		end_time = int(getTime() / 1000);
 		time = end_time - start_time;
 
-		self display_round_time(time);
+		self display_round_time(time, hordes);
+
+		level waittill( "start_of_round" );
+
+		if( getDvarInt( "hud_round_timer" ) >= 1 )
+		{
+			self.round_timer_hud FadeOverTime(level.FADE_TIME);
+			self.round_timer_hud.alpha = 1;
+		}
 	}
 }
 
-display_round_time(time)
+display_round_time(time, hordes)
 {
-	time -= .1; // need to set it below the number or it shows the next number
+	time -= 0.05;
 
-	self.round_timer_hud FadeOverTime(0.25);
+	sph_off = 1;
+	if(level.round_number >= 50 && !flag( "dog_round" ))
+	{
+		sph_off = 0;
+	}
+
+	self.round_timer_hud FadeOverTime(level.FADE_TIME);
 	self.round_timer_hud.alpha = 0;
-
-	wait 0.5;
+	wait level.FADE_TIME * 2;
 
 	self.round_timer_hud.label = &"Round Time: ";
-	self.round_timer_hud FadeOverTime(0.25);
+	self.round_timer_hud FadeOverTime(level.FADE_TIME);
 	self.round_timer_hud.alpha = 1;
 
-	for ( i = 0; i < 20; i++ ) // wait 10s
+	for ( i = 0; i < 20 + (20 * sph_off); i++ ) // wait 10s or 5s
 	{
 		self.round_timer_hud setTimer(time);
-		wait 0.5;
+		wait 0.25;
 	}
 
-	self.round_timer_hud FadeOverTime(0.25);
+	self.round_timer_hud FadeOverTime(level.FADE_TIME);
 	self.round_timer_hud.alpha = 0;
-	
-	level waittill( "start_of_round" );
-	self.round_timer_hud.label = &"";
+	wait level.FADE_TIME * 2;
 
-	if( getDvarInt( "hud_round_timer" ) >= 1 )
+	if(sph_off == 0)
 	{
-		self.round_timer_hud FadeOverTime(0.25);
-		self.round_timer_hud.alpha = 1;
+		self display_sph(time, hordes);
 	}
+
+	self.round_timer_hud.label = &"";
+}
+
+display_sph( time, hordes )
+{
+	sph = time / hordes;
+
+	self.round_timer_hud FadeOverTime(level.FADE_TIME);
+	self.round_timer_hud.alpha = 1;
+	self.round_timer_hud.label = &"SPH: ";
+	self.round_timer_hud setValue(sph);
+
+	for ( i = 0; i < 5; i++ )
+	{
+		wait 1;
+	}
+
+	self.round_timer_hud FadeOverTime(level.FADE_TIME);
+	self.round_timer_hud.alpha = 0;
+
+	wait level.FADE_TIME;
 }
 
 round_timer_hud_watcher()
@@ -1731,7 +1768,7 @@ coop_pause()
 
 	players = get_players();
 
-	while(1)//(players.size > 1)
+	while(1)//(players.size > 1) // TODO
 	{
 		if( getDvarInt( "coop_pause" ) == 1 )
 		{	

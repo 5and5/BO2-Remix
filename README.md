@@ -44,6 +44,7 @@
 * Timer
 * Round timer
 * Health bar
+* SPH
 
 ### Power Ups
 * Drop rate increased from 2% to 3%
