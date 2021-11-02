@@ -61,6 +61,9 @@
 * First box setup guaranteed
 * Mark 2 probability increased from 33% to 50%
 
+### Weapons
+* Increased wall weapon buy distance
+
 ### Tranzit
 * Jetgun recharges faster
 * Jetgun recharges while away

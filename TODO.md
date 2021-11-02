@@ -28,7 +28,6 @@
 * insta rounds 99 and onwards every other round
 * Return weapon with mule kick after a down
 * (maybe) Player can have 3 weapons at all times on any map - Remove Mule from the game
-
 * shield cost money
 
 ## HUD

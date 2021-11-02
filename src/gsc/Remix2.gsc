@@ -56,8 +56,9 @@ connected()
     {
         self waittill("spawned_player");
 
-		//self thread give_all_perks(); // testing
-		//self thread give_weapons();
+		// testing
+		// self thread give_all_perks();
+		// self thread give_weapons();
 
     	if(self.initial_spawn)
 		{
@@ -94,6 +95,9 @@ connected()
 
 			flag_wait( "start_zombie_round_logic" );
    			wait 0.05;
+
+			wallbuy_increase_trigger_radius();
+			level thread wallbuy_dynamic_increase_trigger_radius();
 
 			switch( getDvar("mapname") )
 			{
@@ -1885,6 +1889,49 @@ zombie_health_fix()
         }
         wait(0.05);
     }
+}
+
+wallbuy_increase_trigger_radius()
+{
+	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
+	{
+		if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade))
+		{
+			level._unitriggers.trigger_stubs[i].script_length = 96;
+		}
+	}
+}
+
+wallbuy_dynamic_increase_trigger_radius()
+{
+	if(!(is_classic() && level.scr_zm_map_start_location == "processing"))
+	{
+		return;
+	}
+
+	while (!isDefined(level.built_wallbuys))
+	{
+		wait 0.5;
+	}
+
+	prev_built_wallbuys = 0;
+
+	while (1)
+	{
+		if (level.built_wallbuys > prev_built_wallbuys)
+		{
+			prev_built_wallbuys = level.built_wallbuys;
+			wallbuy_increase_trigger_radius();
+		}
+
+		if (level.built_wallbuys == -100)
+		{
+			wallbuy_increase_trigger_radius();
+			return;
+		}
+
+		wait 0.5;
+	}
 }
 
 
