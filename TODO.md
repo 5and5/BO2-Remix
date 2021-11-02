@@ -11,7 +11,6 @@
 
 ## Die Rise
 * patch shaft (patch camping in one spot all together)
-* unpatch spawns
 * reduce ammo in sliq
 * always have a way to call the elevator (even with power off)
 
@@ -24,9 +23,11 @@
 * dig spots are revealed always
  
 ## general
+* Finish character select
 * zombie health scaling linearly
 * insta rounds 99 and onwards every other round
-- (maybe) Player can have 3 weapons at all times on any map - Remove Mule from the game
+* Return weapon with mule kick after a down
+* (maybe) Player can have 3 weapons at all times on any map - Remove Mule from the game
 
 * shield cost money
 
@@ -42,7 +43,6 @@
 
 ## Weapons 
 * remove some shitty weapons from the box
-* increase probability of getting wonder weapons (perma perk maybe?)
 
 ## Power Ups 
 

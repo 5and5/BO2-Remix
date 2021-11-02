@@ -16,7 +16,7 @@
 
 init()
 { 
-	level.VERSION = "0.3.2";
+	level.VERSION = "0.3.3";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -25,9 +25,9 @@ init()
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_on_hud, ::insta_kill_on_hud_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::double_points_powerup, ::double_points_powerup_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::point_doubler_on_hud, ::point_doubler_on_hud_override );
-	replaceFunc( maps/mp/zombies/_zm_magicbox::boxstub_update_prompt, ::boxstub_update_prompt_override );
-    replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_think, ::treasure_chest_think_override );
-    replaceFunc( maps/mp/zombies/_zm_magicbox_lock::watch_for_lock, ::watch_for_lock_override );
+	// replaceFunc( maps/mp/zombies/_zm_magicbox::boxstub_update_prompt, ::boxstub_update_prompt_override );
+    // replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_think, ::treasure_chest_think_override );
+    // replaceFunc( maps/mp/zombies/_zm_magicbox_lock::watch_for_lock, ::watch_for_lock_override );
 	replaceFunc( maps/mp/zombies/_zm::round_think, ::round_think_override );
 	replaceFunc( maps/mp/zombies/_zm_utility::disable_player_move_states, ::disable_player_move_states_override );
 	replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_weapon_spawn, ::treasure_chest_weapon_spawn_override );
@@ -57,6 +57,7 @@ connected()
         self waittill("spawned_player");
 
 		//self thread give_all_perks(); // testing
+		//self thread give_weapons();
 
     	if(self.initial_spawn)
 		{
@@ -84,15 +85,15 @@ connected()
 		{
 			level.inital_spawn = false;
 
+			when_fire_sales_should_drop();
+
 			level thread coop_pause();
 			level thread fake_reset();
-			level thread shared_magic_box();
+			// level thread shared_magic_box();
 			level thread zombie_health_fix();
 
 			flag_wait( "start_zombie_round_logic" );
    			wait 0.05;
-
-			when_fire_sales_should_drop();
 
 			switch( getDvar("mapname") )
 			{
@@ -1597,6 +1598,15 @@ give_all_perks()
 		}
 		wait 0.05;
 	}
+}
+
+give_weapons()
+{
+	flag_wait( "initial_blackscreen_passed" );
+	wait 2;
+	weapon = "ray_gun_zm";
+	self giveWeapon(weapon);
+	self switchToWeapon(weapon);
 }
 
 graphic_tweaks()

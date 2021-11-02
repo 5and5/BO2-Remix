@@ -27,15 +27,17 @@
 
 ### General
 * Zombies start running at round 1
+* Walkers removed
 * Starting points set to 555
 * Tweaked graphics
 * Coop pause
 * 12 hour reset
 
-### Gameplay
+### Patches
 * Bank automatically full
 * Fridge has AN94
 * Zombie health fix
+* Round 255 round cap removed
 * Characters can be selected with ```character``` dvar
 
 ### HUD
@@ -55,12 +57,13 @@
 * Players can sprint while drinking perks
 
 ### Mystery Box
-* Weapons can be shared by knifing the box
-* Mark 2 is guaranteed to be in the first box
+* Weapons can be shared by knifing the box (bugged atm)
+* First box setup guaranteed
 * Mark 2 probability increased from 33% to 50%
 
 ### Tranzit
-* Jetgun buffed
+* Jetgun recharges faster
+* Jetgun recharges while away
 
 ### Die Rise
 * Un-patched Sliquifier
@@ -77,6 +80,7 @@ hud_health_bar
 
 ### Credits
 
+* JezuzLizard
 * JBleezy
 * ZECxR3ap3r
 * Bandit
