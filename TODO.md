@@ -71,7 +71,6 @@
 ### Power Ups 
 
 ### Perks
-* set mule kick to increase swap speed instead
 
 
 

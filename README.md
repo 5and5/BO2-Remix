@@ -60,6 +60,7 @@
 ### Perks
 * Players can sprint while drinking perks
 * Perk limit increased from 4 to 5
+* Mulekick increases ads, weapon switching, grenade tossing and perk drinking
 
 ### Mystery Box
 * Weapons can be shared by knifing the box (bugged atm)

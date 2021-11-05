@@ -16,7 +16,7 @@
 
 init()
 { 
-	level.VERSION = "0.3.6";
+	level.VERSION = "0.3.7";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -82,6 +82,7 @@ connected()
 			self thread inspect_weapon();
 			self thread give_perma_perks();
 			self thread give_bank_fridge();
+			self thread mulekick_additional_perks();
 			
         }
 
@@ -1779,6 +1780,29 @@ give_bank_fridge()
 	self setdstat( "PlayerStatsByMap", "zm_transit", "weaponLocker", "name", "an94_upgraded_zm+mms" ); //setting new weapon
 	self setdstat( "PlayerStatsByMap", "zm_transit", "weaponLocker", "clip", 50 );
 	self setdstat( "PlayerStatsByMap", "zm_transit", "weaponLocker", "stock", 600 );
+}
+
+mulekick_additional_perks()
+{
+	self endon( "disconnect" );
+
+	for ( ;; )
+	{
+		self waittill_any("perk_acquired", "perk_lost");
+
+		if (self HasPerk("specialty_additionalprimaryweapon"))
+		{
+			self SetPerk("specialty_fastads");
+			self SetPerk("specialty_fastweaponswitch");
+			self Setperk("specialty_fasttoss");
+		}
+		else
+		{
+			self UnsetPerk("specialty_fastads");
+			self UnsetPerk("specialty_fastweaponswitch");
+			self Unsetperk("specialty_fasttoss");
+		}
+	}
 }
 
 
