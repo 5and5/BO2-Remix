@@ -16,7 +16,7 @@
 
 init()
 { 
-	level.VERSION = "0.3.3";
+	level.VERSION = "0.3.4";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -31,6 +31,7 @@ init()
 	replaceFunc( maps/mp/zombies/_zm::round_think, ::round_think_override );
 	replaceFunc( maps/mp/zombies/_zm_utility::disable_player_move_states, ::disable_player_move_states_override );
 	replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_weapon_spawn, ::treasure_chest_weapon_spawn_override );
+	replaceFunc( maps/mp/zombies/_zm::ai_calculate_health, ::ai_calculate_health );
 
 	register_weapon_mods();
 
@@ -70,8 +71,8 @@ connected()
 			self graphic_tweaks();
 			self set_movement_dvars();
 			self set_players_score();
-			self set_character_option();
-			
+
+			self thread set_character_option();
             self thread timer_hud();
 			self thread health_bar_hud();
 			self thread max_ammo_refill_clip();
@@ -1048,6 +1049,34 @@ treasure_chest_weapon_spawn_override( chest, player, respin ) //checked changed 
 	self notify( "box_spin_done" );
 }
 
+ai_calculate_health( round_number ) //checked changed to match cerberus output
+{
+	// insta kill rounds staring at 99 then every 2 rounds after
+	if(round_number >= 99 && round_number % 2 == 1)
+	{
+		level.zombie_health = 150;
+		return;
+	}
+
+	level.zombie_health = level.zombie_vars[ "zombie_health_start" ];
+	for ( i = 2; i <= round_number; i++ )
+	{
+		//iPrintLn("lol");
+		if ( i >= 10 )
+		{
+			old_health = level.zombie_health;
+			level.zombie_health = level.zombie_health + int( level.zombie_health * level.zombie_vars[ "zombie_health_increase_multiplier" ] );
+			if ( level.zombie_health < old_health )
+			{
+				level.zombie_health = old_health;
+				return;
+			}
+			continue;
+		}
+		level.zombie_health = int( level.zombie_health + level.zombie_vars[ "zombie_health_increase" ] );
+	}
+}
+
 
 /*
 * *************************************************
@@ -1263,9 +1292,9 @@ when_fire_sales_should_drop()
 }
 
 set_character_option()
-{	
-	if( getDvar("character") == "")
-		setDvar("character", 0);
+{
+	if( getDvar("character") == "" )
+		setDvar("character", 0 );
 
 	if ( level.force_team_characters != 1 && getDvar("mapname") != "zm_tomb" && getDvar("mapname") != "zm_prison" ) 
 	{	
@@ -1287,7 +1316,6 @@ set_character_option()
 				self setviewmodel( "c_zom_engineer_viewhands" );
 				self.characterindex = 3;
 				break;
-
 		}
 	}
 }
@@ -1305,8 +1333,6 @@ timer_hud()
 {	
 	self endon("disconnect");
 
-	self thread round_timer_hud();
-
 	self.timer_hud = newClientHudElem(self);
 	self.timer_hud.alignx = "left";
 	self.timer_hud.aligny = "top";
@@ -1319,10 +1345,11 @@ timer_hud()
 	self.timer_hud.color = ( 1, 1, 1 );
 	self.timer_hud.hidewheninmenu = 1;
 
+	self thread timer_hud_watcher();
+	self thread round_timer_hud();
+
 	flag_wait( "initial_blackscreen_passed" );
 	self.timer_hud setTimerUp(0);
-
-	self thread timer_hud_watcher();
 
 	level waittill( "end_game" );
 
