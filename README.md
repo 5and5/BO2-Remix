@@ -31,6 +31,7 @@
 * Starting points set to 555
 * Tweaked graphics
 * Coop pause
+* Three weapon slots by default 
 * Zombies health scales more linearly
 * Insta kill rounds start on round 99 and happen every odd round after
 * 12 hour reset

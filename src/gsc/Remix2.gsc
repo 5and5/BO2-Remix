@@ -32,6 +32,7 @@ init()
 	replaceFunc( maps/mp/zombies/_zm_utility::disable_player_move_states, ::disable_player_move_states_override );
 	replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_weapon_spawn, ::treasure_chest_weapon_spawn_override );
 	replaceFunc( maps/mp/zombies/_zm::ai_calculate_health, ::ai_calculate_health );
+	replaceFunc( maps/mp/zombies/_zm_utility::get_player_weapon_limit, ::get_player_weapon_limit );
 
 	register_weapon_mods();
 
@@ -1094,6 +1095,17 @@ ai_calculate_health( round_number ) //checked changed to match cerberus output
 			level.zombie_health = int( level.zombie_health + level.zombie_vars[ "zombie_health_increase" ] );
 		}
 	}
+}
+
+get_player_weapon_limit( player ) //checked matches cerberus output
+{
+	if ( isDefined( level.get_player_weapon_limit ) )
+	{
+		return [[ level.get_player_weapon_limit ]]( player );
+	}
+	weapon_limit = 3;
+
+	return weapon_limit;
 }
 
 

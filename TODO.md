@@ -33,6 +33,7 @@
 * always have a way to call the elevator (even with power off)
 * add semtex wallbuy
 * set frog rounds
+* patch slide death
 
 ### Buried
 * delete camping jug
@@ -51,6 +52,7 @@
 
  
 ### general
+* add night mode
 
 ### HUD
 #### TAB Only
@@ -69,7 +71,7 @@
 ### Power Ups 
 
 ### Perks
-* remove mule kick -> set default number of weapons to 3
+* set mule kick to increase swap speed instead
 * 5 perk slots
 
 
