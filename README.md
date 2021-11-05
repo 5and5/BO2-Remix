@@ -31,7 +31,7 @@
 * Starting points set to 555
 * Tweaked graphics
 * Coop pause
-* Three weapon slots by default 
+* Three weapon slots by default
 * Zombies health scales more linearly
 * Insta kill rounds start on round 99 and happen every odd round after
 * 12 hour reset
@@ -59,6 +59,7 @@
 
 ### Perks
 * Players can sprint while drinking perks
+* Perk limit increased from 4 to 5
 
 ### Mystery Box
 * Weapons can be shared by knifing the box (bugged atm)

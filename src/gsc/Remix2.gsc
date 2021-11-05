@@ -16,7 +16,7 @@
 
 init()
 { 
-	level.VERSION = "0.3.5";
+	level.VERSION = "0.3.6";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -33,6 +33,7 @@ init()
 	replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_weapon_spawn, ::treasure_chest_weapon_spawn_override );
 	replaceFunc( maps/mp/zombies/_zm::ai_calculate_health, ::ai_calculate_health );
 	replaceFunc( maps/mp/zombies/_zm_utility::get_player_weapon_limit, ::get_player_weapon_limit );
+	replaceFunc( maps/mp/zombies/_zm_utility::get_player_perk_purchase_limit, ::get_player_perk_purchase_limit );
 
 	register_weapon_mods();
 
@@ -1106,6 +1107,18 @@ get_player_weapon_limit( player ) //checked matches cerberus output
 	weapon_limit = 3;
 
 	return weapon_limit;
+}
+
+get_player_perk_purchase_limit() //checked matches cerberus output
+{
+	if ( isDefined( level.get_player_perk_purchase_limit ) )
+	{
+		return self [[ level.get_player_perk_purchase_limit ]]();
+	}
+	if( level.perk_purchase_limit <= 4 )
+		level.perk_purchase_limit = 5;
+
+	return level.perk_purchase_limit;
 }
 
 

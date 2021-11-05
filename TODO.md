@@ -72,7 +72,6 @@
 
 ### Perks
 * set mule kick to increase swap speed instead
-* 5 perk slots
 
 
 
