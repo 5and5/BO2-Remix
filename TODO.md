@@ -32,6 +32,7 @@
 * reduce ammo in sliq
 * always have a way to call the elevator (even with power off)
 * add semtex wallbuy
+* set frog rounds
 
 ### Buried
 * delete camping jug
@@ -50,8 +51,6 @@
 
  
 ### general
-* zombie health scaling linearly
-* insta rounds 99 and onwards every other round
 
 ### HUD
 #### TAB Only
@@ -65,6 +64,7 @@
 
 ### Weapons 
 * remove some shitty weapons from the box
+* fix shared box
 
 ### Power Ups 
 

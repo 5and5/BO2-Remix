@@ -16,7 +16,7 @@
 
 init()
 { 
-	level.VERSION = "0.3.4";
+	level.VERSION = "0.3.5";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -71,9 +71,9 @@ connected()
 			self graphic_tweaks();
 			self set_movement_dvars();
 			self set_players_score();
+			self set_character_option();
 
-			self thread set_character_option();
-            self thread timer_hud();
+        	self thread timer_hud();
 			self thread health_bar_hud();
 			self thread max_ammo_refill_clip();
 			self thread carpenter_repair_shield();
@@ -1058,22 +1058,41 @@ ai_calculate_health( round_number ) //checked changed to match cerberus output
 		return;
 	}
 
-	level.zombie_health = level.zombie_vars[ "zombie_health_start" ];
-	for ( i = 2; i <= round_number; i++ )
-	{
-		//iPrintLn("lol");
-		if ( i >= 10 )
+	// more linearly health formula - health is about the same at 70 
+	if( level.round_number > 50 )
+	{	
+		round = (round_number - 50);
+		multiplier = 1;
+		zombie_health = 0;
+
+		for( i = 0; i < round; i++ )
 		{
-			old_health = level.zombie_health;
-			level.zombie_health = level.zombie_health + int( level.zombie_health * level.zombie_vars[ "zombie_health_increase_multiplier" ] );
-			if ( level.zombie_health < old_health )
+			if( round % 5 == 0)
 			{
-				level.zombie_health = old_health;
-				return;
+				multiplier++;
 			}
-			continue;
+			zombie_health += int(5000 * multiplier);
 		}
-		level.zombie_health = int( level.zombie_health + level.zombie_vars[ "zombie_health_increase" ] );
+		level.zombie_health = int(zombie_health + 51780); // round 51 zombies health
+	}
+	else
+	{
+		level.zombie_health = level.zombie_vars[ "zombie_health_start" ];
+		for ( i = 2; i <= round_number; i++ )
+		{
+			if ( i >= 10 )
+			{
+				old_health = level.zombie_health;
+				level.zombie_health = level.zombie_health + int( level.zombie_health * level.zombie_vars[ "zombie_health_increase_multiplier" ] );
+				if ( level.zombie_health < old_health )
+				{
+					level.zombie_health = old_health;
+					return;
+				}
+				continue;
+			}
+			level.zombie_health = int( level.zombie_health + level.zombie_vars[ "zombie_health_increase" ] );
+		}
 	}
 }
 

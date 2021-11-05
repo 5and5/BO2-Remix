@@ -31,6 +31,8 @@
 * Starting points set to 555
 * Tweaked graphics
 * Coop pause
+* Zombies health scales more linearly
+* Insta kill rounds start on round 99 and happen every odd round after
 * 12 hour reset
 
 ### Patches
@@ -44,7 +46,7 @@
 * Timer
 * Round timer
 * Health bar
-* SPH
+* SPH - appears after round 50
 
 ### Power Ups
 * Drop rate increased from 2% to 3%
