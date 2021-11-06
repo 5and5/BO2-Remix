@@ -14,9 +14,9 @@
 #include maps/mp/zombies/_zm_stats;
 #include maps/mp/zombies/_zm_pers_upgrades_functions;
 
-init()
+main()
 { 
-	level.VERSION = "0.3.8";
+	level.VERSION = "0.3.9";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -35,7 +35,6 @@ init()
 	replaceFunc( maps/mp/zombies/_zm_utility::get_player_weapon_limit, ::get_player_weapon_limit );
 	replaceFunc( maps/mp/zombies/_zm_utility::get_player_perk_purchase_limit, ::get_player_perk_purchase_limit );
 	replaceFunc( maps/mp/zombies/_zm_weapons::weapon_give, ::weapon_give );
-
 
 	register_weapon_mods();
 
@@ -72,6 +71,7 @@ connected()
 			self iprintln("Welcome to Remix!");
 			self iPrintLn("Version " + level.VERSION);
        		self setClientDvar( "com_maxfps", 101 );
+
 			self graphic_tweaks();
 			self set_movement_dvars();
 			self set_players_score();
@@ -85,7 +85,6 @@ connected()
 			self thread give_perma_perks();
 			self thread give_bank_fridge();
 			self thread mulekick_additional_perks();
-			
         }
 
         if(level.inital_spawn)
@@ -2301,3 +2300,5 @@ jetgun_buff()
         wait 0.25;
     }
 }
+
+
