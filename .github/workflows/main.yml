@@ -24,6 +24,6 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: false
-          title: "Release"
+          title: "BO2-Remix"
           files: |
-            tools/release.zip
+            tools/BO2-Remix.zip
