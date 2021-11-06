@@ -17,7 +17,7 @@ jobs:
           # release.gsc/.zip = File Name to have under your GitHub Release.
               # Note that if you change this, you should change the very last line in this file to match.
         # By Default, we compile everything on it's own and ZIP it. If you want to change this, simply replace "multifile release.zip" with "onefile release.gsc"
-        run: cd tools && call compile.bat multifile release.zip
+        run: cd tools && call compile.bat multifile BO2-Remix.zip
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
