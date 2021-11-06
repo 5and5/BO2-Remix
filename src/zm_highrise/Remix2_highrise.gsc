@@ -1,8 +1,12 @@
+#include maps/mp/gametypes_zm/_hud_util;
+#include maps/mp/zombies/_zm_utility;
+#include common_scripts/utility;
+#include maps/mp/_utility;
 #include maps/mp/zombies/_zm_ai_leaper;
 
 main()
 {
-    replaceFunc( maps/mp/zombies/_zm_ai_leaper::leaper_round_tracker, ::leaper_round_tracker );
+    replaceFunc( maps/mp/zombies/_zm_ai_leaper::leaper_round_tracker, ::leaper_round_tracker_override );
 
     level thread onplayerconnect();
 }
@@ -69,7 +73,7 @@ give_elevator_key()
 }
 
 
-leaper_round_tracker()
+leaper_round_tracker_override()
 {	
 	level.leaper_round_count = 1;
 	level.next_leaper_round = (level.round_number + 4);
