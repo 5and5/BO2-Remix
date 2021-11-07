@@ -16,7 +16,7 @@
 
 main()
 { 
-	level.VERSION = "0.4.6";
+	level.VERSION = "0.4.7";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -95,6 +95,7 @@ connected()
 
 			when_fire_sales_should_drop();
 			electric_trap_always_kill();
+			disable_high_round_walkers();
 
 			level thread coop_pause();
 			level thread fake_reset();
@@ -1624,6 +1625,11 @@ set_character_option()
 				break;
 		}
 	}
+}
+
+disable_high_round_walkers()
+{
+	level.speed_change_round = undefined;
 }
 
 
