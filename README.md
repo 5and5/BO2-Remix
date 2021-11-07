@@ -20,7 +20,7 @@
 ## How to Install
 * Download and install BO2 Plutonium [Plutonium Download](https://plutonium.pw/)
 * Download the latest version of Remix
-* Inside release copy "Remix2.gsc" into ```%localappdata%\Plutonium\storage\t6\scripts\zm```
+* Copy everything inside "BO2-Remix.zip" into ```%localappdata%\Plutonium\storage\t6\scripts\zm```
 * Launch the game and Enjoy!
 
 ## Change Notes
@@ -59,7 +59,7 @@
 
 ### Perks
 * Players can sprint while drinking perks
-* Perk limit increased from 4 to 5
+* Perk bottles also increase players perk limit by 1
 * Mulekick increases ads, weapon switching, grenade tossing and perk drinking
 
 ### Mystery Box

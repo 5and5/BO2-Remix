@@ -16,7 +16,7 @@
 
 main()
 { 
-	level.VERSION = "0.4.1";
+	level.VERSION = "0.4.2";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -33,9 +33,10 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_weapon_spawn, ::treasure_chest_weapon_spawn_override );
 	replaceFunc( maps/mp/zombies/_zm::ai_calculate_health, ::ai_calculate_health );
 	replaceFunc( maps/mp/zombies/_zm_utility::get_player_weapon_limit, ::get_player_weapon_limit );
-	replaceFunc( maps/mp/zombies/_zm_utility::get_player_perk_purchase_limit, ::get_player_perk_purchase_limit );
+	//replaceFunc( maps/mp/zombies/_zm_utility::get_player_perk_purchase_limit, ::get_player_perk_purchase_limit );
 	replaceFunc( maps/mp/zombies/_zm_weapons::weapon_give, ::weapon_give );
 	replaceFunc( maps/mp/zombies/_zm_powerups::full_ammo_powerup, ::full_ammo_powerup );
+	replaceFunc( maps/mp/zombies/_zm_powerups::free_perk_powerup, ::free_perk_powerup );
 
 	register_weapon_mods();
 
@@ -1112,17 +1113,17 @@ get_player_weapon_limit( player ) //checked matches cerberus output
 	return weapon_limit;
 }
 
-get_player_perk_purchase_limit() //checked matches cerberus output
-{
-	if ( isDefined( level.get_player_perk_purchase_limit ) )
-	{
-		return self [[ level.get_player_perk_purchase_limit ]]();
-	}
-	if( level.perk_purchase_limit <= 4 )
-		level.perk_purchase_limit = 5;
+// get_player_perk_purchase_limit() //checked matches cerberus output
+// {
+// 	if ( isDefined( level.get_player_perk_purchase_limit ) )
+// 	{
+// 		return self [[ level.get_player_perk_purchase_limit ]]();
+// 	}
+// 	if( level.perk_purchase_limit <= 4 )
+// 		level.perk_purchase_limit = 5;
 
-	return level.perk_purchase_limit;
-}
+// 	return level.perk_purchase_limit;
+// }
 
 weapon_give( weapon, is_upgrade, magic_box, nosound ) //checked changed to match cerberus output
 {
@@ -1337,6 +1338,39 @@ full_ammo_powerup( drop_item, player ) //checked changed to match cerberus outpu
 		i++;
 	}
 	level thread full_ammo_on_hud( drop_item, player.team );
+}
+
+free_perk_powerup( item ) //checked changed to match cerberus output
+{
+	players = get_players();
+	for ( i = 0; i < players.size; i++ )
+	{
+		if ( !players[ i ] maps/mp/zombies/_zm_laststand::player_is_in_laststand() && players[ i ].sessionstate != "spectator" )
+		{
+			player = players[ i ];
+			if ( isDefined( item.ghost_powerup ) )
+			{
+				player maps/mp/zombies/_zm_stats::increment_client_stat( "buried_ghost_perk_acquired", 0 );
+				player maps/mp/zombies/_zm_stats::increment_player_stat( "buried_ghost_perk_acquired" );
+				player notify( "player_received_ghost_round_free_perk" );
+			}
+			free_perk = player maps/mp/zombies/_zm_perks::give_random_perk();
+			if ( is_true( level.disable_free_perks_before_power ) )
+			{
+				player thread disable_perk_before_power( free_perk );
+			}
+
+			// increase perk limit
+			if ( !isDefined( player.player_perk_purchase_limit ) )
+			{
+				player.player_perk_purchase_limit = level.perk_purchase_limit;
+			}
+			if ( player.player_perk_purchase_limit < 8 )
+			{
+				player.player_perk_purchase_limit++;
+			}
+		}
+	}
 }
 
 
