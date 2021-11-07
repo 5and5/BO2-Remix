@@ -90,6 +90,7 @@
 ### Origins
 * Shovels given on spawn
 * Hidden perk bottle dig spot are always visible
+* Tank as instant cool down
 
 ### Dvars
 ```

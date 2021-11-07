@@ -39,7 +39,6 @@
 * can trade staff back to the box
 * All teleports from Crazy Place side are possible to open even without opening them with gramophone previously
 * Player gets a golden shovel after 20 digs and obtains golden helmet instantly
-* Tank has the same instant cooldown on any round
 * Increase Max Ammo chances from digging to 10%
 * (maybe) Fix Lighting and Fire Staff crashes
 
