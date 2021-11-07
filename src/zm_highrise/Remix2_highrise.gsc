@@ -9,11 +9,12 @@ main()
 {
     replaceFunc( maps/mp/zombies/_zm_ai_leaper::leaper_round_tracker, ::leaper_round_tracker_override );
 
+    level.initial_spawn_highrise = true;
     level thread onplayerconnect();
 }
 
 onplayerconnect()
-{
+{   
     for(;;)
     {
         level waittill("connected", player);
@@ -36,6 +37,13 @@ onplayerspawned()
 
             self thread give_elevator_key();
             self thread patch_shaft();
+        }
+
+        if(level.initial_spawn_highrise)
+        {
+            level.initial_spawn_highrise = false;
+
+            thread fix_slide_death_gltich();
         }
     }
 }
@@ -86,7 +94,7 @@ patch_shaft()
     self thread return_to_playable_area_hud();
 	while ( 1 )
 	{
-        if ( self get_current_zone() == zone )
+        if ( isDefined(self get_current_zone()) && self get_current_zone() == zone && self get_current_zone() != "")
         {
             self.return_to_playable_area_hud.alpha = 1;
 
@@ -117,6 +125,20 @@ patch_shaft()
         wait 0.05;
     }
 
+}
+
+fix_slide_death_gltich()
+{
+    flag_wait( "start_zombie_round_logic" );
+   	wait 0.05;
+
+    // collision = spawn( "script_model", ( 2815, 2537, 2869 ), 1 );
+	// collision.angles = ( 0, 90, 0 );
+	// collision setModel( "collision_clip_wall_128x128x10" );
+
+    // barrier_model = spawn( "script_model", ( 2815, 2537, 2869 ), 1 );
+	// barrier_model.angles = ( 0, 0, 0 );
+	// barrier_model setmodel( "p6_zm_hr_elevator_indicator" );
 }
 
 return_to_playable_area_hud()
