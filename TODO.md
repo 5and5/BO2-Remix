@@ -28,11 +28,8 @@
 * Set first box to always be in Cafeteria
 
 ### Die Rise
-* patch shaft (patch camping in one spot all together)
 * add semtex wallbuy
 * patch slide death
-
-* (maybe) set frog rounds
 
 ### Buried
 * delete camping jug

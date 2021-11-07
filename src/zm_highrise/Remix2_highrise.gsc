@@ -35,6 +35,7 @@ onplayerspawned()
             self.initial_spawn_highrise = true;
 
             self thread give_elevator_key();
+            self thread patch_shaft();
         }
     }
 }
@@ -71,6 +72,82 @@ give_elevator_key()
         }
         wait 1;
     }
+}
+
+patch_shaft()
+{
+    level endon( "end_game" );
+
+    zone = "zone_orange_elevator_shaft_middle_2";
+    timeout = 300; // 5 mins
+
+    self.return_to_playable_area_time = timeout;
+
+    self thread return_to_playable_area_hud();
+	while ( 1 )
+	{
+        if ( self get_current_zone() == zone )
+        {
+            self.return_to_playable_area_hud.alpha = 1;
+
+            if( self.return_to_playable_area_time == 0 )
+            {	
+                if ( get_players().size == 1 && flag( "solo_game" ) && isDefined( self.waiting_to_revive ) && self.waiting_to_revive )
+                {
+                    level notify( "end_game" );
+                    break;
+                }
+                else
+                {
+                    self disableinvulnerability();
+                    self.lives = 0;
+                    self dodamage( self.health + 1000, self.origin );
+                    self.bleedout_time = 0;
+                }
+                self.return_to_playable_area_time = 0;
+                wait 2;
+                self.return_to_playable_area_time = timeout;
+            }
+        }
+        else
+        {
+            self.return_to_playable_area_time = timeout;
+            self.return_to_playable_area_hud.alpha = 0;
+        }
+        wait 0.05;
+    }
+
+}
+
+return_to_playable_area_hud()
+{   
+	self.return_to_playable_area_hud = newClientHudElem( self );
+	self.return_to_playable_area_hud.alignx = "center";
+    self.return_to_playable_area_hud.aligny = "top";
+    self.return_to_playable_area_hud.horzalign = "user_center";
+    self.return_to_playable_area_hud.vertalign = "user_top";
+    self.return_to_playable_area_hud.x += 0;
+    self.return_to_playable_area_hud.y += 0;
+    self.return_to_playable_area_hud.fontscale = 2;
+    self.return_to_playable_area_hud.color = ( 0.423, 0.004, 0 );
+	self.return_to_playable_area_hud.alpha = 1;
+    self.return_to_playable_area_hud.hidewheninmenu = 1;
+    self.return_to_playable_area_hud.label = &"Return to playable area: "; 
+
+	while(1)
+	{	
+		self.return_to_playable_area_hud SetValue( self.return_to_playable_area_time );
+        
+		wait 1;
+        self.return_to_playable_area_time--;
+	
+		if( self.return_to_playable_area_time == 0)
+		{	
+			self.return_to_playable_area_hud SetValue( self.return_to_playable_area_time );
+			wait 1;
+			self.return_to_playable_area_hud.alpha = 0;
+		}
+	}
 }
 
 
