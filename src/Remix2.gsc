@@ -31,7 +31,7 @@ main()
 	replaceFunc( maps/mp/zombies/_zm::round_think, ::round_think_override );
 	replaceFunc( maps/mp/zombies/_zm_utility::disable_player_move_states, ::disable_player_move_states_override );
 	replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_weapon_spawn, ::treasure_chest_weapon_spawn_override );
-	replaceFunc( maps/mp/zombies/_zm::ai_calculate_health, ::ai_calculate_health );
+	replaceFunc( maps/mp/zombies/_zm::ai_calculate_health, ::ai_calculate_health_override );
 	replaceFunc( maps/mp/zombies/_zm_utility::get_player_weapon_limit, ::get_player_weapon_limit );
 	//replaceFunc( maps/mp/zombies/_zm_utility::get_player_perk_purchase_limit, ::get_player_perk_purchase_limit );
 	replaceFunc( maps/mp/zombies/_zm_weapons::weapon_give, ::weapon_give );
@@ -1062,7 +1062,7 @@ treasure_chest_weapon_spawn_override( chest, player, respin ) //checked changed 
 	self notify( "box_spin_done" );
 }
 
-ai_calculate_health( round_number ) //checked changed to match cerberus output
+ai_calculate_health_override( round_number ) //checked changed to match cerberus output
 {
 	// insta kill rounds staring at 99 then every 2 rounds after
 	if(round_number >= 99 && round_number % 2 == 1)
@@ -1072,7 +1072,7 @@ ai_calculate_health( round_number ) //checked changed to match cerberus output
 	}
 
 	// more linearly health formula - health is about the same at 70 
-	if( level.round_number > 50 )
+	if( round_number > 50 )
 	{	
 		round = (round_number - 50);
 		multiplier = 1;
@@ -1091,7 +1091,8 @@ ai_calculate_health( round_number ) //checked changed to match cerberus output
 	else
 	{
 		level.zombie_health = level.zombie_vars[ "zombie_health_start" ];
-		for ( i = 2; i <= round_number; i++ )
+		i = 2;
+		while ( i <= round_number )
 		{
 			if ( i >= 10 )
 			{
@@ -1102,9 +1103,11 @@ ai_calculate_health( round_number ) //checked changed to match cerberus output
 					level.zombie_health = old_health;
 					return;
 				}
+				i++;
 				continue;
 			}
 			level.zombie_health = int( level.zombie_health + level.zombie_vars[ "zombie_health_increase" ] );
+			i++;
 		}
 	}
 }

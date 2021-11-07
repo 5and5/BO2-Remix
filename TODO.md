@@ -45,6 +45,7 @@
  
 ### general
 * add night mode
+* remove walker
 
 ### HUD
 #### TAB Only
