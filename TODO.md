@@ -46,6 +46,8 @@
 ### general
 
 ### HUD
+* setup an array of positions for hud
+* move hud on origins
 #### TAB Only
 * Round timer
 * Shield

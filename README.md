@@ -93,6 +93,7 @@
 ### Origins
 * Ice and Wind Staffs are in the box
 * Shovels given on spawn
+* All records and gramophone given on spawn
 * Hidden perk bottle dig spot are always visible
 * Tank has instant cool down
 

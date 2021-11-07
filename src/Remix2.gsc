@@ -1957,7 +1957,7 @@ set_players_score()
 {
 	flag_wait( "start_zombie_round_logic" );
 
-	self.score = 555555;
+	self.score = 555;
 }
 
 give_all_perks()
@@ -2975,7 +2975,7 @@ buildcraftables()
 		{
 			buildcraftable( "tomb_shield_zm" );
 			buildcraftable( "equip_dieseldrone_zm" );
-			//takecraftableparts( "gramophone" );
+			takecraftableparts( "gramophone" );
 		}
 	}
 }
