@@ -38,8 +38,10 @@
 
 ### Patches
 * Bank automatically full
+* Perma Perks given
 * Fridge has AN94
 * Zombie health fix
+* Trap fix
 * Round 255 round cap removed
 * Characters can be selected with ```character``` dvar
 
@@ -66,6 +68,10 @@
 * Weapons can be shared by knifing the box (bugged atm)
 * First box setup guaranteed
 * Mark 2 probability increased from 33% to 50%
+
+### Buildables
+* Buildables can be built with get parts
+* All parts are given at the start of the game
 
 ### Weapons
 * Increased wall weapon buy distance
