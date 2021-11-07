@@ -16,7 +16,7 @@
 
 main()
 { 
-	level.VERSION = "0.4.8";
+	level.VERSION = "0.4.9";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -111,6 +111,7 @@ connected()
    			wait 0.05;
 
 			wallbuy_increase_trigger_radius();
+			
 			level thread wallbuy_dynamic_increase_trigger_radius();
 
 			switch( getDvar("mapname") )
@@ -126,6 +127,7 @@ connected()
 				case "zm_buried":
 				case "zm_tomb":
 					self tomb_give_shovel();
+					add_staffs_to_box();
 					level thread tomb_remove_shovels_from_map();
 					level thread tomb_zombie_blood_dig_changes();
 			}
@@ -1955,7 +1957,7 @@ set_players_score()
 {
 	flag_wait( "start_zombie_round_logic" );
 
-	self.score = 555;
+	self.score = 555555;
 }
 
 give_all_perks()
@@ -3453,4 +3455,12 @@ set_visible_after_rounds(player, num)
 	}
 
 	self setvisibletoplayer(player);
+}
+
+add_staffs_to_box()
+{
+    // level.zombie_weapons["staff_fire_zm"].is_in_box = 1;
+    // level.zombie_weapons["staff_lightning_zm"].is_in_box = 1;
+    level.zombie_weapons["staff_air_zm"].is_in_box = 1;
+    level.zombie_weapons["staff_water_zm"].is_in_box = 1;
 }

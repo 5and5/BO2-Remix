@@ -91,9 +91,11 @@
 * Camping in the shaft is limited to 5 minutes at a time
 
 ### Origins
+* Ice and Wind Staffs are in the box
 * Shovels given on spawn
 * Hidden perk bottle dig spot are always visible
 * Tank has instant cool down
+
 
 ### Dvars
 ```

@@ -44,7 +44,6 @@
 
  
 ### general
-* add night mode
 
 ### HUD
 #### TAB Only
