@@ -36,8 +36,6 @@
 * witches give perk slot instead of perk bottle
 
 ### Origins
-* give shovel on spawn
-* (maybe) can hold multiple staffs at onces 
 * can trade staff back to the box
 * dig spots are revealed always
 * All teleports from Crazy Place side are possible to open even without opening them with gramophone previously
@@ -67,5 +65,3 @@
 ### Power Ups 
 
 ### Perks
-
-

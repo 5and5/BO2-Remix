@@ -87,6 +87,9 @@
 * Leaper rounds always happen every 4 rounds
 * Camping in the shaft is limited to 5 minutes at a time
 
+### Origins
+* Shovels given on spawn
+
 ### Dvars
 ```
 coop_pause
