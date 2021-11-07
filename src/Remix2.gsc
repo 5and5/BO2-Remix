@@ -1684,7 +1684,7 @@ timer_hud_watcher()
 	self endon("disconnect");
 
 	if( getDvar( "hud_timer") == "" )
-		self setclientdvar( "hud_timer", 1 );
+		setDvar( "hud_timer", 1 );
 
 	while(1)
 	{	
@@ -1810,7 +1810,7 @@ round_timer_hud_watcher()
 	self endon("disconnect");
 
 	if( getDvar( "hud_round_timer") == "" )
-		self setclientdvar( "hud_round_timer", 0 );
+		setDvar( "hud_round_timer", 0 );
 
 	while(1)
 	{
@@ -1838,7 +1838,7 @@ health_bar_hud()
 	flag_wait("initial_blackscreen_passed");
 
 	if( getDvar( "hud_health_bar") == "" )
-		self setclientdvar( "hud_health_bar", 0 );
+		setDvar( "hud_health_bar", 0 );
 
 	health_bar = self createprimaryprogressbar();
 	if (level.script == "zm_buried")
@@ -3186,7 +3186,7 @@ night_mode()
 night_mode_watcher()
 {	
 	if( getDvar( "night_mode") == "" )
-		self setclientdvar( "night_mode", 1 );
+		setDvar( "night_mode", 1 );
 
 	wait 1;
 
