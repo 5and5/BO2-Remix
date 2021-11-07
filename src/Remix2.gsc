@@ -16,7 +16,7 @@
 
 main()
 { 
-	level.VERSION = "0.4.7";
+	level.VERSION = "0.4.8";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -87,6 +87,7 @@ connected()
 			self thread give_perma_perks();
 			self thread give_bank_fridge();
 			self thread mulekick_additional_perks();
+			self thread night_mode();
         }
 
         if(level.inital_spawn)
@@ -2071,6 +2072,142 @@ mulekick_additional_perks()
 		}
 	}
 }
+
+night_mode()
+{
+	if ( !isDefined( level.night_mode ) )
+	{
+		level.night_mode = true;
+		
+		setDvar( "r_dof_enable", 0 );
+		setDvar( "r_enablePlayerShadow", 1 );
+		setDvar( "r_lodBiasRigid", -1000 );
+		setDvar( "r_lodBiasSkinned", -1000 );
+		setDvar( "r_lodScaleRigid", 1) ;
+		setDvar( "r_lodScaleSkinned", 1 );
+		setDvar( "r_enablePlayerShadow", 1 );
+		setDvar( "sm_sunquality", 2 );
+		setDvar( "vc_fbm", "0 0 0 0" );
+		setDvar( "vc_fsm", "1 1 1 1" );
+		setDvar( "vc_fgm", "1 1 1 1" );
+		setDvar( "r_skyColorTemp", 25000 );
+		//setDvar( "r_skyRotation", 0 );
+		//setDvar( "r_skyTransition", 1 );
+
+		self thread night_mode_watcher();
+	}
+}
+
+night_mode_watcher()
+{	
+	if( getDvar( "night_mode") == "" )
+		setDvar( "night_mode", 1 );
+
+	while(1)
+	{	
+		if( getDvarInt( "night_mode" ) == 0 )
+		{
+			wait 0.1;
+		}
+		self thread enable_night_mode();
+		self thread visual_fix();
+
+		if( getDvarInt( "night_mode" ) == 1 )
+		{
+			wait 0.1;
+		}
+		self thread disable_night_mode();
+	}
+}
+
+enable_night_mode()
+{
+	if( !isDefined( level.default_r_exposureValue ) )
+		level.default_r_exposureValue = getDvar( "r_exposureValue" );
+	if( !isDefined( level.default_r_lightTweakSunLight ) )
+		level.default_r_lightTweakSunLight = getDvar( "r_lightTweakSunLight" );
+	if( !isDefined( level.default_r_sky_intensity_factor0 ) )
+		level.default_r_sky_intensity_factor0 = getDvar( "r_sky_intensity_factor0" );
+	// if( !isDefined( level.default_r_sky_intensity_factor0 ) )
+	// 	level.default_r_lightTweakSunColor = getDvar( "r_lightTweakSunColor" );
+
+	//setDvar( "r_fog", 0 );
+	setDvar( "r_filmUseTweaks", 1 );
+	setDvar( "r_bloomTweaks", 1 );
+	setDvar( "r_exposureTweak", 1 );
+	setDvar( "vc_rgbh", "0.07 0 0.25 0" );
+	setDvar( "vc_yl", "0 0 0.25 0" );
+	setDvar( "vc_yh", "0.015 0 0.07 0" );
+	setDvar( "vc_rgbl", "0.015 0 0.07 0" );
+	setDvar( "vc_rgbh", "0.015 0 0.07 0" );
+	setDvar( "r_exposureValue", 3.9 );
+	setDvar( "r_lightTweakSunLight", 16 );
+	setDvar( "r_sky_intensity_factor0", 3 );
+	//setDvar( "r_lightTweakSunColor", ( 0.015, 0, 0.07 ) );
+	if( level.script == "zm_buried" )
+	{
+		setDvar( "r_exposureValue", 3.5 );
+	}
+	else if( level.script == "zm_tomb" )
+	{
+		setDvar( "r_exposureValue", 4 );
+	}
+	else if( level.script == "zm_nuked" )
+	{
+		setDvar( "r_exposureValue", 5.6 );
+	}
+	else if( level.script == "zm_highrise" )
+	{
+		setDvar( "r_exposureValue", 3 );
+	}
+}
+
+disable_night_mode()
+{
+	self notify( "disable_nightmode" );
+	//setDvar( "r_fog", 1 );
+	setDvar( "r_filmUseTweaks", 0 );
+	setDvar( "r_bloomTweaks", 0 );
+	setDvar( "r_exposureTweak", 0 );
+	setDvar( "vc_rgbh", "0 0 0 0" );
+	setDvar( "vc_yl", "0 0 0 0" );
+	setDvar( "vc_yh", "0 0 0 0" );
+	setDvar( "vc_rgbl", "0 0 0 0" );
+	setDvar( "r_exposureValue", int( level.default_r_exposureValue ) );
+	setDvar( "r_lightTweakSunLight", int( level.default_r_lightTweakSunLight ) );
+	setDvar( "r_sky_intensity_factor0", int( level.default_r_sky_intensity_factor0 ) );
+	//setDvar( "r_lightTweakSunColor", level.default_r_lightTweakSunColor );
+}
+
+visual_fix()
+{
+	level endon( "game_ended" );
+	self endon( "disconnect" );
+	self endon( "disable_nightmode" );
+	if( level.script == "zm_buried" )
+	{
+		while( getDvar( "r_sky_intensity_factor0" ) != 0 )
+		{	
+			setDvar( "r_lightTweakSunLight", 1 );
+			setDvar( "r_sky_intensity_factor0", 0 );
+			wait 0.05;
+		}
+	}
+	else if( level.script == "zm_prison" || level.script == "zm_tomb" )
+	{
+		while( getDvar( "r_lightTweakSunLight" ) != 0 )
+		{
+			for( i = getDvar( "r_lightTweakSunLight" ); i >= 0; i = ( i - 0.05 ) )
+			{
+				setDvar( "r_lightTweakSunLight", i );
+				wait 0.05;
+			}
+			wait 0.05;
+		}
+	}
+	else return;
+}
+
 
 
 /*

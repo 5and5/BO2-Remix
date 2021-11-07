@@ -29,12 +29,15 @@
 * Zombies start running at round 1
 * Walkers removed
 * Starting points set to 555
-* Tweaked graphics
 * Coop pause
 * Three weapon slots by default
 * Zombies health scales more linearly
 * Insta kill rounds start on round 99 and happen every odd round after
 * 12 hour reset
+
+### Visual
+* Tweaked graphics
+* Night mode option with ```night_mode``` dvar
 
 ### Patches
 * Bank automatically full
@@ -95,6 +98,7 @@
 ### Dvars
 ```
 coop_pause
+night_mode
 character
 hud_timer
 hud_round_timer
