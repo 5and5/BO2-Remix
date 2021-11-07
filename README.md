@@ -89,6 +89,7 @@
 
 ### Origins
 * Shovels given on spawn
+* Hidden perk bottle dig spot are always visible
 
 ### Dvars
 ```
