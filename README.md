@@ -78,6 +78,7 @@
 * Un-patched Sliquifier
 * Un-patched trample steam zone changes
 * Reduced Sliquifier starting ammo from 10/40 to 10/25
+* Leaper rounds always happen every 4 rounds
 
 ### Dvars
 ```
