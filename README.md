@@ -2,7 +2,7 @@
 
 ## Download
 
-[Download](https://github.com/5and5/BO2-Remix/releases/tag/latest)
+[Download](https://github.com/5and5/BO2-Remix/releases/download/latest/BO2-Remix.zip)
 
 ## Leaderboards
 [Leaderboards](https://docs.google.com/spreadsheets/d/14oRX3aQFWWz5VaLz3B_nt_YOe-9zHf3HTQNuCU9Xqcs/)
@@ -86,7 +86,7 @@
 ### Die Rise
 * Un-patched Sliquifier
 * Un-patched trample steam zone changes
-* Reduced Sliquifier starting ammo from 10/40 to 10/25
+<!-- * Reduced Sliquifier starting ammo from 10/40 to 10/25 -->
 * Leaper rounds always happen every 4 rounds
 * Camping in the shaft is limited to 5 minutes at a time
 

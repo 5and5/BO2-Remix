@@ -18,6 +18,8 @@ main()
 { 
 	level.VERSION = "0.4.9";
 
+
+
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::func_should_drop_fire_sale, ::func_should_drop_fire_sale_override );
@@ -1293,10 +1295,10 @@ weapon_give( weapon, is_upgrade, magic_box, nosound ) //checked changed to match
 			self switchtoweapon( current_weapon );
 		}
 	}
-	if( weapon == ( "slipgun_zm" ) )
-	{
-		self setweaponammostock( "slipgun_zm", 25 );
-	}
+	// if( weapon == ( "slipgun_zm" ) )
+	// {
+	// 	self setweaponammostock( "slipgun_zm", 25 );
+	// }
 
 	self play_weapon_vo( weapon, magic_box );
 }
@@ -1343,10 +1345,10 @@ full_ammo_powerup( drop_item, player ) //checked changed to match cerberus outpu
 			{
 				players[ i ] givemaxammo( primary_weapons[ x ] );
 
-				if ( players[ i ] hasweapon( "slipgun_zm" ) )
-				{
-					players[ i ] setweaponammostock( "slipgun_zm", 25 );
-				}
+				// if ( players[ i ] hasweapon( "slipgun_zm" ) )
+				// {
+				// 	players[ i ] setweaponammostock( "slipgun_zm", 25 );
+				// }
 			}
 			x++;
 		}
@@ -3330,14 +3332,6 @@ die_rise_zone_changes()
             level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] = undefined;
         }
     }
-}
-
-reduce_sliq_starting_ammo()
-{
-	if( self hasweapon( "slipgun_zm" ) && (self getammocount( "slipgun_zm" ) > 16 ) )
-	{
-		self setweaponammostock( "slipgun_zm", 25 );
-	}
 }
 
 
