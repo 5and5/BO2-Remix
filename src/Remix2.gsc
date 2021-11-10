@@ -18,8 +18,6 @@ main()
 { 
 	level.VERSION = "0.4.9";
 
-
-
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::func_should_drop_fire_sale, ::func_should_drop_fire_sale_override );
@@ -39,8 +37,7 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_weapons::weapon_give, ::weapon_give );
 	replaceFunc( maps/mp/zombies/_zm_powerups::full_ammo_powerup, ::full_ammo_powerup );
 	replaceFunc( maps/mp/zombies/_zm_powerups::free_perk_powerup, ::free_perk_powerup );
-
-	register_weapon_mods();
+	replaceFunc( maps/mp/zombies/_zm_pers_upgrades_functions::pers_treasure_chest_choosespecialweapon, ::pers_treasure_chest_choosespecialweapon_override );
 
     level.inital_spawn = true;
     level thread onConnect();
@@ -97,6 +94,7 @@ connected()
 		{
 			level.inital_spawn = false;
 
+			raygun_mark2_probabilty();
 			when_fire_sales_should_drop();
 			electric_trap_always_kill();
 			disable_high_round_walkers();
@@ -113,7 +111,6 @@ connected()
    			wait 0.05;
 
 			wallbuy_increase_trigger_radius();
-			
 			level thread wallbuy_dynamic_increase_trigger_radius();
 
 			switch( getDvar("mapname") )
@@ -831,50 +828,51 @@ treasure_chest_weapon_spawn_override( chest, player, respin ) //checked changed 
 	}
 
 	// first box
-	if ( !isDefined(level.chest_max_move_usage) )
+	if ( level.chest_moves == 0 && player.pers_magic_box_weapon_count == 1 )
 	{
-		level.chest_max_move_usage = 8;
-		
+		if ( !isDefined(level.chest_max_move_usage) )
+		{
+			level.chest_max_move_usage = 8;
+		}
+		if ( !isDefined(level.weapons_needed) )
+		{
+			level.weapons_needed = (level.players.size * 2);
+		}
+
+		ran = randomInt( (level.chest_max_move_usage - level.weapons_needed) - level.chest_accessed );
+		if ( ran == 0 && level.chest_accessed <= level.chest_max_move_usage )
+		{	
+			pap_triggers = getentarray( "specialty_weapupgrade", "script_noteworthy" );
+
+			if ( treasure_chest_canplayerreceiveweapon( player, "raygun_mark2_zm", pap_triggers ) )
+			{
+				rand = "raygun_mark2_zm";
+			}
+			else if( treasure_chest_canplayerreceiveweapon( player, "ray_gun_zm", pap_triggers ) )
+			{
+				rand = "ray_gun_zm";
+			}
+			else if( treasure_chest_canplayerreceiveweapon( player, "cymbal_monkey_zm", pap_triggers ) && getDvar("mapname") != "zm_prison")
+			{
+				rand = "cymbal_monkey_zm";
+			}
+			else if( treasure_chest_canplayerreceiveweapon( player, "blundergat_zm", pap_triggers ) && getDvar("mapname") == "zm_prison")
+			{
+				rand = "blundergat_zm";
+			}
+			else if( treasure_chest_canplayerreceiveweapon( player, "emp_grenade_zm", pap_triggers ) && getDvar("mapname") == "zm_transit" && is_classic() )
+			{
+				rand = "emp_grenade_zm";
+			}
+			else if( treasure_chest_canplayerreceiveweapon( player, "m32_zm", pap_triggers ) && getDvar("mapname") == "zm_tomb")
+			{
+				rand = "m32_zm";
+			}
+
+			if( level.weapons_needed != 0 )
+				level.weapons_needed--;
+		}
 	}
-	if ( !isDefined(level.weapons_needed) )
-	{
-		level.weapons_needed = 1 + level.players.size;
-	}
-
-	ran = randomInt( (level.chest_max_move_usage - level.weapons_needed) - level.chest_accessed );
-	if ( ran == 0 && level.chest_accessed <= level.chest_max_move_usage && level.chest_moves == 0 )
-	{	
-		pap_triggers = getentarray( "specialty_weapupgrade", "script_noteworthy" );
-
-		if ( treasure_chest_canplayerreceiveweapon( player, "raygun_mark2_zm", pap_triggers ) )
-		{
-			rand = "raygun_mark2_zm";
-		}
-		else if( treasure_chest_canplayerreceiveweapon( player, "ray_gun_zm", pap_triggers ) )
-		{
-			rand = "ray_gun_zm";
-		}
-		else if( treasure_chest_canplayerreceiveweapon( player, "cymbal_monkey_zm", pap_triggers ) && getDvar("mapname") != "zm_prison")
-		{
-			rand = "cymbal_monkey_zm";
-		}
-		else if( treasure_chest_canplayerreceiveweapon( player, "blundergat_zm", pap_triggers ) && getDvar("mapname") == "zm_prison")
-		{
-			rand = "blundergat_zm";
-		}
-		else if( treasure_chest_canplayerreceiveweapon( player, "emp_grenade_zm", pap_triggers ) && getDvar("mapname") == "zm_transit" && is_classic() )
-		{
-			rand = "emp_grenade_zm";
-		}
-		else if( treasure_chest_canplayerreceiveweapon( player, "m32_zm", pap_triggers ) && getDvar("mapname") == "zm_tomb")
-		{
-			rand = "m32_zm";
-		}
-
-		if( level.weapons_needed != 0 )
-			level.weapons_needed--;
-	}
-
 	
 	self.weapon_string = rand;
 	wait 0.1;
@@ -895,6 +893,10 @@ treasure_chest_weapon_spawn_override( chest, player, respin ) //checked changed 
 	if ( getDvar( "magic_chest_movable" ) == "1" && !is_true( chest._box_opened_by_fire_sale ) && !is_true( level.zombie_vars[ "zombie_powerup_fire_sale_on" ] ) && self [[ level._zombiemode_check_firesale_loc_valid_func ]]() )
 	{
 		random = randomint( 100 );
+		if ( !isDefined(level.chest_max_move_usage) )
+		{
+			level.chest_max_move_usage = 8;
+		}
 		if ( !isDefined( level.chest_min_move_usage ) )
 		{
 			level.chest_min_move_usage = 4;
@@ -1390,6 +1392,50 @@ free_perk_powerup( item ) //checked changed to match cerberus output
 	}
 }
 
+pers_treasure_chest_choosespecialweapon_override( player ) //checked changed to match cerberus output
+{
+	if ( !isDefined( player.pers_magic_box_weapon_count ) )
+	{
+		player.pers_magic_box_weapon_count = 0;
+	}
+
+	rval = randomfloat( 1 );
+	//if ( rval < 0.5 && player.pers_magic_box_weapon_count < 1 )
+	if ( player.pers_magic_box_weapon_count < 1 )
+	{
+		player.pers_magic_box_weapon_count++;
+
+		if ( !isDefined( level.pers_box_weapons ) )
+		{
+			level.pers_box_weapons = [];
+			level.pers_box_weapons[ level.pers_box_weapons.size ] = "cymbal_monkey_zm";
+			level.pers_box_weapons[ level.pers_box_weapons.size ] = "raygun_mark2_zm";
+		}
+
+		keys = array_randomize( level.pers_box_weapons );
+	
+		if( getDvar( "mapname" ) == "zm_buried")
+		{
+			keys[ level.pers_box_weapons.size ] = "slowgun_zm";
+			keys = array_reverse(keys);
+		}
+
+		pap_triggers = getentarray( "specialty_weapupgrade", "script_noteworthy" );
+		for ( i = 0; i < keys.size; i++ )
+		{
+			if ( maps/mp/zombies/_zm_magicbox::treasure_chest_canplayerreceiveweapon( player, keys[ i ], pap_triggers ) )
+			{
+				level.weapons_needed--;
+				return keys[ i ];
+			}
+		}
+	}
+
+	weapon = maps/mp/zombies/_zm_magicbox::treasure_chest_chooseweightedrandomweapon( player );
+	return weapon;
+
+}
+
 
 /*
 * *************************************************
@@ -1406,7 +1452,7 @@ set_movement_dvars()
     self setclientdvar("player_sprintStrafeSpeedScale", 1);
 }
 
-register_weapon_mods() {
+raygun_mark2_probabilty() {
     level.special_weapon_magicbox_check = ::custom_special_weapon_magicbox_check;
 }
 
@@ -1753,7 +1799,7 @@ round_timer_hud()
 
 display_round_time(time, hordes)
 {
-	time -= 0.05;
+	timer_for_hud = time - 0.05;
 
 	sph_off = 1;
 	if(level.round_number >= 50 && !flag( "dog_round" ))
@@ -1771,7 +1817,7 @@ display_round_time(time, hordes)
 
 	for ( i = 0; i < 20 + (20 * sph_off); i++ ) // wait 10s or 5s
 	{
-		self.round_timer_hud setTimer(time);
+		self.round_timer_hud setTimer(timer_for_hud);
 		wait 0.25;
 	}
 
