@@ -2045,10 +2045,10 @@ give_weapons()
 	self switchToWeapon(weapon);
 }
 
+graphic_tweaks()
 {
 	self setclientdvar("r_fog", 0);
 	self setclientdvar("r_dof_enable", 0);
-graphic_tweaks()
 	// self setclientdvar("r_lodBiasRigid", -1000); // casues error
 	// self setclientdvar("r_lodBiasSkinned", -1000);
 	self setClientDvar("r_lodScaleRigid", 1);
