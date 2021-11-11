@@ -4,10 +4,13 @@
 #include maps/mp/_utility;
 
 #include maps/mp/zombies/_zm_ai_leaper;
+//#include maps/mp/zm_highrise_elevators;
 
-main()
+
+init()
 {
     replaceFunc( maps/mp/zombies/_zm_ai_leaper::leaper_round_tracker, ::leaper_round_tracker_override );
+    //replaceFunc( maps/mp/zm_highrise_elevators::init_elevator_perks, ::init_elevator_perks_override );
 
     level.initial_spawn_highrise = true;
     level thread onplayerconnect();
@@ -43,6 +46,7 @@ onplayerspawned()
         {
             level.initial_spawn_highrise = false;
 
+            //thread debug_print();
             thread fix_slide_death_gltich();
         }
     }
@@ -172,6 +176,20 @@ return_to_playable_area_hud()
 	}
 }
 
+debug_print()
+{
+    flag_wait( "start_zombie_round_logic" );
+
+	for ( i = 0; i < level.random_perk_structs.size; i++ )
+	{
+		if ( isDefined( level.random_perk_structs[ i ] ) )
+		{
+            iprintln(i + " " + level.random_perk_structs[i].model);
+        }
+        wait 1;
+    }
+}
+
 
 leaper_round_tracker_override()
 {	
@@ -201,5 +219,140 @@ leaper_round_tracker_override()
 			level.music_round_override = 0;
 			level.leaper_round_count += 1;
 		}
+	}
+}
+
+init_elevator_perks_override()
+{
+    if( getDvar("die_rise_whoswho") == "")
+    {
+        setDvar("die_rise_whoswho", 0);
+    }
+
+	level.elevator_perks = [];
+	level.elevator_perks_building = [];
+	level.elevator_perks_building[ "green" ] = [];
+	level.elevator_perks_building[ "blue" ] = [];
+	level.elevator_perks_building[ "green" ][ 0 ] = spawnstruct();
+	level.elevator_perks_building[ "green" ][ 0 ].model = "zombie_vending_revive";
+	level.elevator_perks_building[ "green" ][ 0 ].script_noteworthy = "specialty_quickrevive";
+	level.elevator_perks_building[ "green" ][ 0 ].turn_on_notify = "revive_on";
+	a = 1;
+	b = 2;
+	if ( getDvar("die_rise_whoswho") == 1)
+	{
+		a = 2;
+		b = 1;
+	}
+	level.elevator_perks_building[ "green" ][ a ] = spawnstruct();
+	level.elevator_perks_building[ "green" ][ a ].model = "p6_zm_vending_chugabud";
+	level.elevator_perks_building[ "green" ][ a ].script_noteworthy = "specialty_finalstand";
+	level.elevator_perks_building[ "green" ][ a ].turn_on_notify = "chugabud_on";
+	level.elevator_perks_building[ "green" ][ b ] = spawnstruct();
+	level.elevator_perks_building[ "green" ][ b ].model = "zombie_vending_sleight";
+	level.elevator_perks_building[ "green" ][ b ].script_noteworthy = "specialty_fastreload";
+	level.elevator_perks_building[ "green" ][ b ].turn_on_notify = "sleight_on";
+	level.elevator_perks_building[ "blue" ][ 0 ] = spawnstruct();
+	level.elevator_perks_building[ "blue" ][ 0 ].model = "zombie_vending_jugg";
+	level.elevator_perks_building[ "blue" ][ 0 ].script_noteworthy = "specialty_armorvest";
+	level.elevator_perks_building[ "blue" ][ 0 ].turn_on_notify = "juggernog_on";
+	level.elevator_perks_building[ "blue" ][ 1 ] = spawnstruct();
+	level.elevator_perks_building[ "blue" ][ 1 ].model = "zombie_vending_three_gun";
+	level.elevator_perks_building[ "blue" ][ 1 ].script_noteworthy = "specialty_additionalprimaryweapon";
+	level.elevator_perks_building[ "blue" ][ 1 ].turn_on_notify = "specialty_additionalprimaryweapon_power_on";
+	level.elevator_perks_building[ "blue" ][ 2 ] = spawnstruct();
+	level.elevator_perks_building[ "blue" ][ 2 ].model = "p6_anim_zm_buildable_pap";
+	level.elevator_perks_building[ "blue" ][ 2 ].script_noteworthy = "specialty_weapupgrade";
+	level.elevator_perks_building[ "blue" ][ 2 ].turn_on_notify = "Pack_A_Punch_on";	players_expected = getnumexpectedplayers();
+	level.elevator_perks_building[ "blue" ][ 3 ] = spawnstruct();
+	level.elevator_perks_building[ "blue" ][ 3 ].model = "zombie_vending_doubletap2";
+	level.elevator_perks_building[ "blue" ][ 3 ].script_noteworthy = "specialty_rof";
+	level.elevator_perks_building[ "blue" ][ 3 ].turn_on_notify = "doubletap_on";
+	level.override_perk_targetname = "zm_perk_machine_override";
+	// level.elevator_perks_building[ "blue" ] = array_randomize( level.elevator_perks_building[ "blue" ] );
+	level.elevator_perks = arraycombine( level.elevator_perks_building[ "green" ], level.elevator_perks_building[ "blue" ], 0, 0 );
+	random_perk_structs = [];
+	revive_perk_struct = getstruct( "force_quick_revive", "targetname" );
+	revive_perk_struct = getstruct( revive_perk_struct.target, "targetname" );
+	perk_structs = getstructarray( "zm_random_machine", "script_noteworthy" );
+	i = 0;
+	while ( i < perk_structs.size )
+	{
+		random_perk_structs[ i ] = getstruct( perk_structs[ i ].target, "targetname" );
+		random_perk_structs[ i ].script_parameters = perk_structs[ i ].script_parameters;
+		random_perk_structs[ i ].script_linkent = getent( "elevator_" + perk_structs[ i ].script_parameters + "_body", "targetname" );
+		i++;
+	}
+	green_structs = [];
+	blue_structs = [];
+	_a1075 = random_perk_structs;
+	_k1075 = getFirstArrayKey( _a1075 );
+	while ( isDefined( _k1075 ) )
+	{
+		perk_struct = _a1075[ _k1075 ];
+		if ( isDefined( perk_struct.script_parameters ) )
+		{
+			if ( issubstr( perk_struct.script_parameters, "bldg1" ) )
+			{
+				green_structs[ green_structs.size ] = perk_struct;
+				break;
+			}
+			else
+			{
+				blue_structs[ blue_structs.size ] = perk_struct;
+			}
+		}
+		_k1075 = getNextArrayKey( _a1075, _k1075 );
+	}
+	green_structs = array_exclude( green_structs, revive_perk_struct );
+	// green_structs = array_randomize( green_structs );
+	// blue_structs = array_randomize( blue_structs );
+
+    // level.set_blue_structs = [];
+    // for ( i = 0; i < blue_structs.size; i++ )
+    // {
+    //     if ( issubstr( blue_structs[i].model, "zombie_vending_doubletap2" ) )
+    //     {
+    //         //level.set_blue_structs[0] = blue_structs[i];
+    //     }
+    //     if ( issubstr( blue_structs[i].model, "p6_anim_zm_buildable_pap" ) )
+    //     {
+    //         level.set_blue_structs[1] = blue_structs[i];
+    //     }
+    //     if ( issubstr( blue_structs[i].model, "zombie_vending_three_gun" ) )
+    //     {
+    //         level.set_blue_structs[2] = blue_structs[i];
+    //     }
+    //     if ( issubstr( blue_structs[i].model, "zombie_vending_jugg" ) )
+    //     {
+    //         level.set_blue_structs[3] = blue_structs[i];
+    //     }
+    // }
+    // blue_structs = set_blue_structs;
+
+	level.random_perk_structs = array( revive_perk_struct );
+	level.random_perk_structs = arraycombine( level.random_perk_structs, green_structs, 0, 0 );
+	level.random_perk_structs = arraycombine( level.random_perk_structs, blue_structs, 0, 0 );
+	i = 0;
+	while ( i < level.elevator_perks.size )
+	{
+		if ( !isDefined( level.random_perk_structs[ i ] ) )
+		{
+			i++;
+			continue;
+		}
+		else
+		{
+			level.random_perk_structs[ i ].targetname = "zm_perk_machine_override";
+			level.random_perk_structs[ i ].model = level.elevator_perks[ i ].model;
+			level.random_perk_structs[ i ].script_noteworthy = level.elevator_perks[ i ].script_noteworthy;
+			level.random_perk_structs[ i ].turn_on_notify = level.elevator_perks[ i ].turn_on_notify;
+			if ( !isDefined( level.struct_class_names[ "targetname" ][ "zm_perk_machine_override" ] ) )
+			{
+				level.struct_class_names[ "targetname" ][ "zm_perk_machine_override" ] = [];
+			}
+			level.struct_class_names[ "targetname" ][ "zm_perk_machine_override" ][ level.struct_class_names[ "targetname" ][ "zm_perk_machine_override" ].size ] = level.random_perk_structs[ i ];
+		}
+		i++;
 	}
 }

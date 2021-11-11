@@ -28,6 +28,7 @@
 * Set first box to always be in Cafeteria
 
 ### Die Rise
+* set perk locations
 * add semtex wallbuy
 * patch slide death
 
@@ -64,3 +65,4 @@
 ### Power Ups 
 
 ### Perks
+* fix bug with perk bottle

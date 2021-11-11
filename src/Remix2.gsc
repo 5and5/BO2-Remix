@@ -16,7 +16,7 @@
 
 main()
 { 
-	level.VERSION = "0.4.9";
+	level.VERSION = "0.5.0";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -73,21 +73,24 @@ connected()
 			self iPrintLn("Version " + level.VERSION);
        		self setClientDvar( "com_maxfps", 101 );
 
-			self graphic_tweaks();
 			self set_movement_dvars();
 			self set_players_score();
 			self set_character_option();
 
+			self graphic_tweaks();
+			self thread night_mode();
+
         	self thread timer_hud();
 			self thread health_bar_hud();
+
 			self thread max_ammo_refill_clip();
 			self thread carpenter_repair_shield();
 			self thread inspect_weapon();
+
 			self thread give_perma_perks();
 			self thread give_bank_fridge();
+
 			self thread mulekick_additional_perks();
-			self thread night_mode();
-			
         }
 
         if(level.inital_spawn)
@@ -101,6 +104,7 @@ connected()
 
 			level thread coop_pause();
 			level thread fake_reset();
+
 			level thread zombie_health_fix();
 			// level thread shared_magic_box();
 
@@ -2041,16 +2045,20 @@ give_weapons()
 	self switchToWeapon(weapon);
 }
 
-graphic_tweaks()
 {
 	self setclientdvar("r_fog", 0);
 	self setclientdvar("r_dof_enable", 0);
-	self setclientdvar("r_lodBiasRigid", -1000);
-	self setclientdvar("r_lodBiasSkinned", -1000);
+graphic_tweaks()
+	// self setclientdvar("r_lodBiasRigid", -1000); // casues error
+	// self setclientdvar("r_lodBiasSkinned", -1000);
 	self setClientDvar("r_lodScaleRigid", 1);
 	self setClientDvar("r_lodScaleSkinned", 1);
 	self setclientdvar("sm_sunquality", 2);
 	self setclientdvar("r_enablePlayerShadow", 1);
+	self setclientdvar( "vc_fbm", "0 0 0 0" );
+	self setclientdvar( "vc_fsm", "1 1 1 1" );
+	self setclientdvar( "vc_fgm", "1 1 1 1" );
+	self setclientdvar( "r_skyColorTemp", 25000 );
 }
 
 carpenter_repair_shield()
@@ -3215,39 +3223,26 @@ night_mode()
 	flag_wait( "start_zombie_round_logic" );
 	wait 0.05;	
 
-	self setclientdvar( "r_dof_enable", 0 );
-	self setclientdvar( "r_enablePlayerShadow", 1 );
-	self setclientdvar( "r_lodBiasRigid", -1000 );
-	self setclientdvar( "r_lodBiasSkinned", -1000 );
-	self setClientDvar( "r_lodScaleRigid", 1) ;
-	self setClientDvar( "r_lodScaleSkinned", 1 );
-	self setclientdvar( "r_enablePlayerShadow", 1 );
-	self setclientdvar( "sm_sunquality", 2 );
-	self setclientdvar( "vc_fbm", "0 0 0 0" );
-	self setclientdvar( "vc_fsm", "1 1 1 1" );
-	self setclientdvar( "vc_fgm", "1 1 1 1" );
-	self setclientdvar( "r_skyColorTemp", 25000 );
-
 	self thread night_mode_watcher();
 }
 
 night_mode_watcher()
 {	
 	if( getDvar( "night_mode") == "" )
-		setDvar( "night_mode", 1 );
+		setDvar( "night_mode", 0 );
 
 	wait 1;
 
 	while(1)
-	{	
-		if( getDvarInt( "night_mode" ) == 0 )
+	{
+		while( getDvarInt( "night_mode" ) == 0 )
 		{
 			wait 0.1;
 		}
 		self thread enable_night_mode();
 		self thread visual_fix();
 
-		if( getDvarInt( "night_mode" ) == 1 )
+		while( getDvarInt( "night_mode" ) == 1 )
 		{
 			wait 0.1;
 		}
