@@ -19,7 +19,7 @@
 
 main()
 { 
-	level.VERSION = "0.5.1";
+	level.VERSION = "0.5.2";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -130,6 +130,7 @@ connected()
 			{
 				case "zm_transit":
 					remove_tombstone();
+					remove_speedcola();
 					self thread jetgun_buff();
 				case "zm_nuked":
 				case "zm_highrise":
@@ -1791,8 +1792,40 @@ spawn_custom_wallbuys()
 
 remove_tombstone()
 {
-	level notify( "tombstone_removed" );
-	level thread maps/mp/zombies/_zm_perks::perk_machine_removal( "specialty_scavenger" );
+	vending_triggers = getentarray( "zombie_vending", "targetname" );
+	for (i = 0; i < vending_trigger.size; i++)
+	{
+		trig = vending_triggers[i];
+		if (IsDefined(trig.script_noteworthy) && trig.script_noteworthy == "specialty_scavenger")
+		{
+			trig.clip delete();
+			trig.machine delete();
+			trig.bump delete();
+			trig delete();
+			break;
+		}
+	}
+}
+
+remove_speedcola()
+{
+	if ( level.scr_zm_map_start_location != "town" )
+		return;
+
+	// delete old machine
+	vending_triggers = getentarray( "zombie_vending", "targetname" );
+	for (i = 0; i < vending_trigger.size; i++)
+	{
+		trig = vending_triggers[i];
+		if (IsDefined(trig.script_noteworthy) && trig.script_noteworthy == "specialty_fastreload")
+		{
+			trig.clip delete();
+			trig.machine delete();
+			trig.bump delete();
+			trig delete();
+			break;
+		}
+	}
 }
 
 
