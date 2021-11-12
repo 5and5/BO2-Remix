@@ -12,7 +12,6 @@
 #### 
 
 #### Depot
-* pap
 
 #### Farm
 * claymore

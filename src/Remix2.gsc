@@ -19,7 +19,7 @@
 
 main()
 { 
-	level.VERSION = "0.5.0";
+	level.VERSION = "0.5.1";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -101,7 +101,9 @@ connected()
 			level.inital_spawn = false;
 
 			set_startings_chests();
-			set_custom_wallbuys();
+
+			spawn_custom_wallbuys();
+			//spawn_pack_punch();
 
 			raygun_mark2_probabilty();
 			when_fire_sales_should_drop();
@@ -127,6 +129,7 @@ connected()
 			switch( getDvar("mapname") )
 			{
 				case "zm_transit":
+					remove_tombstone();
 					self thread jetgun_buff();
 				case "zm_nuked":
 				case "zm_highrise":
@@ -1780,10 +1783,16 @@ playchalkfx( effect, origin, angles ) //custom function
 	}
 }
 
-set_custom_wallbuys()
+spawn_custom_wallbuys()
 {
 	//spawn_wallbuy_weapon( ( 0, -270, 0 ), (-6834, 4553, -25), "claymore_zm_fx", "claymore_zm", "t6_wpn_claymore_world", "claymore", "weapon_upgrade" );
 
+}
+
+remove_tombstone()
+{
+	level notify( "tombstone_removed" );
+	level thread maps/mp/zombies/_zm_perks::perk_machine_removal( "specialty_scavenger" );
 }
 
 
@@ -2529,6 +2538,26 @@ set_startings_chests()
 		level.chest_index = desired_chest_index;
 	}
 }
+
+perk_machine_prone_watcher()
+{
+	change_collected = false;
+	while(1)
+	{
+		players = get_players();
+		for(i=0;i<players.size;i++)
+		{
+			if( Distance( players[i].origin, self.origin ) < 60 && players[i] GetStance() == "prone" )
+			{
+				players[i].score += 100;
+				change_collected = true;
+			}
+		}
+		if( isdefined( change_collected ) && change_collected )
+			break;
+		wait .1;
+	}
+}	
 
 
 /*

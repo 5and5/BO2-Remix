@@ -86,6 +86,9 @@
 * Jetgun recharges faster
 * Jetgun recharges while away
 
+#### Bus Depot
+* Pack-A-Punch Added
+
 ### Die Rise
 * Un-patched Sliquifier
 * Un-patched trample steam zone changes
