@@ -12,16 +12,13 @@
 #### 
 
 #### Depot
-* Pap
 
 #### Farm
-* claymore
 * dogs
 
 #### Town
 * Claymore
 * move mp5 next to semtex
-* set first box to dt
 * dogs
 
 ### Nuketown
@@ -32,14 +29,13 @@
 * all players can have blundergat from box
 * reduce tomhawk recharge time
 * Set a key to always be next to the Cafeteria
-* Set first box to always be in Cafeteria
 
 ### Die Rise
 * set perk locations
 * add semtex wallbuy
 * patch slide death
 
-### Buried`
+### Buried
 * delete camping jug
 * witches give perk slot instead of perk bottle
 

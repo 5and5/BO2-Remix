@@ -37,6 +37,7 @@
 
 ### Visual
 * Tweaked graphics
+* Fog disabled
 * Night mode option with ```night_mode``` dvar
 
 ### Patches

@@ -119,6 +119,7 @@ connected()
 			wallbuy_increase_trigger_radius();
 			level thread wallbuy_dynamic_increase_trigger_radius();
 
+
 			switch( getDvar("mapname") )
 			{
 				case "zm_transit":
@@ -2010,8 +2011,10 @@ max_ammo_refill_clip()
 set_players_score()
 {
 	flag_wait( "start_zombie_round_logic" );
-
-	self.score = 555;
+	if( self.score == 500)
+		self.score = 555;
+	else
+		self.score += 5;
 }
 
 give_all_perks()
