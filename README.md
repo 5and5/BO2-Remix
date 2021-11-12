@@ -43,6 +43,7 @@
 * Bank automatically full
 * Perma Perks given
 * Fridge has AN94
+* Set box starting locations
 * Zombie health fix
 * Trap fix
 * Round 255 round cap removed
@@ -118,3 +119,4 @@ hud_health_bar
 * Naomi_
 * Chase
 * DoktorSAS
+* HuthTV

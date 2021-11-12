@@ -9,20 +9,27 @@
 * Avogadro drop max ammo
 * buff the bus
 
+#### 
+
 #### Depot
+* Pap
 
 #### Farm
+* claymore
+* dogs
 
 #### Town
-* move speed outside of the bank
+* Claymore
+* move mp5 next to semtex
 * set first box to dt
+* dogs
 
 ### Nuketown
 * Pack-A-Punch is always behind the Green House
 
 ### Mob
-* blunder gate does 50% zombies health
-* all players can have blundergate from box
+* blundergat does 50% zombies health
+* all players can have blundergat from box
 * reduce tomhawk recharge time
 * Set a key to always be next to the Cafeteria
 * Set first box to always be in Cafeteria
@@ -32,7 +39,7 @@
 * add semtex wallbuy
 * patch slide death
 
-### Buried
+### Buried`
 * delete camping jug
 * witches give perk slot instead of perk bottle
 
@@ -61,6 +68,8 @@
 ### Weapons 
 * remove some shitty weapons from the box
 * fix shared box
+* make m72 limited
+* probability changes for trade outs
 
 ### Power Ups 
 

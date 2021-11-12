@@ -7,7 +7,7 @@
 //#include maps/mp/zm_highrise_elevators;
 
 
-init()
+main()
 {
     replaceFunc( maps/mp/zombies/_zm_ai_leaper::leaper_round_tracker, ::leaper_round_tracker_override );
     //replaceFunc( maps/mp/zm_highrise_elevators::init_elevator_perks, ::init_elevator_perks_override );

@@ -97,6 +97,8 @@ connected()
 		{
 			level.inital_spawn = false;
 
+			set_startings_chests();
+
 			raygun_mark2_probabilty();
 			when_fire_sales_should_drop();
 			electric_trap_always_kill();
@@ -2390,6 +2392,43 @@ wallbuy_dynamic_increase_trigger_radius()
 		}
 
 		wait 0.5;
+	}
+}
+
+set_startings_chests()
+{
+	switch(level.scr_zm_map_start_location)
+	{
+		case "tomb":
+			start_chest = "bunker_tank_chest";
+			break;
+		case "prison":
+			start_chest = "cafe_chest";
+			break;
+		case "town":
+			start_chest = "town_chest_2";
+			break;
+		default:
+			return;
+			break;
+	}
+
+	for(i = 0; i < level.chests.size; i++)
+	{
+        if(level.chests[i].script_noteworthy == start_chest)
+    		desired_chest_index = i; 
+        else if(level.chests[i].hidden == 0)
+     		nondesired_chest_index = i;               	
+	}
+
+	if( isdefined(nondesired_chest_index) && (nondesired_chest_index < desired_chest_index))
+	{
+		level.chests[nondesired_chest_index] hide_chest();
+		level.chests[nondesired_chest_index].hidden = 1;
+
+		level.chests[desired_chest_index].hidden = 0;
+		level.chests[desired_chest_index] show_chest();
+		level.chest_index = desired_chest_index;
 	}
 }
 
