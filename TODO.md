@@ -12,14 +12,16 @@
 #### 
 
 #### Depot
+* pap
 
 #### Farm
-* dogs
+* claymore
+* dogs maybe
 
 #### Town
-* Claymore
+* claymore
 * move mp5 next to semtex
-* dogs
+* dogs maybe
 
 ### Nuketown
 * Pack-A-Punch is always behind the Green House
