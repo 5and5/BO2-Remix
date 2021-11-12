@@ -12,12 +12,9 @@
 #### Depot
 
 #### Farm
-* claymore
 * dogs maybe
 
 #### Town
-* claymore
-* move mp5 next to semtex
 * dogs maybe
 
 ### Nuketown

@@ -17,7 +17,6 @@
 main()
 {
 	replacefunc(maps/mp/zombies/_zm_perks::perk_machine_spawn_init, ::perk_machine_spawn_init);
-	//level thread move_struct_dvar(1767, -1129, -55, 90);
 }
 
 move_struct_dvar( x, y, z, a )
