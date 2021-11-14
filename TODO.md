@@ -39,6 +39,7 @@
 * set perk locations
 * add semtex wallbuy
 * patch slide death
+* add phd perma perk
 
 ### Buried
 * delete camping jug
@@ -76,7 +77,7 @@
 * fix bug with perk bottle
 
 ### Bugs
-* walkers on town
 * buried box causes crash
 * sph hud showing on 50 and showing on dog rounds
 * shared box
+* mark2 probability crashes buried

@@ -98,7 +98,8 @@ extra_perk_spawns() //custom function
 	else if ( location == "transit" && !is_classic() )
 	{
 		level.busPerkArray = array( "specialty_quickrevive", "specialty_weapupgrade" );
-
+		level.zombiemode_using_revive_perk = 1;
+		
 		level.busPerks[ "specialty_quickrevive" ] = spawnstruct();
 		level.busPerks[ "specialty_quickrevive" ].origin = (-6706, 5016, -56);
 		level.busPerks[ "specialty_quickrevive" ].angles = (0, 180, 0 );

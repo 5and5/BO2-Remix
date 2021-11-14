@@ -73,7 +73,7 @@
 * Weapons can be shared by knifing the box (bugged atm)
 * Box perma perk guarantees a good weapon first hit
 * First box setup guaranteed
-* Mark 2 probability increased from 33% to 50%
+* Mark 2 probability increased from 33% to 50% (bugged atm)
 
 ### Buildables
 * Buildables can be built with get parts
