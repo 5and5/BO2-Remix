@@ -19,7 +19,7 @@
 
 main()
 { 
-	level.VERSION = "0.5.2";
+	level.VERSION = "0.5.3";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -1988,6 +1988,122 @@ add_wallbuy( name )
 *
 * *************************************************
 */
+
+sort_array_by_priority( arr )
+{
+    for (i = 0; i < arr.size; i++)
+    {
+        min_idx = i;
+        for (j = i+1; j < n; j++)
+		{
+        	if (arr[j].priority < arr[min_idx].priority && arr[j].is_on == 1)
+           		min_idx = j;
+		}
+ 
+		temp = arr[min_idx]
+		arr[min_idx] = arr[i];
+        arr[i] = temp;
+    }
+}
+
+get_array_index( name )
+{
+	for( i = 0; i < self.total_hud.size; i++)
+	{
+		if ( self.total_hud[i].name == name)
+			return i;
+	}
+}
+
+set_hud_alpha_location( hud, dvar, name )
+{
+	if( dvar )
+	{
+		hud.y = 2 + ( 15 * get_array_index( name ));
+		hud.alpha = 1;
+		hud.is_on = 1;
+	}
+	else
+	{
+		hud.alpha = 0;
+		hud.is_on = 0;
+	}
+}
+
+hud_watcher()
+{
+	self.total_hud = [];
+	// total_hud_on = [];
+
+	self.timer_hud.priority = 1;
+	self.round_timer_hud.priority = 2;
+
+	for( i = 0; i < total_hud.size; i++)
+	{
+		if( self.total_hud[i].is_on == 1)
+		{
+			self.total_hud_on[i] = 1;
+		}
+		for( i = 0; i < self.total_hud.size; i++)
+		{
+			if( total_hud_on[i] == 1)
+			{
+
+			}
+		}
+	}
+
+	if( getDvar( "hud_timer") == "" )
+		setDvar( "hud_timer", 0 );
+	if( getDvar( "hud_round_timer") == "" )
+		setDvar( "hud_round_timer", 0 );
+	while(1)
+	{
+		timer = getDvarInt("hud_timer"); 
+		round_timer = getDvarInt("hud_round_timer");
+
+		set_hud_alpha_location( self.timer_hud, timer, "timer");
+		
+		if( timer )
+		{
+			self.timer_hud.y = 2 + ( 15 * get_array_index("timer"));
+			self.timer_hud.alpha = 1;
+			self.timer_hud.is_on = 1;
+		}
+		else
+		{
+			self.timer_hud.alpha = 0;
+			self.timer_hud.is_on = 0;
+		}
+		if( round_timer )
+		{
+			self.round_timer_hud.y = (2 + (15 * getDvarInt("hud_timer") ) );
+			self.round_timer_hud.alpha = 1;
+		}
+		else
+		{
+			self.round_timer_hud.alpha = 0;
+		}
+	}
+
+
+	while(1)
+	{
+		while( getDvarInt( "hud_round_timer" ) == 0 )
+		{
+			wait 0.1;
+		}
+		self.round_timer_hud.y = (2 + (15 * getDvarInt("hud_timer") ) );
+		self.round_timer_hud.alpha = 1;
+
+		while( getDvarInt( "hud_round_timer" ) >= 1 )
+		{
+			wait 0.1;
+		}
+		self.round_timer_hud.alpha = 0;
+
+	}
+}
 
 timer_hud()
 {	

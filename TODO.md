@@ -21,10 +21,16 @@
 * Pack-A-Punch is always behind the Green House
 
 ### Mob
-* blundergat does 50% zombies health
+* upgraded blundergat does 50% zombies health
 * all players can have blundergat from box
-* reduce tomhawk recharge time
+* reduce tomhawk recharge time or kill more zombies
 * Set a key to always be next to the Cafeteria
+* shield costing points
+* capping points 250k
+* spawn shield at only fans
+* reducing acidgat ammo
+* refill plane automatic
+* change double tap spawn zone
 
 ### Die Rise
 * set perk locations
@@ -42,7 +48,6 @@
 * Increase Max Ammo chances from digging to 10%
 * (maybe) Fix Lighting and Fire Staff crashes
 
- 
 ### general
 
 ### HUD
@@ -57,13 +62,21 @@
 
 ### Spawn Delay
 
-### Weapons 
+### Weapons
+* claymores buff damage to 33% damage
 * remove some shitty weapons from the box
 * fix shared box
-* make m72 limited
+* make m72 limited on nuketown
 * probability changes for trade outs
 
-### Power Ups 
+### Power Ups
+* Remove firesales
 
 ### Perks
 * fix bug with perk bottle
+
+### Bugs
+* walkers on town
+* buried box causes crash
+* sph hud on showing on 50 and on dog rounds
+* 
