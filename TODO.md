@@ -16,6 +16,7 @@
 * dogs maybe
 
 #### Town
+* mp5 by semtex (not working fully)
 * dogs maybe
 
 ### Nuketown
@@ -36,9 +37,9 @@
 * change double tap spawn zone
 
 ### Die Rise
-* set perk locations
+* set perk locations (not working)
 * add semtex wallbuy
-* patch slide death
+* patch slide death (not working)
 * add phd perma perk
 
 ### Buried
@@ -71,13 +72,13 @@
 * probability changes for trade outs
 
 ### Power Ups
-* Remove firesales
 
 ### Perks
 * fix bug with perk bottle
 
 ### Bugs
-* buried box causes crash
 * sph hud showing on 50 and showing on dog rounds
+
+### Errors
 * shared box
 * mark2 probability crashes buried

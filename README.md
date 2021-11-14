@@ -58,11 +58,11 @@
 
 ### Power Ups
 * Drop rate increased from 2% to 3%
-* Fire sales now starting dropping on round 5 til you more the first box
+* Fire sales removed
 * Max ammos now refill clip as well
+* Carpenters now repair shields
 * Insta kill timer now stacks
 * Double points timer now stacks
-* Carpenters now repair shields
 
 ### Perks
 * Players can sprint while drinking perks

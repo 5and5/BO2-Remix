@@ -66,7 +66,7 @@ connected()
         self waittill("spawned_player");
 
 		// testing
-		// self thread set_starting_round( 100 );
+		// self thread set_starting_round( 60 );
 		// self thread give_all_perks();
 		// self thread give_weapons();
 
@@ -114,7 +114,7 @@ connected()
 			set_startings_chests();
 
 			//raygun_mark2_probabilty();
-			when_fire_sales_should_drop();
+			remove_fire_sales();
 
 			level thread buildbuildables();
 			level thread buildcraftables();
@@ -1129,13 +1129,12 @@ ai_calculate_health_override( round_number ) //checked changed to match cerberus
 
 		for( i = 0; i < round; i++ )
 		{
-			if( round % 5 == 0)
-			{
-				multiplier++;
-			}
-			zombie_health += int(5000 * multiplier);
+			multiplier++;
+			zombie_health += int(4000 + (500 * multiplier) );
 		}
 		level.zombie_health = int(zombie_health + 51780); // round 51 zombies health
+
+		iprintln( level.zombie_health );
 	}
 	else
 	{
@@ -1739,14 +1738,10 @@ afterlife_weapon_limit_check( limited_weapon )
 
 func_should_drop_fire_sale_override() //checked partially changed to match cerberus output
 {
-	if ( level.zombie_vars[ "zombie_powerup_fire_sale_on" ] == 1 || level.chest_moves < 1 || is_true( level.disable_firesale_drop ) && level.round_number > 5 )
-	{
-		return 1; // firesale now drop untill you move the first box
-	}
-	return 0;
+	return 0; // fire sales never drop
 }
 
-when_fire_sales_should_drop()
+remove_fire_sales()
 {
 	level.zombie_powerups[ "fire_sale" ].func_should_drop_with_regular_powerups = ::func_should_drop_fire_sale_override;
 }
@@ -2071,9 +2066,6 @@ set_starting_round( round )
 {
 	flag_wait( "start_zombie_round_logic" );
 	wait 0.05;
-
-	iPrintLn("round");
-	iPrintLn(round);
 
 	if( getDvar( "start_round" ) == "")
 		setDvar( "start_round", round );
