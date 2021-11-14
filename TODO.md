@@ -10,6 +10,7 @@
 * buff the bus
 
 #### Depot
+* dogs maybe
 
 #### Farm
 * dogs maybe
@@ -18,7 +19,9 @@
 * dogs maybe
 
 ### Nuketown
+* dogs maybe
 * Pack-A-Punch is always behind the Green House
+* make m72 limited on nuketown
 
 ### Mob
 * upgraded blundergat does 50% zombies health
@@ -49,6 +52,7 @@
 * (maybe) Fix Lighting and Fire Staff crashes
 
 ### general
+* edit zombie health scaling 
 
 ### HUD
 * setup an array of positions for hud
@@ -60,13 +64,9 @@
 * Remaining
 * drop cycle
 
-### Spawn Delay
-
 ### Weapons
 * claymores buff damage to 33% damage
 * remove some shitty weapons from the box
-* fix shared box
-* make m72 limited on nuketown
 * probability changes for trade outs
 
 ### Power Ups
@@ -78,5 +78,5 @@
 ### Bugs
 * walkers on town
 * buried box causes crash
-* sph hud on showing on 50 and on dog rounds
-* 
+* sph hud showing on 50 and showing on dog rounds
+* shared box

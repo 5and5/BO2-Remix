@@ -65,6 +65,7 @@ connected()
         self waittill("spawned_player");
 
 		// testing
+		// self thread set_starting_round( 100 );
 		// self thread give_all_perks();
 		// self thread give_weapons();
 
@@ -76,8 +77,8 @@ connected()
 			self iPrintLn("Version " + level.VERSION);
        		self setClientDvar( "com_maxfps", 101 );
 
+			self set_players_score( 555 );
 			self set_movement_dvars();
-			self set_players_score();
 			self set_character_option();
 
 			self graphic_tweaks();
@@ -100,36 +101,36 @@ connected()
 		{
 			level.inital_spawn = false;
 
-			set_startings_chests();
-			spawn_custom_wallbuys();
-
-			raygun_mark2_probabilty();
-			when_fire_sales_should_drop();
-			electric_trap_always_kill();
-			disable_high_round_walkers();
-
 			level thread coop_pause();
 			level thread fake_reset();
 
-			level thread zombie_health_fix();
+			// level thread zombie_health_fix();
 			// level thread shared_magic_box();
-
-			level thread buildbuildables();
-			level thread buildcraftables();
 
 			flag_wait( "start_zombie_round_logic" );
    			wait 0.05;
 
+			set_startings_chests();
+
+			raygun_mark2_probabilty();
+			when_fire_sales_should_drop();
+
+			level thread buildbuildables();
+			level thread buildcraftables();
+
+			electric_trap_always_kill();
+			disable_high_round_walkers();
+
 			wallbuy_increase_trigger_radius();
 			level thread wallbuy_dynamic_increase_trigger_radius();
-
 
 			switch( getDvar("mapname") )
 			{
 				case "zm_transit":
 					//remove_tombstone();
 					remove_speedcola();
-					remove_wallbuy( "rottweil72_zm", "town");
+					remove_wallbuy( "rottweil72_zm", "town" );
+					spawn_custom_wallbuys();
 					self thread jetgun_buff();
 				case "zm_nuked":
 				case "zm_highrise":
@@ -1980,6 +1981,22 @@ add_wallbuy( name )
 	struct.trigger_stub = unitrigger_stub;
 }
 
+set_starting_round( round )
+{
+	flag_wait( "start_zombie_round_logic" );
+	wait 0.05;
+
+	iPrintLn("round");
+	iPrintLn(round);
+
+	if( getDvar( "start_round" ) == "")
+		setDvar( "start_round", round );
+
+	level.first_round = false;
+	level.zombie_vars[ "zombie_spawn_delay" ] = 0.08;
+	level.round_number = getDvarInt( "start_round" );
+}
+
 
 /*
 * *************************************************
@@ -2000,7 +2017,7 @@ sort_array_by_priority( arr )
            		min_idx = j;
 		}
  
-		temp = arr[min_idx]
+		temp = arr[min_idx];
 		arr[min_idx] = arr[i];
         arr[i] = temp;
     }
@@ -2063,7 +2080,7 @@ hud_watcher()
 		round_timer = getDvarInt("hud_round_timer");
 
 		set_hud_alpha_location( self.timer_hud, timer, "timer");
-		
+
 		if( timer )
 		{
 			self.timer_hud.y = 2 + ( 15 * get_array_index("timer"));
@@ -2413,11 +2430,11 @@ max_ammo_refill_clip()
 	}
 }
 
-set_players_score()
+set_players_score( score )
 {
 	flag_wait( "start_zombie_round_logic" );
 	if( self.score == 500)
-		self.score = 555;
+		self.score = score;
 	else
 		self.score += 5;
 }
@@ -2600,7 +2617,7 @@ coop_pause()
 
 	players = get_players();
 
-	while(1)//(players.size > 1) // TODO
+	while(players.size > 1)
 	{
 		if( getDvarInt( "coop_pause" ) == 1 )
 		{	
