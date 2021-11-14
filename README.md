@@ -104,6 +104,9 @@
 * Leaper rounds always happen every 4 rounds
 * Camping in the shaft is limited to 5 minutes at a time
 
+### Buried
+* Pack-a-punch camo replaced with Mob of the Dead animated camo
+
 ### Origins
 * Ice and Wind Staffs are in the box
 * Shovels given on spawn
