@@ -82,7 +82,6 @@
 
 ### Weapons
 * Increased wall weapon buy distance
-* Blundergats damage no longer falls off
 
 ### Equipment
 * Claymores do 1/3 of zombies max health
@@ -108,6 +107,10 @@
 * Un-patched trample steam zone changes
 * Leaper rounds always happen every 4 rounds
 * Camping in the shaft is limited to 5 minutes at a time
+
+### Mob of the Dead
+* Blundergats damage no longer falls off
+* Blundergat is no longer limited in the box
 
 ### Buried
 * Pack-a-punch camo replaced with Mob of the Dead animated camo

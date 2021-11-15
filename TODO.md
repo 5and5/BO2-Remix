@@ -66,16 +66,15 @@
 * drop cycle
 
 ### Weapons
-* claymores buff damage to 33% damage
 * remove some shitty weapons from the box
 * probability changes for trade outs
 
 ### Power Ups
 
 ### Perks
-* fix bug with perk bottle
 
 ### Bugs
+* fix bug with perk bottle
 * sph hud showing on 50 and showing on dog rounds
 
 ### Errors
