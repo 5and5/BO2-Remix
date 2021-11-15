@@ -25,7 +25,6 @@
 * make m72 limited on nuketown
 
 ### Mob
-* upgraded blundergat does 50% zombies health
 * all players can have blundergat from box
 * reduce tomhawk recharge time or kill more zombies
 * Set a key to always be next to the Cafeteria

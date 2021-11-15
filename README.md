@@ -68,6 +68,7 @@
 * Players can sprint while drinking perks
 * Perk bottles also increase players perk limit by 1
 * Mulekick increases ads, weapon switching, grenade tossing and perk drinking
+* Deadshot increases head shot damage by x2 
 
 ### Mystery Box
 * Weapons can be shared by knifing the box (bugged atm)
@@ -81,6 +82,10 @@
 
 ### Weapons
 * Increased wall weapon buy distance
+* Blundergats damage no longer falls off
+
+### Equipment
+* Claymores do 1/3 of zombies max health
 
 ### Tranzit
 * Jetgun recharges faster
