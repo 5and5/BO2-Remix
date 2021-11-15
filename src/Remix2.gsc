@@ -19,7 +19,7 @@
 
 main()
 { 
-	level.VERSION = "0.5.6";
+	level.VERSION = "0.5.7";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -77,12 +77,13 @@ connected()
 
 			self iprintln("Welcome to Remix!");
 			self iPrintLn("Version " + level.VERSION);
-       		self setClientDvar( "com_maxfps", 100 );
+			// self iprintln("Made by 5and5");
+       		// self setClientDvar( "com_maxfps", 100 );
 
 			self set_players_score( 555 );
 			self set_movement_dvars();
 			self set_character_option();
-
+		
 			self graphic_tweaks();
 			self thread night_mode();
 
@@ -113,7 +114,8 @@ connected()
    			wait 0.05;
 
 			set_startings_chests();
-
+			set_visionset();
+			
 			//raygun_mark2_probabilty();
 			remove_fire_sales();
 
@@ -2192,6 +2194,12 @@ enable_free_perks_before_power()
 	level.disable_free_perks_before_power = undefined;
 }
 
+set_visionset()
+{
+	visionSetNaked( GetDvar( "mapname" ), 3.0 );
+}
+
+
 /*
 * *************************************************
 *	
@@ -3107,14 +3115,14 @@ buildbuildables()
 			buildbuildable( "slipgun_zm" );
 			buildbuildable( "springpad_zm" );
 			buildbuildable( "sq_common", 1 );
-			//removebuildable( "keys_zm" );
+			removebuildable( "keys_zm" );
 		}
 		else if(level.scr_zm_map_start_location == "processing")
 		{
 			level waittill( "buildables_setup" ); // wait for buildables to randomize
 			wait 0.05;
 
-			level.buildables_available = array("subwoofer_zm", "springpad_zm", "headchopper_zm");
+			level.buildables_available = array("subwoofer_zm", "springpad_zm", "headchopper_zm", "turbine");
 
 			//removebuildable( "keys_zm" );
 			buildbuildable( "turbine" );

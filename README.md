@@ -122,7 +122,6 @@
 * Hidden perk bottle dig spot are always visible
 * Tank has instant cool down
 
-
 ### Dvars
 ```
 coop_pause
