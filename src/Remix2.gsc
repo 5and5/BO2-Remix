@@ -1209,10 +1209,10 @@ ai_calculate_health_override( round_number ) //checked changed to match cerberus
 
 get_player_weapon_limit( player ) //checked matches cerberus output
 {
-	if ( isDefined( level.get_player_weapon_limit ) )
-	{
-		return [[ level.get_player_weapon_limit ]]( player );
-	}
+	// if ( isDefined( level.get_player_weapon_limit ) )
+	// {
+	// 	return [[ level.get_player_weapon_limit ]]( player );
+	// }
 	weapon_limit = 3;
 
 	return weapon_limit;
