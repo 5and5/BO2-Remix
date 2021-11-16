@@ -26,7 +26,6 @@
 
 ### Mob
 * reduce tomhawk recharge time or kill more zombies
-* Set a key to always be next to the Cafeteria
 * shield costing points
 * capping points 250k
 * spawn shield at only fans
@@ -74,6 +73,7 @@
 * fix bug with perk bottle
 * sph hud showing on 50 and showing on dog rounds
 * lose third gun on mob afterlife (maybe)
+* mp5 wall buy on town
 
 ### Errors
 * shared box

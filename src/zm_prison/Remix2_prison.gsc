@@ -7,6 +7,7 @@
 main()
 {
     replaceFunc( maps/mp/zm_prison::include_weapons, ::include_weapons_override );
+	replaceFunc( maps/mp/zm_alcatraz_sq::setup_master_key, ::setup_master_key );
 
     level.initial_spawn_prison = true;
     level thread onplayerconnect();
@@ -120,4 +121,22 @@ include_weapons_override()
 	add_limited_weapon( "ray_gun_upgraded_zm", 4 );
 	include_weapon( "tower_trap_zm", 0 );
 	include_weapon( "tower_trap_upgraded_zm", 0 );
+}
+
+setup_master_key()
+{
+	level.is_master_key_west = 0;
+	setclientfield( "fake_master_key", level.is_master_key_west + 1 );
+	if ( level.is_master_key_west )
+	{
+		level thread maps/mp/zm_alcatraz_sq::key_pulley( "west" );
+		exploder( 101 );
+		array_delete( getentarray( "wires_pulley_east", "script_noteworthy" ) );
+	}
+	else
+	{
+		level thread maps/mp/zm_alcatraz_sq::key_pulley( "east" );
+		exploder( 100 );
+		array_delete( getentarray( "wires_pulley_west", "script_noteworthy" ) );
+	}
 }
