@@ -25,15 +25,12 @@
 * make m72 limited on nuketown
 
 ### Mob
-* all players can have blundergat from box
 * reduce tomhawk recharge time or kill more zombies
 * Set a key to always be next to the Cafeteria
 * shield costing points
 * capping points 250k
 * spawn shield at only fans
 * reducing acidgat ammo
-* refill plane automatic
-* change double tap spawn zone
 
 ### Die Rise
 * set perk locations (not working)

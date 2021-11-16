@@ -111,6 +111,9 @@
 ### Mob of the Dead
 * Blundergats damage no longer falls off
 * Blundergat is no longer limited in the box
+* Plane automatically refills
+* Sniper trap buffed
+* Double tap zone changes
 
 ### Buried
 * Pack-a-punch camo replaced with Mob of the Dead animated camo
