@@ -111,6 +111,7 @@
 ### Mob of the Dead
 * Blundergats damage no longer falls off
 * Blundergat is no longer limited in the box
+* All plane parts are auto picked up
 * Plane automatically refills
 * Set key to always spawn next to the cafeteria
 * Sniper trap buffed

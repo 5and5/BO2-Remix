@@ -19,7 +19,7 @@
 
 main()
 { 
-	level.VERSION = "0.5.7";
+	level.VERSION = "0.5.8";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -3714,6 +3714,7 @@ buildcraftables()
 		{
 			buildcraftable( "alcatraz_shield_zm" );
 			buildcraftable( "packasplat" );
+			buildcraftable( "plane" );
 			changecraftableoption( 0 );
 		}
 		else if(level.scr_zm_map_start_location == "tomb")
