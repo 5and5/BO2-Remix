@@ -19,11 +19,11 @@
 
 main()
 { 
-	level.VERSION = "0.5.8";
+	level.VERSION = "0.5.9";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
-	replaceFunc( maps/mp/zombies/_zm_powerups::func_should_drop_fire_sale, ::func_should_drop_fire_sale_override );
+	//replaceFunc( maps/mp/zombies/_zm_powerups::func_should_drop_fire_sale, ::func_should_drop_fire_sale_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_on_hud, ::insta_kill_on_hud_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::double_points_powerup, ::double_points_powerup_override );
@@ -33,6 +33,7 @@ main()
     // replaceFunc( maps/mp/zombies/_zm_magicbox_lock::watch_for_lock, ::watch_for_lock_override );
 	replaceFunc( maps/mp/zombies/_zm::round_think, ::round_think_override );
 	replaceFunc( maps/mp/zombies/_zm_utility::disable_player_move_states, ::disable_player_move_states_override );
+	replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_canplayerreceiveweapon, ::treasure_chest_canplayerreceiveweapon_override);
 	replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_weapon_spawn, ::treasure_chest_weapon_spawn_override );
 	replaceFunc( maps/mp/zombies/_zm::ai_calculate_health, ::ai_calculate_health_override );
 	replaceFunc( maps/mp/zombies/_zm_utility::get_player_weapon_limit, ::get_player_weapon_limit );
@@ -116,7 +117,7 @@ connected()
 			set_startings_chests();
 			set_visionset();
 			
-			//raygun_mark2_probabilty();
+			raygun_mark2_probabilty();
 			remove_fire_sales();
 
 			level thread buildbuildables();
@@ -143,8 +144,8 @@ connected()
 					slipgun_always_kill();
 					die_rise_zone_changes();
 				case "zm_prison":
-					prison_tower_trap_changes();
 					mob_zone_changes();
+					prison_tower_trap_changes();
 					level thread prison_auto_refuel_plane();
 				case "zm_buried":
 				case "zm_tomb":
@@ -788,6 +789,47 @@ disable_player_move_states_override( forcestancechange ) //checked matches cerbe
 	}
 }
 
+treasure_chest_canplayerreceiveweapon_override( player, weapon, pap_triggers ) //checked matches cerberus output
+{
+	if ( !get_is_in_box( weapon ) )
+	{
+		return 0;
+	}
+	if ( isDefined( player ) && player has_weapon_or_upgrade( weapon ) )
+	{
+		return 0;
+	}
+	if ( !limited_weapon_below_quota( weapon, player, pap_triggers ) )
+	{
+		return 0;
+	}
+	if ( !player player_can_use_content( weapon ) )
+	{
+		return 0;
+	}
+	if ( isDefined( level.custom_magic_box_selection_logic ) )
+	{
+		if ( !( [[ level.custom_magic_box_selection_logic ]]( weapon, player, pap_triggers ) ) )
+		{
+			return 0;
+		}
+	}
+	if ( isDefined( player ) && isDefined( level.special_weapon_magicbox_check ) )
+	{
+		return player [[ level.special_weapon_magicbox_check ]]( weapon );
+	}
+	return 1;
+}
+
+is_setup_weapon( weapon )
+{
+	if( weapon == "raygun_mark2_zm" || weapon == "ray_gun_zm" || weapon == "cymbal_monkey_zm" || weapon == "blundergat_zm" || weapon == "slowgun_zm" || weapon == "m32_zm" )
+	{
+		return 1;
+	}
+	return 0;
+}
+
 treasure_chest_weapon_spawn_override( chest, player, respin ) //checked changed to match cerberus output
 {
 	if ( is_true( level.using_locked_magicbox ) )
@@ -852,7 +894,11 @@ treasure_chest_weapon_spawn_override( chest, player, respin ) //checked changed 
 		{
 			level.weapons_needed += 2;
 		}
-		if( level.default_start_location == "processing" || level.default_start_location == "tomb" || level.default_start_location == "prison")
+		if( level.default_start_location == "processing" || level.default_start_location == "tomb" )
+		{
+			level.weapons_needed += 1;
+		}
+		if( level.default_start_location == "prison" && level.players.size > 1 )
 		{
 			level.weapons_needed += 1;
 		}
@@ -862,18 +908,13 @@ treasure_chest_weapon_spawn_override( chest, player, respin ) //checked changed 
 	{
 		[[ level.custom_magic_box_weapon_wait ]]();
 	}
-	if ( is_true( player.pers_upgrades_awarded[ "box_weapon" ] ) )
-	{
-		rand = maps/mp/zombies/_zm_pers_upgrades_functions::pers_treasure_chest_choosespecialweapon( player );
-	}
-	else
-	{
-		rand = treasure_chest_chooseweightedrandomweapon( player );
-	}
+
+	rand = treasure_chest_chooseweightedrandomweapon( player );
+
 	// iPrintLn("weapon: " + rand);
 
 	// first box
-	if ( level.chest_moves == 0 && player.pers_magic_box_weapon_count == 1 )
+	if ( level.chest_moves == 0 )
 	{
 		ran = randomInt( (level.chest_max_move_usage - level.weapons_needed) - level.chest_accessed );
 		if ( ran == 0 && level.chest_accessed <= level.chest_max_move_usage && level.weapons_needed > 0)
@@ -960,7 +1001,7 @@ treasure_chest_weapon_spawn_override( chest, player, respin ) //checked changed 
 			}
 			if ( level.chest_accessed >= 4 && level.chest_accessed < 8 )
 			{
-				if ( random < 15 )//&& level.weapons_needed <= 0 ) // always get mark2 and monkeys before the box moves
+				if ( random < 15 && !is_setup_weapon( rand ) ) // always get setup before the box moves
 				{
 					chance_of_joker = 100;
 				}
@@ -1710,7 +1751,7 @@ custom_special_weapon_magicbox_check( weapon ) {
 	}
 
 
-    if(map == "zm_alcatraz") {
+    if(map == "zm_prison") {
         return alcatraz_special_weapon_check(weapon);
     }
     else if( map == "zm_buried") {
@@ -1741,58 +1782,59 @@ buried_special_weapon_check(weapon) {
 
 alcatraz_special_weapon_check(weapon) {
 
-    if ( weapon != "blundergat_zm" && weapon != "minigun_alcatraz_zm" )
-    {
-        return 1;
-    }
-    players = get_players();
-    count = 0;
-    if ( weapon == "blundergat_zm" )
-    {
-        if ( self maps/mp/zombies/_zm_weapons::has_weapon_or_upgrade( "blundersplat_zm" ) )
-        {
-            return 0;
-        }
-        if ( self afterlife_weapon_limit_check( "blundergat_zm" ) )
-        {
-            return 0;
-        }
-        limit = level.limited_weapons[ "blundergat_zm" ];
-    }
-    else
-    {
-        if ( self afterlife_weapon_limit_check( "minigun_alcatraz_zm" ) )
-        {
-            return 0;
-        }
-        limit = level.limited_weapons[ "minigun_alcatraz_zm" ];
-    }
-    i = 0;
-    while ( i < players.size )
-    {
-        if ( weapon == "blundergat_zm" )
-        {
-            if ( players[ i ] has_weapon_or_upgrade( "blundersplat_zm" ) || isDefined( players[ i ].is_pack_splatting ) && players[ i ].is_pack_splatting )
-            {
-                count++;
-                i++;
-                continue;
-            }
-        }
-        else
-        {
-            if ( players[ i ] afterlife_weapon_limit_check( weapon ) )
-            {
-                count++;
-            }
-        }
-        i++;
-    }
-    if ( count >= limit )
-    {
-        return 0;
-    }
-    return 1;
+	return 1;
+    // if ( weapon != "blundergat_zm" && weapon != "minigun_alcatraz_zm" )
+    // {
+    //     return 1;
+    // }
+    // players = get_players();
+    // count = 0;
+    // if ( weapon == "blundergat_zm" )
+    // {
+    //     if ( self maps/mp/zombies/_zm_weapons::has_weapon_or_upgrade( "blundersplat_zm" ) )
+    //     {
+    //         return 0;
+    //     }
+    //     if ( self afterlife_weapon_limit_check( "blundergat_zm" ) )
+    //     {
+    //         return 0;
+    //     }
+    //     limit = level.limited_weapons[ "blundergat_zm" ];
+    // }
+    // else
+    // {
+    //     if ( self afterlife_weapon_limit_check( "minigun_alcatraz_zm" ) )
+    //     {
+    //         return 0;
+    //     }
+    //     limit = level.limited_weapons[ "minigun_alcatraz_zm" ];
+    // }
+    // i = 0;
+    // while ( i < players.size )
+    // {
+    //     if ( weapon == "blundergat_zm" )
+    //     {
+    //         if ( players[ i ] has_weapon_or_upgrade( "blundersplat_zm" ) || isDefined( players[ i ].is_pack_splatting ) && players[ i ].is_pack_splatting )
+    //         {
+    //             count++;
+    //             i++;
+    //             continue;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         if ( players[ i ] afterlife_weapon_limit_check( weapon ) )
+    //         {
+    //             count++;
+    //         }
+    //     }
+    //     i++;
+    // }
+    // if ( count >= limit )
+    // {
+    //     return 0;
+    // }
+    // return 1;
 }
 
 tomb_special_weapon_check(weapon) {

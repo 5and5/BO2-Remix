@@ -43,7 +43,7 @@ onplayerspawned()
     }
 }
 
-include_weapons_override()
+include_weapons_override() //checked changed to match cerberus output
 {
 	include_weapon( "knife_zm", 0 );
 	include_weapon( "knife_zm_alcatraz", 0 );
@@ -121,6 +121,14 @@ include_weapons_override()
 	add_limited_weapon( "ray_gun_upgraded_zm", 4 );
 	include_weapon( "tower_trap_zm", 0 );
 	include_weapon( "tower_trap_upgraded_zm", 0 );
+	if ( isdefined( level.raygun2_included ) && level.raygun2_included )
+	{
+		include_weapon( "raygun_mark2_zm" );
+		include_weapon( "raygun_mark2_upgraded_zm", 0 );
+		add_weapon_to_content( "raygun_mark2_zm", "dlc3" );
+		add_limited_weapon( "raygun_mark2_zm", 1);
+		add_limited_weapon( "raygun_mark2_upgraded_zm", 1 );
+	}
 }
 
 setup_master_key()
