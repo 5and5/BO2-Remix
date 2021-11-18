@@ -3,11 +3,13 @@
 #include common_scripts/utility;
 #include maps/mp/_utility;
 #include maps/mp/zombies/_zm_weapons;
+#include maps/mp/zombies/_zm_weap_tomahawk;
 
 main()
 {
     replaceFunc( maps/mp/zm_prison::include_weapons, ::include_weapons_override );
 	replaceFunc( maps/mp/zm_alcatraz_sq::setup_master_key, ::setup_master_key );
+	replaceFunc( maps/mp/zombies/_zm_weap_tomahawk::tomahawk_attack_zombies, ::tomahawk_attack_zombies_override );
 
     level.initial_spawn_prison = true;
     level thread onplayerconnect();
@@ -147,4 +149,60 @@ setup_master_key()
 		exploder( 100 );
 		array_delete( getentarray( "wires_pulley_west", "script_noteworthy" ) );
 	}
+}
+
+tomahawk_attack_zombies_override( m_tomahawk, a_zombies ) //checked changed to match cerberus output
+{
+	self endon( "disconnect" );
+
+	max_attack_limit = 6;
+	if ( !isDefined( a_zombies ) )
+	{
+		self thread tomahawk_return_player( m_tomahawk, 0 );
+		return;
+	}
+	if ( a_zombies.size <= max_attack_limit )
+	{
+		n_attack_limit = a_zombies.size;
+	}
+	else
+	{
+		n_attack_limit = max_attack_limit;
+	}
+	for ( i = 0; i < n_attack_limit; i++ )
+	{
+		if ( isDefined( a_zombies[ i ] ) && isalive( a_zombies[ i ] ) )
+		{
+			tag = "J_Head";
+			if ( a_zombies[ i ].isdog )
+			{
+				tag = "J_Spine1";
+			}
+			if ( isDefined( a_zombies[ i ].hit_by_tomahawk ) && !a_zombies[ i ].hit_by_tomahawk )
+			{
+				v_target = a_zombies[ i ] gettagorigin( tag );
+				m_tomahawk moveto( v_target, 0.3 );
+				m_tomahawk waittill( "movedone" );
+				if ( isDefined( a_zombies[ i ] ) && isalive( a_zombies[ i ] ) )
+				{
+					if ( self.current_tactical_grenade == "upgraded_tomahawk_zm" )
+					{
+						playfxontag( level._effect[ "tomahawk_impact_ug" ], a_zombies[ i ], tag );
+					}
+					else
+					{
+						playfxontag( level._effect[ "tomahawk_impact" ], a_zombies[ i ], tag );
+					}
+					playfxontag( level._effect[ "tomahawk_fire_dot" ], a_zombies[ i ], "j_spineupper" );
+					a_zombies[ i ] setclientfield( "play_tomahawk_hit_sound", 1 );
+					n_tomahawk_damage = calculate_tomahawk_damage( a_zombies[ i ], m_tomahawk.n_grenade_charge_power, m_tomahawk );
+					a_zombies[ i ] dodamage( n_tomahawk_damage, m_tomahawk.origin, self, m_tomahawk, "none", "MOD_GRENADE", 0, "bouncing_tomahawk_zm" );
+					a_zombies[ i ].hit_by_tomahawk = 1;
+					self maps/mp/zombies/_zm_score::add_to_player_score( 10 );
+				}
+			}
+		}
+		wait 0.2;
+	}
+	self thread tomahawk_return_player( m_tomahawk, n_attack_limit );
 }

@@ -86,6 +86,8 @@
 ### Equipment
 * Claymores do 1/3 of zombies max health
 
+## Maps
+
 ### Tranzit
 * Jetgun recharges faster
 * Jetgun recharges while away
@@ -111,6 +113,7 @@
 ### Mob of the Dead
 * Blundergats damage no longer falls off
 * Blundergat is no longer limited in the box
+* Tomahawk max zombies increased from 6 to 8
 * All plane parts are auto picked up
 * Plane automatically refills
 * Set key to always spawn next to the cafeteria

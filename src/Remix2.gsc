@@ -7,7 +7,6 @@
 #include maps/mp/zombies/_zm_magicbox;
 #include maps/mp/zombies/_zm;
 #include maps/mp/zombies/_zm_unitrigger;
-#include maps/mp/zombies/_zm_utility;
 #include maps/mp/zombies/_zm_blockers;
 #include maps/mp/zombies/_zm_pers_upgrades_system;
 #include maps/mp/zombies/_zm_perks;
@@ -16,10 +15,11 @@
 #include maps/mp/zombies/_zm_unitrigger;
 #include maps/mp/zombies/_zm_weap_claymore;
 #include maps/mp/zombies/_zm_melee_weapon;
+#include maps/mp/zombies/_zm_craftables;
 
 main()
 { 
-	level.VERSION = "0.5.9";
+	level.VERSION = "0.6.0";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -39,6 +39,7 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_utility::get_player_weapon_limit, ::get_player_weapon_limit );
 	//replaceFunc( maps/mp/zombies/_zm_utility::get_player_perk_purchase_limit, ::get_player_perk_purchase_limit );
 	replaceFunc( maps/mp/zombies/_zm_weapons::weapon_give, ::weapon_give );
+	//replaceFunc( maps/mp/zombies/_zm_craftables::craftable_place_think, ::craftable_place_think );
 	replaceFunc( maps/mp/zombies/_zm_powerups::full_ammo_powerup, ::full_ammo_powerup );
 	replaceFunc( maps/mp/zombies/_zm_powerups::free_perk_powerup, ::free_perk_powerup );
 	replaceFunc( maps/mp/zombies/_zm_pers_upgrades_functions::pers_treasure_chest_choosespecialweapon, ::pers_treasure_chest_choosespecialweapon_override );
@@ -68,9 +69,9 @@ connected()
         self waittill("spawned_player");
 
 		// testing
-		// self thread set_starting_round( 10 );
+		// self thread set_starting_round( 99 );
 		// self thread give_all_perks();
-		// self thread give_weapons( "blundergat_upgraded_zm" );
+		// self thread give_weapons( "blundergat_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
 
     	if(self.initial_spawn)
 		{
@@ -79,7 +80,7 @@ connected()
 			self iprintln("Welcome to Remix!");
 			self iPrintLn("Version " + level.VERSION);
 			// self iprintln("Made by 5and5");
-       		// self setClientDvar( "com_maxfps", 101 );
+       		self setClientDvar( "com_maxfps", 101 );
 
 			self set_players_score( 555 );
 			self set_movement_dvars();
@@ -1161,13 +1162,13 @@ treasure_chest_weapon_spawn_override( chest, player, respin ) //checked changed 
 ai_calculate_health_override( round_number ) //checked changed to match cerberus output
 {
 	// insta kill rounds staring at 99 then every 2 rounds after
-	if(round_number >= 99 && round_number % 2 == 1)
+	if( (round_number >= 99) && (round_number % 2) )
 	{
 		level.zombie_health = 150;
 		return;
 	}
 
-	// more linearly health formula - health is about the same at 70 
+	// more linearly health formula - health is about the same at 65
 	if( round_number > 50 )
 	{	
 		round = (round_number - 50);
@@ -1181,7 +1182,7 @@ ai_calculate_health_override( round_number ) //checked changed to match cerberus
 		}
 		level.zombie_health = int(zombie_health + 51780); // round 51 zombies health
 
-		iprintln( "health: " + level.zombie_health );
+		// iprintln( "health: " + level.zombie_health );
 	}
 	else
 	{
@@ -1383,12 +1384,268 @@ weapon_give( weapon, is_upgrade, magic_box, nosound ) //checked changed to match
 			self switchtoweapon( current_weapon );
 		}
 	}
-	// if( weapon == ( "slipgun_zm" ) )
-	// {
-	// 	self setweaponammostock( "slipgun_zm", 25 );
-	// }
+	if( weapon == "blundersplat_upgraded_zm" )
+	{
+		self setweaponammostock( "blundersplat_upgraded_zm", 100 );
+	}
+	else if( weapon == "blundersplat_zm" )
+	{
+		self setweaponammostock( "blundersplat_zm", 100 );
+	}
+
+	if ( self hasweapon( "blundergat_upgraded_zm" ) )
+	{
+		self setweaponammostock( "blundergat_upgraded_zm", 80 );
+	}
+	else if ( self hasweapon( "blundergat_zm" ) )
+	{
+		self setweaponammostock( "blundergat_zm", 80 );
+	}
 
 	self play_weapon_vo( weapon, magic_box );
+}
+
+craftable_place_think()
+{
+	self endon( "kill_trigger" );
+	player_crafted = undefined;
+	while ( isDefined( self.stub.crafted ) && !self.stub.crafted )
+	{
+		self waittill( "trigger", player );
+		while ( isDefined( level.custom_craftable_validation ) )
+		{
+			valid = self [[ level.custom_craftable_validation ]]( player );
+			while ( !valid )
+			{
+				continue;
+			}
+		}
+		while ( player != self.parent_player )
+		{
+			continue;
+		}
+		while ( isDefined( player.screecher_weapon ) )
+		{
+			continue;
+		}
+		while ( !is_player_valid( player ) )
+		{
+			player thread ignore_triggers( 0.5 );
+		}
+		status = player player_can_craft( self.stub.craftablespawn );
+		if ( !status )
+		{
+			self.stub.hint_string = "";
+			self sethintstring( self.stub.hint_string );
+			if ( isDefined( self.stub.oncantuse ) )
+			{
+				self.stub [[ self.stub.oncantuse ]]( player );
+			}
+			continue;
+		}
+		else
+		{
+			if ( isDefined( self.stub.onbeginuse ) )
+			{
+				self.stub [[ self.stub.onbeginuse ]]( player );
+			}
+			result = self craftable_use_hold_think( player );
+			team = player.pers[ "team" ];
+			if ( isDefined( self.stub.onenduse ) )
+			{
+				self.stub [[ self.stub.onenduse ]]( team, player, result );
+			}
+			while ( !result )
+			{
+				continue;
+			}
+			if ( isDefined( self.stub.onuse ) )
+			{
+				self.stub [[ self.stub.onuse ]]( player );
+			}
+			prompt = player player_craft( self.stub.craftablespawn );
+			player_crafted = player;
+			self.stub.hint_string = prompt;
+			self sethintstring( self.stub.hint_string );
+		}
+	}
+	if ( isDefined( self.stub.craftablestub.onfullycrafted ) )
+	{
+		b_result = self.stub [[ self.stub.craftablestub.onfullycrafted ]]();
+		if ( !b_result )
+		{
+			return;
+		}
+	}
+	if ( isDefined( player_crafted ) )
+	{
+	}
+	if ( self.stub.persistent == 0 )
+	{
+		self.stub craftablestub_remove();
+		thread maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( self.stub );
+		return;
+	}
+	if ( self.stub.persistent == 3 )
+	{
+		stub_uncraft_craftable( self.stub, 1 );
+		return;
+	}
+	if ( self.stub.persistent == 2 )
+	{
+		if ( isDefined( player_crafted ) )
+		{
+			self craftabletrigger_update_prompt( player_crafted );
+		}
+		if ( !maps/mp/zombies/_zm_weapons::limited_weapon_below_quota( self.stub.weaponname, undefined ) )
+		{
+			self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
+			self sethintstring( self.stub.hint_string );
+			return;
+		}
+		if ( isDefined( self.stub.str_taken ) && self.stub.str_taken )
+		{
+			self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX";
+			self sethintstring( self.stub.hint_string );
+			return;
+		}
+		if ( isDefined( self.stub.model ) )
+		{
+			self.stub.model notsolid();
+			self.stub.model show();
+		}
+		while ( self.stub.persistent == 2 )
+		{
+			self waittill( "trigger", player );
+			while ( isDefined( player.screecher_weapon ) )
+			{
+				continue;
+			}
+			while ( isDefined( level.custom_craftable_validation ) )
+			{
+				valid = self [[ level.custom_craftable_validation ]]( player );
+				while ( !valid )
+				{
+					continue;
+				}
+			}
+			if ( isDefined( self.stub.crafted ) && !self.stub.crafted )
+			{
+				self.stub.hint_string = "";
+				self sethintstring( self.stub.hint_string );
+				return;
+			}
+			while ( player != self.parent_player )
+			{
+				continue;
+			}
+			while ( !is_player_valid( player ) )
+			{
+				player thread ignore_triggers( 0.5 );
+			}
+			self.stub.bought = 1;
+			if ( isDefined( self.stub.model ) )
+			{
+				self.stub.model thread model_fly_away();
+			}
+			player maps/mp/zombies/_zm_weapons::weapon_give( self.stub.weaponname );
+			if ( player hasweapon( "blundersplat_zm" ) )
+			{
+				player setweaponammostock( "blundersplat_zm", 80 );
+			}
+			else if ( player hasweapon( "blundersplat_upgraded_zm" ) )
+			{
+				player setweaponammostock( "blundersplat_upgraded_zm", 80 );
+			}
+
+			if ( isDefined( level.zombie_include_craftables[ self.stub.equipname ].onbuyweapon ) )
+			{
+				self [[ level.zombie_include_craftables[ self.stub.equipname ].onbuyweapon ]]( player );
+			}
+			if ( !maps/mp/zombies/_zm_weapons::limited_weapon_below_quota( self.stub.weaponname, undefined ) )
+			{
+				self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
+			}
+			else
+			{
+				self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX";
+			}
+			self sethintstring( self.stub.hint_string );
+			player track_craftables_pickedup( self.stub.weaponname );
+		}
+	}
+	else while ( !isDefined( player_crafted ) || self craftabletrigger_update_prompt( player_crafted ) )
+	{
+		if ( isDefined( self.stub.model ) )
+		{
+			self.stub.model notsolid();
+			self.stub.model show();
+		}
+		while ( self.stub.persistent == 1 )
+		{
+			self waittill( "trigger", player );
+			while ( isDefined( player.screecher_weapon ) )
+			{
+				continue;
+			}
+			while ( isDefined( level.custom_craftable_validation ) )
+			{
+				valid = self [[ level.custom_craftable_validation ]]( player );
+				while ( !valid )
+				{
+					continue;
+				}
+			}
+			if ( isDefined( self.stub.crafted ) && !self.stub.crafted )
+			{
+				self.stub.hint_string = "";
+				self sethintstring( self.stub.hint_string );
+				return;
+			}
+			while ( player != self.parent_player )
+			{
+				continue;
+			}
+			while ( !is_player_valid( player ) )
+			{
+				player thread ignore_triggers( 0.5 );
+			}
+			while ( player has_player_equipment( self.stub.weaponname ) )
+			{
+				continue;
+			}
+			if ( !maps/mp/zombies/_zm_equipment::is_limited_equipment( self.stub.weaponname ) || !maps/mp/zombies/_zm_equipment::limited_equipment_in_use( self.stub.weaponname ) )
+			{
+				player maps/mp/zombies/_zm_equipment::equipment_buy( self.stub.weaponname );
+				player giveweapon( self.stub.weaponname );
+				player setweaponammoclip( self.stub.weaponname, 1 );
+				if ( isDefined( level.zombie_include_craftables[ self.stub.equipname ].onbuyweapon ) )
+				{
+					self [[ level.zombie_include_craftables[ self.stub.equipname ].onbuyweapon ]]( player );
+				}
+				if ( self.stub.weaponname != "keys_zm" )
+				{
+					player setactionslot( 1, "weapon", self.stub.weaponname );
+				}
+				if ( isDefined( level.zombie_craftablestubs[ self.stub.equipname ].str_taken ) )
+				{
+					self.stub.hint_string = level.zombie_craftablestubs[ self.stub.equipname ].str_taken;
+				}
+				else
+				{
+					self.stub.hint_string = "";
+				}
+				self sethintstring( self.stub.hint_string );
+				player track_craftables_pickedup( self.stub.craftablespawn );
+				continue;
+			}
+			else
+			{
+				self.stub.hint_string = "";
+				self sethintstring( self.stub.hint_string );
+			}
+		}
+	}
 }
 
 full_ammo_powerup( drop_item, player ) //checked changed to match cerberus output
@@ -1433,10 +1690,23 @@ full_ammo_powerup( drop_item, player ) //checked changed to match cerberus outpu
 			{
 				players[ i ] givemaxammo( primary_weapons[ x ] );
 
-				// if ( players[ i ] hasweapon( "slipgun_zm" ) )
-				// {
-				// 	players[ i ] setweaponammostock( "slipgun_zm", 25 );
-				// }
+				if ( players[ i ] hasweapon( "blundergat_upgraded_zm" ) )
+				{
+					players[ i ] setweaponammostock( "blundergat_upgraded_zm", 80 );
+				}
+				else if ( players[ i ] hasweapon( "blundergat_zm" ) )
+				{
+					players[ i ] setweaponammostock( "blundergat_zm", 80 );
+				}
+
+				if ( players[ i ] hasweapon( "blundersplat_upgraded_zm" ) )
+				{
+					players[ i ] setweaponammostock( "blundersplat_upgraded_zm", 100 );
+				}
+				else if ( players[ i ] hasweapon( "blundersplat_zm" ) )
+				{
+					players[ i ] setweaponammostock( "blundersplat_zm", 100 );
+				}
 			}
 			x++;
 		}
@@ -1669,21 +1939,24 @@ actor_damage_override_override( inflictor, attacker, damage, flags, meansofdeath
 
 	if ( ( weapon == "blundergat_zm" || weapon == "blundergat_upgraded_zm" ) && ( meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET" ) )
 	{
-		final_damage = (self.maxhealth / 10) + 5;
+		final_damage = (self.maxhealth / 12) + 5;
 		if(damage >= final_damage)
 		{
 			final_damage = damage;
 		}
 	}
-	if( weapon == "claymore_zm" && meansofdeath == "MOD_GRENADE" || meansofdeath == "MOD_GRENADE_SPLASH" )
+	if( weapon == "claymore_zm" ) 
 	{
-		if(flags == 5) // fix for grenades doing increased damage when holding claymores
+		if( meansofdeath == "MOD_GRENADE" || meansofdeath == "MOD_GRENADE_SPLASH" )
 		{
-			final_damage = int(self.maxhealth / 3) + 55;
-		}
-		if(damage >= final_damage)
-		{
-			final_damage = damage;
+			if(flags == 5) // fix for grenades doing increased damage when holding claymores
+			{
+				final_damage = int(self.maxhealth / 3) + 55;
+			}
+			if(damage >= final_damage)
+			{
+				final_damage = damage;
+			}
 		}
 	}
 	if( attacker HasPerk("specialty_deadshot") && meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET" && WeaponClass(weapon) != "spread" && sHitLoc == "head" || sHitLoc == "helmet" || sHitLoc == "neck" )
@@ -2710,13 +2983,30 @@ give_all_perks()
 	}
 }
 
-give_weapons( weapon )
+give_weapons( weapon1, weapon2, weapon3, equipment )
 {
 	flag_wait( "initial_blackscreen_passed" );
-	wait 5;
-	//weapon = "ray_gun_zm";
-	self giveWeapon(weapon);
-	self switchToWeapon(weapon);
+	wait 6;
+
+	self giveWeapon(weapon1);
+	self switchToWeapon(weapon1);
+	if (isDefined( weapon2 ))
+	{
+		self giveWeapon(weapon2);
+		self switchToWeapon(weapon2);
+	}
+	if (isDefined( weapon3 ))
+	{
+		self takeWeapon("m1911_zm");
+		wait 0.05;
+		self weapon_give(weapon3);
+		self switchToWeapon(weapon3);
+	}
+	if (isDefined( equipment ))
+	{
+		self giveWeapon(equipment);
+	}
+
 }
 
 graphic_tweaks()
