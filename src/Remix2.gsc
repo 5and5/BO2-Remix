@@ -88,6 +88,7 @@ connected()
 
         	self thread timer_hud();
 			self thread health_bar_hud();
+			self thread zombie_remaining_hud();
 
 			self thread max_ammo_refill_clip();
 			self thread carpenter_repair_shield();
@@ -2622,6 +2623,76 @@ health_bar_hud()
 		}
 
 		wait 0.05;
+	}
+}
+
+zombie_remaining_hud()
+{
+	self endon( "disconnect" );
+	level endon( "end_game" );
+
+	level waittill( "start_of_round" );
+
+    self.zombiesCounter = maps/mp/gametypes_zm/_hud_util::createFontString( "hudsmall" , 1.6 );
+    self.zombiesCounter maps/mp/gametypes_zm/_hud_util::setPoint( "CENTER", "CENTER", "CENTER", 190 );
+    self.zombiesCounter.alpha = 0;
+
+	self thread zombie_remaining_hud_watcher();
+    while( 1 )
+    {
+        self.zombiesCounter setValue( ( maps/mp/zombies/_zm_utility::get_round_enemy_array().size + level.zombie_total ) );
+        if( ( maps/mp/zombies/_zm_utility::get_round_enemy_array().size + level.zombie_total ) != 0 )
+        {
+        	self.zombiesCounter.label = &"Zombies: ^1";
+        	if( self.zombiesCounter.alpha != 1 )
+        	{
+        		self.zombiesCounter fadeovertime( 0.5 );
+    			self.zombiesCounter.alpha = 1;
+    		}
+        }
+        else
+        {
+        	self.zombiesCounter.label = &"Zombies: ^6";
+        	for( i = 0; i < 15; i++ )
+        	{
+        		if( self.zombiesCounter.alpha == 1 )
+        		{
+        			self.zombiesCounter fadeovertime( 0.5 );
+    				self.zombiesCounter.alpha = 0;
+    			}
+    			else
+    			{
+    				self.zombiesCounter fadeovertime( 0.5 );
+    				self.zombiesCounter.alpha = 1;
+    			}
+    			wait 0.5;
+    		}
+        	level waittill( "start_of_round" );
+        }
+        wait 0.05;
+    }
+}
+
+zombie_remaining_hud_watcher()
+{	
+	self endon("disconnect");
+
+	if( getDvar( "hud_remaining") == "" )
+		setDvar( "hud_remaining", 0 );
+
+	while(1)
+	{
+		while( getDvarInt( "hud_remaining" ) == 0 )
+		{
+			wait 0.1;
+		}
+		self.zombiesCounter.alpha = 1;
+
+		while( getDvarInt( "hud_remaining" ) >= 1 )
+		{
+			wait 0.1;
+		}
+		self.zombiesCounter.alpha = 0;
 	}
 }
 
