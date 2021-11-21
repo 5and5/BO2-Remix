@@ -155,7 +155,7 @@ tomahawk_attack_zombies_override( m_tomahawk, a_zombies ) //checked changed to m
 {
 	self endon( "disconnect" );
 
-	max_attack_limit = 6;
+	max_attack_limit = 4;
 	if ( !isDefined( a_zombies ) )
 	{
 		self thread tomahawk_return_player( m_tomahawk, 0 );

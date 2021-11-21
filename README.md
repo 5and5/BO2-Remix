@@ -71,10 +71,10 @@
 * Deadshot increases head shot damage by x2 
 
 ### Mystery Box
-* Weapons can be shared by knifing the box (bugged atm)
+* Weapons can be shared by knifing the box
 * Box perma perk guarantees a good weapon first hit
 * First box setup guaranteed
-* Mark 2 probability increased from 33% to 50% (bugged atm)
+* Mark 2 probability increased from 33% to 50%
 
 ### Buildables
 * Buildables can be built with get parts
@@ -113,7 +113,8 @@
 ### Mob of the Dead
 * Blundergats damage no longer falls off
 * Blundergat is no longer limited in the box
-* Tomahawk max zombies increased from 6 to 8
+* Blundergat ammo reduced by 1/3
+* Acidgat ammo reduced by 1/3
 * All plane parts are auto picked up
 * Plane automatically refills
 * Set key to always spawn next to the cafeteria

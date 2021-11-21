@@ -25,13 +25,6 @@
 * make m72 limited on nuketown
 
 ### Mob
-* fix acid gat damage
-* reduce gat to 60 
-* reduce acid to 100
-* reduce tomhawk recharge time or kill more zombies
-* shield costing points
-* capping points 250k
-* reducing acidgat ammo
 
 ### Die Rise
 * set perk locations (not working)
@@ -78,5 +71,4 @@
 * mp5 wall buy on town
 
 ### Errors
-* shared box
 * mark2 probability crashes buried
