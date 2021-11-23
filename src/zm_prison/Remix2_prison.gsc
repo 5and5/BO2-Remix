@@ -10,6 +10,8 @@ main()
     replaceFunc( maps/mp/zm_prison::include_weapons, ::include_weapons_override );
 	replaceFunc( maps/mp/zm_alcatraz_sq::setup_master_key, ::setup_master_key );
 	replaceFunc( maps/mp/zombies/_zm_weap_tomahawk::tomahawk_attack_zombies, ::tomahawk_attack_zombies_override );
+	replaceFunc( maps/mp/zombies/_zm_weap_tomahawk::tomahawk_pickup_trigger, ::tomahawk_pickup_trigger );
+
 
     level.initial_spawn_prison = true;
     level thread onplayerconnect();
@@ -41,9 +43,39 @@ onplayerspawned()
         if(level.initial_spawn_prison)
         {
             level.initial_spawn_prison = false;
+
+			flag_wait( "start_zombie_round_logic" );
+			
+			thread open_warden_fence();
         }
     }
 }
+
+open_warden_fence()
+{
+	m_lock = getent( "masterkey_lock_2", "targetname" );
+	m_lock delete();
+	t_warden_fence_damage = getent( "warden_fence_damage", "targetname" );
+	t_warden_fence_damage delete();
+	admin_powerhouse_puzzle_door_clip = getent( "admin_powerhouse_puzzle_door_clip", "targetname" );
+	admin_powerhouse_puzzle_door_clip delete();
+	admin_powerhouse_puzzle_door = getent( "admin_powerhouse_puzzle_door", "targetname" );
+	admin_powerhouse_puzzle_door rotateyaw( 90, 0.5 );
+
+	exploder( 2000 );
+	flag_set( "generator_challenge_completed" );
+	wait 0.1;
+	level clientnotify( "sndWard" );
+	level thread maps/mp/zombies/_zm_audio::sndmusicstingerevent( "piece_mid" );
+	t_warden_fence_damage = getent( "warden_fence_damage", "targetname" );
+	t_warden_fence_damage delete();
+	level setclientfield( "warden_fence_down", 1 );
+	array_delete( getentarray( "generator_wires", "script_noteworthy" ) );
+	wait 3;
+	stop_exploder( 2000 );
+	wait 1;
+}
+
 
 include_weapons_override() //checked changed to match cerberus output
 {
@@ -205,4 +237,50 @@ tomahawk_attack_zombies_override( m_tomahawk, a_zombies ) //checked changed to m
 		wait 0.2;
 	}
 	self thread tomahawk_return_player( m_tomahawk, n_attack_limit );
+}
+
+tomahawk_pickup_trigger() //checked changed to match cerberus output
+{
+	while ( 1 )
+	{
+		self waittill( "trigger", player );
+
+		if ( isDefined( player.current_tactical_grenade ) && !issubstr( player.current_tactical_grenade, "tomahawk_zm" ) )
+		{
+			player takeweapon( player.current_tactical_grenade );
+		}
+
+		if ( !player hasweapon( "bouncing_tomahawk_zm" ) && !player hasweapon( "upgraded_tomahawk_zm" ) )
+		{
+			player.current_tomahawk_weapon = "upgraded_tomahawk_zm";
+
+			player notify( "tomahawk_picked_up" );
+			level notify( "bouncing_tomahawk_zm_aquired" );
+			player notify( "player_obtained_tomahawk" );
+
+			player.tomahawk_upgrade_kills = 99;
+			player.killed_with_only_tomahawk = 1;
+			player.killed_something_thq = 1;
+			player notify( "tomahawk_upgraded_swap" );
+
+			player disable_player_move_states( 1 );
+			gun = self getcurrentweapon();
+			player notify( "player_obtained_tomahawk" );
+			player maps/mp/zombies/_zm_stats::increment_client_stat( "prison_tomahawk_acquired", 0 );
+			player giveweapon( "zombie_tomahawk_flourish" );
+			player thread tomahawk_update_hud_on_last_stand();
+			player switchtoweapon( "zombie_tomahawk_flourish" );
+			player waittill_any( "player_downed", "weapon_change_complete" );
+			player takeweapon( "zombie_tomahawk_flourish" );
+			player enable_player_move_states();
+
+			player.redeemer_trigger = self;
+			player setclientfieldtoplayer( "upgraded_tomahawk_in_use", 1 );
+
+			player giveweapon( "upgraded_tomahawk_zm" );
+			player switchtoweapon( gun );
+
+		}
+		wait 0.1;
+	}
 }

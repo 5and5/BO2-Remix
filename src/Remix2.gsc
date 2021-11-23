@@ -19,7 +19,7 @@
 
 main()
 { 
-	level.VERSION = "0.6.1";
+	level.VERSION = "0.6.2";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -36,7 +36,6 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_utility::get_player_weapon_limit, ::get_player_weapon_limit );
 	//replaceFunc( maps/mp/zombies/_zm_utility::get_player_perk_purchase_limit, ::get_player_perk_purchase_limit );
 	replaceFunc( maps/mp/zombies/_zm_weapons::weapon_give, ::weapon_give );
-	//replaceFunc( maps/mp/zombies/_zm_craftables::craftable_place_think, ::craftable_place_think );
 	replaceFunc( maps/mp/zombies/_zm_powerups::full_ammo_powerup, ::full_ammo_powerup );
 	replaceFunc( maps/mp/zombies/_zm_powerups::free_perk_powerup, ::free_perk_powerup );
 	replaceFunc( maps/mp/zombies/_zm_pers_upgrades_functions::pers_treasure_chest_choosespecialweapon, ::pers_treasure_chest_choosespecialweapon_override );
@@ -66,9 +65,10 @@ connected()
         self waittill("spawned_player");
 
 		// testing
-		// self thread set_starting_round( 99 );
+		// self thread set_starting_round( 90 );
 		// self thread give_all_perks();
 		// self thread give_weapons( "blundergat_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
+		// self thread give_tomahwak();
 
     	if(self.initial_spawn)
 		{
@@ -1106,249 +1106,6 @@ weapon_give( weapon, is_upgrade, magic_box, nosound ) //checked changed to match
 	self play_weapon_vo( weapon, magic_box );
 }
 
-// craftable_place_think()
-// {
-// 	self endon( "kill_trigger" );
-// 	player_crafted = undefined;
-// 	while ( isDefined( self.stub.crafted ) && !self.stub.crafted )
-// 	{
-// 		self waittill( "trigger", player );
-// 		while ( isDefined( level.custom_craftable_validation ) )
-// 		{
-// 			valid = self [[ level.custom_craftable_validation ]]( player );
-// 			while ( !valid )
-// 			{
-// 				continue;
-// 			}
-// 		}
-// 		while ( player != self.parent_player )
-// 		{
-// 			continue;
-// 		}
-// 		while ( isDefined( player.screecher_weapon ) )
-// 		{
-// 			continue;
-// 		}
-// 		while ( !is_player_valid( player ) )
-// 		{
-// 			player thread ignore_triggers( 0.5 );
-// 		}
-// 		status = player player_can_craft( self.stub.craftablespawn );
-// 		if ( !status )
-// 		{
-// 			self.stub.hint_string = "";
-// 			self sethintstring( self.stub.hint_string );
-// 			if ( isDefined( self.stub.oncantuse ) )
-// 			{
-// 				self.stub [[ self.stub.oncantuse ]]( player );
-// 			}
-// 			continue;
-// 		}
-// 		else
-// 		{
-// 			if ( isDefined( self.stub.onbeginuse ) )
-// 			{
-// 				self.stub [[ self.stub.onbeginuse ]]( player );
-// 			}
-// 			result = self craftable_use_hold_think( player );
-// 			team = player.pers[ "team" ];
-// 			if ( isDefined( self.stub.onenduse ) )
-// 			{
-// 				self.stub [[ self.stub.onenduse ]]( team, player, result );
-// 			}
-// 			while ( !result )
-// 			{
-// 				continue;
-// 			}
-// 			if ( isDefined( self.stub.onuse ) )
-// 			{
-// 				self.stub [[ self.stub.onuse ]]( player );
-// 			}
-// 			prompt = player player_craft( self.stub.craftablespawn );
-// 			player_crafted = player;
-// 			self.stub.hint_string = prompt;
-// 			self sethintstring( self.stub.hint_string );
-// 		}
-// 	}
-// 	if ( isDefined( self.stub.craftablestub.onfullycrafted ) )
-// 	{
-// 		b_result = self.stub [[ self.stub.craftablestub.onfullycrafted ]]();
-// 		if ( !b_result )
-// 		{
-// 			return;
-// 		}
-// 	}
-// 	if ( isDefined( player_crafted ) )
-// 	{
-// 	}
-// 	if ( self.stub.persistent == 0 )
-// 	{
-// 		self.stub craftablestub_remove();
-// 		thread maps/mp/zombies/_zm_unitrigger::unregister_unitrigger( self.stub );
-// 		return;
-// 	}
-// 	if ( self.stub.persistent == 3 )
-// 	{
-// 		stub_uncraft_craftable( self.stub, 1 );
-// 		return;
-// 	}
-// 	if ( self.stub.persistent == 2 )
-// 	{
-// 		if ( isDefined( player_crafted ) )
-// 		{
-// 			self craftabletrigger_update_prompt( player_crafted );
-// 		}
-// 		if ( !maps/mp/zombies/_zm_weapons::limited_weapon_below_quota( self.stub.weaponname, undefined ) )
-// 		{
-// 			self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
-// 			self sethintstring( self.stub.hint_string );
-// 			return;
-// 		}
-// 		if ( isDefined( self.stub.str_taken ) && self.stub.str_taken )
-// 		{
-// 			self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX";
-// 			self sethintstring( self.stub.hint_string );
-// 			return;
-// 		}
-// 		if ( isDefined( self.stub.model ) )
-// 		{
-// 			self.stub.model notsolid();
-// 			self.stub.model show();
-// 		}
-// 		while ( self.stub.persistent == 2 )
-// 		{
-// 			self waittill( "trigger", player );
-// 			while ( isDefined( player.screecher_weapon ) )
-// 			{
-// 				continue;
-// 			}
-// 			while ( isDefined( level.custom_craftable_validation ) )
-// 			{
-// 				valid = self [[ level.custom_craftable_validation ]]( player );
-// 				while ( !valid )
-// 				{
-// 					continue;
-// 				}
-// 			}
-// 			if ( isDefined( self.stub.crafted ) && !self.stub.crafted )
-// 			{
-// 				self.stub.hint_string = "";
-// 				self sethintstring( self.stub.hint_string );
-// 				return;
-// 			}
-// 			while ( player != self.parent_player )
-// 			{
-// 				continue;
-// 			}
-// 			while ( !is_player_valid( player ) )
-// 			{
-// 				player thread ignore_triggers( 0.5 );
-// 			}
-// 			self.stub.bought = 1;
-// 			if ( isDefined( self.stub.model ) )
-// 			{
-// 				self.stub.model thread model_fly_away();
-// 			}
-// 			player maps/mp/zombies/_zm_weapons::weapon_give( self.stub.weaponname );
-// 			if ( player hasweapon( "blundersplat_zm" ) )
-// 			{
-// 				player setweaponammostock( "blundersplat_zm", 80 );
-// 			}
-// 			else if ( player hasweapon( "blundersplat_upgraded_zm" ) )
-// 			{
-// 				player setweaponammostock( "blundersplat_upgraded_zm", 80 );
-// 			}
-
-// 			if ( isDefined( level.zombie_include_craftables[ self.stub.equipname ].onbuyweapon ) )
-// 			{
-// 				self [[ level.zombie_include_craftables[ self.stub.equipname ].onbuyweapon ]]( player );
-// 			}
-// 			if ( !maps/mp/zombies/_zm_weapons::limited_weapon_below_quota( self.stub.weaponname, undefined ) )
-// 			{
-// 				self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX_LIMITED";
-// 			}
-// 			else
-// 			{
-// 				self.stub.hint_string = &"ZOMBIE_GO_TO_THE_BOX";
-// 			}
-// 			self sethintstring( self.stub.hint_string );
-// 			player track_craftables_pickedup( self.stub.weaponname );
-// 		}
-// 	}
-// 	else while ( !isDefined( player_crafted ) || self craftabletrigger_update_prompt( player_crafted ) )
-// 	{
-// 		if ( isDefined( self.stub.model ) )
-// 		{
-// 			self.stub.model notsolid();
-// 			self.stub.model show();
-// 		}
-// 		while ( self.stub.persistent == 1 )
-// 		{
-// 			self waittill( "trigger", player );
-// 			while ( isDefined( player.screecher_weapon ) )
-// 			{
-// 				continue;
-// 			}
-// 			while ( isDefined( level.custom_craftable_validation ) )
-// 			{
-// 				valid = self [[ level.custom_craftable_validation ]]( player );
-// 				while ( !valid )
-// 				{
-// 					continue;
-// 				}
-// 			}
-// 			if ( isDefined( self.stub.crafted ) && !self.stub.crafted )
-// 			{
-// 				self.stub.hint_string = "";
-// 				self sethintstring( self.stub.hint_string );
-// 				return;
-// 			}
-// 			while ( player != self.parent_player )
-// 			{
-// 				continue;
-// 			}
-// 			while ( !is_player_valid( player ) )
-// 			{
-// 				player thread ignore_triggers( 0.5 );
-// 			}
-// 			while ( player has_player_equipment( self.stub.weaponname ) )
-// 			{
-// 				continue;
-// 			}
-// 			if ( !maps/mp/zombies/_zm_equipment::is_limited_equipment( self.stub.weaponname ) || !maps/mp/zombies/_zm_equipment::limited_equipment_in_use( self.stub.weaponname ) )
-// 			{
-// 				player maps/mp/zombies/_zm_equipment::equipment_buy( self.stub.weaponname );
-// 				player giveweapon( self.stub.weaponname );
-// 				player setweaponammoclip( self.stub.weaponname, 1 );
-// 				if ( isDefined( level.zombie_include_craftables[ self.stub.equipname ].onbuyweapon ) )
-// 				{
-// 					self [[ level.zombie_include_craftables[ self.stub.equipname ].onbuyweapon ]]( player );
-// 				}
-// 				if ( self.stub.weaponname != "keys_zm" )
-// 				{
-// 					player setactionslot( 1, "weapon", self.stub.weaponname );
-// 				}
-// 				if ( isDefined( level.zombie_craftablestubs[ self.stub.equipname ].str_taken ) )
-// 				{
-// 					self.stub.hint_string = level.zombie_craftablestubs[ self.stub.equipname ].str_taken;
-// 				}
-// 				else
-// 				{
-// 					self.stub.hint_string = "";
-// 				}
-// 				self sethintstring( self.stub.hint_string );
-// 				player track_craftables_pickedup( self.stub.craftablespawn );
-// 				continue;
-// 			}
-// 			else
-// 			{
-// 				self.stub.hint_string = "";
-// 				self sethintstring( self.stub.hint_string );
-// 			}
-// 		}
-// 	}
-// }
-
 full_ammo_powerup( drop_item, player ) //checked changed to match cerberus output
 {
 	players = get_players( player.team );
@@ -2380,6 +2137,7 @@ timer_hud()
 timer_hud_watcher()
 {	
 	self endon("disconnect");
+	level endon( "end_game" );
 
 	if( getDvar( "hud_timer") == "" )
 		setDvar( "hud_timer", 1 );
@@ -2506,6 +2264,7 @@ display_sph( time, hordes )
 round_timer_hud_watcher()
 {	
 	self endon("disconnect");
+	level endon( "end_game" );
 
 	if( getDvar( "hud_round_timer") == "" )
 		setDvar( "hud_round_timer", 0 );
@@ -2638,18 +2397,19 @@ zombie_remaining_hud()
     self.zombiesCounter.alpha = 0;
     self.zombiesCounter.label = &"Zombies: ^1";
 	self thread zombie_remaining_hud_watcher();
-	
+
     while( 1 )
     {
         self.zombiesCounter setValue( ( maps/mp/zombies/_zm_utility::get_round_enemy_array().size + level.zombie_total ) );
         
-        wait 0.05;
+        wait 0.05; 
     }
 }
 
 zombie_remaining_hud_watcher()
 {	
 	self endon("disconnect");
+	level endon( "end_game" );
 
 	if( getDvar( "hud_remaining") == "" )
 		setDvar( "hud_remaining", 0 );
@@ -2728,10 +2488,117 @@ give_all_perks()
 	}
 }
 
+give_tomahwak()
+{
+	flag_wait( "initial_blackscreen_passed" );
+	wait 7;
+	iPrintLn("tomahawk");
+
+	if ( isDefined( self.current_tactical_grenade ) && !issubstr( self.current_tactical_grenade, "tomahawk_zm" ) )
+	{
+		self takeweapon( self.current_tactical_grenade );
+	}
+		// if ( self.current_tomahawk_weapon == "upgraded_tomahawk_zm" )
+		// {
+		// 	if ( !is_true( self.afterlife ) )
+		// 	{
+		// 		continue;
+		// 	}
+		// 	else 
+		// 	{
+		// 		self disable_self_move_states( 1 );
+		// 		gun = self getcurrentweapon();
+		// 		level notify( "bouncing_tomahawk_zm_aquired" );
+		// 		self maps/mp/zombies/_zm_stats::increment_client_stat( "prison_tomahawk_acquired", 0 );
+		// 		self giveweapon( "zombie_tomahawk_flourish" );
+		// 		self thread tomahawk_update_hud_on_last_stand();
+		// 		self switchtoweapon( "zombie_tomahawk_flourish" );
+		// 		self waittill_any( "self_downed", "weapon_change_complete" );
+		// 		if ( self.script_noteworthy == "redeemer_pickup_trigger" )
+		// 		{
+		// 			self.redeemer_trigger = self;
+		// 			self setclientfieldtoself( "upgraded_tomahawk_in_use", 1 );
+		// 		}
+		// 		self switchtoweapon( gun );
+		// 		self enable_self_move_states();
+		// 		self.loadout.hastomahawk = 1;
+		// 		continue;
+		// 	}
+		// }
+	if ( !self hasweapon( "bouncing_tomahawk_zm" ) && !self hasweapon( "upgraded_tomahawk_zm" ) )
+	{
+		self.current_tomahawk_weapon = "upgraded_tomahawk_zm";
+
+		self notify( "tomahawk_picked_up" );
+		level notify( "bouncing_tomahawk_zm_aquired" );
+		self notify( "player_obtained_tomahawk" );
+
+		self.tomahawk_upgrade_kills = 99;
+		self.killed_with_only_tomahawk = 1;
+		self.killed_something_thq = 1;
+		self notify( "tomahawk_upgraded_swap" );
+
+		// if ( isDefined( self.current_tactical_grenade ) && !issubstr( self.current_tactical_grenade, "tomahawk_zm" ) )
+		// {
+		// 	self takeweapon( self.current_tactical_grenade );
+		// }
+
+		self disable_player_move_states( 1 );
+		gun = self getcurrentweapon();
+		self notify( "player_obtained_tomahawk" );
+		self maps/mp/zombies/_zm_stats::increment_client_stat( "prison_tomahawk_acquired", 0 );
+		self giveweapon( "zombie_tomahawk_flourish" );
+		//self thread tomahawk_update_hud_on_last_stand();
+		self switchtoweapon( "zombie_tomahawk_flourish" );
+		self waittill_any( "player_downed", "weapon_change_complete" );
+		self takeweapon( "zombie_tomahawk_flourish" );
+		self enable_player_move_states();
+
+		self.redeemer_trigger = self;
+		self setclientfieldtoplayer( "upgraded_tomahawk_in_use", 1 );
+
+		self giveweapon( "upgraded_tomahawk_zm" );
+		self switchtoweapon( gun );
+
+		wait 0.1;
+
+
+
+		// player giveweapon( player.current_tomahawk_weapon );
+		// player thread tomahawk_update_hud_on_last_stand();
+		// player thread tomahawk_tutorial_hint();
+		// player set_player_tactical_grenade( player.current_tomahawk_weapon );
+		// if ( self.script_noteworthy == "retriever_pickup_trigger" )
+		// {
+		// 	player.retriever_trigger = self;
+		// }
+		// player notify( "tomahawk_picked_up" );
+		// player setclientfieldtoplayer( "tomahawk_in_use", 1 );
+		// gun = player getcurrentweapon();
+		// level notify( "bouncing_tomahawk_zm_aquired" );
+		// player notify( "player_obtained_tomahawk" );
+		// player maps/mp/zombies/_zm_stats::increment_client_stat( "prison_tomahawk_acquired", 0 );
+		// player giveweapon( "zombie_tomahawk_flourish" );
+		// player switchtoweapon( "zombie_tomahawk_flourish" );
+		// player waittill_any( "player_downed", "weapon_change_complete" );
+		// if ( self.script_noteworthy == "redeemer_pickup_trigger" )
+		// {
+		// 	player setclientfieldtoplayer( "upgraded_tomahawk_in_use", 1 );
+		// }
+		// player switchtoweapon( gun );
+
+		// player enable_player_move_states();
+		// wait 0.1;
+	}
+}
+
+
 give_weapons( weapon1, weapon2, weapon3, equipment )
 {
 	flag_wait( "initial_blackscreen_passed" );
-	wait 6;
+
+	if(getDvar("mapname") == "zm_prison")
+		wait 7;
 
 	self giveWeapon(weapon1);
 	self switchToWeapon(weapon1);

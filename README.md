@@ -115,6 +115,7 @@
 * Blundergat is no longer limited in the box
 * Blundergat ammo reduced by 1/3
 * Acidgat ammo reduced by 1/3
+* Tomahawk is upgraded by default
 * All plane parts are auto picked up
 * Plane automatically refills
 * Set key to always spawn next to the cafeteria

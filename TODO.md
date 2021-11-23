@@ -65,7 +65,6 @@
 ### Perks
 
 ### Bugs
-* fix bug with perk bottle
 * sph hud showing on 50 and showing on dog rounds
 * lose third gun on mob afterlife (maybe)
 * mp5 wall buy on town
