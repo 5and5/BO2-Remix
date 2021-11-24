@@ -12,7 +12,7 @@ main()
 	replaceFunc( maps/mp/zm_alcatraz_sq::setup_master_key, ::setup_master_key );
 	// replaceFunc( maps/mp/zombies/_zm_weap_tomahawk::tomahawk_attack_zombies, ::tomahawk_attack_zombies_override );
 	replaceFunc( maps/mp/zombies/_zm_weap_tomahawk::tomahawk_pickup_trigger, ::tomahawk_pickup_trigger );
-	// replaceFunc( maps/mp/zm_alcatraz_utility::wait_for_player_to_take, ::wait_for_player_to_take_override );
+	replaceFunc( maps/mp/zm_alcatraz_utility::wait_for_player_to_take, ::wait_for_player_to_take_override );
 
     level.initial_spawn_prison = true;
     level thread onplayerconnect();
@@ -292,24 +292,16 @@ wait_for_player_to_take_override( player, str_valid_weapon )
 	while ( 1 )
 	{
 		self waittill( "trigger", trigger_player );
-		while ( isDefined( level.custom_craftable_validation ) )
-		{
-			valid = self [[ level.custom_craftable_validation ]]( player );
-			while ( !valid )
-			{
-				continue;
-			}
-		}
 		if ( trigger_player == player )
 		{
 			current_weapon = player getcurrentweapon();
-			if ( is_player_valid( player ) && player.is_drinking > 0 && !is_placeable_mine( current_weapon ) && !is_equipment( current_weapon ) && level.revive_tool != current_weapon && current_weapon != "none" )
+			if ( !is_placeable_mine( current_weapon ) && !is_equipment( current_weapon ) )
 			{
 				self notify( "acid_taken" );
 				player notify( "acid_taken" );
 				weapon_limit = 3;
 				primaries = player getweaponslistprimaries();
-				if ( isDefined( primaries ) && primaries.size >= weapon_limit )
+				if ( primaries.size >= weapon_limit )
 				{
 					player takeweapon( current_weapon );
 				}
