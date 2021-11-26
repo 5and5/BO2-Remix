@@ -69,7 +69,8 @@ connected()
 		// self thread give_all_perks();
 		// self thread give_weapons( "blundergat_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
 		// self thread give_tomahwak();
-
+		// self thread give_weapon_camo( "m14_zm" );
+		
     	if(self.initial_spawn)
 		{
             self.initial_spawn = false;
@@ -77,7 +78,7 @@ connected()
 			self iprintln("Welcome to Remix!");
 			self iPrintLn("Version " + level.VERSION);
 			// self iprintln("Made by 5and5");
-       		self setClientDvar( "com_maxfps", 101 );
+       		// self setClientDvar( "com_maxfps", 101 );
 
 			self set_players_score( 555 );
 			self set_movement_dvars();
@@ -133,7 +134,7 @@ connected()
 				case "zm_transit":
 					//remove_tombstone();
 					remove_speedcola();
-					remove_wallbuy( "rottweil72_zm", "town" );
+					//remove_wallbuy( "rottweil72_zm", "town" );
 					spawn_custom_wallbuys();
 					self thread jetgun_buff();
 				case "zm_nuked":
@@ -1763,14 +1764,14 @@ spawn_custom_wallbuys()
 	{
 		spawn_wallbuy_weapon( ( 0, 0, 0 ), (550, -1363, 168), "claymore_zm_fx", "claymore_zm", "t6_wpn_claymore_world", "claymore", "weapon_upgrade" );
 
-		for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
-		{
-			if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == "rottweil72_zm")
-			{
-				origin = level._unitriggers.trigger_stubs[i].origin;
-			}
-		}
-		spawn_wallbuy_weapon( ( 0, 90, 0 ), origin, "mp5k_zm_fx", "mp5k_zm", "t6_wpn_smg_mp5_world", "mp5k", "weapon_upgrade" );
+		// for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
+		// {
+		// 	if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == "rottweil72_zm")
+		// 	{
+		// 		origin = level._unitriggers.trigger_stubs[i].origin;
+		// 	}
+		// }
+		// spawn_wallbuy_weapon( ( 0, 90, 0 ), origin, "mp5k_zm_fx", "mp5k_zm", "t6_wpn_smg_mp5_world", "mp5k", "weapon_upgrade" );
 	}
 	else if ( location == "farm" )
 	{
@@ -2619,6 +2620,13 @@ give_weapons( weapon1, weapon2, weapon3, equipment )
 		self giveWeapon(equipment);
 	}
 
+}
+
+give_weapon_camo( weapon )
+{
+	flag_wait( "initial_blackscreen_passed" );
+
+	self giveweapon( weapon, 0, self calcweaponoptions( 40, 0, 0, 0 ) );
 }
 
 graphic_tweaks()

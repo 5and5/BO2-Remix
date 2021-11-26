@@ -115,7 +115,8 @@
 * Blundergat is no longer limited in the box
 * Blundergat ammo reduced by 1/3
 * Acidgat ammo reduced by 1/3
-* Tomahawk is upgraded by default
+* Tomahawk is upgraded when picked up
+* Added zombie shield bench inside wardens office
 * All plane parts are auto picked up
 * Plane automatically refills
 * Set key to always spawn next to the cafeteria
