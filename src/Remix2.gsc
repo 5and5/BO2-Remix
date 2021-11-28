@@ -65,7 +65,7 @@ connected()
         self waittill("spawned_player");
 
 		// testing
-		// self thread set_starting_round( 90 );
+		// self thread set_starting_round( 51 );
 		// self thread give_all_perks();
 		// self thread give_weapons( "blundergat_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
 		// self thread give_tomahwak();
@@ -2185,6 +2185,7 @@ round_timer_hud()
 	{
 		zombies_this_round = level.zombie_total + get_round_enemy_array().size;
 		hordes = zombies_this_round / 24;
+		dog_round = flag( "dog_round" );
 
 		self.round_timer_hud setTimerUp(0);
 		start_time = int(getTime() / 1000);
@@ -2194,7 +2195,7 @@ round_timer_hud()
 		end_time = int(getTime() / 1000);
 		time = end_time - start_time;
 
-		self display_round_time(time, hordes);
+		self display_round_time(time, hordes, dog_round);
 
 		level waittill( "start_of_round" );
 
@@ -2206,12 +2207,12 @@ round_timer_hud()
 	}
 }
 
-display_round_time(time, hordes)
+display_round_time(time, hordes, dog_round)
 {
 	timer_for_hud = time - 0.05;
 
 	sph_off = 1;
-	if(level.round_number >= 50 && !flag( "dog_round" ))
+	if(level.round_number > 50 && !dog_round)
 	{
 		sph_off = 0;
 	}
