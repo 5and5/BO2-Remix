@@ -10,7 +10,7 @@
 main()
 {
     replaceFunc( maps/mp/zombies/_zm_ai_leaper::leaper_round_tracker, ::leaper_round_tracker_override );
-    //replaceFunc( maps/mp/zm_highrise_elevators::init_elevator_perks, ::init_elevator_perks_override );
+    // replaceFunc( maps/mp/zm_highrise_elevators::init_elevator_perks, ::init_elevator_perks_override );
 
     level.initial_spawn_highrise = true;
     level thread onplayerconnect();
@@ -46,8 +46,8 @@ onplayerspawned()
         {
             level.initial_spawn_highrise = false;
 
-            //thread debug_print();
-            thread fix_slide_death_gltich();
+            // thread debug_print();
+            // thread fix_slide_death_gltich();
         }
     }
 }
@@ -305,30 +305,27 @@ init_elevator_perks_override()
 		_k1075 = getNextArrayKey( _a1075, _k1075 );
 	}
 	green_structs = array_exclude( green_structs, revive_perk_struct );
-	// green_structs = array_randomize( green_structs );
-	// blue_structs = array_randomize( blue_structs );
+	green_structs = array_randomize( green_structs );
+	blue_structs = array_randomize( blue_structs );
 
-    // level.set_blue_structs = [];
-    // for ( i = 0; i < blue_structs.size; i++ )
+    // set_blue_structs = [];
+	// perks = [];
+	// perks[0] = "zombie_vending_doubletap2";
+	// perks[1] = "p6_anim_zm_buildable_pap";
+	// perks[2] = "zombie_vending_three_gun";
+	// perks[3] = "zombie_vending_jugg";
+
+	// for ( j = 0; j < perks.size; j++ )
     // {
-    //     if ( issubstr( blue_structs[i].model, "zombie_vending_doubletap2" ) )
-    //     {
-    //         //level.set_blue_structs[0] = blue_structs[i];
-    //     }
-    //     if ( issubstr( blue_structs[i].model, "p6_anim_zm_buildable_pap" ) )
-    //     {
-    //         level.set_blue_structs[1] = blue_structs[i];
-    //     }
-    //     if ( issubstr( blue_structs[i].model, "zombie_vending_three_gun" ) )
-    //     {
-    //         level.set_blue_structs[2] = blue_structs[i];
-    //     }
-    //     if ( issubstr( blue_structs[i].model, "zombie_vending_jugg" ) )
-    //     {
-    //         level.set_blue_structs[3] = blue_structs[i];
-    //     }
-    // }
-    // blue_structs = set_blue_structs;
+	// 	for ( i = 0; i < blue_structs.size; i++ )
+	// 	{
+	// 		if ( issubstr( blue_structs[i].model, perks[i] ) )
+	// 		{
+	// 			set_blue_structs[j] = blue_structs[i];
+	// 			break;
+	// 		}
+	// 	}
+	// }
 
 	level.random_perk_structs = array( revive_perk_struct );
 	level.random_perk_structs = arraycombine( level.random_perk_structs, green_structs, 0, 0 );

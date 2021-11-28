@@ -66,7 +66,6 @@
 
 ### Bugs
 * sph hud showing on 50 and showing on dog rounds
-* mp5 wall buy on town
 
 ### Errors
 * mark2 probability crashes buried

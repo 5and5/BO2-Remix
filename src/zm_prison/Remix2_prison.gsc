@@ -19,7 +19,7 @@ main()
     level.initial_spawn_prison = true;
     level thread onplayerconnect();
 
-	thread spawn_bench( (-1047, 8563, 1336), (0, 0, 0) ); //wardens
+	thread spawn_shield_bench( (-1047, 8563, 1336), (0, 0, 0) ); //wardens
 }
 
 onplayerconnect()
@@ -340,7 +340,7 @@ wait_for_player_to_take_override( player, str_valid_weapon )
 	}
 }
 
-spawn_bench( origin, angles ) //jz is the best
+spawn_shield_bench( origin, angles ) //jz is the best
 {
 	level endon("end_game");
 
@@ -362,10 +362,10 @@ spawn_bench( origin, angles ) //jz is the best
 	level thread update_hint_string( trigger );
 	for(;;)
 	{
-		trigger waittill("trigger", player);
-		if(player UseButtonPressed())
+		trigger waittill( "trigger", player );
+		if( player UseButtonPressed() )
 		{
-			if ( !player.shield_cooldown_time )
+			if( !player.shield_cooldown_time && !player hasWeapon( "alcatraz_shield_zm" ) )
 			{
 				player maps/mp/zombies/_zm_equipment::equipment_buy( "alcatraz_shield_zm" );
 				player.shield_cooldown_time = 300;

@@ -20,7 +20,7 @@
 ## How to Install
 * Download and install BO2 Plutonium [Plutonium Download](https://plutonium.pw/)
 * Download the latest version of Remix
-* Copy everything inside "BO2-Remix.zip" into ```%localappdata%\Plutonium\storage\t6\scripts\zm```
+* Copy everything inside "BO2-Remix.zip" into ```%localappdata%\Plutonium\storage\t6\scripts```
 * Launch the game and Enjoy!
 
 ## Change Notes
@@ -37,8 +37,9 @@
 
 ### Visual
 * Tweaked graphics
+* Tweaked vision set
 * Fog disabled
-* Night mode option with ```night_mode``` dvar
+* Night mode option with ```night_mode 1``` dvar
 
 ### Patches
 * Bank automatically full
