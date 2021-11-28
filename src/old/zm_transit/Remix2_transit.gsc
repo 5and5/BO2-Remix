@@ -14,64 +14,104 @@
 #include common_scripts/utility;
 #include maps/mp/zombies/_zm_magicbox;
 
-#include scripts/zm/zm_transit/remix/_transit_jetgun;
-#include scripts/zm/zm_transit/remix/_transit_perks;
-#include scripts/zm/zm_transit/remix/_transit_weapons;
-
 main()
 {
 	replacefunc(maps/mp/zombies/_zm_perks::perk_machine_spawn_init, ::perk_machine_spawn_init);
-
-	level.initial_spawn_transit = true;
-    level thread onplayerconnect();
 }
 
-onplayerconnect()
-{   
-    for(;;)
-    {
-        level waittill("connected", player);
-        player thread onplayerspawned();
-    }
-}
-
-onplayerspawned()
+move_struct_dvar( x, y, z, a )
 {
-    self endon("disconnect");
-    self.initial_spawn_transit = true;
-    
-    for(;;)
-    {
-        self waittill("spawned_player");
+	if ( getDvar("x") == "")
+		setDvar("x", x);
+	if ( getDvar("y") == "")
+		setDvar("y", y);
+	if ( getDvar("z") == "")
+		setDvar("z", z);
+	if ( getDvar("a") == "")
+		setDvar("a", a);
 
-        if(self.initial_spawn_transit)
+	prev_x = 0;
+	prev_y = 0;
+	prev_z = 0;
+	prev_a = 0;
+
+	flag_wait( "start_zombie_round_logic" );
+
+	// if( !isDefined(struct))
+	// {
+	// 	struct = [];
+	// 	structs = [];
+	// }
+
+	// structs = getstructarray( "zm_perk_machine", "targetname" );
+	// for( i = 0; i < structs.size; i++ )
+	// {
+	// 	if( structs[i].script_noteworthy == "specialty_fastreload" )
+	// 	{
+	// 		struct = structs[i];
+	// 	}
+	// }
+
+	while(1)
+	{	
+		x = getDvar("x");
+		y = getDvar("y");
+		z = getDvar("z");
+		a = getDvar("a");
+
+		if( prev_x != x || prev_y != y || prev_z != z || prev_a != a )
 		{
-            self.initial_spawn_transit = true;
+			prev_x = x; prev_y = y; prev_z = z; prev_a = a;
 
-        }
+			level.townPerk[ "specialty_fastreload" ].origin = (x, y, z);
+			level.townPerk[ "specialty_fastreload" ].angle = ( 0, a, 0 );
+		}
 
-        if(level.initial_spawn_transit)
-        {
-            level.initial_spawn_transit = false;
-
-			flag_wait( "start_zombie_round_logic" );
-   			wait 0.05;
-
-			remove_speedcola();
-			spawn_custom_wallbuys();
-			self thread jetgun_buff();
-        }
-    }
+		wait 0.1;
+	}
 }
 
-/*
-* *****************************************************
-*	
-* ********************* Overrides **********************
-*
-* *****************************************************
-*/
+extra_perk_spawns() //custom function
+{
+	location = level.scr_zm_map_start_location;
 
+	if ( location == "town" )
+	{
+		level.townPerkArray = array( "specialty_fastreload" );
+
+		level.townPerks[ "specialty_fastreload" ] = spawnstruct();
+		level.townPerks[ "specialty_fastreload" ].origin = (1776, -1130, -55);
+		level.townPerks[ "specialty_fastreload" ].angles = ( 0, 270, 0 );
+		level.townPerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
+		level.townPerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
+	}
+	else if ( location == "farm" )
+	{
+		level.farmPerkArray = array( "specialty_weapupgrade" );
+
+		level.farmPerks["specialty_weapupgrade"] = spawnstruct();
+		level.farmPerks["specialty_weapupgrade"].origin = (7057, -5727, -49);
+		level.farmPerks["specialty_weapupgrade"].angles = (0,90,0);
+		level.farmPerks["specialty_weapupgrade"].model = "p6_anim_zm_buildable_pap_on";
+		level.farmPerks["specialty_weapupgrade"].script_noteworthy = "specialty_weapupgrade";
+	}
+	else if ( location == "transit" && !is_classic() )
+	{
+		level.busPerkArray = array( "specialty_quickrevive", "specialty_weapupgrade" );
+		level.zombiemode_using_revive_perk = 1;
+		
+		level.busPerks[ "specialty_quickrevive" ] = spawnstruct();
+		level.busPerks[ "specialty_quickrevive" ].origin = (-6706, 5016, -56);
+		level.busPerks[ "specialty_quickrevive" ].angles = (0, 180, 0 );
+		level.busPerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
+		level.busPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+		level.busPerks[ "specialty_weapupgrade" ] = spawnstruct();
+		level.busPerks[ "specialty_weapupgrade" ].origin = (-6834, 4553, -65);
+		level.busPerks[ "specialty_weapupgrade" ].angles = (0,230,0);
+		level.busPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
+		level.busPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
+	}
+}
 
 perk_machine_spawn_init() //modified function
 {
@@ -361,3 +401,23 @@ perk_machine_spawn_init() //modified function
 		}
 	}
 }
+
+givePoints()
+{
+	change_collected = false;
+	while(1)
+	{
+		players = get_players();
+		for(i=0;i<players.size;i++)
+		{
+			if( Distance( players[i].origin, self.origin ) < 1 && players[i] GetStance() == "prone" )
+			{
+				players[i].score += 100;
+				change_collected = true;
+			}
+		}
+		if( isdefined( change_collected ) && change_collected )
+			break;
+		wait .1;
+	}
+}	

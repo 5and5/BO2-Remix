@@ -6,9 +6,6 @@
 #include maps/mp/zm_tomb_tank;
 #include maps/mp/zombies/_zm_weapons;
 
-#include scripts/zm/zm_tomb/remix/_tomb_dig;
-#include scripts/zm/zm_tomb/remix/_tomb_weapons;
-
 main()
 {
     replaceFunc( maps/mp/zm_tomb::include_weapons, ::include_weapons_override );
@@ -36,8 +33,6 @@ onplayerspawned()
     {
         self waittill("spawned_player");
 
-		self tomb_give_shovel();
-
         if(self.initial_spawn_tomb)
 		{
             self.initial_spawn_tomb = true;
@@ -46,21 +41,9 @@ onplayerspawned()
         if(level.initial_spawn_tomb)
         {
             level.initial_spawn_tomb = false;
-
-			add_staffs_to_box();
-			level thread tomb_remove_shovels_from_map();
-			level thread tomb_zombie_blood_dig_changes();
         }
     }
 }
-
-/*
-* *****************************************************
-*	
-* ********************* Overrides **********************
-*
-* *****************************************************
-*/
 
 include_weapons_override() //checked matches cerberus output
 {

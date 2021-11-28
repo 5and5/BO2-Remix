@@ -4,10 +4,8 @@
 #include maps/mp/_utility;
 
 #include maps/mp/zombies/_zm_ai_leaper;
+//#include maps/mp/zm_highrise_elevators;
 
-#include scripts/zm/zm_highrise/remix/_highrise_elevators;
-#include scripts/zm/zm_highrise/remix/_highrise_slipgun;
-#include scripts/zm/zm_highrise/remix/_highrise_zones;
 
 main()
 {
@@ -48,13 +46,43 @@ onplayerspawned()
         {
             level.initial_spawn_highrise = false;
 
-			slipgun_disable_reslip();
-			slipgun_always_kill();
-			die_rise_zone_changes();
-
             // thread debug_print();
             // thread fix_slide_death_gltich();
         }
+    }
+}
+
+give_elevator_key()
+{
+    level endon("end_game");
+    self endon("disconnect");
+
+    for(;;)
+    {
+        if (isDefined(self maps/mp/zombies/_zm_buildables::player_get_buildable_piece()) && self maps/mp/zombies/_zm_buildables::player_get_buildable_piece() == "keys_zm")
+        {
+            wait 1;
+        }
+        else
+        {
+            candidate_list = [];
+            foreach (zone in level.zones)
+            {
+                if (isDefined(zone.unitrigger_stubs))
+                {
+                    candidate_list = arraycombine(candidate_list, zone.unitrigger_stubs, 1, 0);
+                }
+            }
+            foreach (stub in candidate_list)
+            {
+                if (isDefined(stub.piece) && stub.piece.buildablename == "keys_zm")
+                {
+                    self thread maps/mp/zombies/_zm_buildables::player_take_piece(stub.piece);
+                    break;
+                }
+            }
+        }
+        wait 1;
     }
 }
 

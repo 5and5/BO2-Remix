@@ -6,8 +6,9 @@
 * Power doors in Power Plant are always open.
 * Move Double Tap outside of farm
 * Disable Denizens or nerf
-* Avogadro drop max ammo
-* buff the bus
+* Avogadro drop max ammo 
+* buff electric traps
+* buff turret
 
 #### Depot
 
@@ -24,11 +25,14 @@
 ### Die Rise
 * set perk locations (not working)
 * add semtex wallbuy
+* increase trample steam buy range
 * patch slide death (not working)
 * add phd perma perk
+* add knucks zone adj to shaft
 
 ### Buried
-* delete camping jug
+* disable bench above jug spawn turbine bench near b23r
+* remove turbine from build options
 * witches give perk slot instead of perk bottle
 
 ### Origins

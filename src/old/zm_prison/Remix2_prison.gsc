@@ -8,13 +8,6 @@
 #include maps/mp/zombies/_zm_craftables;
 #include maps/mp/zombies/_zm_equipment;
 
-#include scripts/zm/zm_prison/remix/_prison_plane;
-#include scripts/zm/zm_prison/remix/_prison_shield_bench;
-#include scripts/zm/zm_prison/remix/_prison_fence;
-#include scripts/zm/zm_prison/remix/_prison_traps;
-#include scripts/zm/zm_prison/remix/_prison_zones;
-
-
 main()
 {
     replaceFunc( maps/mp/zm_prison::include_weapons, ::include_weapons_override );
@@ -58,21 +51,35 @@ onplayerspawned()
 
 			flag_wait( "start_zombie_round_logic" );
 
-			mob_zone_changes();
-			prison_tower_trap_changes();
 			thread open_warden_fence();
-			level thread prison_auto_refuel_plane();
         }
     }
 }
 
-/*
-* *****************************************************
-*	
-* ********************* Overrides **********************
-*
-* *****************************************************
-*/
+open_warden_fence()
+{
+	m_lock = getent( "masterkey_lock_2", "targetname" );
+	m_lock delete();
+	t_warden_fence_damage = getent( "warden_fence_damage", "targetname" );
+	t_warden_fence_damage delete();
+	admin_powerhouse_puzzle_door_clip = getent( "admin_powerhouse_puzzle_door_clip", "targetname" );
+	admin_powerhouse_puzzle_door_clip delete();
+	admin_powerhouse_puzzle_door = getent( "admin_powerhouse_puzzle_door", "targetname" );
+	admin_powerhouse_puzzle_door rotateyaw( 90, 0.5 );
+	exploder( 2000 );
+	flag_set( "generator_challenge_completed" );
+	wait 0.1;
+	level clientnotify( "sndWard" );
+	level thread maps/mp/zombies/_zm_audio::sndmusicstingerevent( "piece_mid" );
+	t_warden_fence_damage = getent( "warden_fence_damage", "targetname" );
+	t_warden_fence_damage delete();
+	level setclientfield( "warden_fence_down", 1 );
+	array_delete( getentarray( "generator_wires", "script_noteworthy" ) );
+	wait 3;
+	stop_exploder( 2000 );
+	wait 1;
+}
+
 
 include_weapons_override() //checked changed to match cerberus output
 {
@@ -333,3 +340,126 @@ wait_for_player_to_take_override( player, str_valid_weapon )
 	}
 }
 
+spawn_shield_bench( origin, angles ) //jz is the best
+{
+	level endon("end_game");
+
+	bench = spawn("script_model", origin);
+	bench SetModel("p6_zm_work_bench");
+	bench.angles = angles;
+	col = spawn("script_model", origin + (-25,0,0));
+	col SetModel("collision_clip_64x64x64");
+	col.angles = angles;
+	shieldModel = spawn("script_model", origin + ( 0, 0, 70 ) );
+	shieldModel SetModel("t6_wpn_zmb_shield_dlc2_dmg0_world");
+	shieldModel.angles = ( angles + vectorScale( ( 0, 0, 0 ), 90 ) );
+	trigger = spawn("trigger_radius", origin + (0,0,32), 20, 35, 70);
+	trigger.targetname = "shield_trigger";
+	trigger.angles = angles;
+	trigger SetCursorHint("HINT_NOICON");
+	trigger SetHintString("Hold ^3&&1^7 for Zombie Shield");
+	wait 5;
+	level thread update_hint_string( trigger );
+	for(;;)
+	{
+		trigger waittill( "trigger", player );
+		if( player UseButtonPressed() )
+		{
+			if( !player.shield_cooldown_time && !player hasWeapon( "alcatraz_shield_zm" ) )
+			{
+				player maps/mp/zombies/_zm_equipment::equipment_buy( "alcatraz_shield_zm" );
+				player.shield_cooldown_time = 300;
+				player thread shield_cooldown();
+			}
+		}
+		wait 0.1;
+	}
+}
+
+shield_cooldown()
+{
+	level endon("end_game");
+
+	while(1)
+	{
+		wait 1;
+		self.shield_cooldown_time--;
+		if(self.shield_cooldown_time == 0)
+		{
+			break;
+		}
+	}
+}
+
+update_hint_string( trig )
+{
+	level endon("end_game");
+
+	foreach(player in level.players)
+	{
+		player.shield_cooldown_time = 0;
+	}
+	state = 0;
+	prevState = 0;
+	while(1)
+	{
+		foreach(player in level.players)
+		{
+			
+			if ( player.shield_cooldown_time > 0 )
+			{
+				trig SetHintString("Zombie Shield Cool Down: " + to_mins(player.shield_cooldown_time));
+			}
+			else if ( !player hasweapon( "alcatraz_shield_zm" ) )
+			{
+				trig SetHintString("Hold ^3&&1^7 for Zombie Shield");
+			}
+			else
+			{
+				trig SetHintString("Took Zombie Shield");
+			}
+		}
+		wait 0.1;
+	}
+}
+		
+to_mins( seconds )
+{
+	hours = 0;
+	minutes = 0;
+
+	if( seconds > 59 )
+	{
+		minutes = int( seconds / 60 );
+
+		seconds = int( seconds * 1000 ) % ( 60 * 1000 );
+		seconds = seconds * 0.001;
+
+		if( minutes > 59 )
+		{
+			hours = int( minutes / 60 );
+			minutes = int( minutes * 1000 ) % ( 60 * 1000 );
+			minutes = minutes * 0.001;
+		}
+	}
+
+	if( hours < 10 )
+	{
+		hours = "0" + hours;
+	}
+
+	if( minutes < 10 )
+	{
+		minutes = "0" + minutes;
+	}
+
+	seconds = Int( seconds );
+	if( seconds < 10 )
+	{
+		seconds = "0" + seconds;
+	}
+
+	combined = minutes  + ":" + seconds;
+
+	return combined;
+}
