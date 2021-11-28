@@ -10,7 +10,6 @@
 
 #include scripts/zm/zm_prison/remix/_prison_plane;
 #include scripts/zm/zm_prison/remix/_prison_shield_bench;
-#include scripts/zm/zm_prison/remix/_prison_fence;
 #include scripts/zm/zm_prison/remix/_prison_traps;
 #include scripts/zm/zm_prison/remix/_prison_zones;
 
@@ -25,6 +24,8 @@ main()
 
     level.initial_spawn_prison = true;
     level thread onplayerconnect();
+
+	// thread spawn_shield_bench( (2000, 10487, 1342), (0, 0, 0) ); //spawn
 
 	thread spawn_shield_bench( (-1047, 8563, 1336), (0, 0, 0) ); //wardens
 }
@@ -64,6 +65,48 @@ onplayerspawned()
 			level thread prison_auto_refuel_plane();
         }
     }
+}
+
+setup_master_key()
+{
+	level.is_master_key_west = 0;
+	setclientfield( "fake_master_key", level.is_master_key_west + 1 );
+	if ( level.is_master_key_west )
+	{
+		level thread maps/mp/zm_alcatraz_sq::key_pulley( "west" );
+		exploder( 101 );
+		array_delete( getentarray( "wires_pulley_east", "script_noteworthy" ) );
+	}
+	else
+	{
+		level thread maps/mp/zm_alcatraz_sq::key_pulley( "east" );
+		exploder( 100 );
+		array_delete( getentarray( "wires_pulley_west", "script_noteworthy" ) );
+	}
+}
+
+open_warden_fence()
+{
+	m_lock = getent( "masterkey_lock_2", "targetname" );
+	m_lock delete();
+	t_warden_fence_damage = getent( "warden_fence_damage", "targetname" );
+	t_warden_fence_damage delete();
+	admin_powerhouse_puzzle_door_clip = getent( "admin_powerhouse_puzzle_door_clip", "targetname" );
+	admin_powerhouse_puzzle_door_clip delete();
+	admin_powerhouse_puzzle_door = getent( "admin_powerhouse_puzzle_door", "targetname" );
+	admin_powerhouse_puzzle_door rotateyaw( 90, 0.5 );
+	exploder( 2000 );
+	flag_set( "generator_challenge_completed" );
+	wait 0.1;
+	level clientnotify( "sndWard" );
+	level thread maps/mp/zombies/_zm_audio::sndmusicstingerevent( "piece_mid" );
+	t_warden_fence_damage = getent( "warden_fence_damage", "targetname" );
+	t_warden_fence_damage delete();
+	level setclientfield( "warden_fence_down", 1 );
+	array_delete( getentarray( "generator_wires", "script_noteworthy" ) );
+	wait 3;
+	stop_exploder( 2000 );
+	wait 1;
 }
 
 /*
@@ -159,24 +202,6 @@ include_weapons_override() //checked changed to match cerberus output
 		add_weapon_to_content( "raygun_mark2_zm", "dlc3" );
 		add_limited_weapon( "raygun_mark2_zm", 1);
 		add_limited_weapon( "raygun_mark2_upgraded_zm", 1 );
-	}
-}
-
-setup_master_key()
-{
-	level.is_master_key_west = 0;
-	setclientfield( "fake_master_key", level.is_master_key_west + 1 );
-	if ( level.is_master_key_west )
-	{
-		level thread maps/mp/zm_alcatraz_sq::key_pulley( "west" );
-		exploder( 101 );
-		array_delete( getentarray( "wires_pulley_east", "script_noteworthy" ) );
-	}
-	else
-	{
-		level thread maps/mp/zm_alcatraz_sq::key_pulley( "east" );
-		exploder( 100 );
-		array_delete( getentarray( "wires_pulley_west", "script_noteworthy" ) );
 	}
 }
 

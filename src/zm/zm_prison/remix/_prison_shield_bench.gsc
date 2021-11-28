@@ -3,7 +3,7 @@
 #include common_scripts/utility;
 #include maps/mp/_utility;
 
-spawn_shield_bench( origin, angles ) //jz is the best
+spawn_shield_bench( origin, angles )
 {
 	level endon("end_game");
 
@@ -42,13 +42,15 @@ spawn_shield_bench( origin, angles ) //jz is the best
 shield_cooldown()
 {
 	level endon("end_game");
+	self endon("timer_done");
 
 	while(1)
 	{
 		wait 1;
 		self.shield_cooldown_time--;
 		if(self.shield_cooldown_time == 0)
-		{
+		{	
+			self notify("timer_done");
 			break;
 		}
 	}
@@ -71,7 +73,7 @@ update_hint_string( trig )
 			
 			if ( player.shield_cooldown_time > 0 )
 			{
-				trig SetHintString("Zombie Shield Cool Down: " + to_mins(player.shield_cooldown_time));
+				trig SetHintString("Zombie Shield Cooling Down" );//+ to_mins(player.shield_cooldown_time));
 			}
 			else if ( !player hasweapon( "alcatraz_shield_zm" ) )
 			{

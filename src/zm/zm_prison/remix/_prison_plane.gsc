@@ -1,11 +1,12 @@
+#include maps/mp/gametypes_zm/_hud_util;
 #include maps/mp/zombies/_zm_utility;
+#include common_scripts/utility;
+#include maps/mp/_utility;
+
+#include scripts/zm/remix/_buildables;
 
 prison_auto_refuel_plane()
 {
-	if(!(is_classic() && level.scr_zm_map_start_location == "prison"))
-	{
-		return;
-	}
 
 	for ( ;; )
 	{
