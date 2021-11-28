@@ -10,17 +10,12 @@
 * buff the bus
 
 #### Depot
-* dogs maybe
 
 #### Farm
-* dogs maybe
 
 #### Town
-* mp5 by semtex (not working fully)
-* dogs maybe
 
 ### Nuketown
-* dogs maybe
 * Pack-A-Punch is always behind the Green House
 * make m72 limited on nuketown
 
@@ -44,7 +39,6 @@
 * (maybe) Fix Lighting and Fire Staff crashes
 
 ### general
-* edit zombie health scaling 
 
 ### HUD
 * setup an array of positions for hud
@@ -65,7 +59,6 @@
 ### Perks
 
 ### Bugs
-* sph hud showing on 50 and showing on dog rounds
 
 ### Errors
 * mark2 probability crashes buried

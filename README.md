@@ -46,8 +46,6 @@
 * Perma Perks given
 * Fridge has AN94
 * Set box starting locations
-* Zombie health fix
-* Trap fix
 * Round 255 round cap removed
 * Characters can be selected with ```character``` dvar
 
