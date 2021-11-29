@@ -36,7 +36,7 @@
 
 main()
 { 
-	level.VERSION = "0.6.4";
+	level.VERSION = "0.6.5";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -82,7 +82,7 @@ connected()
         self waittill("spawned_player");
 
 		// testing
-		self thread set_starting_round( 51 );
+		// self thread set_starting_round( 51 );
 		// self thread give_all_perks();
 		// self thread give_weapons( "blundergat_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
 		// self thread give_tomahwak();

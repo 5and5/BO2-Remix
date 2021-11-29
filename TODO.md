@@ -43,6 +43,7 @@
 * (maybe) Fix Lighting and Fire Staff crashes
 
 ### general
+* have reset map_restart
 
 ### HUD
 * setup an array of positions for hud
