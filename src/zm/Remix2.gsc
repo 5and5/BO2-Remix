@@ -86,7 +86,7 @@ connected()
 		{
             self.initial_spawn = false;
 
-			self debug( 1 );
+			// self debug( 1 );
 
 			self iprintln("Welcome to Remix!");
 			self iPrintLn("Version " + level.VERSION);
