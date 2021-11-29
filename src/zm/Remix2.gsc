@@ -23,7 +23,6 @@
 #include scripts/zm/remix/_weapons;
 #include scripts/zm/remix/_powerups;
 #include scripts/zm/remix/_perks;
-#include scripts/zm/remix/_permaperks;
 #include scripts/zm/remix/_persistent;
 #include scripts/zm/remix/_buildables;
 #include scripts/zm/remix/_equipment;

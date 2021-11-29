@@ -31,8 +31,8 @@
 * add knucks zone adj to shaft
 
 ### Buried
-* disable bench above jug spawn turbine bench near b23r
-* remove turbine from build options
+* have all initial spawns by the slide 
+* spawn turbine workbench by saloon
 * witches give perk slot instead of perk bottle
 
 ### Origins
