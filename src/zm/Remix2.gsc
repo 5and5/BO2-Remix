@@ -31,12 +31,12 @@
 #include scripts/zm/remix/_reset;
 #include scripts/zm/remix/_utility;
 #include scripts/zm/remix/_zombies;
-#include scripts/zm/remix/debug/debug;
+#include scripts/zm/remix/_debug;
 
 
 main()
 { 
-	level.VERSION = "0.6.5";
+	level.VERSION = "0.6.6";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -58,6 +58,7 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_pers_upgrades_functions::pers_treasure_chest_choosespecialweapon, ::pers_treasure_chest_choosespecialweapon_override );
 	replaceFunc( maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options, ::get_pack_a_punch_weapon_options_override );
 	replaceFunc( maps/mp/zombies/_zm::actor_damage_override, ::actor_damage_override_override );
+	// replaceFunc( maps/mp/zombies/_zm::player_damage_override, ::player_damage_override_override );
 
     level.inital_spawn = true;
     level thread onConnect();
@@ -81,16 +82,11 @@ connected()
     {
         self waittill("spawned_player");
 
-		// testing
-		// self thread set_starting_round( 51 );
-		// self thread give_all_perks();
-		// self thread give_weapons( "blundergat_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
-		// self thread give_tomahwak();
-		// self thread give_weapon_camo( "m14_zm" );
-		
     	if(self.initial_spawn)
 		{
             self.initial_spawn = false;
+
+			self debug( 1 );
 
 			self iprintln("Welcome to Remix!");
 			self iPrintLn("Version " + level.VERSION);

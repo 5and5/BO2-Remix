@@ -17,6 +17,26 @@
 #include maps/mp/zombies/_zm_melee_weapon;
 #include maps/mp/zombies/_zm_craftables;
 
+debug( debug_on )
+{
+	if( getDvar( "debug" ) == "")
+		setDvar( "debug", debug_on );
+
+	if(!debug_on)
+	{
+		return;
+	}
+
+	setDvar( "sv_cheats", 1 );
+	self.score = 555550;
+
+	self thread set_starting_round( 5 );
+	// self thread give_all_perks();
+	// self thread give_weapons( "blundergat_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
+	// self thread give_tomahwak();
+	// self thread give_weapon_camo( "m14_zm" );
+}
+
 set_starting_round( round )
 {
 	flag_wait( "start_zombie_round_logic" );
@@ -50,7 +70,7 @@ give_all_perks()
 		{
 			self give_perk(perk, 1);
 		}
-		wait 0.05;
+		wait 0.1;
 	}
 }
 
@@ -192,4 +212,38 @@ give_weapon_camo( weapon )
 	flag_wait( "initial_blackscreen_passed" );
 
 	self giveweapon( weapon, 0, self calcweaponoptions( 40, 0, 0, 0 ) );
+}
+
+move_struct_dvar( struct, origin, angles )
+{
+	x = origin[ 0 ]; y = origin[ 1 ]; z = origin[ 2 ]; a = angles[1];
+	prev_x = 0; prev_y = 0; prev_z = 0; prev_a = 0;
+
+	if ( getDvar("x") == "")
+		setDvar("x", x);
+	if ( getDvar("y") == "")
+		setDvar("y", y);
+	if ( getDvar("z") == "")
+		setDvar("z", z);
+	if ( getDvar("a") == "")
+		setDvar("a", a);
+
+	//flag_wait( "start_zombie_round_logic" );
+
+	while(1)
+	{	
+		x = getDvar("x"); y = getDvar("y"); z = getDvar("z"); a = getDvar("a");
+
+		if( prev_x != x || prev_y != y || prev_z != z || prev_a != a )
+		{
+			prev_x = x; prev_y = y; prev_z = z; prev_a = a;
+
+			//struct forceteleport(x, y, z);
+			struct setorigin(x, y, z);
+			struct.origin = (x, y, z);
+			struct.angles = ( 0, a, 0 );
+		}
+
+		wait 0.1;
+	}
 }

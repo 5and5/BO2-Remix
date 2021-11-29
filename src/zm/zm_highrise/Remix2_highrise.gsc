@@ -3,11 +3,17 @@
 #include common_scripts/utility;
 #include maps/mp/_utility;
 
-#include maps/mp/zombies/_zm_ai_leaper;
 
+#include maps/mp/zombies/_zm_ai_leaper;
+#include maps/mp/zombies/_zm_pers_upgrades_system;
+#include maps/mp/zombies/_zm_pers_upgrades_functions;
+#include maps/mp/zombies/_zm_pers_upgrades;
+
+#include scripts/zm/remix/_debug;
 #include scripts/zm/zm_highrise/remix/_highrise_elevators;
 #include scripts/zm/zm_highrise/remix/_highrise_slipgun;
 #include scripts/zm/zm_highrise/remix/_highrise_zones;
+#include scripts/zm/zm_highrise/remix/_highrise_divetonuke;
 
 main()
 {
@@ -16,6 +22,8 @@ main()
 
     level.initial_spawn_highrise = true;
     level thread onplayerconnect();
+
+	// thread patch_easy_camping_shaft( (1523,1275,3395), (0,0,0) );
 }
 
 onplayerconnect()
@@ -36,11 +44,13 @@ onplayerspawned()
     {
         self waittill("spawned_player");
 
+        self thread give_elevator_key();
+		self.pers_custom_flopper = 1;
+
         if(self.initial_spawn_highrise)
 		{
             self.initial_spawn_highrise = true;
 
-            self thread give_elevator_key();
             self thread patch_shaft();
         }
 
@@ -50,12 +60,25 @@ onplayerspawned()
 
 			slipgun_disable_reslip();
 			slipgun_always_kill();
+
 			die_rise_zone_changes();
+
+			init_divetonuke();
+			player_damage_changes();
 
             // thread debug_print();
             // thread fix_slide_death_gltich();
         }
     }
+}
+
+patch_easy_camping_shaft( origin, angles )
+{
+	col = spawn("script_model", origin );
+	col SetModel("collision_clip_64x64x64");
+	col.angles = angles;
+
+	thread move_struct_dvar( col, origin, angles );
 }
 
 patch_shaft()
@@ -162,6 +185,14 @@ debug_print()
     }
 }
 
+
+/*
+* *****************************************************
+*	
+* ********************* Overrides **********************
+*
+* *****************************************************
+*/
 
 leaper_round_tracker_override()
 {	
