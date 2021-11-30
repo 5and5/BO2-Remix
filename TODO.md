@@ -25,9 +25,7 @@
 ### Die Rise
 * set perk locations (not working)
 * add semtex wallbuy
-* increase trample steam buy range
 * patch slide death (not working)
-* add phd perma perk
 * add knucks zone adj to shaft
 
 ### Buried

@@ -139,6 +139,7 @@ connected()
 			level thread buildbuildables();
 			level thread buildcraftables();
 
+			buildable_increase_trigger_radius();
 			wallbuy_increase_trigger_radius();
 			level thread wallbuy_dynamic_increase_trigger_radius();
 		}

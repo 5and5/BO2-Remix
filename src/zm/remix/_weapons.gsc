@@ -7,13 +7,25 @@
 #include maps/mp/zombies/_zm_weap_claymore;
 #include maps/mp/zombies/_zm_melee_weapon;
 
+
+buildable_increase_trigger_radius()
+{
+	for(i = 0; i < level.buildable_stubs.size; i++)
+	{
+		if(IsDefined(level.buildable_stubs[i].weaponname))
+		{
+			level.buildable_stubs[i].script_length = 100;
+		}
+	}
+}
+
 wallbuy_increase_trigger_radius()
 {
 	for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
 	{
 		if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade))
 		{
-			level._unitriggers.trigger_stubs[i].script_length = 96;
+			level._unitriggers.trigger_stubs[i].script_length = 128;
 		}
 	}
 }

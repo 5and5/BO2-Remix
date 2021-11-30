@@ -78,6 +78,7 @@
 ### Buildables
 * Buildables can be built with get parts
 * All parts are given at the start of the game
+* Increased buildable buy distance
 
 ### Weapons
 * Increased wall weapon buy distance
@@ -107,6 +108,7 @@
 * Un-patched Sliquifier
 * Un-patched trample steam zone changes
 * Leaper rounds always happen every 4 rounds
+* Perm phd flopper
 * Camping in the shaft is limited to 5 minutes at a time
 
 ### Mob of the Dead

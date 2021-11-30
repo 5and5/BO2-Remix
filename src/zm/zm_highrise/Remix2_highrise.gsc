@@ -22,8 +22,6 @@ main()
 
     level.initial_spawn_highrise = true;
     level thread onplayerconnect();
-
-	// thread patch_easy_camping_shaft( (1523,1275,3395), (0,0,0) );
 }
 
 onplayerconnect()
@@ -66,19 +64,20 @@ onplayerspawned()
 			init_divetonuke();
 			player_damage_changes();
 
+			// patch_easy_camping_shaft( "t6_zmb_buildable_slipgun_extinguisher", (1523,1275,3420), (0,0,0) );
+			// thread move_scriptmodel_with_dvar( "t6_zmb_buildable_slipgun_extinguisher", (1523,1275,3400), (0,0,0) );
+
             // thread debug_print();
             // thread fix_slide_death_gltich();
         }
     }
 }
 
-patch_easy_camping_shaft( origin, angles )
+patch_easy_camping_shaft( model, origin, angles )
 {
-	col = spawn("script_model", origin );
-	col SetModel("collision_clip_64x64x64");
-	col.angles = angles;
+	spawn_scriptmodel(model, origin, angles);
 
-	thread move_struct_dvar( col, origin, angles );
+	//level thread move_scriptmodel_with_dvar( col, origin, angles );
 }
 
 patch_shaft()

@@ -11,6 +11,8 @@ die_rise_zone_changes()
             level.zones[ "zone_orange_level3a" ].adjacent_zones[ "zone_orange_level3b" ].is_connected = 0;
 
             // Trample Steam to Skyscraper
-            level.zones[ "zone_blue_level1c" ].adjacent_zones[ "zone_green_level3b" ].is_connected = 0;
+            // level.zones[ "zone_blue_level1c" ].adjacent_zones[ "zone_green_level3b" ].is_connected = 0;
+            level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] structdelete();
+            level.zones[ "zone_green_level3b" ].adjacent_zones[ "zone_blue_level1c" ] = undefined;
     }
 }

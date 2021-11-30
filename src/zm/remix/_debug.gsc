@@ -214,8 +214,10 @@ give_weapon_camo( weapon )
 	self giveweapon( weapon, 0, self calcweaponoptions( 40, 0, 0, 0 ) );
 }
 
-move_struct_dvar( struct, origin, angles )
+move_scriptmodel_with_dvar( model, origin, angles )
 {
+	scriptmodel = spawn_scriptmodel(model, origin, angles);
+
 	x = origin[ 0 ]; y = origin[ 1 ]; z = origin[ 2 ]; a = angles[1];
 	prev_x = 0; prev_y = 0; prev_z = 0; prev_a = 0;
 
@@ -228,22 +230,41 @@ move_struct_dvar( struct, origin, angles )
 	if ( getDvar("a") == "")
 		setDvar("a", a);
 
-	//flag_wait( "start_zombie_round_logic" );
 
+	wait 1;
 	while(1)
 	{	
-		x = getDvar("x"); y = getDvar("y"); z = getDvar("z"); a = getDvar("a");
+		x = getDvarInt("x"); y = getDvarInt("y"); z = getDvarInt("z"); a = getDvarInt("a");
 
 		if( prev_x != x || prev_y != y || prev_z != z || prev_a != a )
 		{
+			iPrintLn("moved");
+			origin[0] = int(x);
+			origin[1] = int(y);
+			origin[2] = int(z);
+			angles[1] = int(a);
+
+
 			prev_x = x; prev_y = y; prev_z = z; prev_a = a;
 
-			//struct forceteleport(x, y, z);
-			struct setorigin(x, y, z);
-			struct.origin = (x, y, z);
-			struct.angles = ( 0, a, 0 );
+			scriptmodel delete();
+			scriptmodel = spawn_scriptmodel(model, origin, angles);
+
+			// scriptmodel forceteleport( origin );
+			// scriptmodel setorigin( origin );
+			// scriptmodel.origin = origin;
+			// scriptmodel.angles = angles;
 		}
 
 		wait 0.1;
 	}
+}
+
+spawn_scriptmodel( model, origin, angles )
+{
+	preCacheModel(model);
+	scriptmodel = spawn("script_model", origin );
+	scriptmodel SetModel(model);
+	scriptmodel.angles = angles;
+	return scriptmodel;
 }
