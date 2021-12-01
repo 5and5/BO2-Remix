@@ -142,10 +142,10 @@
 * Tank has instant cool down
 
 #### Weapons
-* Ice and Wind Staffs are in the box
+* Staff are no longer limited to 1 per player
 
 #### Crazy Place
-* Walls at disabled 
+* Moving walls at disabled 
 * All gems spawn as soon as you enter the crazy place
 
 #### Dig

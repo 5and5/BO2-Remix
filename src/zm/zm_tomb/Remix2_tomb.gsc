@@ -7,6 +7,7 @@
 #include maps/mp/zombies/_zm_weapons;
 #include maps/mp/zm_tomb_main_quest;
 #include maps/mp/zm_tomb_utility;
+// #include maps/mp/zm_tomb_craftables;
 
 #include scripts/zm/zm_tomb/remix/_tomb_dig;
 #include scripts/zm/zm_tomb/remix/_tomb_weapons;
@@ -21,8 +22,7 @@ main()
 	replaceFunc( maps/mp/zm_tomb_dig::dig_get_rare_powerups, ::dig_get_rare_powerups );
 	replaceFunc( maps/mp/zm_tomb_craftables::include_craftables, ::include_craftables );
 	replaceFunc( maps/mp/zm_tomb_main_quest::staff_crystal_wait_for_teleport, ::staff_crystal_wait_for_teleport );
-
-	
+	replaceFunc( maps/mp/zm_tomb::include_weapons, ::include_weapons );
 
     level.initial_spawn_tomb = true;
     level thread onplayerconnect();
@@ -57,10 +57,11 @@ onplayerspawned()
         {
             level.initial_spawn_tomb = false;
 
-			add_staffs_to_box();
 			disable_walls_moving();
 			level thread tomb_remove_shovels_from_map();
 			level thread tomb_zombie_blood_dig_changes();
+			// level thread add_staffs_to_box();
+			// level thread autocraft_staffs();
         }
     }
 }
@@ -268,6 +269,3 @@ run_gramophone_teleporter( str_vinyl_record ) //checked changed to match cerberu
 		}
 	}
 }
-
-
-

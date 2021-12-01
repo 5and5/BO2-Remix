@@ -645,6 +645,7 @@ buildcraftables()
 			buildcraftable( "tomb_shield_zm" );
 			buildcraftable( "equip_dieseldrone_zm" );
 			takecraftableparts( "gramophone" );
+			//buildcraftable( "elemental_staff_water" );
 		}
 	}
 }

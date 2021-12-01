@@ -35,6 +35,7 @@
 
 ### Origins
 * add staffs to box once they are crafted
+* reduce the steps to update staffs
 * (maybe) Fix Lighting and Fire Staff crashes
 
 ### general
