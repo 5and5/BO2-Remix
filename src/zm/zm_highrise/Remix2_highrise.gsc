@@ -64,20 +64,15 @@ onplayerspawned()
 			init_divetonuke();
 			player_damage_changes();
 
-			// patch_easy_camping_shaft( "t6_zmb_buildable_slipgun_extinguisher", (1523,1275,3420), (0,0,0) );
+			// spawn_scriptmodel( "collision_wall_256x256x10_standard", (3729,1970,2160), (-9,0,55) );
+			// spawnpathnode( "node_pathnode", (3746,1908,2221), (0,0,0) );
+			// teleport_players((3721,1791,2228));
 			// thread move_scriptmodel_with_dvar( "t6_zmb_buildable_slipgun_extinguisher", (1523,1275,3400), (0,0,0) );
 
             // thread debug_print();
             // thread fix_slide_death_gltich();
         }
     }
-}
-
-patch_easy_camping_shaft( model, origin, angles )
-{
-	spawn_scriptmodel(model, origin, angles);
-
-	//level thread move_scriptmodel_with_dvar( col, origin, angles );
 }
 
 patch_shaft()

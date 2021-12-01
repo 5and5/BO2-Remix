@@ -105,34 +105,50 @@
 * Olympia replaced with an mp5
 
 ### Die Rise
-* Un-patched Sliquifier
-* Un-patched trample steam zone changes
+
+#### General 
 * Leaper rounds always happen every 4 rounds
 * Perm phd flopper
 * Camping in the shaft is limited to 5 minutes at a time
 
+#### Weapons
+* Un-patched Sliquifier
+* Un-patched trample steam zone changes
+
 ### Mob of the Dead
-* Blundergats damage no longer falls off
-* Blundergat is no longer limited in the box
-* Blundergat ammo reduced by 1/3
-* Acidgat ammo reduced by 1/3
-* Tomahawk is upgraded when picked up
-* Added zombie shield bench inside wardens office
+
+#### General 
 * All plane parts are auto picked up
 * Plane automatically refills
 * Set key to always spawn next to the cafeteria
 * Sniper trap buffed
 * Double tap zone changes
 
+#### Weapons
+* Blundergats damage no longer falls off
+* Blundergat is no longer limited in the box
+* Blundergat ammo reduced by 1/3
+* Acidgat ammo reduced by 1/3
+* Tomahawk is upgraded when picked up
+* Added zombie shield bench inside wardens office
+
 ### Buried
 * Pack-a-punch camo replaced with Mob of the Dead animated camo
 
 ### Origins
-* Ice and Wind Staffs are in the box
-* Shovels given on spawn
+
+#### General
 * All records and gramophone given on spawn
-* Hidden perk bottle dig spot are always visible
 * Tank has instant cool down
+
+#### Weapons
+* Ice and Wind Staffs are in the box
+
+#### Dig
+* Shovels given on spawn
+* Removed firesale, zombie blood and bonus points as possible dug powerups
+* Dug powerups spawn in a cycle (4 main powerups)
+* Hidden perk bottle dig spot are always visible
 
 ### Dvars
 ```

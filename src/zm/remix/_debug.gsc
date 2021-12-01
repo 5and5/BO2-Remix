@@ -17,20 +17,18 @@
 #include maps/mp/zombies/_zm_melee_weapon;
 #include maps/mp/zombies/_zm_craftables;
 
-debug( debug_on )
+debug( debug )
 {
-	if( getDvar( "debug" ) == "")
-		setDvar( "debug", debug_on );
-
-	if(!debug_on)
-	{
+	if(!debug)
 		return;
-	}
+
+	if( getDvar( "debug" ) == "")
+		setDvar( "debug", debug );
 
 	setDvar( "sv_cheats", 1 );
-	self.score = 555550;
+	self.score = 555555;
 
-	self thread set_starting_round( 5 );
+	self thread set_starting_round( 1 );
 	// self thread give_all_perks();
 	// self thread give_weapons( "blundergat_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
 	// self thread give_tomahwak();
@@ -267,4 +265,13 @@ spawn_scriptmodel( model, origin, angles )
 	scriptmodel SetModel(model);
 	scriptmodel.angles = angles;
 	return scriptmodel;
+}
+
+teleport_players( origin )
+{
+	flag_wait( "initial_blackscreen_passed" );
+	foreach (player in level.players)
+	{
+		player setorigin( origin );
+	}
 }

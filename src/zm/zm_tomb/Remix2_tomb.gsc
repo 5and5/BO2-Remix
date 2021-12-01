@@ -13,6 +13,9 @@ main()
 {
     replaceFunc( maps/mp/zm_tomb::include_weapons, ::include_weapons_override );
     replaceFunc( maps/mp/zm_tomb_tank::wait_for_tank_cooldown, ::wait_for_tank_cooldown_override );
+	replaceFunc( maps/mp/zm_tomb_dig::waittill_dug, ::waittill_dug );
+	replaceFunc( maps/mp/zm_tomb_dig::dig_up_powerup, ::dig_up_powerup );
+	replaceFunc( maps/mp/zm_tomb_dig::dig_get_rare_powerups, ::dig_get_rare_powerups );
 
     level.initial_spawn_tomb = true;
     level thread onplayerconnect();
