@@ -19,12 +19,15 @@
 
 debug( debug )
 {
-	debug = getDvarIntDefault("debug", debug );
-
+	debug = getDvarIntDefault( "debug", debug );
+	setDvar( "debug", debug );
 	if(!debug)
+	{
 		return;
-
+	}
+	
 	setDvar( "sv_cheats", 1 );
+	setDvar( "ai_disablespawn", 1 );
 	self.score = 555550;
 
 	self thread set_starting_round( 1 );

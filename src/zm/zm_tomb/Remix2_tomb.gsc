@@ -20,9 +20,9 @@ main()
 	replaceFunc( maps/mp/zm_tomb_dig::waittill_dug, ::waittill_dug );
 	replaceFunc( maps/mp/zm_tomb_dig::dig_up_powerup, ::dig_up_powerup );
 	replaceFunc( maps/mp/zm_tomb_dig::dig_get_rare_powerups, ::dig_get_rare_powerups );
-	replaceFunc( maps/mp/zm_tomb_craftables::include_craftables, ::include_craftables );
-	replaceFunc( maps/mp/zm_tomb_main_quest::staff_crystal_wait_for_teleport, ::staff_crystal_wait_for_teleport );
-	replaceFunc( maps/mp/zm_tomb::include_weapons, ::include_weapons );
+	// replaceFunc( maps/mp/zm_tomb_craftables::include_craftables, ::include_craftables );
+	// replaceFunc( maps/mp/zm_tomb_main_quest::staff_crystal_wait_for_teleport, ::staff_crystal_wait_for_teleport );
+	// replaceFunc( maps/mp/zm_tomb::include_weapons, ::include_weapons );
 
     level.initial_spawn_tomb = true;
     level thread onplayerconnect();
@@ -60,8 +60,10 @@ onplayerspawned()
 			disable_walls_moving();
 			level thread tomb_remove_shovels_from_map();
 			level thread tomb_zombie_blood_dig_changes();
-			// level thread add_staffs_to_box();
-			// level thread autocraft_staffs();
+
+			flag_wait( "start_zombie_round_logic" );
+   			wait 0.05;
+			thread spawn_gems_in_chambers();
         }
     }
 }

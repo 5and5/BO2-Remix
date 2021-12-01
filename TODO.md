@@ -34,9 +34,11 @@
 * witches give perk slot instead of perk bottle
 
 ### Origins
-* add staffs to box once they are crafted
-* reduce the steps to update staffs
-* (maybe) Fix Lighting and Fire Staff crashes
+<!-- * add staffs to box once they are crafted -->
+* reduce the steps to upgrade staffs (maybe)
+* dig give perk bottles
+* start with 8 perk limit
+* be able to teleport right away
 
 ### general
 * have reset map_restart
@@ -56,6 +58,7 @@
 * probability changes for trade outs
 
 ### Power Ups
+* perkbottles give perk slots
 
 ### Perks
 
