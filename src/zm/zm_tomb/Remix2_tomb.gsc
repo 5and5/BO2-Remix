@@ -51,10 +51,18 @@ onplayerspawned()
             level.initial_spawn_tomb = false;
 
 			add_staffs_to_box();
+			disable_walls_moving();
 			level thread tomb_remove_shovels_from_map();
 			level thread tomb_zombie_blood_dig_changes();
         }
     }
+}
+
+disable_walls_moving()
+{
+	flag_wait( "start_zombie_round_logic" );
+	wait 0.05;
+	flag_set( "stop_random_chamber_walls" );
 }
 
 /*

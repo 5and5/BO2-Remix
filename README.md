@@ -139,6 +139,7 @@
 
 #### General
 * All records and gramophone given on spawn
+* Crazy place walls at disabled 
 * Tank has instant cool down
 
 #### Weapons
