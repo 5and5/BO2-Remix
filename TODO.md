@@ -34,8 +34,7 @@
 * witches give perk slot instead of perk bottle
 
 ### Origins
-* can trade staff back to the box
-* All teleports from Crazy Place side are possible to open even without opening them with gramophone previously
+* add staffs to box once they are crafted
 * (maybe) Fix Lighting and Fire Staff crashes
 
 ### general

@@ -139,11 +139,14 @@
 
 #### General
 * All records and gramophone given on spawn
-* Crazy place walls at disabled 
 * Tank has instant cool down
 
 #### Weapons
 * Ice and Wind Staffs are in the box
+
+#### Crazy Place
+* Walls at disabled 
+* All gems spawn as soon as you enter the crazy place
 
 #### Dig
 * Shovels given on spawn

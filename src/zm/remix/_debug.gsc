@@ -19,14 +19,13 @@
 
 debug( debug )
 {
+	debug = getDvarIntDefault("debug", debug );
+
 	if(!debug)
 		return;
 
-	if( getDvar( "debug" ) == "")
-		setDvar( "debug", debug );
-
 	setDvar( "sv_cheats", 1 );
-	self.score = 555555;
+	self.score = 555550;
 
 	self thread set_starting_round( 1 );
 	// self thread give_all_perks();

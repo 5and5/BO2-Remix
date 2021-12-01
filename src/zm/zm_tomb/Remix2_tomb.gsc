@@ -5,9 +5,12 @@
 #include maps/mp/zm_tomb;
 #include maps/mp/zm_tomb_tank;
 #include maps/mp/zombies/_zm_weapons;
+#include maps/mp/zm_tomb_main_quest;
+#include maps/mp/zm_tomb_utility;
 
 #include scripts/zm/zm_tomb/remix/_tomb_dig;
 #include scripts/zm/zm_tomb/remix/_tomb_weapons;
+#include scripts/zm/zm_tomb/remix/_tomb_craftables;
 
 main()
 {
@@ -16,6 +19,10 @@ main()
 	replaceFunc( maps/mp/zm_tomb_dig::waittill_dug, ::waittill_dug );
 	replaceFunc( maps/mp/zm_tomb_dig::dig_up_powerup, ::dig_up_powerup );
 	replaceFunc( maps/mp/zm_tomb_dig::dig_get_rare_powerups, ::dig_get_rare_powerups );
+	replaceFunc( maps/mp/zm_tomb_craftables::include_craftables, ::include_craftables );
+	replaceFunc( maps/mp/zm_tomb_main_quest::staff_crystal_wait_for_teleport, ::staff_crystal_wait_for_teleport );
+
+	
 
     level.initial_spawn_tomb = true;
     level thread onplayerconnect();
@@ -201,3 +208,66 @@ wait_for_tank_cooldown_override()
 	self playsound( "zmb_tank_ready" );
 	self playloopsound( "zmb_tank_idle" );
 }
+
+run_gramophone_teleporter( str_vinyl_record ) //checked changed to match cerberus output
+{
+	self.has_vinyl = 0;
+	self.gramophone_model = undefined;
+	self thread watch_gramophone_vinyl_pickup();
+	t_gramophone = tomb_spawn_trigger_radius( self.origin, 60, 1 );
+	t_gramophone set_unitrigger_hint_string( &"ZOMBIE_BUILD_PIECE_MORE" );
+	level waittill( "gramophone_vinyl_player_picked_up" );
+	str_craftablename = "gramophone";
+	t_gramophone set_unitrigger_hint_string( &"ZM_TOMB_RU" );
+	while ( !self.has_vinyl )
+	{
+		wait 0.05;
+	}
+	t_gramophone set_unitrigger_hint_string( &"ZM_TOMB_PLGR" );
+	while ( 1 )
+	{
+		t_gramophone waittill( "trigger", player );
+		if ( !isDefined( self.gramophone_model ) )
+		{
+			if ( !flag( "gramophone_placed" ) )
+			{
+				self.gramophone_model = spawn( "script_model", self.origin );
+				self.gramophone_model.angles = self.angles;
+				self.gramophone_model setmodel( "p6_zm_tm_gramophone" );
+				level setclientfield( "piece_record_zm_player", 0 );
+				flag_set( "gramophone_placed" );
+				t_gramophone set_unitrigger_hint_string( "" );
+				t_gramophone trigger_off();
+				str_song_id = self get_gramophone_song();
+				self.gramophone_model playsound( str_song_id );
+				player thread maps/mp/zm_tomb_vo::play_gramophone_place_vo();
+				maps/mp/zm_tomb_teleporter::stargate_teleport_enable( self.script_int );
+				flag_wait( "teleporter_building_" + self.script_int );
+				flag_waitopen( "teleporter_building_" + self.script_int );
+				t_gramophone trigger_on();
+				t_gramophone set_unitrigger_hint_string( &"ZM_TOMB_PUGR" );
+				if ( isDefined( self.script_flag ) )
+				{
+					flag_set( self.script_flag );
+				}
+			}
+			else
+			{
+				player door_gramophone_elsewhere_hint();
+			}
+		}
+		else
+		{
+			self.gramophone_model delete();
+			self.gramophone_model = undefined;
+			player playsound( "zmb_craftable_pickup" );
+			flag_clear( "gramophone_placed" );
+			level setclientfield( "piece_record_zm_player", 1 );
+			maps/mp/zm_tomb_teleporter::stargate_teleport_disable( self.script_int );
+			t_gramophone set_unitrigger_hint_string( &"ZM_TOMB_PLGR" );
+		}
+	}
+}
+
+
+
