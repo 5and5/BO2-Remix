@@ -2,7 +2,7 @@
 
 set_visionset()
 {
-	visionSetNaked( GetDvar( "mapname" ), 3.0 );
+	visionSetNaked( GetDvar( "mapname" ), 1.0 );
 }
 
 graphic_tweaks()

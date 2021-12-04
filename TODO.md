@@ -27,6 +27,7 @@
 * add semtex wallbuy
 * patch slide death (not working)
 * add knucks zone adj to shaft
+* elevator goes up after standing on it for 5 seconds
 
 ### Buried
 * have all initial spawns by the slide 
@@ -39,6 +40,7 @@
 * dig give perk bottles
 * start with 8 perk limit
 * be able to teleport right away
+* buff maxis drone
 
 ### general
 * have reset map_restart

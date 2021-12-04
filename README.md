@@ -146,7 +146,11 @@
 
 #### Crazy Place
 * Moving walls at disabled 
-* All gems spawn as soon as you enter the crazy place
+* All gems spawn at spawned in
+
+#### Teleporters
+* Gramaphone is not needed to open teleporters
+* Teleporters in the crazy place can be use without being used first (map needs to open there exit)
 
 #### Dig
 * Shovels given on spawn

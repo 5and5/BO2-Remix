@@ -91,6 +91,8 @@ set_visible_after_rounds(player, num)
 
 waittill_dug( s_dig_spot ) //checked changed to match cerberus output
 {
+	last_dig_powerup = 0;
+
 	while ( 1 )
 	{
 		self waittill( "trigger", player );
@@ -151,14 +153,16 @@ waittill_dug( s_dig_spot ) //checked changed to match cerberus output
 					}
 					player.dig_vars[ "n_losing_streak" ]++;
 				}
-				else if ( cointoss() )
+				else if ( cointoss() && !last_dig_powerup )
 				{
 					self thread dig_up_powerup( player );
+					last_dig_powerup = 1;
 				}
 				else
 				{
 					player dig_reward_dialog( "dig_gun" );
 					self thread dig_up_weapon( player );
+					last_dig_powerup = 0;
 				}
 			}
 			if ( !player.dig_vars[ "has_upgraded_shovel" ] )
