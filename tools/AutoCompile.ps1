@@ -5,12 +5,12 @@ Write-Output "GSC Autocompiler - By @DoktorSAS"
 
 try
 {
-    if(Test-Path -Path .\src\gsc\Remix2.gsc)
+    if(Test-Path -Path ..\src\gsc\Remix2.gsc)
     {
-        if (Test-Path .\release\Remix2-compiled.gsc) 
+        if (Test-Path ..\release\Remix2-compiled.gsc) 
         {
             Write-Output "Removing old release compiled gsc"
-            Remove-Item .\release\Remix2-compiled.gsc
+            Remove-Item ..\release\Remix2-compiled.gsc
         }
         if (Test-Path ..\Remix2-compiled.gsc) 
         {
@@ -18,23 +18,23 @@ try
             Remove-Item ..\Remix2-compiled.gsc
         }
         Write-Output "Loading main"
-        get-content .\src\gsc\Remix2.gsc > result-uncompiled.gsc
+        get-content ..\src\gsc\Remix2.gsc > result-uncompiled.gsc
         Write-Output "Main file Loaded"
         Write-Output "Lodading other files"
-        get-childitem -Path .\src\gsc -Filter *gsc -Exclude Remix2.gsc -Recurse | Get-Content >> result-uncompiled.gsc
+        get-childitem -Path ..\src\gsc -Filter *gsc -Exclude Remix2.gsc -Recurse | Get-Content >> result-uncompiled.gsc
         Write-Output "*.gsc files loaded"
-        Start-Process .\tools\Compiler.exe .\result-uncompiled.gsc -Wait -NoNewWindow
+        Start-Process .\Compiler.exe .\result-uncompiled.gsc -Wait -NoNewWindow
         Write-Output "Removing result-uncompiled.gsc"
         Remove-Item .\result-uncompiled.gsc
         Write-Output "Compile phase ended"
-        Copy-Item .\result-uncompiled-compiled.gsc ..\Remix2-compiled.gsc -Force
+        Copy-Item .\result-uncompiled-compiled.gsc ..\..\Remix2-compiled.gsc -Force
         Write-Output "Copy File"
-        Move-Item .\result-uncompiled-compiled.gsc .\release\Remix2.gsc -Force 
+        Move-Item .\result-uncompiled-compiled.gsc ..\release\Remix2.gsc -Force 
         Write-Output "File moved in bin folder"
         
 
 
-        if (Test-Path -Path .\release\Remix2.gsc)
+        if (Test-Path -Path ..\release\Remix2.gsc)
         {
             # Add-Type -AssemblyName System.Windows.Forms 
             # $global:balloon = New-Object System.Windows.Forms.NotifyIcon

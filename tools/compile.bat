@@ -10,7 +10,7 @@ for /f "delims=" %%d in ('dir /s /b /ad ^| sort /r') do rd "%%d"  > nul 2>&1
 :: Set SEARCHPATH.
 set "crt_dir=%~dp0"
 for %%I in ("%crt_dir%\..") do set "root=%%~fI"
-set "SEARCHPATH=%root%\src\gsc"
+set "SEARCHPATH=%root%\src"
 
 IF /i "%1"=="onefile" goto onefile
 IF /i "%1"=="multifile" goto multifile
@@ -20,7 +20,7 @@ goto error
 :onefile
 set FileName=%2
 for /D %%I in ("%SEARCHPATH%\*") do (
-    echo Error^: You cannot have folders in src^\gsc.
+    echo Error^: You cannot have folders in src.
     goto error
 )
 :: Generate raw GSC by combining all the .gsc files into one file.

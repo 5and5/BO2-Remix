@@ -6,58 +6,48 @@
 * Power doors in Power Plant are always open.
 * Move Double Tap outside of farm
 * Disable Denizens or nerf
-* Avogadro drop max ammo
-* buff the bus
+* Avogadro drop max ammo 
+* buff electric traps
+* buff turret
 
 #### Depot
 
 #### Farm
 
 #### Town
-* move speed outside of the bank
-* set first box to dt
 
 ### Nuketown
 * Pack-A-Punch is always behind the Green House
+* make m72 limited on nuketown
 
 ### Mob
-* blunder gate does 50% zombies health
-* all players can have blundergate from box
-* reduce tomhawk recharge time
-* Set a key to always be next to the Cafeteria
-* Set first box to always be in Cafeteria
 
 ### Die Rise
-* patch shaft (patch camping in one spot all together)
-* reduce ammo in sliq
-* always have a way to call the elevator (even with power off)
+* set perk locations (not working)
 * add semtex wallbuy
+* patch slide death (not working)
+* add knucks zone adj to shaft
+* elevator goes up after standing on it for 5 seconds
 
 ### Buried
-* delete camping jug
+* have all initial spawns by the slide 
+* spawn turbine workbench by saloon
 * witches give perk slot instead of perk bottle
 
 ### Origins
-* give shovel on spawn
-* (maybe) can hold multiple staffs at onces 
-* can trade staff back to the box
-* dig spots are revealed always
-* All teleports from Crazy Place side are possible to open even without opening them with gramophone previously
-* Player gets a golden shovel after 20 digs and obtains golden helmet instantly
-* Tank has the same instant cooldown on any round
-* Increase Max Ammo chances from digging to 10%
-* (maybe) Fix Lighting and Fire Staff crashes
+<!-- * add staffs to box once they are crafted -->
+* reduce the steps to upgrade staffs (maybe)
+* dig give perk bottles
+* start with 8 perk limit
+* be able to teleport right away
+* buff maxis drone
 
- 
 ### general
-* Finish character select
-* zombie health scaling linearly
-* insta rounds 99 and onwards every other round
-* Return weapon with mule kick after a down
-* (maybe) Player can have 3 weapons at all times on any map - Remove Mule from the game
-* shield cost money
+* have reset map_restart
 
 ### HUD
+* setup an array of positions for hud
+* move hud on origins
 #### TAB Only
 * Round timer
 * Shield
@@ -65,16 +55,16 @@
 * Remaining
 * drop cycle
 
-### Spawn Delay
-
-### Weapons 
+### Weapons
 * remove some shitty weapons from the box
+* probability changes for trade outs
 
-### Power Ups 
+### Power Ups
+* perkbottles give perk slots
 
 ### Perks
-* remove mule kick -> set default number of weapons to 3
-* 5 perk slots
 
+### Bugs
 
-
+### Errors
+* mark2 probability crashes buried
