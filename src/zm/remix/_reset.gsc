@@ -22,7 +22,8 @@ fake_reset()
 		
         if (level.total_time >= 43200) // 12h reset
         {
-			//map_restart( false );
+			map_restart( false );
+			//exitlevel( 0 );
 			players = Get_Players();	
 			for(i=0;i<players.size;i++)
 			{
