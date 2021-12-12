@@ -14,6 +14,8 @@
 #include scripts/zm/zm_highrise/remix/_highrise_slipgun;
 #include scripts/zm/zm_highrise/remix/_highrise_zones;
 #include scripts/zm/zm_highrise/remix/_highrise_divetonuke;
+#include scripts/zm/zm_highrise/remix/_highrise_weapons;
+
 
 main()
 {
@@ -64,6 +66,7 @@ onplayerspawned()
 			init_divetonuke();
 			player_damage_changes();
 
+			spawn_semtex_wallbuy();
 			// spawn_scriptmodel( "collision_wall_256x256x10_standard", (3729,1970,2160), (-9,0,55) );
 			// spawnpathnode( "node_pathnode", (3746,1908,2221), (0,0,0) );
 			// teleport_players((3721,1791,2228));

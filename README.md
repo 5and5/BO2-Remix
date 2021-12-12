@@ -113,8 +113,10 @@
 * Camping in the shaft is limited to 5 minutes at a time
 
 #### Weapons
+* Added semtex wallbuy by b23r
 * Un-patched Sliquifier
 * Un-patched trample steam zone changes
+
 
 ### Mob of the Dead
 

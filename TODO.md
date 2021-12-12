@@ -24,13 +24,11 @@
 
 ### Die Rise
 * set perk locations (not working)
-* add semtex wallbuy
 * patch slide death (not working)
 * add knucks zone adj to shaft
-* elevator goes up after standing on it for 5 seconds
 
 ### Buried
-* have all initial spawns by the slide 
+* have all initial spawns by the slide
 * spawn turbine workbench by saloon
 * witches give perk slot instead of perk bottle
 
