@@ -79,6 +79,7 @@
 * Buildables can be built with get parts
 * All parts are given at the start of the game
 * Increased buildable buy distance
+* Buildables can be built without looking at them
 
 ### Weapons
 * Increased wall weapon buy distance

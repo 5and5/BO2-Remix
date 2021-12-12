@@ -6,6 +6,7 @@
 #include maps/mp/zombies/_zm_unitrigger;
 #include maps/mp/zombies/_zm_weap_claymore;
 #include maps/mp/zombies/_zm_melee_weapon;
+#include maps/mp/zombies/_zm_buildables;
 
 
 buildable_increase_trigger_radius()
@@ -15,6 +16,8 @@ buildable_increase_trigger_radius()
 		if(IsDefined(level.buildable_stubs[i].weaponname))
 		{
 			level.buildable_stubs[i].script_length = 100;
+			level.buildable_stubs[i].require_look_at = 0;
+			level.buildable_stubs[i].prompt_and_visibility_func = ::buildabletrigger_update_prompt_custom;
 		}
 	}
 }
@@ -25,7 +28,7 @@ wallbuy_increase_trigger_radius()
 	{
 		if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade))
 		{
-			level._unitriggers.trigger_stubs[i].script_length = 128;
+			level._unitriggers.trigger_stubs[i].script_length = 96;
 		}
 	}
 }
@@ -145,4 +148,15 @@ playchalkfx( effect, origin, angles ) //custom function
 		level waittill( "connected", player );
 		fx Delete();
 	}
+}
+
+buildabletrigger_update_prompt_custom( player ) //checked matches cerberus output
+{
+	can_use = self.stub buildablestub_update_prompt( player );
+	self sethintstring( self.stub.hint_string );
+	if ( isDefined( self.stub.cursor_hint ) )
+	{
+		self setcursorhint( self.stub.cursor_hint, self.stub.cursor_hint_weapon );
+	}
+	return can_use;
 }

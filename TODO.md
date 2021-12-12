@@ -6,7 +6,7 @@
 * Power doors in Power Plant are always open.
 * Move Double Tap outside of farm
 * Disable Denizens or nerf
-* Avogadro drop max ammo 
+* Avogadro drop max ammo
 * buff electric traps
 * buff turret
 
