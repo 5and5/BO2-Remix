@@ -19,7 +19,7 @@ add_staff_to_box( staff )
     level.zombie_weapons[ staff ].is_in_box = 1;
 }
 
-include_weapons() //checked matches cerberus output
+include_weapons_override() //checked matches cerberus output
 {
 	include_weapon( "hamr_zm" );
 	include_weapon( "hamr_upgraded_zm", 0 );

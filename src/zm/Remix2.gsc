@@ -36,7 +36,7 @@
 
 main()
 { 
-	level.VERSION = "0.6.7";
+	level.VERSION = "0.6.8";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
