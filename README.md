@@ -67,7 +67,8 @@
 * Players can sprint while drinking perks
 * Perk bottles also increase players perk limit by 1
 * Mulekick increases ads, weapon switching, grenade tossing and perk drinking
-* Deadshot increases head shot damage by x2 
+* Deadshot increases head shot damage by x2
+* Who's who wont activate when player has quick revive
 
 ### Mystery Box
 * Weapons can be shared by knifing the box

@@ -286,11 +286,10 @@ player_damage_override_override( einflictor, eattacker, idamage, idflags, smeans
 			}
 		}
 	}
-	//changed from && to ||
-	if ( self.lives > 0 || self hasperk( "specialty_finalstand" ) )
+	if ( self hasperk( "specialty_finalstand" ) && !self hasperk( "specialty_quickrevive"))
 	{
-		self.lives--;
-
+		if(self.lives > 0)
+			self.lives--;
 		if ( isDefined( level.chugabud_laststand_func ) )
 		{
 			self thread [[ level.chugabud_laststand_func ]]();
