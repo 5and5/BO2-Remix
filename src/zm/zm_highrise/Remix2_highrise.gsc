@@ -51,7 +51,7 @@ onplayerspawned()
 		{
             self.initial_spawn_highrise = true;
 
-            self thread patch_shaft();
+            // self thread patch_shaft();
         }
 
         if(level.initial_spawn_highrise)
@@ -67,11 +67,10 @@ onplayerspawned()
 			player_damage_changes();
 
 			spawn_semtex_wallbuy();
-			// spawn_scriptmodel( "collision_wall_256x256x10_standard", (3729,1970,2160), (-9,0,55) );
-			// spawnpathnode( "node_pathnode", (3746,1908,2221), (0,0,0) );
-			// teleport_players((3721,1791,2228));
-			// thread move_scriptmodel_with_dvar( "t6_zmb_buildable_slipgun_extinguisher", (1523,1275,3400), (0,0,0) );
-
+			
+			level thread patch_shaft();
+			
+			// teleport_players((3715.49, 1712.41, 2226.97));
             // thread debug_print();
             // thread fix_slide_death_gltich();
         }
@@ -80,92 +79,38 @@ onplayerspawned()
 
 patch_shaft()
 {
-    level endon( "end_game" );
-
-    zone = "zone_orange_elevator_shaft_middle_2";
-    timeout = 300; // 5 mins
-
-    self.return_to_playable_area_time = timeout;
-
-    self thread return_to_playable_area_hud();
+	origin = ( 3709.89, 1967.07, 2176.7 );
+	length = 210;
+	width = 120;
+	height = 45;
+	trig1 = spawn( "trigger_box", origin, 0, length, width, height );
+	trig1.angles = ( 0, 0, 0 );
+	trig1.targetname = "push_from_prone";
+	trig1.push_player_towards_point = ( 3709.89, 2100, 2176.7 );
 	while ( 1 )
 	{
-        if ( isDefined(self get_current_zone()) && self get_current_zone() == zone && self get_current_zone() != "")
-        {
-            self.return_to_playable_area_hud.alpha = 1;
-
-            if( self.return_to_playable_area_time == 0 )
-            {	
-                if ( get_players().size == 1 && flag( "solo_game" ) && isDefined( self.waiting_to_revive ) && self.waiting_to_revive )
-                {
-                    level notify( "end_game" );
-                    break;
-                }
-                else
-                {
-                    self disableinvulnerability();
-                    self.lives = 0;
-                    self dodamage( self.health + 1000, self.origin );
-                    self.bleedout_time = 0;
-                }
-                self.return_to_playable_area_time = 0;
-                wait 2;
-                self.return_to_playable_area_time = timeout;
-            }
-        }
-        else
-        {
-            self.return_to_playable_area_time = timeout;
-            self.return_to_playable_area_hud.alpha = 0;
-        }
-        wait 0.05;
-    }
-
-}
-
-fix_slide_death_gltich()
-{
-    flag_wait( "start_zombie_round_logic" );
-   	wait 0.05;
-
-    // collision = spawn( "script_model", ( 2815, 2537, 2869 ), 1 );
-	// collision.angles = ( 0, 90, 0 );
-	// collision setModel( "collision_clip_wall_128x128x10" );
-
-    // barrier_model = spawn( "script_model", ( 2815, 2537, 2869 ), 1 );
-	// barrier_model.angles = ( 0, 0, 0 );
-	// barrier_model setmodel( "p6_zm_hr_elevator_indicator" );
-}
-
-return_to_playable_area_hud()
-{   
-	self.return_to_playable_area_hud = newClientHudElem( self );
-	self.return_to_playable_area_hud.alignx = "center";
-    self.return_to_playable_area_hud.aligny = "top";
-    self.return_to_playable_area_hud.horzalign = "user_center";
-    self.return_to_playable_area_hud.vertalign = "user_top";
-    self.return_to_playable_area_hud.x += 0;
-    self.return_to_playable_area_hud.y += 0;
-    self.return_to_playable_area_hud.fontscale = 2;
-    self.return_to_playable_area_hud.color = ( 0.423, 0.004, 0 );
-	self.return_to_playable_area_hud.alpha = 1;
-    self.return_to_playable_area_hud.hidewheninmenu = 1;
-    self.return_to_playable_area_hud.label = &"Return to playable area: "; 
-
-	while(1)
-	{	
-		self.return_to_playable_area_hud SetValue( self.return_to_playable_area_time );
-        
-		wait 1;
-        self.return_to_playable_area_time--;
-	
-		if( self.return_to_playable_area_time == 0)
-		{	
-			self.return_to_playable_area_hud SetValue( self.return_to_playable_area_time );
-			wait 1;
-			self.return_to_playable_area_hud.alpha = 0;
+		trig1 waittill( "trigger", who );
+		if ( who getstance() == "prone" && isplayer( who ) )
+		{
+			who setstance( "crouch" );
 		}
+		trig1 thread slide_push_think( who );
+		wait 0.1;
 	}
+}
+
+slide_push_think( who )
+{
+	while ( who istouching( self ) )
+	{
+		who setvelocity( self get_push_vector() );
+		wait 2;
+	}
+}
+
+get_push_vector()
+{
+	return vectornormalize( self.push_player_towards_point - self.origin ) * 700;
 }
 
 debug_print()

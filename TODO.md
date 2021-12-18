@@ -25,7 +25,6 @@
 ### Die Rise
 * set perk locations (not working)
 * patch slide death (not working)
-* push players in 10 seconds if in the ez shaft - use players height and zone as check
 
 ### Buried
 * have all initial spawns by the slide
