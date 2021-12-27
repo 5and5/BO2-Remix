@@ -16,6 +16,7 @@
 #include maps/mp/zombies/_zm_weap_claymore;
 #include maps/mp/zombies/_zm_melee_weapon;
 #include maps/mp/zombies/_zm_craftables;
+#include maps/mp/zombies/_zm_equipment;
 
 #include scripts/zm/remix/_players;
 #include scripts/zm/remix/_visual;
@@ -59,6 +60,7 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options, ::get_pack_a_punch_weapon_options_override );
 	replaceFunc( maps/mp/zombies/_zm::actor_damage_override, ::actor_damage_override_override );
 	// replaceFunc( maps/mp/zombies/_zm::player_damage_override, ::player_damage_override_override );
+	replaceFunc( maps/mp/zombies/_zm_weap_claymore::claymore_safe_to_plant, ::claymore_safe_to_plant );
 
     level.inital_spawn = true;
     level thread onConnect();
@@ -127,6 +129,7 @@ connected()
 
 			set_startings_chests();
 			set_visionset();
+			set_claymores_max( 10 );
 
 			raygun_mark2_probabilty();
 			remove_fire_sales();
@@ -1398,7 +1401,7 @@ actor_damage_override_override( inflictor, attacker, damage, flags, meansofdeath
 		{
 			if(flags == 5) // fix for grenades doing increased damage when holding claymores
 			{
-				final_damage = int(self.maxhealth / 3) + 55;
+				final_damage = int(self.maxhealth / 2) + 55;
 			}
 			if(damage >= final_damage)
 			{
@@ -1410,6 +1413,12 @@ actor_damage_override_override( inflictor, attacker, damage, flags, meansofdeath
 	{
 		final_damage = int(final_damage * 2);
 	}
+
+	// if ( weapon == "quadrotorturret_zm" )
+	// {
+	// 	iPrintLn("equip_dieseldrone_zm");
+	// 	final_damage = int(self.maxhealth / 3) + 55;
+	// }
 
 	return int( final_damage );
 }

@@ -1,4 +1,0 @@
-electric_trap_always_kill()
-{
-	level.etrap_damage = maps/mp/zombies/_zm::ai_zombie_health( 255 );
-}

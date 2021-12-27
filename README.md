@@ -58,10 +58,10 @@
 ### Power Ups
 * Drop rate increased from 2% to 3%
 * Fire sales removed
-* Max ammos now refill clip as well
-* Carpenters now repair shields
-* Insta kill timer now stacks
-* Double points timer now stacks
+* Max ammos refill clip as well
+* Carpenters repair shields
+* Insta kill timer stacks
+* Double points timer stacks
 
 ### Perks
 * Players can sprint while drinking perks
@@ -86,7 +86,8 @@
 * Increased wall weapon buy distance
 
 ### Equipment
-* Claymores do 1/3 of zombies max health
+* Claymores do 1/2 of zombies max health
+* Max claymores changed from 12 per player to 10 total on the map at a time
 
 ## Maps
 
@@ -117,7 +118,6 @@
 #### Weapons
 * Added semtex wallbuy by b23r
 * Un-patched Sliquifier
-
 
 ### Mob of the Dead
 
