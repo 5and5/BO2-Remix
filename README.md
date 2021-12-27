@@ -142,7 +142,8 @@
 ### Origins
 
 #### General
-* All records and gramophone given on spawn
+* All records and buildable parts given on spawn
+* Gramophone removed as it no longer needed
 * Tank has instant cool down
 
 #### Weapons
@@ -153,16 +154,19 @@
 * All gems spawn at spawned in
 
 #### Teleporters
-* Gramaphone is not needed to open teleporters
-* Teleporters in the crazy place can be use without being used first (map needs to open there exit)
+* Teleporters activate as soon as door leading to them is opened
+* Teleporters in the crazy place can be used without being first used from the other side
 
-#### Dig
+#### Shovel and Helmet
 * Shovels given on spawn
 * Golden shovel awarded after 5 digs
 * Golden helmet chance increased from 5% to 20%
+
+#### Dig spots
 * Removed firesale, zombie blood and bonus points as possible powerups that can be dug
 * Dug powerups spawn in a cycle (4 main powerups)
-* Hidden perk bottle dig spot are visible without zombie blood
+* Hidden perk bottle dig spots are visible without zombie blood
+* Hidden perk bottle dig spots respawn every round
 
 ### Dvars
 ```

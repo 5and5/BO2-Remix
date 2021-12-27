@@ -694,7 +694,7 @@ takecraftableparts( buildable )
 				piecespawn = piece.piecespawn;
 				if ( isDefined( piecespawn ) )
 				{
-					player player_take_piece( piecespawn );
+					player player_take_piece_gramophone( piecespawn );
 				}
 			}
 
@@ -740,6 +740,42 @@ get_craftable_piece( str_craftable, str_piece )
 		}
 	}
 	return undefined;
+}
+
+player_take_piece_gramophone( piecespawn )
+{
+	piecestub = piecespawn.piecestub;
+	damage = piecespawn.damage;
+
+	if ( isDefined( piecestub.onpickup ) )
+	{
+		piecespawn [[ piecestub.onpickup ]]( self );
+	}
+
+	// if ( isDefined( piecestub.is_shared ) && piecestub.is_shared )
+	// {
+	// 	if ( isDefined( piecestub.client_field_id ) )
+	// 	{
+	// 		level setclientfield( piecestub.client_field_id, 1 );
+	// 	}
+	// }
+	// else
+	// {
+	// 	if ( isDefined( piecestub.client_field_state ) )
+	// 	{
+	// 		self setclientfieldtoplayer( "craftable", piecestub.client_field_state );
+	// 	}
+	// }
+
+	piecespawn piece_unspawn();
+	piecespawn notify( "pickup" );
+
+	if ( isDefined( piecestub.is_shared ) && piecestub.is_shared )
+	{
+		piecespawn.in_shared_inventory = 1;
+	}
+
+	self adddstat( "buildables", piecespawn.craftablename, "pieces_pickedup", 1 );
 }
 
 player_take_piece( piecespawn )

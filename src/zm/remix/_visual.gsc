@@ -7,7 +7,8 @@ set_visionset()
 
 graphic_tweaks()
 {
-	self setclientdvar("r_fog", 0);
+	if( level.script != "zm_tomb")
+		self setclientdvar("r_fog", 0);
 	self setclientdvar("r_dof_enable", 0);
 	// self setclientdvar("r_lodBiasRigid", -1000); // casues error
 	// self setclientdvar("r_lodBiasSkinned", -1000);

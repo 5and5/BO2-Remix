@@ -77,6 +77,12 @@ enable_all_teleporters()
 	flag_set( "activate_zone_chamber" );
 	while(1)
 	{
+		if ( level.zones[ "zone_nml_18" ].is_enabled && !isDefined(gramo))
+		{
+			a_door_main = getentarray( "chamber_entrance", "targetname" );
+			array_thread( a_door_main, ::open_gramophone_door );
+			gramo = 1;
+		}
 		if( level.zones[ "zone_air_stairs" ].is_enabled && !isDefined(air))
 		{
 			maps/mp/zm_tomb_teleporter::stargate_teleport_enable( 2 );
@@ -97,7 +103,7 @@ enable_all_teleporters()
 			maps/mp/zm_tomb_teleporter::stargate_teleport_enable( 4 );
 			ice = 1;
 		}
-		if( isDefined(air) && isDefined(fire) && isDefined(light) && isDefined(ice) )
+		if( isDefined(air) && isDefined(fire) && isDefined(light) && isDefined(ice) && isDefined(gramo) )
 		{
 			break;
 		}
@@ -124,10 +130,10 @@ chambers_init() //checked matches cerberus output
 {
 	flag_init( "gramophone_placed" );
 	array_thread( getentarray( "trigger_death_floor", "targetname" ), ::monitor_chamber_death_trigs );
-	a_stargate_gramophones = getstructarray( "stargate_gramophone_pos", "targetname" );
-	//array_thread( a_stargate_gramophones, :: );
-	a_door_main = getentarray( "chamber_entrance", "targetname" );
-	array_thread( a_door_main, ::run_gramophone_door, "vinyl_master" );
+	// a_stargate_gramophones = getstructarray( "stargate_gramophone_pos", "targetname" );
+	// array_thread( a_stargate_gramophones, :: );
+	// a_door_main = getentarray( "chamber_entrance", "targetname" );
+	// array_thread( a_door_main, ::run_gramophone_door, "vinyl_master" );
 }
 
 wait_for_tank_cooldown_override()

@@ -36,8 +36,6 @@
 <!-- * add staffs to box once they are crafted -->
 * reduce the steps to upgrade staffs (maybe)
 * dig give perk bottles
-* start with 8 perk limit
-* buff maxis drone
 
 ### general
 * have reset map_restart
