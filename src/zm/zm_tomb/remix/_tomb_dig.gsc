@@ -89,6 +89,27 @@ set_visible_after_rounds(player, num)
 * *****************************************************
 */
 
+make_zombie_blood_entity()
+{
+	level.a_zombie_blood_entities[ level.a_zombie_blood_entities.size ] = self;
+	self setinvisibletoall();
+	_a196 = getplayers();
+	_k196 = getFirstArrayKey( _a196 );
+	while ( isDefined( _k196 ) )
+	{
+		e_player = _a196[ _k196 ];
+		if ( isDefined( self.e_unique_player ) )
+		{
+			if ( self.e_unique_player == e_player )
+			{
+				self setvisibletoplayer( e_player );
+			}
+			break;
+		}
+		_k196 = getNextArrayKey( _a196, _k196 );
+	}
+}
+
 waittill_dug( s_dig_spot ) //checked changed to match cerberus output
 {
 	last_dig_powerup = 0;
@@ -125,7 +146,7 @@ waittill_dug( s_dig_spot ) //checked changed to match cerberus output
 					if ( !player.dig_vars[ "has_helmet" ] )
 					{
 						n_helmet_roll = randomint( 100 );
-						if ( n_helmet_roll >= 95 )
+						if ( n_helmet_roll >= 80 )
 						{
 							player.dig_vars[ "has_helmet" ] = 1;
 							n_player = player getentitynumber() + 1;
@@ -168,7 +189,7 @@ waittill_dug( s_dig_spot ) //checked changed to match cerberus output
 			if ( !player.dig_vars[ "has_upgraded_shovel" ] )
 			{
 				player.dig_vars[ "n_spots_dug" ]++;
-				if ( player.dig_vars[ "n_spots_dug" ] >= 20 )
+				if ( player.dig_vars[ "n_spots_dug" ] >= 5 )
 				{
 					player.dig_vars[ "has_upgraded_shovel" ] = 1;
 					player thread ee_zombie_blood_dig();

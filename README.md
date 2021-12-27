@@ -112,11 +112,12 @@
 * Leaper rounds always happen every 4 rounds
 * Perm phd flopper
 * Limited camping in shaft
+* Zombies no longer jump across to trample steam zone
 
 #### Weapons
 * Added semtex wallbuy by b23r
 * Un-patched Sliquifier
-* Un-patched trample steam zone changes
+
 
 ### Mob of the Dead
 
@@ -125,7 +126,7 @@
 * Plane automatically refills
 * Set key to always spawn next to the cafeteria
 * Sniper trap buffed
-* Double tap zone changes
+* Opening double tap door does not cause zombies to spawn upstairs
 
 #### Weapons
 * Blundergats damage no longer falls off
@@ -157,9 +158,11 @@
 
 #### Dig
 * Shovels given on spawn
-* Removed firesale, zombie blood and bonus points as possible dug powerups
+* Golden shovel awarded after 5 digs
+* Golden helmet chance increased from 5% to 20%
+* Removed firesale, zombie blood and bonus points as possible powerups that can be dug
 * Dug powerups spawn in a cycle (4 main powerups)
-* Hidden perk bottle dig spot are always visible
+* Hidden perk bottle dig spot are visible without zombie blood
 
 ### Dvars
 ```

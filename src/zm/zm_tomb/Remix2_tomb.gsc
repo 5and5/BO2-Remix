@@ -23,6 +23,7 @@ main()
 	// replaceFunc( maps/mp/zm_tomb_main_quest::staff_crystal_wait_for_teleport, ::staff_crystal_wait_for_teleport );
 	// replaceFunc( maps/mp/zm_tomb::include_weapons, ::include_weapons );
 	replaceFunc( maps/mp/zm_tomb_main_quest::chambers_init, ::chambers_init );
+	replaceFunc( maps/mp/zombies/_zm_powerup_zombie_blood::make_zombie_blood_entity, ::make_zombie_blood_entity );
 	
     level.initial_spawn_tomb = true;
     level thread onplayerconnect();

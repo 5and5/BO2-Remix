@@ -25,6 +25,7 @@
 ### Die Rise
 * set perk locations (not working)
 * patch slide death (not working)
+* sliq kill even when away
 
 ### Buried
 * have all initial spawns by the slide
@@ -36,7 +37,6 @@
 * reduce the steps to upgrade staffs (maybe)
 * dig give perk bottles
 * start with 8 perk limit
-* be able to teleport right away
 * buff maxis drone
 
 ### general
