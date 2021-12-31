@@ -4,20 +4,20 @@
 #include maps/mp/_utility;
 #include maps/mp/zombies/_zm_weapons;
 
-add_staffs_to_box()
-{
-    staffs = array("staff_fire_zm", "staff_lightning_zm", "staff_air_zm", "staff_water_zm");
-    foreach(staff in staffs)
-    {
-        level thread add_staff_to_box( staff );
-    }
-}
+// add_staffs_to_box()
+// {
+//     staffs = array("staff_fire_zm", "staff_lightning_zm", "staff_air_zm", "staff_water_zm");
+//     foreach(staff in staffs)
+//     {
+//         level thread add_staff_to_box( staff );
+//     }
+// }
 
-add_staff_to_box( staff )
-{
-    level waittill( staff + "_crafted" );
-    level.zombie_weapons[ staff ].is_in_box = 1;
-}
+// add_staff_to_box( staff )
+// {
+//     level waittill( staff + "_crafted" );
+//     level.zombie_weapons[ staff ].is_in_box = 1;
+// }
 
 include_weapons_override() //checked matches cerberus output
 {

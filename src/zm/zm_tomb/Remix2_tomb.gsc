@@ -7,10 +7,13 @@
 #include maps/mp/zombies/_zm_weapons;
 #include maps/mp/zm_tomb_main_quest;
 #include maps/mp/zm_tomb_utility;
+#include maps/mp/zm_tomb_capture_zones;
 
+#include scripts/zm/remix/_debug;
 #include scripts/zm/zm_tomb/remix/_tomb_dig;
 #include scripts/zm/zm_tomb/remix/_tomb_weapons;
 #include scripts/zm/zm_tomb/remix/_tomb_craftables;
+#include scripts/zm/zm_tomb/remix/_tomb_chambers;
 
 main()
 {
@@ -19,11 +22,9 @@ main()
 	replaceFunc( maps/mp/zm_tomb_dig::waittill_dug, ::waittill_dug );
 	replaceFunc( maps/mp/zm_tomb_dig::dig_up_powerup, ::dig_up_powerup );
 	replaceFunc( maps/mp/zm_tomb_dig::dig_get_rare_powerups, ::dig_get_rare_powerups );
-	// replaceFunc( maps/mp/zm_tomb_craftables::include_craftables, ::include_craftables );
-	// replaceFunc( maps/mp/zm_tomb_main_quest::staff_crystal_wait_for_teleport, ::staff_crystal_wait_for_teleport );
-	// replaceFunc( maps/mp/zm_tomb::include_weapons, ::include_weapons );
 	replaceFunc( maps/mp/zm_tomb_main_quest::chambers_init, ::chambers_init );
 	replaceFunc( maps/mp/zombies/_zm_powerup_zombie_blood::make_zombie_blood_entity, ::make_zombie_blood_entity );
+	replaceFunc( maps/mp/zm_tomb_capture_zones::recapture_round_tracker, ::recapture_round_tracker_override );
 	
     level.initial_spawn_tomb = true;
     level thread onplayerconnect();
@@ -63,59 +64,22 @@ onplayerspawned()
 
 			flag_wait( "start_zombie_round_logic" );
    			wait 0.05;
-			   
+			
+			set_panzer_rounds();
 			disable_walls_moving();
+
 			thread enable_all_teleporters();
 			thread spawn_gems_in_chambers();
         }
     }
 }
 
-enable_all_teleporters()
+set_panzer_rounds()
 {
-	flag_wait( "initial_blackscreen_passed" );
-	flag_set( "activate_zone_chamber" );
-	while(1)
-	{
-		if ( level.zones[ "zone_nml_18" ].is_enabled && !isDefined(gramo))
-		{
-			a_door_main = getentarray( "chamber_entrance", "targetname" );
-			array_thread( a_door_main, ::open_gramophone_door );
-			gramo = 1;
-		}
-		if( level.zones[ "zone_air_stairs" ].is_enabled && !isDefined(air))
-		{
-			maps/mp/zm_tomb_teleporter::stargate_teleport_enable( 2 );
-			air = 1;
-		}
-		if( level.zones[ "zone_fire_stairs" ].is_enabled && !isDefined(fire))
-		{
-			maps/mp/zm_tomb_teleporter::stargate_teleport_enable( 1 );
-			fire = 1;
-		}
-		if( level.zones[ "zone_nml_farm" ].is_enabled && !isDefined(light))
-		{
-			maps/mp/zm_tomb_teleporter::stargate_teleport_enable( 3 );
-			light = 1;
-		}
-		if( level.zones[ "zone_ice_stairs" ].is_enabled && !isDefined(ice))
-		{
-			maps/mp/zm_tomb_teleporter::stargate_teleport_enable( 4 );
-			ice = 1;
-		}
-		if( isDefined(air) && isDefined(fire) && isDefined(light) && isDefined(ice) && isDefined(gramo) )
-		{
-			break;
-		}
-		wait 1;
-	}
-}
-
-disable_walls_moving()
-{
-	flag_wait( "start_zombie_round_logic" );
-	wait 0.05;
-	flag_set( "stop_random_chamber_walls" );
+	level.mechz_min_round_fq = 4;
+	level.mechz_max_round_fq = 4;
+	level.mechz_min_round_fq_solo = 4;
+	level.mechz_max_round_fq_solo = 4;
 }
 
 /*
@@ -125,16 +89,6 @@ disable_walls_moving()
 *
 * *****************************************************
 */
-
-chambers_init() //checked matches cerberus output
-{
-	flag_init( "gramophone_placed" );
-	array_thread( getentarray( "trigger_death_floor", "targetname" ), ::monitor_chamber_death_trigs );
-	// a_stargate_gramophones = getstructarray( "stargate_gramophone_pos", "targetname" );
-	// array_thread( a_stargate_gramophones, :: );
-	// a_door_main = getentarray( "chamber_entrance", "targetname" );
-	// array_thread( a_door_main, ::run_gramophone_door, "vinyl_master" );
-}
 
 wait_for_tank_cooldown_override()
 {
@@ -154,4 +108,18 @@ wait_for_tank_cooldown_override()
 	level notify( "stp_cd" );
 	self playsound( "zmb_tank_ready" );
 	self playloopsound( "zmb_tank_idle" );
+}
+
+recapture_round_tracker_override()
+{
+	n_next_recapture_round = 10;
+	while ( 1 )
+	{
+		if ( level.round_number >= n_next_recapture_round && !flag( "zone_capture_in_progress" ) && get_captured_zone_count() >= get_player_controlled_zone_count_for_recapture() )
+		{
+			n_next_recapture_round = (level.round_number + 4);
+			level thread recapture_round_start();
+		}
+		wait 1;
+	}
 }

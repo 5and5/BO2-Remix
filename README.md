@@ -143,8 +143,12 @@
 
 ### General
 * All records and buildable parts given on spawn
-* Gramophone removed as it no longer needed
+* Gramophone is no longer needed
 * Tank has instant cool down
+
+### Special Rounds
+* Panzers come every 4 rounds in solo and coop
+* Zone capture zombies come every 4 rounds
 
 ### Weapons
 * Staff are no longer limited to 1 per player

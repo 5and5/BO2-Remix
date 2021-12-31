@@ -35,7 +35,6 @@
 
 ### Origins
 <!-- * add staffs to box once they are crafted -->
-* reduce the steps to upgrade staffs (maybe)
 
 ### general
 * change what round instas start on base on map
