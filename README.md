@@ -89,46 +89,46 @@
 * Claymores do 1/2 of zombies max health
 * Max claymores changed from 12 per player to 10 total on the map at a time
 
-## Maps
+# Maps
 
-### Tranzit
+## Tranzit
 * Jetgun recharges faster
 * Jetgun recharges while away
 
-#### Bus Depot
+### Bus Depot
 * Pack-A-Punch added
 * Claymores added
 
-#### Farm
+### Farm
 * Pack-A-Punch added
 * Claymores added
 
-#### Town
+### Town
 * Speed cola moved
 * Olympia replaced with an mp5
 
-### Die Rise
+## Die Rise
 
-#### General 
+### General 
 * Leaper rounds always happen every 4 rounds
 * Perm phd flopper
 * Limited camping in shaft
 * Zombies no longer jump across to trample steam zone
 
-#### Weapons
+### Weapons
 * Added semtex wallbuy by b23r
 * Un-patched Sliquifier
 
-### Mob of the Dead
+## Mob of the Dead
 
-#### General 
+### General 
 * All plane parts are auto picked up
 * Plane automatically refills
 * Set key to always spawn next to the cafeteria
 * Sniper trap buffed
 * Opening double tap door does not cause zombies to spawn upstairs
 
-#### Weapons
+### Weapons
 * Blundergats damage no longer falls off
 * Blundergat is no longer limited in the box
 * Blundergat ammo reduced by 1/3
@@ -136,39 +136,39 @@
 * Tomahawk is upgraded when picked up
 * Added zombie shield bench inside wardens office
 
-### Buried
+## Buried
 * Pack-a-punch camo replaced with Mob of the Dead animated camo
 
-### Origins
+## Origins
 
-#### General
+### General
 * All records and buildable parts given on spawn
 * Gramophone removed as it no longer needed
 * Tank has instant cool down
 
-#### Weapons
+### Weapons
 * Staff are no longer limited to 1 per player
 
-#### Crazy Place
+### Crazy Place
 * Moving walls at disabled 
 * All gems spawn at spawned in
 
-#### Teleporters
+### Teleporters
 * Teleporters activate as soon as door leading to them is opened
 * Teleporters in the crazy place can be used without being first used from the other side
 
-#### Shovel and Helmet
+### Shovel and Helmet
 * Shovels given on spawn
 * Golden shovel awarded after 5 digs
 * Golden helmet chance increased from 5% to 20%
 
-#### Dig spots
+### Dig spots
 * Removed firesale, zombie blood and bonus points as possible powerups that can be dug
 * Dug powerups spawn in a cycle (4 main powerups)
 * Hidden perk bottle dig spots are visible without zombie blood
 * Hidden perk bottle dig spots respawn every round
 
-### Dvars
+## Custom Dvars
 ```
 coop_pause
 night_mode
@@ -178,7 +178,7 @@ hud_round_timer
 hud_health_bar
 ```
 
-### Credits
+## Credits
 
 * JezuzLizard
 * JBleezy

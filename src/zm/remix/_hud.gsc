@@ -18,6 +18,7 @@ timer_hud()
 	self.timer_hud.color = ( 1, 1, 1 );
 	self.timer_hud.hidewheninmenu = 1;
 
+	self set_hud_offset();
 	self thread timer_hud_watcher();
 	self thread round_timer_hud();
 
@@ -36,6 +37,18 @@ timer_hud()
 	}
 }
 
+set_hud_offset()
+{
+	if (level.script == "zm_tomb" )//|| level.script == "zm_prison")
+	{
+		self.hud_offset = 10;
+	}
+	else
+	{
+		self.hud_offset = 0;	
+	}
+}
+
 timer_hud_watcher()
 {	
 	self endon("disconnect");
@@ -50,6 +63,7 @@ timer_hud_watcher()
 		{
 			wait 0.1;
 		}
+		self.timer_hud.y = (2 + self.hud_offset);
 		self.timer_hud.alpha = 1;
 
 		while( getDvarInt( "hud_timer" ) >= 1 )
@@ -70,7 +84,7 @@ round_timer_hud()
 	self.round_timer_hud.horzalign = "user_left";
 	self.round_timer_hud.vertalign = "user_top";
 	self.round_timer_hud.x += 4;
-	self.round_timer_hud.y += (2 + (15 * getDvarInt("hud_timer") ) );
+	self.round_timer_hud.y += (2 + (15 * getDvarInt("hud_timer") ) + self.hud_offset );
 	self.round_timer_hud.fontscale = 1.4;
 	self.round_timer_hud.alpha = 0;
 	self.round_timer_hud.color = ( 1, 1, 1 );
@@ -178,7 +192,7 @@ round_timer_hud_watcher()
 		{
 			wait 0.1;
 		}
-		self.round_timer_hud.y = (2 + (15 * getDvarInt("hud_timer") ) );
+		self.round_timer_hud.y = (2 + (15 * getDvarInt("hud_timer") ) + self.hud_offset );
 		self.round_timer_hud.alpha = 1;
 
 		while( getDvarInt( "hud_round_timer" ) >= 1 )

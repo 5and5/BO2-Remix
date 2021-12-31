@@ -15,6 +15,7 @@
 #### Farm
 
 #### Town
+* flopper
 
 ### Nuketown
 * Pack-A-Punch is always behind the Green House
@@ -35,14 +36,15 @@
 ### Origins
 <!-- * add staffs to box once they are crafted -->
 * reduce the steps to upgrade staffs (maybe)
-* dig give perk bottles
 
 ### general
-* have reset map_restart
+* change what round instas start on base on map
+* have reset map_restart mid end screen
 
 ### HUD
 * setup an array of positions for hud
 * move hud on origins
+
 #### TAB Only
 * Round timer
 * Shield
@@ -60,6 +62,7 @@
 ### Perks
 
 ### Bugs
+* sliq doesn't work on instakill rounds
 
 ### Errors
 * mark2 probability crashes buried
