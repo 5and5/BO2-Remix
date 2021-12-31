@@ -15,7 +15,7 @@ buildable_increase_trigger_radius()
 	{
 		if(IsDefined(level.buildable_stubs[i].weaponname))
 		{
-			level.buildable_stubs[i].script_length = 100;
+			level.buildable_stubs[i].script_length = 120;
 			level.buildable_stubs[i].require_look_at = 0;
 			level.buildable_stubs[i].prompt_and_visibility_func = ::buildabletrigger_update_prompt_custom;
 		}

@@ -19,6 +19,8 @@ main()
 {
     replaceFunc( maps/mp/zombies/_zm_ai_leaper::leaper_round_tracker, ::leaper_round_tracker_override );
 	replaceFunc( maps/mp/zombies/_zm_ai_faller::do_zombie_emerge, ::do_zombie_emerge_override );
+	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::explode_to_near_zombies, ::explode_to_near_zombies_override );
+	
     // replaceFunc( maps/mp/zm_highrise_elevators::init_elevator_perks, ::init_elevator_perks_override );
 
     level.initial_spawn_highrise = true;
@@ -73,42 +75,6 @@ onplayerspawned()
             // thread fix_slide_death_gltich();
         }
     }
-}
-
-patch_shaft()
-{
-	origin = ( 3709.89, 1967.07, 2176.7 );
-	length = 210;
-	width = 120;
-	height = 45;
-	trig1 = spawn( "trigger_box", origin, 0, length, width, height );
-	trig1.angles = ( 0, 0, 0 );
-	trig1.targetname = "push_from_prone";
-	trig1.push_player_towards_point = ( 3709.89, 2100, 2176.7 );
-	while ( 1 )
-	{
-		trig1 waittill( "trigger", who );
-		if ( who getstance() == "prone" && isplayer( who ) )
-		{
-			who setstance( "crouch" );
-		}
-		trig1 thread slide_push_think( who );
-		wait 0.1;
-	}
-}
-
-slide_push_think( who )
-{
-	while ( who istouching( self ) )
-	{
-		who setvelocity( self get_push_vector() );
-		wait 2;
-	}
-}
-
-get_push_vector()
-{
-	return vectornormalize( self.push_player_towards_point - self.origin ) * 700;
 }
 
 debug_print()
