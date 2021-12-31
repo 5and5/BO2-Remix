@@ -111,9 +111,16 @@
 
 ### General 
 * Leaper rounds always happen every 4 rounds
-* Perm phd flopper
-* Limited camping in shaft
+* Perma phd flopper
+
+### Zones
+* Limited where players can camp while in the shaft
 * Zombies no longer jump across to trample steam zone
+
+### Elevators
+* Key is given on spawn
+* Key can be used unlimited amount of times
+* Fixed error caused by zombies dying from elevator
 
 ### Weapons
 * Added semtex wallbuy by b23r
@@ -128,6 +135,8 @@
 * Plane automatically refills
 * Set key to always spawn next to the cafeteria
 * Sniper trap buffed
+
+### Zones
 * Opening double tap door does not cause zombies to spawn upstairs
 
 ### Weapons

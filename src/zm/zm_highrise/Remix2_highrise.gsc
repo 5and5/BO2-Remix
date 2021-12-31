@@ -18,6 +18,7 @@
 main()
 {
     replaceFunc( maps/mp/zombies/_zm_ai_leaper::leaper_round_tracker, ::leaper_round_tracker_override );
+	replaceFunc( maps/mp/zombies/_zm_ai_faller::do_zombie_emerge, ::do_zombie_emerge_override );
     // replaceFunc( maps/mp/zm_highrise_elevators::init_elevator_perks, ::init_elevator_perks_override );
 
     level.initial_spawn_highrise = true;
@@ -60,11 +61,10 @@ onplayerspawned()
 			slipgun_kills_while_away();
 
 			die_rise_zone_changes();
+			spawn_semtex_wallbuy();
 
 			init_divetonuke();
 			player_damage_changes();
-
-			spawn_semtex_wallbuy();
 			
 			level thread patch_shaft();
 			
