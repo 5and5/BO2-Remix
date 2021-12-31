@@ -117,7 +117,9 @@
 
 ### Weapons
 * Added semtex wallbuy by b23r
-* Un-patched Sliquifier
+* Sliquifier kills till round 255
+* Sliquifier no longer drops extra goo
+* Sliquifier continues to chain while put away
 
 ## Mob of the Dead
 

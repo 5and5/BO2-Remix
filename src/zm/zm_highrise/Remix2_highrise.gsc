@@ -2,8 +2,6 @@
 #include maps/mp/zombies/_zm_utility;
 #include common_scripts/utility;
 #include maps/mp/_utility;
-
-
 #include maps/mp/zombies/_zm_ai_leaper;
 #include maps/mp/zombies/_zm_pers_upgrades_system;
 #include maps/mp/zombies/_zm_pers_upgrades_functions;
@@ -51,7 +49,6 @@ onplayerspawned()
 		{
             self.initial_spawn_highrise = true;
 
-            // self thread patch_shaft();
         }
 
         if(level.initial_spawn_highrise)
@@ -60,6 +57,7 @@ onplayerspawned()
 
 			slipgun_disable_reslip();
 			slipgun_always_kill();
+			slipgun_kills_while_away();
 
 			die_rise_zone_changes();
 
