@@ -62,6 +62,7 @@
 * Carpenters repair shields
 * Insta kill timer stacks
 * Double points timer stacks
+* Perk bottles give extra perk slot
 
 ### Perks
 * Players can sprint while drinking perks
@@ -162,8 +163,8 @@
 * Panzers come every 4 rounds in solo and coop
 * Zone capture zombies come every 4 rounds
 
-### Weapons
-* Staff are no longer limited to 1 per player
+<!-- ### Weapons -->
+<!-- * Staff are no longer limited to 1 per player -->
 
 ### Crazy Place
 * Moving walls at disabled 

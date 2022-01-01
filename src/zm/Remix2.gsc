@@ -913,17 +913,6 @@ get_player_weapon_limit( player ) //checked matches cerberus output
 	return weapon_limit;
 }
 
-// get_player_perk_purchase_limit() //checked matches cerberus output
-// {
-// 	if ( isDefined( level.get_player_perk_purchase_limit ) )
-// 	{
-// 		return self [[ level.get_player_perk_purchase_limit ]]();
-// 	}
-// 	if( level.perk_purchase_limit <= 4 )
-// 		level.perk_purchase_limit = 5;
-
-// 	return level.perk_purchase_limit;
-// }
 
 weapon_give( weapon, is_upgrade, magic_box, nosound ) //checked changed to match cerberus output
 {
@@ -1180,20 +1169,19 @@ free_perk_powerup( item ) //checked changed to match cerberus output
 				player maps/mp/zombies/_zm_stats::increment_player_stat( "buried_ghost_perk_acquired" );
 				player notify( "player_received_ghost_round_free_perk" );
 			}
-			free_perk = player maps/mp/zombies/_zm_perks::give_random_perk();
+			else
+			{
+				free_perk = player maps/mp/zombies/_zm_perks::give_random_perk();
+			}
 			if ( is_true( level.disable_free_perks_before_power ) )
 			{
 				player thread disable_perk_before_power( free_perk );
 			}
 
 			// increase perk limit
-			if ( !isDefined( player.player_perk_purchase_limit ) )
+			if ( level.perk_purchase_limit < 8 )
 			{
-				player.player_perk_purchase_limit = 4;
-			}
-			if ( player.player_perk_purchase_limit < 8 )
-			{
-				player.player_perk_purchase_limit++;
+				level.perk_purchase_limit++;
 			}
 		}
 	}
