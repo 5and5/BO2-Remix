@@ -119,10 +119,11 @@
 * Zombies no longer jump across to trample steam zone
 
 ### Elevators
+* Elevator wait time changed from 5-20 to 7-12 seconds
 * Standing on elevators make them move quicker
 * Key is given on spawn
 * Key can be used unlimited amount of times
-* Key locks elevator from moving when used at current position 
+* Key locks elevator from moving when used at current position
 
 ### Weapons
 * Added semtex wallbuy by b23r

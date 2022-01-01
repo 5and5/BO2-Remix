@@ -25,8 +25,7 @@
 
 ### Die Rise
 * set perk locations (not working)
-* patch slide death (not working)
-* sliq kill even when away
+* 
 
 ### Buried
 * have all initial spawns by the slide
@@ -56,12 +55,13 @@
 * probability changes for trade outs
 
 ### Power Ups
-* perkbottles give perk slots
 
 ### Perks
 
 ### Bugs
-* sliq doesn't work on instakill rounds
 
 ### Errors
-* mark2 probability crashes buried
+
+
+increase ele speed
+check lock code

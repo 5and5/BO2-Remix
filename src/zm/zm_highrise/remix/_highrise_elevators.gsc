@@ -179,11 +179,39 @@ elevator_depart_early( elevator )
 				elevator.body.departing_early = 1;
 				elevator.body.elevator_stop = 0;
 				elevator.body notify( "depart_early" );
-				wait 3;
+				wait 2;
 				elevator.body.departing_early = 0;
 			}
 		}
 		wait 1;
+	}
+}
+
+elevator_initial_wait( elevator, minwait, maxwait, delaybeforeleaving )
+{
+	elevator.body endon( "forcego" );
+	minwait = minwait + 2;
+	maxwait = maxwait - 8;
+	elevator.body waittill_any_or_timeout( randomintrange( minwait, maxwait ), "depart_early" );
+	if ( !is_true( elevator.body.lock_doors ) )
+	{
+		elevator.body setanim( level.perk_elevators_anims[ elevator.body.perk_type ][ 0 ] );
+	}
+	if ( !is_true( elevator.body.departing_early ) )
+	{
+		wait delaybeforeleaving;
+	}
+	if ( elevator.body.perk_type == "specialty_weapupgrade" )
+	{
+		while ( flag( "pack_machine_in_use" ) )
+		{
+			wait 0.5;
+		}
+		wait randomintrange( 2, 3 );
+	}
+	while ( isDefined( level.elevators_stop ) || level.elevators_stop && isDefined( elevator.body.elevator_stop ) && elevator.body.elevator_stop )
+	{
+		wait 0.05;
 	}
 }
 
