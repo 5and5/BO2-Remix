@@ -13,14 +13,14 @@ spawn_custom_wallbuys()
 	{
 		spawn_wallbuy_weapon( ( 0, 0, 0 ), (550, -1363, 168), "claymore_zm_fx", "claymore_zm", "t6_wpn_claymore_world", "claymore", "weapon_upgrade" );
 
-		// for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
-		// {
-		// 	if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == "rottweil72_zm")
-		// 	{
-		// 		origin = level._unitriggers.trigger_stubs[i].origin;
-		// 	}
-		// }
-		// spawn_wallbuy_weapon( ( 0, 90, 0 ), origin, "mp5k_zm_fx", "mp5k_zm", "t6_wpn_smg_mp5_world", "mp5k", "weapon_upgrade" );
+		for(i = 0; i < level._unitriggers.trigger_stubs.size; i++)
+		{
+			if(IsDefined(level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade) && level._unitriggers.trigger_stubs[i].zombie_weapon_upgrade == "rottweil72_zm")
+			{
+				origin = level._unitriggers.trigger_stubs[i].origin;
+			}
+		}
+		spawn_wallbuy_weapon( ( 0, 90, 0 ), origin, "mp5k_zm_fx", "mp5k_zm", "t6_wpn_smg_mp5_world", "mp5k", "weapon_upgrade" );
 	}
 	else if ( location == "farm" )
 	{
@@ -73,7 +73,7 @@ remove_speedcola()
 	}
 }
 
-remove_wallbuy( name, map )
+remove_wallbuy( name )
 {
 	// if ( level.scr_zm_map_start_location != map )
 	// 	return;
@@ -82,7 +82,7 @@ remove_wallbuy( name, map )
 	// {
 	// 	if( spawnable_weapon_spawns[i].zombie_weapon_upgrade == name )
 	// 	{
-	// 		spawnable_weapon_spawns[i] delete();
+	// 		spawnable_weapon_spawns[i].model delete();
 	// 	}
 	// }
 

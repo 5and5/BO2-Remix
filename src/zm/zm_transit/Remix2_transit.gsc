@@ -57,8 +57,9 @@ onplayerspawned()
 			flag_wait( "start_zombie_round_logic" );
    			wait 0.05;
 
-			remove_speedcola();
 			spawn_custom_wallbuys();
+			remove_wallbuy( "rottweil72_zm" );
+			remove_speedcola();
 			self thread jetgun_buff();
         }
     }
