@@ -105,7 +105,7 @@
 
 ### Town
 * Speed cola moved
-* Olympia replaced with an mp5
+<!-- * Olympia replaced with an mp5 -->
 
 ## Die Rise
 
@@ -118,6 +118,7 @@
 * Zombies no longer jump across to trample steam zone
 
 ### Elevators
+* Standing on elevators make them move quicker
 * Key is given on spawn
 * Key can be used unlimited amount of times
 * Key locks elevator from moving when used at current position 

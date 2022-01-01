@@ -44,11 +44,8 @@ give_elevator_key()
 
 elevator_key_on_use_override()
 {
-	foreach ( buildable in level.zombie_include_buildables )
-	{
-		buildable.onuseplantobject = ::onuseplantobject_elevatorkey;
-		buildable.triggerthink = ::ekeysbuildable;
-	}
+	level.zombie_include_buildables[ "ekeys_zm" ].onuseplantobject = ::onuseplantobject_elevatorkey;
+	level.zombie_include_buildables[ "ekeys_zm" ].triggerthink = ::ekeysbuildable;
 }
 
 /*
