@@ -111,7 +111,7 @@
 
 ### General 
 * Leaper rounds always happen every 4 rounds
-* Perma phd flopper
+* Perma phd flopper added
 
 ### Zones
 * Limited where players can camp while in the shaft
@@ -120,7 +120,7 @@
 ### Elevators
 * Key is given on spawn
 * Key can be used unlimited amount of times
-* Fixed error caused by zombies dying from elevator
+* Key locks elevator from moving when used at current position 
 
 ### Weapons
 * Added semtex wallbuy by b23r

@@ -25,11 +25,17 @@ debug( debug )
 	{
 		return;
 	}
+	if( getDvarInt( "debug" ) == 2 )
+	{
+		setDvar( "ai_disablespawn", 1 );
+	}
 	
 	setDvar( "sv_cheats", 1 );
-	setDvar( "ai_disablespawn", 1 );
+	setDvar( "developer_script", 1);
 	self.score = 555550;
 
+	level thread turnOnPower();
+	self thread give_sallys();
 	self thread set_starting_round( 1 );
 	// self thread give_all_perks();
 	// self thread give_weapons( "blundergat_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
@@ -275,5 +281,46 @@ teleport_players( origin )
 	foreach (player in level.players)
 	{
 		player setorigin( origin );
+	}
+}
+
+turnOnPower() //by xepixtvx
+{	
+	flag_wait( "initial_blackscreen_passed" );
+	wait 5;
+	if ( level.firstRooms[ "gen3" ].active || level.firstRooms[ "gen5" ].active || level.firstRooms[ "gen2" ].active )
+	{
+		return;
+	}
+	trig = getEnt( "use_elec_switch", "targetname" );
+	powerSwitch = getEnt( "elec_switch", "targetname" );
+	powerSwitch notSolid();
+	trig setHintString( &"ZOMBIE_ELECTRIC_SWITCH" );
+	trig setVisibleToAll();
+	trig notify( "trigger", self );
+	trig setInvisibleToAll();
+	powerSwitch rotateRoll( -90, 0, 3 );
+	level thread maps/mp/zombies/_zm_perks::perk_unpause_all_perks();
+	powerSwitch waittill( "rotatedone" );
+	flag_set( "power_on" );
+	level setClientField( "zombie_power_on", 1 ); 
+}
+
+give_sallys()
+{	
+	flag_wait( "initial_blackscreen_passed" );
+	if(level.script != "zm_tomb")
+	{
+		self TakeWeapon( "m1911_zm" );
+		self GiveWeapon( "m1911_upgraded_zm", 0, self maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options( "m1911_upgraded_zm" ) );
+		self GiveStartAmmo( "m1911_upgraded_zm" );
+		self SwitchToWeapon( "m1911_upgraded_zm" );
+	}
+	else
+	{
+		self TakeWeapon( "c96_zm" );
+		self GiveWeapon( "c96_upgraded_zm", 0, self maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options( "c96_upgraded_zm" ) );
+		self GiveStartAmmo( "c96_upgraded_zm" );
+		self SwitchToWeapon( "c96_upgraded_zm" );
 	}
 }

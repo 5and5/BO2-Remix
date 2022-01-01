@@ -18,9 +18,13 @@
 main()
 {
     replaceFunc( maps/mp/zombies/_zm_ai_leaper::leaper_round_tracker, ::leaper_round_tracker_override );
-	replaceFunc( maps/mp/zombies/_zm_ai_faller::do_zombie_emerge, ::do_zombie_emerge_override );
-	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::explode_to_near_zombies, ::explode_to_near_zombies_override );
-	
+	replaceFunc( maps/mp/zm_highrise_elevators::elevator_depart_early, ::elevator_depart_early );
+	// replaceFunc( maps/mp/zombies/_zm_ai_faller::do_zombie_emerge, ::do_zombie_emerge_override );
+	// replaceFunc( maps/mp/zombies/_zm_weap_slipgun::explode_to_near_zombies, ::explode_to_near_zombies_override );
+	// replaceFunc( maps/mp/zm_highrise_elevators::elev_remove_corpses, ::elev_remove_corpses_override );
+	// replaceFunc( maps/mp/zm_highrise_elevators::elevator_initial_wait, ::elevator_initial_wait );
+	// replaceFunc( maps/mp/zm_highrise_buildables::elevator_key_prompt, ::elevator_key_prompt );
+	// replaceFunc( maps/mp/zm_highrise_buildables::include_buildables, ::include_buildables_override );
     // replaceFunc( maps/mp/zm_highrise_elevators::init_elevator_perks, ::init_elevator_perks_override );
 
     level.initial_spawn_highrise = true;
@@ -69,6 +73,8 @@ onplayerspawned()
 			player_damage_changes();
 			
 			level thread patch_shaft();
+
+			elevator_key_on_use_override();
 			
 			// teleport_players((3715.49, 1712.41, 2226.97));
             // thread debug_print();

@@ -37,7 +37,7 @@
 
 main()
 { 
-	level.VERSION = "0.7.5";
+	level.VERSION = "0.7.6";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -61,6 +61,7 @@ main()
 	replaceFunc( maps/mp/zombies/_zm::actor_damage_override, ::actor_damage_override_override );
 	// replaceFunc( maps/mp/zombies/_zm::player_damage_override, ::player_damage_override_override );
 	replaceFunc( maps/mp/zombies/_zm_weap_claymore::claymore_safe_to_plant, ::claymore_safe_to_plant );
+	replaceFunc( maps/mp/zombies/_zm_spawner::zombie_rise_death, ::zombie_rise_death_override );
 
     level.inital_spawn = true;
     level thread onConnect();
