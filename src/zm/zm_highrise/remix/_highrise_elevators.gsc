@@ -71,6 +71,8 @@ onuseplantobject_elevatorkey( player )
 		if ( int(elevator.body.current_level) == int(floor + 1) )
 		{
 			elevator.body.elevator_stop = !elevator.body.elevator_stop;
+			elevator.body.force_starting_floor = floor;
+			elevator.body notify( "forcego" );
 		}
 		else if ( isDefined( elevator ) )
 		{

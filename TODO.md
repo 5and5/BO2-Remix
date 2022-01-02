@@ -61,7 +61,3 @@
 ### Bugs
 
 ### Errors
-
-
-increase ele speed
-check lock code

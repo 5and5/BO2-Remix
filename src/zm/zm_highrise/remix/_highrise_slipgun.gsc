@@ -38,6 +38,14 @@ is_slipgun_explosive_damage_custom( damagemod, damageweapon )
 * *****************************************************
 */
 
+slip_bolt( player, upgraded ) //checked matches cerberus output
+{
+	startpos = player getweaponmuzzlepoint();
+	self waittill( "explode", position );
+	duration = 20; //24;
+	thread add_slippery_spot( position, duration, startpos );
+}
+
 slipgun_zombie_death_response_override() //checked matches cerberus output
 {
 	if ( !self is_slipgun_explosive_damage_custom( self.damagemod, self.damageweapon ) )
