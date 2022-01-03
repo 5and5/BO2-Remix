@@ -74,10 +74,6 @@ onplayerspawned()
 			level thread patch_shaft();
 
 			elevator_key_on_use_override();
-			
-			// teleport_players((3715.49, 1712.41, 2226.97));
-            // thread debug_print();
-            // thread fix_slide_death_gltich();
         }
     }
 }

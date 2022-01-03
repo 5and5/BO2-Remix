@@ -123,7 +123,7 @@
 * Standing on elevators make them move quicker
 * Key is given on spawn
 * Key can be used unlimited amount of times
-* Key locks elevator from moving when used at current position
+* Key can lock elevator in current position
 
 ### Weapons
 * Added semtex wallbuy by b23r

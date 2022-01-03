@@ -25,7 +25,6 @@
 
 ### Die Rise
 * set perk locations (not working)
-* 
 
 ### Buried
 * have all initial spawns by the slide
@@ -59,5 +58,7 @@
 ### Perks
 
 ### Bugs
+* add check for frog round in sph counter
+* add check for frog round in coop pause
 
 ### Errors

@@ -37,6 +37,8 @@ debug( debug )
 	level thread turnOnPower();
 	self thread give_sallys();
 	self thread set_starting_round( 1 );
+
+	// self thread teleport_players((2143, 329, 1296));
 	// self thread give_all_perks();
 	// self thread give_weapons( "blundergat_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
 	// self thread give_tomahwak();
