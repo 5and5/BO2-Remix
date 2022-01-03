@@ -62,7 +62,7 @@ main()
 	// replaceFunc( maps/mp/zombies/_zm::player_damage_override, ::player_damage_override_override );
 	replaceFunc( maps/mp/zombies/_zm_weap_claymore::claymore_safe_to_plant, ::claymore_safe_to_plant );
 	replaceFunc( maps/mp/zombies/_zm_spawner::zombie_rise_death, ::zombie_rise_death_override );
-	replaceFunc(maps/mp/zombies/_zm_magicbox::treasure_chest_move, scripts/zm/replaced/_zm_magicbox::treasure_chest_move);
+	replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_move, ::treasure_chest_move );
 
     level.inital_spawn = true;
     level thread onConnect();

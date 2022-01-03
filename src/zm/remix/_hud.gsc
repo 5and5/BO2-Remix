@@ -1,6 +1,7 @@
 #include maps/mp/gametypes_zm/_hud_util;
 #include maps/mp/zombies/_zm_utility;
 #include common_scripts/utility;
+#include maps\mp\_utility;
 
 timer_hud()
 {	
@@ -24,6 +25,9 @@ timer_hud()
 
 	flag_wait( "initial_blackscreen_passed" );
 	self.timer_hud setTimerUp(0);
+
+	// self thread tab_hud();
+	// self thread waittill_player_pressed_scoreboard();
 
 	level waittill( "end_game" );
 
@@ -461,5 +465,29 @@ hud_watcher()
 		}
 		self.round_timer_hud.alpha = 0;
 
+	}
+}
+
+tab_hud()
+{
+	while(1)
+	{
+		if(self buttonPressed( "TAB" ))
+		{
+			// self notify("player_pressed_scoreboard_button");
+			self notifyonplayercommand("player_pressed_scoreboard_button", "+scores");
+			iPrintLn("working");
+		}
+		wait 0.05;
+	}
+}
+
+waittill_player_pressed_scoreboard()
+{
+	while(1)
+	{
+		self waittill("player_pressed_scoreboard_button");
+		self.timer_hud.alpha = 0;
+		iPrintLn("?");
 	}
 }
