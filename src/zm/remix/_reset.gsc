@@ -57,7 +57,7 @@ coop_pause()
 	{
 		if( getDvarInt( "coop_pause" ) == 1 )
 		{	
-			if(get_round_enemy_array().size + level.zombie_total != 0 || flag( "dog_round" ) )
+			if(get_round_enemy_array().size + level.zombie_total != 0 || flag( "dog_round" ) || flag( "leaper_round" ))
 			{
 				iprintln("All players will be paused at the start of the next round");
 				level waittill( "end_of_round" );
