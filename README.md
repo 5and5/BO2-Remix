@@ -73,6 +73,7 @@
 
 ### Mystery Box
 * Weapons can be shared by knifing the box
+* Box moves instantly now
 * Box perma perk guarantees a good weapon first hit
 * First box setup guaranteed
 * Mark 2 probability increased from 33% to 50%
