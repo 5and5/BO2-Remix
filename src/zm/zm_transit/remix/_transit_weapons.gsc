@@ -21,6 +21,7 @@ spawn_custom_wallbuys()
 			}
 		}
 		spawn_wallbuy_weapon( ( 0, 90, 0 ), origin, "mp5k_zm_fx", "mp5k_zm", "t6_wpn_smg_mp5_world", "mp5k", "weapon_upgrade" );
+		remove_wallbuy( "rottweil72_zm" );
 	}
 	else if ( location == "farm" )
 	{

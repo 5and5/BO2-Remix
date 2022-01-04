@@ -58,7 +58,6 @@ onplayerspawned()
    			wait 0.05;
 
 			spawn_custom_wallbuys();
-			remove_wallbuy( "rottweil72_zm" );
 			remove_speedcola();
 			self thread jetgun_buff();
         }
