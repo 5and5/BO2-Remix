@@ -77,9 +77,9 @@ onplayerspawned()
 set_panzer_rounds()
 {
 	level.mechz_min_round_fq = 4;
-	level.mechz_max_round_fq = 4;
+	level.mechz_max_round_fq = 5;
 	level.mechz_min_round_fq_solo = 4;
-	level.mechz_max_round_fq_solo = 4;
+	level.mechz_max_round_fq_solo = 5;
 }
 
 /*

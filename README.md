@@ -163,7 +163,7 @@
 * Tank has instant cool down
 
 ### Special Rounds
-* Panzers come every 4 rounds in solo and coop
+* Panzers come every 4-5 rounds on solo and coop
 * Zone capture zombies come every 4 rounds
 
 <!-- ### Weapons -->
