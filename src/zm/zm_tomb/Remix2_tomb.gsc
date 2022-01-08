@@ -8,6 +8,7 @@
 #include maps/mp/zm_tomb_main_quest;
 #include maps/mp/zm_tomb_utility;
 #include maps/mp/zm_tomb_capture_zones;
+#include maps/mp/zm_tomb_challenges;
 
 #include scripts/zm/remix/_debug;
 #include scripts/zm/zm_tomb/remix/_tomb_dig;
@@ -28,6 +29,7 @@ main()
 	replaceFunc( maps/mp/zm_tomb_craftables::sndplaystaffstingeronce, ::sndplaystaffstingeronce );
 	replaceFunc( maps/mp/zombies/_zm_weap_staff_lightning::staff_lightning_ball_damage_over_time, ::staff_lightning_ball_damage_over_time );
 	replaceFunc( maps/mp/zm_tomb_dig::increment_player_perk_purchase_limit, ::increment_player_perk_purchase_limit );
+	replaceFunc( maps/mp/zm_tomb_challenges::box_footprint_think, ::box_footprint_think );
 
     level.initial_spawn_tomb = true;
     level thread onplayerconnect();
@@ -68,6 +70,7 @@ onplayerspawned()
 			flag_wait( "start_zombie_round_logic" );
    			wait 0.05;
 			
+			soul_box_changes();
 			set_panzer_rounds();
 			disable_walls_moving();
 
@@ -83,6 +86,25 @@ set_panzer_rounds()
 	level.mechz_max_round_fq = 5;
 	level.mechz_min_round_fq_solo = 4;
 	level.mechz_max_round_fq_solo = 5;
+}
+
+soul_box_changes()
+{
+	a_boxes = getentarray( "foot_box", "script_noteworthy" );
+	array_thread( a_boxes, ::soul_box_decrease_kill_requirement );
+}
+
+soul_box_decrease_kill_requirement()
+{
+	self endon( "box_finished" );
+
+	while (1)
+	{
+		self waittill( "soul_absorbed" );
+		wait 0.05;
+		self.n_souls_absorbed += 15;
+		self waittill( "robot_foot_stomp" );
+	}
 }
 
 /*

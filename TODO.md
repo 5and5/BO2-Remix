@@ -29,11 +29,8 @@
 ### Buried
 * have all initial spawns by the slide
 * spawn turbine workbench by saloon
-* witches give perk slot instead of perk bottle
 
 ### Origins
-* set reward gun to scar
-* decrease number of zombies to fill soul boxes
 <!-- * add staffs to box once they are crafted -->
 
 ### general

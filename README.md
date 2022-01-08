@@ -162,6 +162,7 @@
 * All records and buildable parts given on spawn
 * Gramophone is no longer needed
 * Tank has instant cool down
+* Reduced soul boxes zombies required from 30 to 15
 
 ### Special Rounds
 * Panzers come every 4 rounds on solo and coop
