@@ -54,6 +54,8 @@
 * Round timer
 * Health bar
 * SPH - appears after round 50
+* Zombies remaining counter
+* Current zone
 
 ### Power Ups
 * Drop rate increased from 2% to 3%
@@ -201,6 +203,8 @@ character
 hud_timer
 hud_round_timer
 hud_health_bar
+hud_remaining
+hud_zone
 ```
 
 ## Credits
