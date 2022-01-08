@@ -59,7 +59,7 @@ tomb_zombie_blood_dig_changes()
 				}
 				else
 				{
-					ent thread set_visible_after_rounds(ent.e_unique_player, 1);
+					ent thread set_visible_after_rounds(ent.e_unique_player, 255);
 				}
 
 				arrayremovevalue(level.a_zombie_blood_entities, ent);
@@ -242,5 +242,17 @@ dig_get_rare_powerups( player ) //checked changed to match cerberus output
 		}
 	}
 	return a_rare_powerups;
+}
+
+increment_player_perk_purchase_limit() //checked matches cerberus output
+{
+	if ( !isDefined( self.player_perk_purchase_limit ) )
+	{
+		self.player_perk_purchase_limit = level.perk_purchase_limit;
+	}
+	if ( self.player_perk_purchase_limit < 8 )
+	{
+		self.player_perk_purchase_limit = 9;
+	}
 }
 

@@ -26,7 +26,8 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_powerup_zombie_blood::make_zombie_blood_entity, ::make_zombie_blood_entity );
 	replaceFunc( maps/mp/zm_tomb_capture_zones::recapture_round_tracker, ::recapture_round_tracker_override );
 	replaceFunc( maps/mp/zm_tomb_craftables::sndplaystaffstingeronce, ::sndplaystaffstingeronce );
-	replaceFunc( maps/mp/zombies\_zm_weap_staff_lightning::staff_lightning_ball_damage_over_time, ::staff_lightning_ball_damage_over_time );
+	replaceFunc( maps/mp/zombies/_zm_weap_staff_lightning::staff_lightning_ball_damage_over_time, ::staff_lightning_ball_damage_over_time );
+	replaceFunc( maps/mp/zm_tomb_dig::increment_player_perk_purchase_limit, ::increment_player_perk_purchase_limit );
 
     level.initial_spawn_tomb = true;
     level thread onplayerconnect();

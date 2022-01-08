@@ -189,6 +189,7 @@
 * Dug powerups spawn in a cycle (4 main powerups)
 * Hidden perk bottle dig spots are visible without zombie blood
 * Hidden perk bottle dig spots respawn every round
+* Hidden perk bottles give all 9 perk slots 
 
 ## Custom Dvars
 ```
