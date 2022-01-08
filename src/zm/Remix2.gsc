@@ -37,32 +37,30 @@
 
 main()
 { 
-	level.VERSION = "0.8.8";
+	level.VERSION = "0.8.9";
 
-	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
-	//replaceFunc( maps/mp/zombies/_zm_powerups::func_should_drop_fire_sale, ::func_should_drop_fire_sale_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_on_hud, ::insta_kill_on_hud_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::double_points_powerup, ::double_points_powerup_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::point_doubler_on_hud, ::point_doubler_on_hud_override );
-	replaceFunc( maps/mp/zombies/_zm::round_think, ::round_think_override );
-	replaceFunc( maps/mp/zombies/_zm_utility::disable_player_move_states, ::disable_player_move_states_override );
-	replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_canplayerreceiveweapon, ::treasure_chest_canplayerreceiveweapon_override);
-	replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_weapon_spawn, ::treasure_chest_weapon_spawn_override );
-	replaceFunc( maps/mp/zombies/_zm::ai_calculate_health, ::ai_calculate_health_override );
-	replaceFunc( maps/mp/zombies/_zm_utility::get_player_weapon_limit, ::get_player_weapon_limit );
-	//replaceFunc( maps/mp/zombies/_zm_utility::get_player_perk_purchase_limit, ::get_player_perk_purchase_limit );
-	replaceFunc( maps/mp/zombies/_zm_weapons::weapon_give, ::weapon_give );
 	replaceFunc( maps/mp/zombies/_zm_powerups::full_ammo_powerup, ::full_ammo_powerup );
 	replaceFunc( maps/mp/zombies/_zm_powerups::free_perk_powerup, ::free_perk_powerup );
-	replaceFunc( maps/mp/zombies/_zm_pers_upgrades_functions::pers_treasure_chest_choosespecialweapon, ::pers_treasure_chest_choosespecialweapon_override );
-	replaceFunc( maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options, ::get_pack_a_punch_weapon_options_override );
-	replaceFunc( maps/mp/zombies/_zm::actor_damage_override, ::actor_damage_override_override );
-	// replaceFunc( maps/mp/zombies/_zm::player_damage_override, ::player_damage_override_override );
-	replaceFunc( maps/mp/zombies/_zm_weap_claymore::claymore_safe_to_plant, ::claymore_safe_to_plant );
-	replaceFunc( maps/mp/zombies/_zm_spawner::zombie_rise_death, ::zombie_rise_death_override );
+	replaceFunc( maps/mp/zombies/_zm_powerups::nuke_powerup, ::nuke_powerup );
+	replaceFunc( maps/mp/zombies/_zm_utility::disable_player_move_states, ::disable_player_move_states_override );
+	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
+	replaceFunc( maps/mp/zombies/_zm_utility::get_player_weapon_limit, ::get_player_weapon_limit );
+	replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_canplayerreceiveweapon, ::treasure_chest_canplayerreceiveweapon_override);
+	replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_weapon_spawn, ::treasure_chest_weapon_spawn_override );
 	replaceFunc( maps/mp/zombies/_zm_magicbox::treasure_chest_move, ::treasure_chest_move );
+	replaceFunc( maps/mp/zombies/_zm_weapons::weapon_give, ::weapon_give );
+	replaceFunc( maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options, ::get_pack_a_punch_weapon_options_override );
+	replaceFunc( maps/mp/zombies/_zm_weap_claymore::claymore_safe_to_plant, ::claymore_safe_to_plant );
+	replaceFunc( maps/mp/zombies/_zm_pers_upgrades_functions::pers_treasure_chest_choosespecialweapon, ::pers_treasure_chest_choosespecialweapon_override );
+	replaceFunc( maps/mp/zombies/_zm::actor_damage_override, ::actor_damage_override_override );
+	replaceFunc( maps/mp/zombies/_zm_spawner::zombie_rise_death, ::zombie_rise_death_override );
+	replaceFunc( maps/mp/zombies/_zm::round_think, ::round_think_override );
+	replaceFunc( maps/mp/zombies/_zm::ai_calculate_health, ::ai_calculate_health_override );
 
     level.inital_spawn = true;
     level thread onConnect();

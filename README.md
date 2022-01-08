@@ -62,6 +62,7 @@
 * Carpenters repair shields
 * Insta kill timer stacks
 * Double points timer stacks
+* Nukes kill zombies faster
 * Perk bottles give extra perk slot
 
 ### Perks
