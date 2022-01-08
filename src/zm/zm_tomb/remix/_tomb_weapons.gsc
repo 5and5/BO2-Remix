@@ -57,18 +57,10 @@ staff_lightning_ball_damage_over_time( e_source, e_target, e_attacker ) //checke
 	e_target.is_being_zapped = 1;
 	e_target setclientfield( "lightning_arc_fx", 1 );
 	wait 0.5;
-	if ( isDefined( e_source ) )
-	{
-		if ( !isDefined( e_source.n_damage_per_sec ) )
-		{
-			e_source.n_damage_per_sec = get_lightning_ball_damage_per_sec_custom( e_attacker, e_target );
-		}
-		n_damage_per_pulse = e_source.n_damage_per_sec * 1;
-	}
 	while ( isDefined( e_source ) && isalive( e_target ) )
 	{
 		e_target thread stun_zombie();
-		wait 1;
+		wait 0.5;
 		if ( !isDefined( e_source ) || !isalive( e_target ) )
 		{
 			continue;
@@ -80,38 +72,14 @@ staff_lightning_ball_damage_over_time( e_source, e_target, e_attacker ) //checke
 		}
 		if ( isalive( e_target ) && isDefined( e_source ) )
 		{
-			instakill_on = e_attacker maps/mp/zombies/_zm_powerups::is_insta_kill_active();
-			if ( n_damage_per_pulse < e_target.health && !instakill_on )
-			{
-				e_target do_damage_network_safe( e_attacker, n_damage_per_pulse, e_source.str_weapon, "MOD_RIFLE_BULLET" );
-			}
-			else
-			{
-				e_target thread zombie_shock_eyes();
-				e_target thread staff_lightning_kill_zombie( e_attacker, e_source.str_weapon );
-			}
+			e_target thread zombie_shock_eyes();
+			e_target thread staff_lightning_kill_zombie( e_attacker, e_source.str_weapon );
 		}
 	}
 	if ( isDefined( e_target ) )
 	{
 		e_target.is_being_zapped = 0;
 		e_target setclientfield( "lightning_arc_fx", 0 );
-	}
-}
-
-get_lightning_ball_damage_per_sec_custom( e_attacker, e_target ) //checked matches cerberus output
-{
-	n_charge = e_attacker.chargeshotlevel;
-	if ( !isDefined( n_charge ) )
-	{
-		return 2500;
-	}
-	switch ( n_charge )
-	{
-		case 3:
-			return e_target.maxhealth + 55;
-		default:
-			return ((e_target.maxhealth / 2) + 55);
 	}
 }
 
