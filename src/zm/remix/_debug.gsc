@@ -37,6 +37,7 @@ debug( debug )
 	level thread turnOnPower();
 	self thread give_sallys();
 	self thread set_starting_round( 1 );
+	// self thread give_a_perk("specialty_grenadepulldeath");
 
 	// self thread teleport_players((2143, 329, 1296));
 	// self thread give_all_perks();
@@ -62,6 +63,8 @@ give_all_perks()
 {	
 	flag_wait( "initial_blackscreen_passed" );
 
+	wait 2;
+
 	vending_triggers = getentarray( "zombie_vending", "targetname" );
 	for ( i = 0; i < vending_triggers.size; i++ )
 	{
@@ -76,10 +79,17 @@ give_all_perks()
 		}
 		if ( !self hasperk( perk ) && !self has_perk_paused( perk ) )
 		{
-			self give_perk(perk, 1);
+			self give_perk(perk, 0);
 		}
-		wait 0.1;
+		wait 1;
 	}
+}
+
+give_a_perk( perk )
+{
+	flag_wait( "initial_blackscreen_passed" );
+	wait 2;
+	self give_perk(perk, 0);
 }
 
 give_tomahwak()

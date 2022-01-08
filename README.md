@@ -70,6 +70,7 @@
 * Mulekick increases ads, weapon switching, grenade tossing and perk drinking
 * Deadshot increases head shot damage by x2
 * Who's who wont activate when player has quick revive
+* Electric cherry wont activate when a player goes down
 
 ### Mystery Box
 * Weapons can be shared by knifing the box
@@ -163,7 +164,7 @@
 * Tank has instant cool down
 
 ### Special Rounds
-* Panzers come every 4-5 rounds on solo and coop
+* Panzers come every 4 rounds on solo and coop
 * Zone capture zombies come every 4 rounds
 
 <!-- ### Weapons -->

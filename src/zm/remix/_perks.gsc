@@ -47,3 +47,8 @@ perk_machine_prone_watcher() //TODO
 		wait .1;
 	}
 }
+
+disable_electric_cherry_on_laststand()
+{
+	level.custom_laststand_func = undefined;
+}

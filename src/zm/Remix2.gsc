@@ -37,7 +37,7 @@
 
 main()
 { 
-	level.VERSION = "0.8.5";
+	level.VERSION = "0.8.6";
 
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
@@ -90,7 +90,7 @@ connected()
 		{
             self.initial_spawn = false;
 
-			self debug( 0 );
+			self thread debug( 0 );
 
 			self iprintln("Welcome to Remix!");
 			self iPrintLn("Version " + level.VERSION);
@@ -138,7 +138,7 @@ connected()
 
 			electric_trap_always_kill();
 			disable_high_round_walkers();
-
+			disable_electric_cherry_on_laststand();
 			enable_free_perks_before_power();
 
 			level thread buildbuildables();
