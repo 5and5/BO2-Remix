@@ -17,7 +17,7 @@
 
 main()
 {
-    replaceFunc( maps/mp/zm_tomb::include_weapons, ::include_weapons_override );
+    // replaceFunc( maps/mp/zm_tomb::include_weapons, ::include_weapons_override );
     replaceFunc( maps/mp/zm_tomb_tank::wait_for_tank_cooldown, ::wait_for_tank_cooldown_override );
 	replaceFunc( maps/mp/zm_tomb_dig::waittill_dug, ::waittill_dug );
 	replaceFunc( maps/mp/zm_tomb_dig::dig_up_powerup, ::dig_up_powerup );
@@ -25,7 +25,9 @@ main()
 	replaceFunc( maps/mp/zm_tomb_main_quest::chambers_init, ::chambers_init );
 	replaceFunc( maps/mp/zombies/_zm_powerup_zombie_blood::make_zombie_blood_entity, ::make_zombie_blood_entity );
 	replaceFunc( maps/mp/zm_tomb_capture_zones::recapture_round_tracker, ::recapture_round_tracker_override );
-	
+	replaceFunc( maps/mp/zm_tomb_craftables::sndplaystaffstingeronce, ::sndplaystaffstingeronce );
+	replaceFunc( maps/mp/zombies\_zm_weap_staff_lightning::staff_lightning_ball_damage_over_time, ::staff_lightning_ball_damage_over_time );
+
     level.initial_spawn_tomb = true;
     level thread onplayerconnect();
 }

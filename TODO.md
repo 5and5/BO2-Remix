@@ -32,6 +32,8 @@
 * witches give perk slot instead of perk bottle
 
 ### Origins
+* set reward gun to scar
+* decrease number of zombies to fill soul boxes
 <!-- * add staffs to box once they are crafted -->
 
 ### general
@@ -58,5 +60,6 @@
 ### Perks
 
 ### Bugs
+* fix losing 3rd gun origins
 
 ### Errors

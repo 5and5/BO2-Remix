@@ -167,8 +167,9 @@
 * Panzers come every 4 rounds on solo and coop
 * Zone capture zombies come every 4 rounds
 
-<!-- ### Weapons -->
-<!-- * Staff are no longer limited to 1 per player -->
+### Weapons
+* Staffs can be upgraded without doing the easter egg steps
+* Upgraded lighting does infinite damage
 
 ### Crazy Place
 * Moving walls at disabled 
