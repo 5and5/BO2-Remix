@@ -37,7 +37,7 @@ debug( debug )
 	level thread turnOnPower();
 	self thread give_sallys();
 	self thread set_starting_round( 1 );
-	// self thread give_a_perk("specialty_grenadepulldeath");
+	// self thread give_a_perk("specialty_longersprint");
 
 	// self thread teleport_players((2143, 329, 1296));
 	// self thread give_all_perks();

@@ -49,8 +49,13 @@ set_character_option()
 
 inspect_weapon()
 {
+	if(level.script == "zm_tomb")
+	{
+		return;
+	}
 	level endon( "end_game" );
 	self endon( "disconnect" );
+
 	for(;;)
 	{
 		if( self actionslotthreebuttonpressed() )

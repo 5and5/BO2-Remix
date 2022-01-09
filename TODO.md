@@ -15,7 +15,6 @@
 #### Farm
 
 #### Town
-* flopper
 
 ### Nuketown
 * Pack-A-Punch is always behind the Green House
@@ -39,7 +38,6 @@
 
 ### HUD
 * setup an array of positions for hud
-* move hud on origins
 
 #### TAB Only
 * Round timer
@@ -53,10 +51,11 @@
 * probability changes for trade outs
 
 ### Power Ups
+* add fx on last drop of cycle
 
 ### Perks
+* buff staminup sprint duration
 
 ### Bugs
-* fix losing 3rd gun origins
 
 ### Errors

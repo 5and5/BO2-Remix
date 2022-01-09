@@ -23,6 +23,26 @@ mulekick_additional_perks()
 	}
 }
 
+staminup_additional_perks()
+{
+	self endon( "disconnect" );
+
+	for ( ;; )
+	{
+		self waittill_any("perk_acquired", "perk_lost");
+
+		if (self HasPerk("specialty_longersprint"))
+		{
+			self setperk( "specialty_unlimitedsprint" );
+		}
+		else
+		{
+			self unsetperk( "specialty_unlimitedsprint" );
+		}
+	}
+	
+}
+
 enable_free_perks_before_power()
 {
 	level.disable_free_perks_before_power = undefined;
