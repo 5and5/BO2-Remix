@@ -145,6 +145,7 @@
 ### General 
 * All plane parts are auto picked up
 * Plane automatically refills
+* Blunder gat spawns in wardens office without collecting the 5 skulls
 * Set key to always spawn next to the cafeteria
 * Sniper trap buffed
 
@@ -174,7 +175,7 @@
 ### Special Rounds
 * Panzers will come every 4 rounds on solo and coop
 * Generator zombies can come every 4 rounds
-* Generator zombies come will come the same as soon as you turn on 4 or more generators
+* Generator zombies come will come the same round as you turn on 4 or more generators
 
 ### Weapons
 * Staffs can be upgraded without doing the easter egg steps

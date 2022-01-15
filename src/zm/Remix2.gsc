@@ -37,7 +37,7 @@
 
 main()
 { 
-	level.VERSION = "0.9.3";
+	level.VERSION = "0.9.4";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
@@ -142,7 +142,9 @@ connected()
 			electric_trap_always_kill();
 			disable_high_round_walkers();
 			disable_electric_cherry_on_laststand();
+			
 			enable_free_perks_before_power();
+			perk_machine_find_change();
 
 			level thread buildbuildables();
 			level thread buildcraftables();
@@ -151,7 +153,6 @@ connected()
 			wallbuy_increase_trigger_radius();
 			level thread wallbuy_dynamic_increase_trigger_radius();
 
-			perk_machine_change();
 		}
 	}
 }

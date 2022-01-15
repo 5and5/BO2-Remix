@@ -7,6 +7,7 @@
 #include maps/mp/zm_alcatraz_utility;
 #include maps/mp/zombies/_zm_craftables;
 #include maps/mp/zombies/_zm_equipment;
+#include maps/mp/zm_prison_sq_bg;
 
 #include scripts/zm/zm_prison/remix/_prison_plane;
 #include scripts/zm/zm_prison/remix/_prison_shield_bench;
@@ -21,12 +22,12 @@ main()
 	// replaceFunc( maps/mp/zombies/_zm_weap_tomahawk::tomahawk_attack_zombies, ::tomahawk_attack_zombies_override );
 	replaceFunc( maps/mp/zombies/_zm_weap_tomahawk::tomahawk_pickup_trigger, ::tomahawk_pickup_trigger );
 	replaceFunc( maps/mp/zm_alcatraz_utility::wait_for_player_to_take, ::wait_for_player_to_take_override );
+	replaceFunc( maps/mp/zm_prison_sq_bg::wait_for_initial_conditions, ::wait_for_initial_conditions );
 
     level.initial_spawn_prison = true;
     level thread onplayerconnect();
 
 	// thread spawn_shield_bench( (2000, 10487, 1342), (0, 0, 0) ); //spawn
-
 	thread spawn_shield_bench( (-1047, 8563, 1336), (0, 0, 0) ); //wardens
 }
 
@@ -107,6 +108,43 @@ open_warden_fence()
 	wait 3;
 	stop_exploder( 2000 );
 	wait 1;
+}
+
+wait_for_initial_conditions()
+{
+	flag_wait( "start_zombie_round_logic" );
+   	wait 5;
+	t_reward_pickup = getent( "sq_bg_reward_pickup", "targetname" );
+	t_reward_pickup sethintstring( "" );
+	t_reward_pickup setcursorhint( "HINT_NOICON" );
+	t_reward_pickup thread give_sq_bg_reward();
+	t_reward_pickup = getent( "sq_bg_reward_pickup", "targetname" );
+	t_reward_pickup sethintstring( "" );
+	t_reward_pickup setcursorhint( "HINT_NOICON" );
+	level waittill( "bouncing_tomahawk_zm_aquired" );
+	level.sq_bg_macguffins = [];
+	a_s_mcguffin = getstructarray( "struct_sq_bg_macguffin", "targetname" );
+	_a46 = a_s_mcguffin;
+	_k46 = getFirstArrayKey( _a46 );
+	while ( isDefined( _k46 ) )
+	{
+		struct = _a46[ _k46 ];
+		m_temp = spawn( "script_model", struct.origin, 0 );
+		m_temp.targetname = "sq_bg_macguffin";
+		m_temp setmodel( struct.model );
+		m_temp.angles = struct.angles;
+		m_temp ghost();
+		m_temp ghostindemo();
+		level.sq_bg_macguffins[ level.sq_bg_macguffins.size ] = m_temp;
+		wait_network_frame();
+		_k46 = getNextArrayKey( _a46, _k46 );
+	}
+	array_thread( level.sq_bg_macguffins, ::sq_bg_macguffin_think );
+	level.a_tomahawk_pickup_funcs[ level.a_tomahawk_pickup_funcs.size ] = ::tomahawk_the_macguffin;
+	level thread check_sq_bg_progress();
+	level waittill( "all_macguffins_acquired" );
+	level thread maps/mp/zombies/_zm_audio::sndmusicstingerevent( "quest_generic" );
+	t_reward_pickup thread give_sq_bg_reward();
 }
 
 /*

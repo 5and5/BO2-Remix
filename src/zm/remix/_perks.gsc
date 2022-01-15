@@ -50,7 +50,7 @@ enable_free_perks_before_power()
 	level.disable_free_perks_before_power = undefined;
 }
 
-perk_machine_change()
+perk_machine_find_change()
 {
 	if(level.script == "zm_tomb")
 		return;
