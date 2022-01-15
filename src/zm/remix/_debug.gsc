@@ -32,18 +32,22 @@ debug( debug )
 	
 	setDvar( "sv_cheats", 1 );
 	setDvar( "developer_script", 1);
+	level.player_out_of_playable_area_monitor = 0;
 	self.score = 555550;
 
 	level thread turnOnPower();
 	self thread give_sallys();
 	self thread set_starting_round( 1 );
 	self thread give_a_perk("specialty_armorvest");
+	// self thread give_a_perk("specialty_grenadepulldeath");
+	// self thread give_a_perk("specialty_fastreload");
+	// self thread give_a_perk("specialty_rof");
 
 	// self thread teleport_players((2143, 329, 1296));
 	// self thread give_all_perks();
-	// self thread give_weapons( "blundergat_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
+	// self thread give_weapons( "blundergat_upgraded_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
 	// self thread give_tomahwak();
-	self thread give_weapon_camo( "ray_gun_zm" );
+	// self thread give_weapon_camo( "ray_gun_zm" );
 }
 
 set_starting_round( round )

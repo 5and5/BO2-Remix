@@ -61,7 +61,8 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_spawner::zombie_rise_death, ::zombie_rise_death_override );
 	replaceFunc( maps/mp/zombies/_zm::round_think, ::round_think_override );
 	replaceFunc( maps/mp/zombies/_zm::ai_calculate_health, ::ai_calculate_health_override );
-
+	replaceFunc( maps/mp/zombies/_zm_pers_upgrades_functions::pers_nube_should_we_give_raygun, ::pers_nube_should_we_give_raygun );
+	
     level.inital_spawn = true;
     level thread onConnect();
 }

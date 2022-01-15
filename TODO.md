@@ -34,6 +34,7 @@
 <!-- * add staffs to box once they are crafted -->
 
 ### general
+* reduce fall damage
 * remove ee quotes
 * change what round instas start on base on map (115)
 * have reset map_restart mid end screen
