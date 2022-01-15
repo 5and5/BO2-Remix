@@ -1,4 +1,6 @@
 #include common_scripts/utility;
+#include maps/mp/zombies/_zm_utility;
+#include maps/mp/_utility;
 
 mulekick_additional_perks()
 {
@@ -48,23 +50,39 @@ enable_free_perks_before_power()
 	level.disable_free_perks_before_power = undefined;
 }
 
-perk_machine_prone_watcher() //TODO
+perk_machine_change()
 {
-	change_collected = false;
-	while(1)
+	if(level.script == "zm_tomb")
+		return;
+	a_triggers = getentarray( "audio_bump_trigger", "targetname" );
+	_a43 = a_triggers;
+	_k43 = getFirstArrayKey( _a43 );
+	while ( isDefined( _k43 ) )
 	{
-		players = get_players();
-		for(i=0;i<players.size;i++)
+		trigger = _a43[ _k43 ];
+		if ( isDefined( trigger.script_sound ) && trigger.script_sound == "zmb_perks_bump_bottle" )
 		{
-			if( Distance( players[i].origin, self.origin ) < 60 && players[i] GetStance() == "prone" )
-			{
-				players[i].score += 100;
-				change_collected = true;
-			}
+			trigger thread check_for_change();
 		}
-		if( isdefined( change_collected ) && change_collected )
-			break;
-		wait .1;
+		_k43 = getNextArrayKey( _a43, _k43 );
+	}
+}
+
+check_for_change()
+{
+	while ( 1 )
+	{
+		self waittill( "trigger", e_player );
+		if ( e_player getstance() == "prone" )
+		{
+			e_player maps/mp/zombies/_zm_score::add_to_player_score( 100 );
+			play_sound_at_pos( "purchase", e_player.origin );
+			return;
+		}
+		else
+		{
+			wait 0.1;
+		}
 	}
 }
 

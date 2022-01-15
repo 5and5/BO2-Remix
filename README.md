@@ -75,6 +75,7 @@
 * Deadshot increases head shot damage by x2
 * Who's who wont activate when player has quick revive
 * Electric cherry wont activate when a player goes down
+* Proning in front of perks gives you 100 points
 
 ### Mystery Box
 * Weapons can be shared by knifing the box

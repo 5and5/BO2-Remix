@@ -37,7 +37,7 @@
 
 main()
 { 
-	level.VERSION = "0.9.2";
+	level.VERSION = "0.9.3";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
@@ -149,6 +149,8 @@ connected()
 			buildable_increase_trigger_radius();
 			wallbuy_increase_trigger_radius();
 			level thread wallbuy_dynamic_increase_trigger_radius();
+
+			perk_machine_change();
 		}
 	}
 }
