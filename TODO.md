@@ -21,6 +21,8 @@
 * make m72 limited on nuketown
 
 ### Mob
+* crouch under fan trap
+* blunder gat ee
 
 ### Die Rise
 * set perk locations (not working)
@@ -54,7 +56,6 @@
 * add fx on last drop of cycle
 
 ### Perks
-* buff staminup sprint duration
 
 ### Bugs
 

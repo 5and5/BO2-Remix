@@ -165,11 +165,13 @@
 * All records and buildable parts given on spawn
 * Gramophone is no longer needed
 * Tank has instant cool down
+* Pack-a-punch is always on
 * Reduced soul boxes zombies required from 30 to 15
 
 ### Special Rounds
-* Panzers come every 4 rounds on solo and coop
-* Zone capture zombies come every 4 rounds
+* Panzers will come every 4 rounds on solo and coop
+* Generator zombies can come every 4 rounds
+* Generator zombies come will come the same as soon as you turn on 4 or more generators
 
 ### Weapons
 * Staffs can be upgraded without doing the easter egg steps

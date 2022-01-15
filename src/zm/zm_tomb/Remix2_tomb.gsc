@@ -30,6 +30,9 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_weap_staff_lightning::staff_lightning_ball_damage_over_time, ::staff_lightning_ball_damage_over_time );
 	replaceFunc( maps/mp/zm_tomb_dig::increment_player_perk_purchase_limit, ::increment_player_perk_purchase_limit );
 	replaceFunc( maps/mp/zm_tomb_challenges::box_footprint_think, ::box_footprint_think );
+	replaceFunc( maps/mp/zm_tomb_capture_zones::pack_a_punch_think, ::pack_a_punch_think );
+	replaceFunc( maps/mp/zm_tomb_ee_side::check_for_change, ::check_for_change );
+	replaceFunc( maps/mp/zm_tomb_capture_zones::play_pap_anim, ::play_pap_anim );
 
     level.initial_spawn_tomb = true;
     level thread onplayerconnect();
@@ -74,8 +77,8 @@ onplayerspawned()
 			set_panzer_rounds();
 			disable_walls_moving();
 
-			thread enable_all_teleporters();
-			thread spawn_gems_in_chambers();
+			level thread enable_all_teleporters();
+			level thread spawn_gems_in_chambers();
         }
     }
 }
@@ -106,6 +109,7 @@ soul_box_decrease_kill_requirement()
 		self waittill( "robot_foot_stomp" );
 	}
 }
+
 
 /*
 * *****************************************************
@@ -146,5 +150,36 @@ recapture_round_tracker_override()
 			level thread recapture_round_start();
 		}
 		wait 1;
+	}
+}
+
+play_pap_anim( b_assemble )
+{
+	// level setclientfield( "packapunch_anim", get_captured_zone_count() );
+}
+
+pack_a_punch_think()
+{
+	flag_wait( "start_zombie_round_logic" );
+	wait 5;
+	level setclientfield( "packapunch_anim", 6 );
+	pack_a_punch_enable();
+}
+
+check_for_change()
+{
+	while ( 1 )
+	{
+		self waittill( "trigger", e_player );
+		if ( e_player getstance() == "prone" )
+		{
+			e_player maps/mp/zombies/_zm_score::add_to_player_score( 100 );
+			play_sound_at_pos( "purchase", e_player.origin );
+			return;
+		}
+		else
+		{
+			wait 0.1;
+		}
 	}
 }
