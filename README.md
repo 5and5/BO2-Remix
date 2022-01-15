@@ -100,10 +100,6 @@
 
 # Maps
 
-## Tranzit
-* Jetgun recharges faster
-* Jetgun recharges while away
-
 ### Bus Depot
 * Pack-A-Punch added
 * Claymores added
@@ -114,7 +110,18 @@
 
 ### Town
 * Speed cola moved
-<!-- * Olympia replaced with an mp5 -->
+* Olympia replaced with an mp5
+
+### Nuke Town
+
+## Tranzit
+
+### General
+* Denizens disabled
+
+### Weapons
+* Jetgun recharges faster
+* Jetgun recharges while away
 
 ## Die Rise
 

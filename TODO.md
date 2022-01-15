@@ -3,7 +3,7 @@
 ### Tranzit
 * jetgun kills more zombies
 * jetgun can fly
-* All teleports are always active
+* All teleports are always active or when you get close to them
 * Power doors in Power Plant are always open.
 * make outside farm zone wayone
 * make barn farm zone same as on farm
@@ -11,6 +11,7 @@
 * Avogadro drop max ammo
 * buff electric traps 
 * buff turret
+* give bus parts
 
 #### Depot
 

@@ -1,5 +1,5 @@
-#include maps/mp/zombies/_zm;
-#include maps/mp/zombies/_zm_perks;
+// #include maps/mp/zombies/_zm;
+// #include maps/mp/zombies/_zm_perks;
 #include maps/mp/_visionset_mgr;
 #include maps/mp/zombies/_zm_score;
 #include maps/mp/zombies/_zm_stats;
@@ -23,7 +23,7 @@
 
 main()
 {
-	replacefunc(maps/mp/zombies/_zm_perks::perk_machine_spawn_init, ::perk_machine_spawn_init);
+	replacefunc(maps/mp/zombies/_zm_perks::perk_machine_spawn_init, ::perk_machine_spawn_init_override);
 
 	level.initial_spawn_transit = true;
     level thread onplayerconnect();
@@ -61,9 +61,23 @@ onplayerspawned()
    			wait 0.05;
 
 			spawn_custom_wallbuys();
-			remove_speedcola();
-			self thread jetgun_buff();
+			town_remove_speedcola();
+
+			if ( level.scr_zm_map_start_location == "transit" && !is_classic() )
+			{
+				disable_screechers();
+				self thread jetgun_buff();
+			}
         }
     }
 }
 
+
+
+/*
+* *****************************************************
+*	
+* ********************* Overrides **********************
+*
+* *****************************************************
+*/
