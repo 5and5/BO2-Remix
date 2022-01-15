@@ -99,3 +99,19 @@ rapid_fire()
         }
     }
 }
+
+disable_player_quotes()
+{
+	if( getDvar( "disable_player_quotes") == "" )
+    	setDvar( "disable_player_quotes", 0 );
+    
+    self endon("disconnect");
+    for(;;)
+    {
+		if( getDvarInt( "disable_player_quotes" ) == 1 )
+		{
+			self.isspeaking = 1;
+		}
+		wait 0.5;
+	}
+}

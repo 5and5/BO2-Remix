@@ -47,6 +47,7 @@
 * Fridge has AN94
 * Set box starting locations
 * Round 255 round cap removed
+* Remove player quotes ```disable_player_quotes``` dvar
 * In game fast ray ```rapid_fire``` dvar
 * Characters can be selected with ```character``` dvar
 
@@ -209,6 +210,7 @@ hud_round_timer
 hud_health_bar
 hud_remaining
 hud_zone
+disable_player_quotes
 ```
 
 ## Custom Binds

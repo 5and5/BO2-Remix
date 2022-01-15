@@ -54,6 +54,8 @@ set_starting_round( round )
 	if( getDvar( "start_round" ) == "")
 		setDvar( "start_round", round );
 
+	if( level.round_number > 50 )
+		iprintln( "health: " + level.zombie_health );
 	level.first_round = false;
 	level.zombie_vars[ "zombie_spawn_delay" ] = 0.08;
 	level.round_number = getDvarInt( "start_round" );

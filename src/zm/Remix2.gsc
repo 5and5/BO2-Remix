@@ -117,6 +117,7 @@ connected()
 			self thread staminup_additional_perks();
 
 			self thread rapid_fire();
+			self thread disable_player_quotes();
         }
 
         if(level.inital_spawn)
