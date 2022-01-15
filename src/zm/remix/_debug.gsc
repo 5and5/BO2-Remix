@@ -43,7 +43,7 @@ debug( debug )
 	// self thread give_all_perks();
 	// self thread give_weapons( "blundergat_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
 	// self thread give_tomahwak();
-	// self thread give_weapon_camo( "m14_zm" );
+	self thread give_weapon_camo( "ray_gun_zm" );
 }
 
 set_starting_round( round )

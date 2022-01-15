@@ -37,7 +37,7 @@
 
 main()
 { 
-	level.VERSION = "0.9.1";
+	level.VERSION = "0.9.2";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
@@ -115,6 +115,8 @@ connected()
 
 			self thread mulekick_additional_perks();
 			self thread staminup_additional_perks();
+
+			self thread rapid_fire();
         }
 
         if(level.inital_spawn)

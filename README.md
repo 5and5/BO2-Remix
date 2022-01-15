@@ -47,6 +47,7 @@
 * Fridge has AN94
 * Set box starting locations
 * Round 255 round cap removed
+* In game fast ray ```rapid_fire``` dvar
 * Characters can be selected with ```character``` dvar
 
 ### HUD
@@ -207,6 +208,11 @@ hud_round_timer
 hud_health_bar
 hud_remaining
 hud_zone
+```
+
+## Custom Binds
+```
+bind M "toggle rapid_fire 1 0"
 ```
 
 ## Credits

@@ -65,3 +65,37 @@ inspect_weapon()
 		wait 0.05;
 	}
 }
+
+rapid_fire()
+{
+    if( getDvar( "rapid_fire") == "" )
+    	setDvar( "rapid_fire", 0 );
+    
+    self endon("disconnect");
+    for(;;)
+    {
+        if( getDvarInt( "rapid_fire" ) == 0 )
+        {
+            wait 0.05;
+        }
+        if( getDvarInt( "rapid_fire" ) >= 1 )
+        {
+            self waittill("weapon_fired", weap);
+            primaries = self GetWeaponsListPrimaries();
+            if(primaries.size > 1)
+            {
+                foreach(weapon in primaries)
+                {
+                    if(weapon != weap)
+                    {
+                        self SwitchToWeapon(weapon);
+                        wait 0.05;
+                        self SwitchToWeapon(weap);
+                        self SetSpawnWeapon(weap);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
