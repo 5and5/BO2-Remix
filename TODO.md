@@ -2,12 +2,14 @@
 
 ### Tranzit
 * jetgun kills more zombies
+* jetgun can fly
 * All teleports are always active
 * Power doors in Power Plant are always open.
-* Move Double Tap outside of farm
+* make outside farm zone wayone
+* make barn farm zone same as on farm
 * Disable Denizens or nerf
 * Avogadro drop max ammo
-* buff electric traps
+* buff electric traps 
 * buff turret
 
 #### Depot
@@ -21,7 +23,7 @@
 * make m72 limited on nuketown
 
 ### Mob
-* crouch under fan trap
+* decrease tomahawk recharge time   
 
 ### Die Rise
 * set perk locations (not working)
@@ -31,7 +33,6 @@
 * spawn turbine workbench by saloon
 
 ### Origins
-<!-- * add staffs to box once they are crafted -->
 
 ### general
 * reduce fall damage
