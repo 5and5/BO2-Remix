@@ -96,6 +96,7 @@ connected()
 
 			self set_players_score( 555 );
 			self set_movement_dvars();
+			self set_client_dvars();
 			self set_character_option();
 
 			self graphic_tweaks();

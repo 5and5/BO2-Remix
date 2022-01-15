@@ -11,3 +11,9 @@ is_player_in_screencher_zone()
 {
 	return 0;
 }
+
+spawn_maxammo_on_avogadro_death()
+{
+	level waittill( "avogadro_defeated" );
+	
+}

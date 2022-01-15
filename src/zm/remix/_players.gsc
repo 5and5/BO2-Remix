@@ -13,9 +13,25 @@ set_players_score( score )
 
 set_movement_dvars()
 {
-    self setclientdvar("player_backSpeedScale", 1);
+    self setClientDvar( "dtp_post_move_pause", 0 );
+	self setClientDvar( "dtp_exhaustion_window", 100 );
+	self setClientDvar( "dtp_startup_delay", 100 );
+
     self setclientdvar("player_strafeSpeedScale", 1);
     self setclientdvar("player_sprintStrafeSpeedScale", 1);
+}
+
+set_client_dvars()
+{
+	self setClientDvar( "cg_friendlyNameFadeIn", 0 );
+	self setClientDvar( "cg_friendlyNameFadeOut", 250 );
+	self setClientDvar( "cg_enemyNameFadeIn", 0 );
+	self setClientDvar( "cg_enemyNameFadeOut", 250 );
+
+	self setClientDvar( "player_meleeRange", 64 );
+	self setClientDvar( "aim_automelee_enabled", 0 );
+
+	self setClientDvar( "g_friendlyfireDist", 0 );
 }
 
 set_character_option()

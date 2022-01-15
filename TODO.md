@@ -7,7 +7,6 @@
 * Power doors in Power Plant are always open.
 * make outside farm zone wayone
 * make barn farm zone same as on farm
-* Disable Denizens or nerf
 * Avogadro drop max ammo
 * buff electric traps 
 * buff turret
