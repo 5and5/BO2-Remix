@@ -37,7 +37,7 @@ debug( debug )
 	level thread turnOnPower();
 	self thread give_sallys();
 	self thread set_starting_round( 1 );
-	// self thread give_a_perk("specialty_longersprint");
+	self thread give_a_perk("specialty_armorvest");
 
 	// self thread teleport_players((2143, 329, 1296));
 	// self thread give_all_perks();
@@ -90,7 +90,7 @@ give_all_perks()
 give_a_perk( perk )
 {
 	flag_wait( "initial_blackscreen_passed" );
-	wait 2;
+	wait 6;
 	self give_perk(perk, 0);
 }
 

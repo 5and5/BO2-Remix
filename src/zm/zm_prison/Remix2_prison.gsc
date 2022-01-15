@@ -23,7 +23,10 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_weap_tomahawk::tomahawk_pickup_trigger, ::tomahawk_pickup_trigger );
 	replaceFunc( maps/mp/zm_alcatraz_utility::wait_for_player_to_take, ::wait_for_player_to_take_override );
 	replaceFunc( maps/mp/zm_prison_sq_bg::wait_for_initial_conditions, ::wait_for_initial_conditions );
-
+	replaceFunc( maps/mp/zm_alcatraz_traps::fan_trap_damage, ::fan_trap_damage );
+	replaceFunc( maps/mp/zm_alcatraz_traps::player_acid_damage, ::player_acid_damage );
+	replaceFunc( maps/mp/zm_alcatraz_traps::player_acid_damage_cooldown, ::player_acid_damage_cooldown );
+	
     level.initial_spawn_prison = true;
     level thread onplayerconnect();
 

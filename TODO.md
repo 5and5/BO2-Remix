@@ -22,7 +22,6 @@
 
 ### Mob
 * crouch under fan trap
-* blunder gat ee
 
 ### Die Rise
 * set perk locations (not working)
@@ -35,7 +34,8 @@
 <!-- * add staffs to box once they are crafted -->
 
 ### general
-* change what round instas start on base on map
+* remove ee quotes
+* change what round instas start on base on map (115)
 * have reset map_restart mid end screen
 
 ### HUD

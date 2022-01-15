@@ -147,7 +147,11 @@
 * Plane automatically refills
 * Blunder gat spawns in wardens office without collecting the 5 skulls
 * Set key to always spawn next to the cafeteria
-* Sniper trap buffed
+
+### Traps
+* Fan trap no longer kills players instantly
+* Sniper trap does infinite damage
+* Acid trap player damage cool down increased from 1 to 1.5 seconds
 
 ### Zones
 * Opening double tap door does not cause zombies to spawn upstairs

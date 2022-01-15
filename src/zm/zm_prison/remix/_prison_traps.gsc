@@ -2,6 +2,7 @@
 #include maps/mp/zombies/_zm_utility;
 #include common_scripts/utility;
 #include maps/mp/_utility;
+#include maps/mp/zm_alcatraz_traps;
 
 prison_tower_trap_changes()
 {
@@ -143,5 +144,67 @@ prison_tower_upgrade_trigger_think()
 		self.upgraded = 1;
 		level waittill( "between_round_over" );
 		self.upgraded = undefined;
+	}
+}
+
+fan_trap_damage( parent ) //checked partially changed to match cerberus output
+{
+	if ( isDefined( level.custom_fan_trap_damage_func ) )
+	{
+		self thread [[ level.custom_fan_trap_damage_func ]]( parent );
+		return;
+	}
+	self endon( "fan_trap_finished" );
+	while ( 1 )
+	{
+		self waittill( "trigger", ent );
+		if ( isplayer( ent ) )
+		{
+			ent thread player_fan_trap_damage();
+			wait 0.05;
+		}
+		else
+		{
+			if ( is_true( ent.is_brutus ) )
+			{
+				ent maps/mp/zombies/_zm_ai_brutus::trap_damage_callback( self );
+				return;
+			}
+			if ( !isDefined( ent.marked_for_death ) )
+			{
+				ent.marked_for_death = 1;
+				ent thread zombie_fan_trap_death();
+			}
+		}
+	}
+}
+
+player_acid_damage( t_damage ) //checked changed to match cerberus output
+{
+	self endon( "death" );
+	self endon( "disconnect" );
+	t_damage endon( "acid_trap_finished" );
+	if ( !isDefined( self.is_in_acid ) && !self maps\mp\zombies\_zm_laststand::player_is_in_laststand() )
+	{
+		self.is_in_acid = 1;
+		cooldown = 1.5;
+		self thread player_acid_damage_cooldown( cooldown );
+
+		while ( self istouching( t_damage ) && !self maps\mp\zombies\_zm_laststand::player_is_in_laststand() && !self.afterlife )
+		{
+			self dodamage( self.maxhealth / 2, self.origin );
+			wait cooldown;
+		}
+	}
+}
+
+
+player_acid_damage_cooldown( cooldown ) //checked matches cerberus output
+{
+	self endon( "disconnect" );
+	wait cooldown;
+	if ( isDefined( self ) )
+	{
+		self.is_in_acid = undefined;
 	}
 }
