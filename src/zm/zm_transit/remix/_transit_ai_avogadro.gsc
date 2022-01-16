@@ -1,16 +1,9 @@
 #include maps/mp/zombies/_zm_utility;
 #include common_scripts/utility;
 #include maps/mp/_utility;
-
-disable_screechers()
-{
-	level.is_player_in_screecher_zone = ::is_player_in_screencher_zone;
-}
-
-is_player_in_screencher_zone()
-{
-	return 0;
-}
+#include maps/mp/_utility;
+#include maps/mp/zm_transit_ai_screecher;
+#include maps/mp/zombies/_zm_ai_screecher;
 
 spawn_maxammo_on_avogadro_death()
 {

@@ -3,7 +3,7 @@
 #include common_scripts/utility;
 #include maps/mp/zombies/_zm_blockers;
 
-#include scripts/zm/zm_transit/remix/_transit_ai;
+#include scripts/zm/zm_transit/remix/_transit_ai_screecher;
 #include scripts/zm/zm_transit/remix/_transit_equipment;
 #include scripts/zm/zm_transit/remix/_transit_jetgun;
 #include scripts/zm/zm_transit/remix/_transit_perks;
@@ -15,6 +15,8 @@ main()
 	replacefunc(maps/mp/zombies/_zm_perks::perk_machine_spawn_init, ::perk_machine_spawn_init_override);
 	replacefunc(maps/mp/zombies/_zm_weap_jetgun::handle_overheated_jetgun, ::handle_overheated_jetgun);
 	replacefunc(maps/mp/zombies/_zm_blockers::door_think, ::door_think);
+	replacefunc(maps/mp/zm_transit_ai_screecher::portal_use, ::portal_use);
+	replacefunc(maps/mp/zm_transit_ai_screecher::player_wait_land, ::player_wait_land);
 
 	level.initial_spawn_transit = true;
     level thread onplayerconnect();
@@ -62,14 +64,15 @@ onplayerspawned()
 			if ( level.scr_zm_map_start_location == "transit" && is_classic() )
 			{
 				jetgun_remove_forced_weapon_switch();
-				disable_screechers();
 				open_pap_power_door();
+				disable_screechers();
+				spawn_lightpost_portals();
 			}
         }
     }
 }
 
-turn_power_on_and_open_doors() //checked changed at own discretion
+open_pap_power_door() //checked changed at own discretion
 {
 	zombie_doors = getentarray( "zombie_door", "targetname" );
 	foreach ( door in zombie_doors )

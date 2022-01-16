@@ -1,7 +1,6 @@
 # Remix 2
 
 ### Tranzit
-* All teleports are always active or when you get close to them
 * make outside farm zone wayone
 * make barn farm zone same as on farm
 * Avogadro drop max ammo

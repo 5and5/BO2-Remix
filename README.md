@@ -118,6 +118,7 @@
 
 ### General
 * Denizens disabled
+* All light post portals are always open
 * Pap door is always open
 
 ### Buildables
