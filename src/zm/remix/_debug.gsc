@@ -43,7 +43,8 @@ debug( debug )
 	self thread give_a_perk("specialty_armorvest");
 	self thread give_a_perk("specialty_fastreload");
 	self thread give_a_perk("specialty_rof");
-	self thread give_a_perk("specialty_grenadepulldeath");
+	self thread give_a_perk("specialty_quickrevive");
+	// self thread give_a_perk("specialty_grenadepulldeath");
 
 	// self thread teleport_players( (1691.26, 118.459, -55.875) ); // transit jetgun
 	// self thread teleport_players( (6695.56, -5762.47, -63.86) ); // transit farm

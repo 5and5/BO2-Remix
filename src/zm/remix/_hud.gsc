@@ -45,12 +45,13 @@ set_hud_offset()
 {
 	if (level.script == "zm_tomb" )//|| level.script == "zm_prison")
 	{
-		self.hud_offset = 10;
+		self.timer_hud_offset = 10;
 	}
 	else
 	{
-		self.hud_offset = 0;	
+		self.timer_hud_offset = 0;	
 	}
+	self.zone_hud_offset = 15;
 }
 
 timer_hud_watcher()
@@ -67,7 +68,7 @@ timer_hud_watcher()
 		{
 			wait 0.1;
 		}
-		self.timer_hud.y = (2 + self.hud_offset);
+		self.timer_hud.y = (2 + self.timer_hud_offset);
 		self.timer_hud.alpha = 1;
 
 		while( getDvarInt( "hud_timer" ) >= 1 )
@@ -88,7 +89,7 @@ round_timer_hud()
 	self.round_timer_hud.horzalign = "user_left";
 	self.round_timer_hud.vertalign = "user_top";
 	self.round_timer_hud.x += 4;
-	self.round_timer_hud.y += (2 + (15 * getDvarInt("hud_timer") ) + self.hud_offset );
+	self.round_timer_hud.y += (2 + (15 * getDvarInt("hud_timer") ) + self.timer_hud_offset );
 	self.round_timer_hud.fontscale = 1.4;
 	self.round_timer_hud.alpha = 0;
 	self.round_timer_hud.color = ( 1, 1, 1 );
@@ -197,7 +198,7 @@ round_timer_hud_watcher()
 		{
 			wait 0.1;
 		}
-		self.round_timer_hud.y = (2 + (15 * getDvarInt("hud_timer") ) + self.hud_offset );
+		self.round_timer_hud.y = (2 + (15 * getDvarInt("hud_timer") ) + self.timer_hud_offset );
 		self.round_timer_hud.alpha = 1;
 
 		while( getDvarInt( "hud_round_timer" ) >= 1 )
@@ -206,112 +207,6 @@ round_timer_hud_watcher()
 		}
 		self.round_timer_hud.alpha = 0;
 
-	}
-}
-
-health_bar_hud()
-{
-	level endon("end_game");
-	self endon("disconnect");
-
-	flag_wait("initial_blackscreen_passed");
-
-	if( getDvar( "hud_health_bar") == "" )
-		setDvar( "hud_health_bar", 0 );
-
-	health_bar = self createprimaryprogressbar();
-	if (level.script == "zm_buried")
-	{
-		health_bar setpoint("CENTER", "BOTTOM", -335, -95);
-	}
-	else if (level.script == "zm_tomb")
-	{
-		health_bar setpoint("CENTER", "BOTTOM", -335, -100);
-	}
-	else
-	{
-		health_bar setpoint("CENTER", "BOTTOM", -335, -70);
-	}
-	health_bar.vertalign = "user_left";
-	health_bar.horzalign = "user_bottom";
-	health_bar.bar.vertalign = "user_left";
-	health_bar.bar.horzalign = "user_bottom";
-	health_bar.barframe.vertalign = "user_left";
-	health_bar.barframe.horzalign = "user_bottom";
-	health_bar.hidewheninmenu = 1;
-	health_bar.bar.hidewheninmenu = 1;
-	health_bar.barframe.hidewheninmenu = 1;
-
-	health_bar_text = self createprimaryprogressbartext();
-	if (level.script == "zm_buried")
-	{
-		health_bar_text setpoint("CENTER", "BOTTOM", -410, -95);
-	}
-	else if (level.script == "zm_tomb")
-	{
-		health_bar_text setpoint("CENTER", "BOTTOM", -410, -100);
-	}
-	else
-	{
-		health_bar_text setpoint("CENTER", "BOTTOM", -410, -70);
-	}
-	health_bar_text.vertalign = "user_left";
-	health_bar_text.horzalign = "user_bottom";
-	health_bar_text.hidewheninmenu = 1;
-
-	while (1)
-	{
-		if( getDvarInt( "hud_health_bar" ) == 0)
-		{	
-			if (health_bar.alpha != 0)
-			{
-				health_bar.alpha = 0;
-				health_bar.bar.alpha = 0;
-				health_bar.barframe.alpha = 0;
-				health_bar_text.alpha = 0;
-			}
-		}
-		else
-		{
-			if (isDefined(self.e_afterlife_corpse))
-			{
-				if (health_bar.alpha != 0)
-				{
-					health_bar.alpha = 0;
-					health_bar.bar.alpha = 0;
-					health_bar.barframe.alpha = 0;
-					health_bar_text.alpha = 0;
-				}
-				wait 0.05;
-				continue;
-			}
-
-			if ( ( isDefined( self.waiting_to_revive ) && self.waiting_to_revive == 1) || self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
-			{
-				if (health_bar.alpha != 0)
-				{
-					health_bar.alpha = 0;
-					health_bar.bar.alpha = 0;
-					health_bar.barframe.alpha = 0;
-					health_bar_text.alpha = 0;
-				}
-				wait 0.05;
-				continue;
-			}
-
-			if (health_bar.alpha != 1)
-			{
-				health_bar.alpha = 1;
-				health_bar.bar.alpha = 1;
-				health_bar.barframe.alpha = 1;
-				health_bar_text.alpha = 1;
-			}
-
-			health_bar updatebar(self.health / self.maxhealth);
-			health_bar_text setvalue(self.health);
-		}
-
-		wait 0.05;
 	}
 }
 
@@ -360,9 +255,71 @@ zombie_remaining_hud_watcher()
 	}
 }
 
+health_bar_hud()
+{
+	self endon("disconnect");
+
+	if( getDvar( "hud_health_bar") == "" )
+		setDvar( "hud_health_bar", 0 );
+
+	flag_wait( "initial_blackscreen_passed" );
+
+	x = -364;
+	y = -68;
+	if (level.script == "zm_buried")
+	{
+		y -= 27;
+	}
+	else if (level.script == "zm_tomb")
+	{
+		y -= 60;
+	}
+
+	health_bar = self createbar((1, 1, 1), level.primaryprogressbarwidth - 9, level.primaryprogressbarheight);
+	health_bar setpoint(undefined, "BOTTOM", x, y);
+	health_bar.hidewheninmenu = 1;
+	health_bar.bar.hidewheninmenu = 1;
+	health_bar.barframe.hidewheninmenu = 1;
+
+	health_bar_text = createfontstring("objective", 1.2);
+	health_bar_text setpoint("LEFT", "BOTTOM", x + 60, y);
+	health_bar_text.hidewheninmenu = 1;
+
+
+	while (1)
+	{
+		if( getDvarInt( "hud_health_bar" ) == 0)
+		{	
+			health_bar hideelem();
+			health_bar_text hideelem();
+		}
+		else
+		{
+			if( isDefined(self.e_afterlife_corpse) || isDefined( self.waiting_to_revive ) && self.waiting_to_revive == 1 || self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
+			{
+				health_bar hideelem();
+				health_bar_text hideelem();
+			}
+			else
+			{
+				health_bar showelem();
+				health_bar_text showelem();
+			}
+
+			health_bar updatebar(self.health / self.maxhealth);
+			health_bar_text setvalue(self.health);
+		}
+
+		wait 0.05;
+	}
+}
+
 zone_hud()
 {
 	self endon("disconnect");
+
+	if( getDvar( "hud_zone") == "" )
+		setDvar( "hud_zone", 0 );
 
 	x = 7;
 	y = -111;
@@ -375,22 +332,27 @@ zone_hud()
 		y -= 60;
 	}
 
-	if( getDvar( "hud_zone") == "" )
-		setDvar( "hud_zone", 0 );
-
-	zone_hud = newClientHudElem(self);
-	zone_hud.alignx = "left";
-	zone_hud.aligny = "bottom";
-	zone_hud.horzalign = "user_left";
-	zone_hud.vertalign = "user_bottom";
-	zone_hud.x += x;
-	zone_hud.y += y;
-	zone_hud.fontscale = 1.4;
-	zone_hud.alpha = 0;
-	zone_hud.color = ( 1, 1, 1 );
-	zone_hud.hidewheninmenu = 1;
+	self.zone_hud = newClientHudElem(self);
+	self.zone_hud.alignx = "left";
+	self.zone_hud.aligny = "bottom";
+	self.zone_hud.horzalign = "user_left";
+	self.zone_hud.vertalign = "user_bottom";
+	self.zone_hud.x += x;
+	self.zone_hud.y += y;
+	self.zone_hud.fontscale = 1.4;
+	self.zone_hud.alpha = 0;
+	self.zone_hud.color = ( 1, 1, 1 );
+	self.zone_hud.hidewheninmenu = 1;
 
 	flag_wait( "initial_blackscreen_passed" );
+
+	self thread zone_hud_watcher(x, y);
+}
+
+zone_hud_watcher( x, y )
+{	
+	self endon("disconnect");
+	level endon( "end_game" );
 
 	prev_zone = "";
 	while(1)
@@ -402,20 +364,21 @@ zone_hud()
 
 		while( getDvarInt( "hud_zone" ) >= 1 )
 		{
-			zone = self get_zone_name();
+			self.zone_hud.y = (y + (self.zone_hud_offset * !getDvarInt("hud_health_bar") ) );
 
+			zone = self get_zone_name();
 			if(prev_zone != zone)
 			{
 				prev_zone = zone;
 
-				zone_hud fadeovertime(0.2);
-				zone_hud.alpha = 0;
+				self.zone_hud fadeovertime(0.2);
+				self.zone_hud.alpha = 0;
 				wait 0.2;
 
-				zone_hud settext(zone);
+				self.zone_hud settext(zone);
 
-				zone_hud fadeovertime(0.2);
-				zone_hud.alpha = 1;
+				self.zone_hud fadeovertime(0.2);
+				self.zone_hud.alpha = 1;
 				wait 0.2;
 
 				continue;
@@ -423,7 +386,7 @@ zone_hud()
 
 			wait 0.05;
 		}
-		zone_hud.alpha = 0;
+		self.zone_hud.alpha = 0;
 	}
 }
 
