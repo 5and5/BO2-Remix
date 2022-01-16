@@ -31,7 +31,15 @@ buildbuildables()
 			buildbuildable( "powerswitch", 1 );
 			buildbuildable( "pap", 1 );
 			buildbuildable( "sq_common", 1 );
-			
+			buildbuildable( "dinerhatch", 1 );
+			buildbuildable( "bushatch", 1 );
+			buildbuildable( "busladder", 1 );
+			// buildbuildable( "cattlecatcher", 1 );
+			removebuildable( "dinerhatch" );
+			removebuildable( "bushatch" );
+			removebuildable( "busladder" );
+			// removebuildable( "cattlecatcher" );
+
 			getent( "powerswitch_p6_zm_buildable_pswitch_hand", "targetname" ) show();
 			getent( "powerswitch_p6_zm_buildable_pswitch_body", "targetname" ) show();
 			getent( "powerswitch_p6_zm_buildable_pswitch_lever", "targetname" ) show();

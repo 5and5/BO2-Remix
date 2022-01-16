@@ -57,7 +57,7 @@ onplayerspawned()
 			if ( level.scr_zm_map_start_location == "transit" && is_classic() )
 			{
 				self thread jetgun_fast_cooldown();
-				// self thread jetgun_fast_spinlerp();
+				// self thread jetgun_fast_spinlerp(); //op
 			}
         }
 

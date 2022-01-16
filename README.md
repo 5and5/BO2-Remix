@@ -119,9 +119,14 @@
 ### General
 * Denizens disabled
 
+### Buildables
+* Bus parts prebuilt except cattle catcher
+* Dinner hatch prebuilt
+
 ### Weapons
 * Jetgun recharges faster
 * Jetgun recharges while away
+* Jetgun returns to bench when over heated
 
 ## Die Rise
 
