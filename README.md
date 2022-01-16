@@ -118,6 +118,7 @@
 
 ### General
 * Denizens disabled
+* Pap door is always open
 
 ### Buildables
 * Bus parts prebuilt except cattle catcher

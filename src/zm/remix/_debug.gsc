@@ -37,7 +37,6 @@ debug( debug )
 	self.score = 555550;
 
 	level thread turnOnPower();
-	self thread print_origin();
 	self thread give_sallys();
 	self thread set_starting_round( 1 );
 
@@ -47,6 +46,10 @@ debug( debug )
 	// self thread give_a_perk("specialty_grenadepulldeath");
 
 	// self thread teleport_players((1691.26, 118.459, -55.875));
+
+	// self thread print_doors();
+	// self thread print_origin();
+	// self thread print_debris();
 
 	// self thread give_all_perks();
 	// self thread give_weapons( "blundergat_upgraded_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
@@ -61,6 +64,9 @@ set_starting_round( round )
 
 	if( getDvar( "start_round" ) == "")
 		setDvar( "start_round", round );
+
+	if ( getDvarInt( "start_round" ) == 1 )
+		return;
 
 	if( level.round_number > 50 )
 		iprintln( "health: " + level.zombie_health );
@@ -313,6 +319,38 @@ print_origin()
 		print( self.origin );
 		wait 2;
 	}
+}
+
+print_doors()
+{
+    zombie_doors = getEntArray( "zombie_door", "targetname" );
+    while ( true )
+    {
+		foreach ( door in zombie_doors )
+		{
+			if ( DistanceSquared( self.origin, door.origin ) < 128*128 )
+			{
+				print( door.target );
+			}
+		}
+		wait 2;
+    }
+}
+
+print_debris()
+{
+    zombie_debris = getentarray( "zombie_debris", "targetname" );
+    while ( true )
+    {
+		foreach ( debris in zombie_debris )
+		{
+			if ( DistanceSquared( self.origin, debris.origin ) < 128*128 )
+			{
+				print( debris.target );
+			}
+		}
+		wait 1;
+    }
 }
 
 turnOnPower() //by xepixtvx
