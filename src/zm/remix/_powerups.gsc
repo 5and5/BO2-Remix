@@ -27,6 +27,13 @@ last_powerup_fx()
 	//level._effect[ "elec_md" ] = loadfx( "electrical/fx_elec_player_md" );
 }
 
+disable_carpenter()
+{
+	arrayremoveindex(level.zombie_include_powerups, "carpenter");
+	arrayremoveindex(level.zombie_powerups, "carpenter");
+	arrayremovevalue(level.zombie_powerup_array, "carpenter");
+}
+
 carpenter_repair_shield()
 {
     level endon("end_game");

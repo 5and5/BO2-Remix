@@ -24,6 +24,9 @@
 main()
 {
 	replacefunc(maps/mp/zombies/_zm_perks::perk_machine_spawn_init, ::perk_machine_spawn_init_override);
+	replacefunc(maps/mp/zombies/_zm_weap_jetgun::handle_overheated_jetgun, ::handle_overheated_jetgun);
+
+	
 
 	level.initial_spawn_transit = true;
     level thread onplayerconnect();
@@ -51,6 +54,11 @@ onplayerspawned()
 		{
             self.initial_spawn_transit = true;
 
+			if ( level.scr_zm_map_start_location == "transit" && is_classic() )
+			{
+				self thread jetgun_fast_cooldown();
+				// self thread jetgun_fast_spinlerp();
+			}
         }
 
         if(level.initial_spawn_transit)
@@ -63,10 +71,10 @@ onplayerspawned()
 			spawn_custom_wallbuys();
 			town_remove_speedcola();
 
-			if ( level.scr_zm_map_start_location == "transit" && !is_classic() )
+			if ( level.scr_zm_map_start_location == "transit" && is_classic() )
 			{
 				disable_screechers();
-				self thread jetgun_buff();
+				jetgun_remove_forced_weapon_switch();
 			}
         }
     }
