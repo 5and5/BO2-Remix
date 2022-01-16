@@ -19,9 +19,11 @@ main()
 {
     replaceFunc( maps/mp/zombies/_zm_ai_leaper::leaper_round_tracker, ::leaper_round_tracker_override );
 	replaceFunc( maps/mp/zm_highrise_elevators::elevator_depart_early, ::elevator_depart_early );
-	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::explode_to_near_zombies, ::explode_to_near_zombies_override );
 	replaceFunc( maps/mp/zm_highrise_elevators::elevator_initial_wait, ::elevator_initial_wait );
+	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::explode_to_near_zombies, ::explode_to_near_zombies_override );
+	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::add_slippery_spot, ::add_slippery_spot );
 	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::slip_bolt, ::slip_bolt );
+	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::pool_of_goo, ::pool_of_goo );
 	// replaceFunc( maps/mp/zombies/_zm_ai_faller::do_zombie_emerge, ::do_zombie_emerge_override );
 	// replaceFunc( maps/mp/zm_highrise_elevators::elev_remove_corpses, ::elev_remove_corpses_override );
     // replaceFunc( maps/mp/zm_highrise_elevators::init_elevator_perks, ::init_elevator_perks_override );

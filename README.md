@@ -155,9 +155,9 @@
 ### Weapons
 * Added semtex wallbuy by b23r
 * Sliquifier kills till round 255
-* Sliquifier no longer drops extra goo
 * Sliquifier continues to chain while put away
-* Sliquifier goo time reduced from 24 to 20 seconds
+<!-- * Sliquifier no longer drops extra goo -->
+* Sliquifier goo removed
 
 ## Mob of the Dead
 
