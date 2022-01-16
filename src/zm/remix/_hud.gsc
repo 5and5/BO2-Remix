@@ -513,7 +513,7 @@ get_zone_name()
 		}
 		else if (zone == "zone_town_church")
 		{
-			name = "Upper South Town";
+			name = "Church";
 		}
 		else if (zone == "zone_trans_5")
 		{
