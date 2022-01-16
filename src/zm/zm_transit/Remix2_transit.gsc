@@ -123,7 +123,7 @@ door_think() //checked changed to match cerberus output
 					self.power_cost += 200;
 				}
 				self sethintstring( "" );
-				if ( is_true( level.local_doors_stay_open ) || self.targe == "lab_secret_hatch" )
+				if ( is_true( level.local_doors_stay_open ) || self.target == "lab_secret_hatch" )
 				{
 					return;
 				}
