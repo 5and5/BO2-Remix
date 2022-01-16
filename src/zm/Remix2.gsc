@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.0.7";
+	level.VERSION = "1.0.8";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );

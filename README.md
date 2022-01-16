@@ -118,6 +118,7 @@
 * Olympia replaced with an mp5
 
 ### Nuke Town
+* Limited M27
 
 ## Tranzit
 
@@ -185,6 +186,7 @@
 * Blundergat ammo reduced by 1/3
 * Acidgat ammo reduced by 1/3
 * Tomahawk is upgraded when picked up
+* Tomahawk reduced cooldown from 5 to 4 seconds
 * Added zombie shield bench inside wardens office
 
 ## Buried

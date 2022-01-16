@@ -13,10 +13,8 @@
 
 ### Nuketown
 * Pack-A-Punch is always behind the Green House
-* make m72 limited on nuketown
 
 ### Mob
-* decrease tomahawk recharge time   
 
 ### Die Rise
 * set perk locations (not working)

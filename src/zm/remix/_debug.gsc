@@ -16,6 +16,7 @@
 #include maps/mp/zombies/_zm_weap_claymore;
 #include maps/mp/zombies/_zm_melee_weapon;
 #include maps/mp/zombies/_zm_craftables;
+#include maps/mp/zombies/_zm_equipment;
 
 debug( debug )
 {
@@ -37,13 +38,13 @@ debug( debug )
 	self.score = 555550;
 
 	level thread turnOnPower();
-	self thread give_sallys();
+	// self thread give_sallys();
 	self thread set_starting_round( 1 );
 
 	self thread give_a_perk("specialty_armorvest");
 	self thread give_a_perk("specialty_fastreload");
 	self thread give_a_perk("specialty_rof");
-	self thread give_a_perk("specialty_quickrevive");
+	// self thread give_a_perk("specialty_quickrevive");
 	// self thread give_a_perk("specialty_grenadepulldeath");
 
 	// self thread teleport_players( (1691.26, 118.459, -55.875) ); // transit jetgun
@@ -54,7 +55,7 @@ debug( debug )
 	// self thread print_debris();
 
 	// self thread give_all_perks();
-	self thread give_weapons( "blundergat_upgraded_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
+	// self thread give_weapons( "blundergat_upgraded_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded", "upgraded_tomahawk_zm");
 	// self thread give_tomahwak();
 	// self thread give_weapon_camo( "ray_gun_zm" );
 }
@@ -238,7 +239,7 @@ give_weapons( weapon1, weapon2, weapon3, equipment )
 	}
 	if (isDefined( equipment ))
 	{
-		self giveWeapon(equipment);
+		self equipment_give(equipment);
 	}
 
 }
