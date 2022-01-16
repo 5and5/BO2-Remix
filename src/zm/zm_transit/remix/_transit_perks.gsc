@@ -71,15 +71,16 @@ extra_perk_spawns() //custom function
 	}
 	else if ( location == "transit" && !is_classic() )
 	{
-		level.busPerkArray = array( "specialty_weapupgrade" );
-		// level.busPerkArray = array( "specialty_quickrevive", "specialty_weapupgrade" );
-		// level.zombiemode_using_revive_perk = 1;
+		level.zombiemode_using_pack_a_punch = 1;
+		level.zombiemode_using_revive_perk = 1;
+		// level.busPerkArray = array( "specialty_weapupgrade" );
+		level.busPerkArray = array( "specialty_quickrevive", "specialty_weapupgrade" );
 		
-		// level.busPerks[ "specialty_quickrevive" ] = spawnstruct();
-		// level.busPerks[ "specialty_quickrevive" ].origin = (-6706, 5016, -56);
-		// level.busPerks[ "specialty_quickrevive" ].angles = (0, 180, 0 );
-		// level.busPerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
-		// level.busPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+		level.busPerks[ "specialty_quickrevive" ] = spawnstruct();
+		level.busPerks[ "specialty_quickrevive" ].origin = (-6706, 5016, -56);
+		level.busPerks[ "specialty_quickrevive" ].angles = (0, 180, 0 );
+		level.busPerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
+		level.busPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
 		level.busPerks[ "specialty_weapupgrade" ] = spawnstruct();
 		level.busPerks[ "specialty_weapupgrade" ].origin = (-6834, 4553, -65);
 		level.busPerks[ "specialty_weapupgrade" ].angles = (0,230,0);
