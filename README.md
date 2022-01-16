@@ -32,7 +32,8 @@
 * Coop pause
 * Three weapon slots by default
 * Zombies health scales more linearly
-* Insta kill rounds start on round 99 and happen every odd round after
+* Insta kill rounds start on round 115 on normal maps then happen every odd round after
+* Insta kill rounds start on round 75 on survival maps then happen every odd round after
 * 12 hour reset
 
 ### Visual
@@ -238,7 +239,28 @@ disable_player_quotes
 
 ## Custom Binds
 ```
-bind M "toggle rapid_fire 1 0"
+bind Q "toggle rapid_fire 1 0"
+bind F8 "toggle coop_pause 1 0"
+```
+
+## Insta Kill Rounds
+```
+115 117 119 121 123 125 127 129 131 133 135 137 139 141 143 145 147 149 151 153 155 157 159 161 163 165 167 169 171 173 175 177 179 181 183 185 187 189 191 193 195 197 199 201
+```
+
+## Insta Kill Rounds on Survival Maps
+```
+75 77 79 81 83 85 87 89 91 93 95 97 99 101 103 105 107 109 111 113 115 117 119 121 123 125 127 129 131 133 135 137 139 141 143 145 147 149
+```
+
+## Dog Rounds
+```
+5 9 13 17 21 25 29 33 37 41 45 49 53 57 61 65 69 73 77 81 85 89 93 97 101 105 109 113 117 121 125 129 133 137 141 145 149 153 157 161 165 169 173 177 181 185 189 193 197 201
+```
+
+## Panzer Rounds
+```
+8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120 124 128 132 136 140 144 148 152 156 160 164 168 172 176 180 184 188 192 196 200
 ```
 
 ## Credits
