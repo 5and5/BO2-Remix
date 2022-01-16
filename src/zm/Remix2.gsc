@@ -33,11 +33,12 @@
 #include scripts/zm/remix/_utility;
 #include scripts/zm/remix/_zombies;
 #include scripts/zm/remix/_debug;
+#include scripts/zm/remix/_dogs;
 
 
 main()
 { 
-	level.VERSION = "1.0.5";
+	level.VERSION = "1.0.6";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
