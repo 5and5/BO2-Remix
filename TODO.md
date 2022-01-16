@@ -1,10 +1,8 @@
 # Remix 2
 
 ### Tranzit
-* make outside farm zone wayone
-* make barn farm zone same as on farm
 * Avogadro drop max ammo
-* buff electric traps 
+* buff electric traps
 * buff turret
 
 #### Depot

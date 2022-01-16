@@ -118,12 +118,16 @@
 
 ### General
 * Denizens disabled
-* All light post portals are always open
+* All light post portals are always active
 * Pap door is always open
 
+### Zones
+* Farm barn zone acts the same as it does on Farm
+* Outside of farm acts the same with the door to Farm open
+
 ### Buildables
-* Bus parts prebuilt except cattle catcher
-* Dinner hatch prebuilt
+* Bus parts are prebuilt except cattle catcher
+* Dinner hatch is prebuilt
 
 ### Weapons
 * Jetgun recharges faster
