@@ -26,7 +26,8 @@ main()
 	replaceFunc( maps/mp/zm_alcatraz_traps::fan_trap_damage, ::fan_trap_damage );
 	replaceFunc( maps/mp/zm_alcatraz_traps::player_acid_damage, ::player_acid_damage );
 	replaceFunc( maps/mp/zm_alcatraz_traps::player_acid_damage_cooldown, ::player_acid_damage_cooldown );
-	
+	replaceFunc( maps/mp/zombies/_zm_weap_tomahawk::tomahawk_return_player, ::tomahawk_return_player );
+
     level.initial_spawn_prison = true;
     level thread onplayerconnect();
 
@@ -150,6 +151,8 @@ wait_for_initial_conditions()
 	t_reward_pickup thread give_sq_bg_reward();
 }
 
+
+
 /*
 * *****************************************************
 *	
@@ -157,6 +160,49 @@ wait_for_initial_conditions()
 *
 * *****************************************************
 */
+
+tomahawk_return_player( m_tomahawk, num_zombie_hit ) //checked changed to match cerberus output
+{
+	self endon( "disconnect" );
+	n_dist = distance2dsquared( m_tomahawk.origin, self.origin );
+	if ( !isDefined( num_zombie_hit ) )
+	{
+		num_zombie_hit = 5;
+	}
+	while ( n_dist > 4096 )
+	{
+		m_tomahawk moveto( self geteye(), 0.25 );
+		if ( num_zombie_hit < 5 )
+		{
+			self tomahawk_check_for_zombie( m_tomahawk );
+			num_zombie_hit++;
+		}
+		wait 0.1;
+		n_dist = distance2dsquared( m_tomahawk.origin, self geteye() );
+	}
+	if ( isDefined( m_tomahawk.a_has_powerup ) )
+	{
+		foreach ( powerup in m_tomahawk.a_has_powerup )
+		{
+			if ( isDefined( powerup ) )
+			{
+				powerup.origin = self.origin;
+			}
+		}
+	}
+	m_tomahawk delete();
+	self playsoundtoplayer( "wpn_tomahawk_catch_plr", self );
+	self playsound( "wpn_tomahawk_catch_npc" );
+	wait 4;
+	self playsoundtoplayer( "wpn_tomahawk_cooldown_done", self );
+	self givemaxammo( self.current_tomahawk_weapon );
+	a_zombies = getaispeciesarray( "axis", "all" );
+	foreach ( ai_zombie in a_zombies )
+	{
+		ai_zombie.hit_by_tomahawk = 0;
+	}
+	self setclientfieldtoplayer( "tomahawk_in_use", 3 );
+}
 
 include_weapons_override() //checked changed to match cerberus output
 {

@@ -38,7 +38,7 @@ debug( debug )
 	self.score = 555550;
 
 	level thread turnOnPower();
-	// self thread give_sallys();
+	self thread give_sallys();
 	self thread set_starting_round( 1 );
 
 	self thread give_a_perk("specialty_armorvest");
