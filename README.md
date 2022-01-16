@@ -44,7 +44,7 @@
 ### Patches
 * Bank automatically full
 * Perma Perks given
-* Fridge has AN94
+* Fridge has AN94 or War Machine depending on the map
 * Set box starting locations
 * Round 255 round cap removed
 * Remove player quotes ```disable_player_quotes``` dvar

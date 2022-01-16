@@ -20,9 +20,18 @@ give_bank_fridge()
 	self.account_value = 250000;
 
 	self clear_stored_weapondata();
-	self setdstat( "PlayerStatsByMap", "zm_transit", "weaponLocker", "name", "an94_upgraded_zm+mms" ); //setting new weapon
-	self setdstat( "PlayerStatsByMap", "zm_transit", "weaponLocker", "clip", 50 );
-	self setdstat( "PlayerStatsByMap", "zm_transit", "weaponLocker", "stock", 600 );
+	if( level.script == "zm_highrise" )
+	{
+		self setdstat( "PlayerStatsByMap", "zm_transit", "weaponLocker", "name", "an94_upgraded_zm+mms" ); //setting new weapon
+		self setdstat( "PlayerStatsByMap", "zm_transit", "weaponLocker", "stock", 600 );
+		self setdstat( "PlayerStatsByMap", "zm_transit", "weaponLocker", "clip", 50 );
+	}
+	else if ( level.script == "zm_transit" || level.script == "zm_buried" )
+	{
+		self setdstat( "PlayerStatsByMap", "zm_transit", "weaponLocker", "name", "m32_upgraded_zm" );
+		self setdstat( "PlayerStatsByMap", "zm_transit", "weaponLocker", "stock", 48 );
+		self setdstat( "PlayerStatsByMap", "zm_transit", "weaponLocker", "clip", 6 );
+	}
 }
 
 pers_nube_should_we_give_raygun( player_has_weapon, player, weapon_buy ) //checked partially changed to match cerberus output //changed at own discretion
