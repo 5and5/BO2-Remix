@@ -222,16 +222,22 @@ health_bar_hud()
 	health_bar = self createprimaryprogressbar();
 	if (level.script == "zm_buried")
 	{
-		health_bar setpoint("user_center", "user_bottom", -335, -95);
+		health_bar setpoint("CENTER", "BOTTOM", -335, -95);
 	}
 	else if (level.script == "zm_tomb")
 	{
-		health_bar setpoint("user_center", "user_bottom", -335, -100);
+		health_bar setpoint("CENTER", "BOTTOM", -335, -100);
 	}
 	else
 	{
-		health_bar setpoint("user_center", "user_bottom", -335, -70);
+		health_bar setpoint("CENTER", "BOTTOM", -335, -70);
 	}
+	health_bar.vertalign = "user_left";
+	health_bar.horzalign = "user_bottom";
+	health_bar.bar.vertalign = "user_left";
+	health_bar.bar.horzalign = "user_bottom";
+	health_bar.barframe.vertalign = "user_left";
+	health_bar.barframe.horzalign = "user_bottom";
 	health_bar.hidewheninmenu = 1;
 	health_bar.bar.hidewheninmenu = 1;
 	health_bar.barframe.hidewheninmenu = 1;
@@ -239,16 +245,18 @@ health_bar_hud()
 	health_bar_text = self createprimaryprogressbartext();
 	if (level.script == "zm_buried")
 	{
-		health_bar_text setpoint("user_center", "user_bottom", -410, -95);
+		health_bar_text setpoint("CENTER", "BOTTOM", -410, -95);
 	}
 	else if (level.script == "zm_tomb")
 	{
-		health_bar_text setpoint("user_center", "user_bottom", -410, -100);
+		health_bar_text setpoint("CENTER", "BOTTOM", -410, -100);
 	}
 	else
 	{
-		health_bar_text setpoint("user_center", "user_bottom", -410, -70);
+		health_bar_text setpoint("CENTER", "BOTTOM", -410, -70);
 	}
+	health_bar_text.vertalign = "user_left";
+	health_bar_text.horzalign = "user_bottom";
 	health_bar_text.hidewheninmenu = 1;
 
 	while (1)
@@ -356,7 +364,7 @@ zone_hud()
 {
 	self endon("disconnect");
 
-	x = 5;
+	x = 7;
 	y = -111;
 	if (level.script == "zm_buried")
 	{
