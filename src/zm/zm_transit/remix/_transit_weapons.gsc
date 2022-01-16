@@ -29,7 +29,7 @@ spawn_custom_wallbuys()
 	}
 	else if ( location == "transit" && !is_classic() )
 	{
-
+		spawn_wallbuy_weapon( ( 0, 270, 0 ), (-6319.88, 5428, -13), "claymore_zm_fx", "claymore_zm", "t6_wpn_claymore_world", "claymore", "weapon_upgrade" );
 	}
 }
 

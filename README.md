@@ -116,6 +116,7 @@
 ### Town
 * Speed cola moved
 * Olympia replaced with an mp5
+* Claymores added
 
 ### Nuke Town
 * Limited M27
