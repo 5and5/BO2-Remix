@@ -101,6 +101,10 @@
 
 # Maps
 
+## Survival
+* Dogs are on by default
+* Dogs rounds always happen every 4 rounds
+
 ### Bus Depot
 * Pack-A-Punch added
 * Claymores added

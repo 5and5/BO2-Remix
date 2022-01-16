@@ -74,8 +74,9 @@ divetonuke_explode_network_optimized(origin, radius, max_damage, min_damage, dam
 * *****************************************************
 */
 
-player_damage_changes()
+player_damage_changes_die_rise()
 {
+	wait 0.05;
 	level.overrideplayerdamage = ::player_damage_override_override;
 }
 

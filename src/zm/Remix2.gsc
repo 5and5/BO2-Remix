@@ -37,7 +37,7 @@
 
 main()
 { 
-	level.VERSION = "1.0.4";
+	level.VERSION = "1.0.5";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
@@ -62,7 +62,7 @@ main()
 	replaceFunc( maps/mp/zombies/_zm::round_think, ::round_think_override );
 	replaceFunc( maps/mp/zombies/_zm::ai_calculate_health, ::ai_calculate_health_override );
 	replaceFunc( maps/mp/zombies/_zm_pers_upgrades_functions::pers_nube_should_we_give_raygun, ::pers_nube_should_we_give_raygun );
-	
+
     level.inital_spawn = true;
     level thread onConnect();
 }
@@ -125,6 +125,8 @@ connected()
         if(level.inital_spawn)
 		{
 			level.inital_spawn = false;
+
+			set_dog_rounds();
 
 			level thread coop_pause();
 			level thread fake_reset();

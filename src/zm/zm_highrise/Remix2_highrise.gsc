@@ -71,7 +71,7 @@ onplayerspawned()
 			spawn_semtex_wallbuy();
 
 			init_divetonuke();
-			player_damage_changes();
+			player_damage_changes_die_rise();
 			
 			level thread patch_shaft();
 
