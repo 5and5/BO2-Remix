@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.1.0";
+	level.VERSION = "1.1.1";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
@@ -575,7 +575,7 @@ ai_calculate_health_override( round_number ) //checked changed to match cerberus
 		}
 	}
 
-	// more linearly health formula - health is about the same at 65
+	// more linearly health formula - health is about the same at 60
 	if( round_number > 50 )
 	{	
 		round = (round_number - 50);
@@ -585,7 +585,7 @@ ai_calculate_health_override( round_number ) //checked changed to match cerberus
 		for( i = 0; i < round; i++ )
 		{
 			multiplier++;
-			zombie_health += int(4000 + (500 * multiplier) );
+			zombie_health += int(5000 + (200 * multiplier) );
 		}
 		level.zombie_health = int(zombie_health + 51780); // round 51 zombies health
 

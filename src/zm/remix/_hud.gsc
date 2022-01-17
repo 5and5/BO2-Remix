@@ -274,6 +274,10 @@ health_bar_hud()
 	{
 		y -= 60;
 	}
+	else
+	{
+		y -= 1;
+	}
 
 	health_bar = self createbar((1, 1, 1), level.primaryprogressbarwidth - 9, level.primaryprogressbarheight);
 	health_bar setpoint(undefined, "BOTTOM", x, y);
