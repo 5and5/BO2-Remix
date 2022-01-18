@@ -114,6 +114,7 @@ buried_special_weapon_check(weapon) {
             i++;
         }
     }
+    return 1;
 }
 
 alcatraz_special_weapon_check(weapon) {
