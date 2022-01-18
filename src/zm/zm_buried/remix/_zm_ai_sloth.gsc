@@ -24,18 +24,20 @@
 #include common_scripts/utility;
 
 
-// override_sloth_damage_func() {
-//     while(!isDefined(level.sloth)) {
-//         wait(1);
-//     }
+override_sloth_damage_func() {
+    while(!isDefined(level.sloth)) {
+        wait(1);
+    }
 
-//     sloth = level.sloth;
-//     sloth.actor_damage_func = ::sloth_damage_func_custom;
-// }
+    print("attaching new script to sloth");
+    sloth = level.sloth;
+    sloth.actor_damage_func = ::sloth_damage_func_custom;
+}
 
 
-// sloth_damage_func_custom( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime, boneindex )
-// {
+sloth_damage_func_custom( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime, boneindex )
+{
+    iprintln("super ow");
 // 	if ( sweapon == "equip_headchopper_zm" )
 // 	{
 // 		self.damageweapon_name = sweapon;
@@ -51,11 +53,11 @@
 // 	{
 // 		return 0;
 // 	}
-// 	if ( smeansofdeath == "MOD_MELEE" )
-// 	{
-// 		self sloth_leg_pain(sweapon);
-// 		return 0;
-// 	}
+	if ( smeansofdeath == "MOD_MELEE" )
+	{
+		self sloth_leg_pain();
+		return 0;
+	}
 // 	if ( self.state == "jail_idle" )
 // 	{
 // 		self stop_action();
@@ -78,8 +80,8 @@
 // 		self.damage_taken += idamage;
 // 		self.num_hits++;
 // 	}
-// 	return 0;
-// }
+	return 0;
+}
 
 sloth_leg_pain_custom() {
 
