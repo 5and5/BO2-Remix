@@ -1,5 +1,0 @@
-tools/*.gsc
-tools/*.zip
-tools/*/
-*.txt
-.vscode

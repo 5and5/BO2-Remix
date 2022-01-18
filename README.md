@@ -276,6 +276,7 @@ bind F8 "toggle coop_pause 1 0"
 * JBleezy
 * ZECxR3ap3r
 * Bandit
+* TTS
 * Naomi_
 * Chase
 * DoktorSAS

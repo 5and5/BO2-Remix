@@ -1,9 +1,6 @@
 # Remix 2
 
 ### Tranzit
-* Avogadro drop max ammo
-* buff electric traps
-* buff turret
 
 #### Depot
 
@@ -27,7 +24,6 @@
 
 ### general
 * reduce fall damage
-* remove ee quotes
 * have reset map_restart mid end screen
 
 ### HUD
@@ -41,8 +37,6 @@
 * drop cycle
 
 ### Weapons
-* remove some shitty weapons from the box
-* probability changes for trade outs
 
 ### Power Ups
 * add fx on last drop of cycle
