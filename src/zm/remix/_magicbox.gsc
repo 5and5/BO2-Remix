@@ -101,7 +101,7 @@ custom_special_weapon_magicbox_check( weapon ) {
 }
 
 buried_special_weapon_check(weapon) {
-    while ( weapon == "time_bomb_zm" )
+    if ( weapon == "time_bomb_zm" )
     {
         players = get_players();
         i = 0;
@@ -114,6 +114,7 @@ buried_special_weapon_check(weapon) {
             i++;
         }
     }
+    return 1;
 }
 
 alcatraz_special_weapon_check(weapon) {

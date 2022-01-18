@@ -26,6 +26,8 @@ debug( debug )
 	{
 		return;
 	}
+	iPrintLn("Debug mode enabled: level " + debug );
+
 	if( getDvarInt( "debug" ) == 2 )
 	{
 		setDvar( "ai_disablespawn", 1 );
