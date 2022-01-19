@@ -39,7 +39,7 @@ override_sloth_damage_func() {
 
 sloth_damage_func_custom( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime, boneindex )
 {
-    iprintln("super ow");
+    iprintln("super ow " + sweapon);
 	if ( sweapon == "equip_headchopper_zm" )
 	{
 		self.damageweapon_name = sweapon;
@@ -57,7 +57,9 @@ sloth_damage_func_custom( einflictor, eattacker, idamage, idflags, smeansofdeath
 	}
 	if ( smeansofdeath == "MOD_MELEE" )
 	{
+        self.damageweapon_name = sweapon;
 		self sloth_leg_pain_custom();
+        self.damageweapon_name = undefined;
 		return 0;
 	}
 	if ( self.state == "jail_idle" )
@@ -87,16 +89,13 @@ sloth_damage_func_custom( einflictor, eattacker, idamage, idflags, smeansofdeath
 
 sloth_leg_pain_custom() {
 
-    // if(weapon == "bowie_knife_zm") {
-    //     iprintln("Bowie Ow!");
-    //     self.leg_pain_time = getTime() + 6000;
-    // }
-    // else if(weapon = "tazer_knuckles_zm") {
-    //     iprintln("Taser ow!");
-    //     self.leg_pain_time = getTime() + 8000;
-    // }
-    // else {
-        iprintln("Ow!");
+    if(self.damageweapon_name == "tazer_knuckles_zm") {
+        self.leg_pain_time = getTime() + 6000;
+    }
+    else if(self.damageweapon_name == "bowie_knife_zm") {
+        self.leg_pain_time = getTime() + 5000;
+    }
+    else {
         self.leg_pain_time = getTime() + 4000;
-    // }
+    }
 }
