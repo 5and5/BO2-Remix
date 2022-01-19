@@ -57,7 +57,7 @@ sloth_damage_func_custom( einflictor, eattacker, idamage, idflags, smeansofdeath
 	}
 	if ( smeansofdeath == "MOD_MELEE" )
 	{
-		self sloth_leg_pain();
+		self sloth_leg_pain_custom();
 		return 0;
 	}
 	if ( self.state == "jail_idle" )

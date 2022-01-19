@@ -8,8 +8,6 @@
 
 main()
 {
-    replaceFunc( maps/mp/zombies/_zm_ai_sloth::sloth_leg_pain, ::sloth_leg_pain_custom);
-
     override_sloth_damage_func();
 
     level.initial_spawn_buried = true;
