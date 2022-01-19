@@ -56,7 +56,7 @@ staff_lightning_ball_damage_over_time( e_source, e_target, e_attacker ) //checke
 	n_range_sq = e_source.n_range * e_source.n_range;
 	e_target.is_being_zapped = 1;
 	e_target setclientfield( "lightning_arc_fx", 1 );
-	wait 0.5;
+	wait 0.25;
 	while ( isDefined( e_source ) && isalive( e_target ) )
 	{
 		e_target thread stun_zombie();

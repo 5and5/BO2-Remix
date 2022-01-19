@@ -48,8 +48,8 @@
 * Fridge has AN94 or War Machine depending on the map
 * Set box starting locations
 * Round 255 round cap removed
-* Remove player quotes ```disable_player_quotes``` dvar
-* In game fast ray ```rapid_fire``` dvar
+* Remove player quotes ```disable_player_quotes 1``` dvar
+* In game fast ray ```rapid_fire 1``` dvar
 * Characters can be selected with ```character``` dvar
 
 ### HUD
@@ -87,7 +87,6 @@
 * Mark 2 probability increased from 33% to 50%
 
 ### Buildables
-* Buildables can be built with get parts
 * All parts are given at the start of the game
 * Increased buildable buy distance
 * Buildables can be built without looking at them
@@ -130,11 +129,13 @@
 
 ### Zones
 * Farm barn zone acts the same as it does on Farm
-* Outside of farm acts the same with the door to Farm open
+* Outside of Farm zone acts the same even if you open the door
 
 ### Buildables
 * Bus parts are prebuilt except cattle catcher
 * Dinner hatch is prebuilt
+* Turret does not need a turbine
+* Electric trap does not need a turbine
 
 ### Weapons
 * Jetgun recharges faster
@@ -159,19 +160,22 @@
 * Key can lock elevator in current position
 
 ### Weapons
-* Added semtex wallbuy by b23r
+* Semtex wallbuy added by b23r
 * Sliquifier kills till round 255
 * Sliquifier continues to chain while put away
-<!-- * Sliquifier no longer drops extra goo -->
 * Sliquifier goo removed
+<!-- * Sliquifier no longer drops extra goo -->
 
 ## Mob of the Dead
 
 ### General 
-* All plane parts are auto picked up
-* Plane automatically refills
 * Blunder gat spawns in wardens office without collecting the 5 skulls
 * Set key to always spawn next to the cafeteria
+
+### Buildables
+* All plane parts are given on spawn
+* Plane automatically refills
+* Zombie shield bench added inside wardens office
 
 ### Traps
 * Fan trap no longer kills players instantly
@@ -182,15 +186,16 @@
 * Opening double tap door does not cause zombies to spawn upstairs
 
 ### Weapons
-* Blundergats damage no longer falls off
+* Blundergat damage no longer falls off
 * Blundergat is no longer limited in the box
 * Blundergat ammo reduced by 1/3
 * Acidgat ammo reduced by 1/3
 * Tomahawk is upgraded when picked up
 * Tomahawk reduced cooldown from 5 to 4 seconds
-* Added zombie shield bench inside wardens office
 
 ## Buried
+
+### Weapons
 * Pack-a-punch camo replaced with Mob of the Dead animated camo
 
 ### Leroy
@@ -200,11 +205,13 @@
 ## Origins
 
 ### General
-* All records and buildable parts given on spawn
-* Gramophone is no longer needed
 * Tank has instant cool down
 * Pack-a-punch is always on
-* Reduced soul boxes zombies required from 30 to 15
+* Reduced soul boxes zombie requirement from 30 to 15
+
+### Buildables
+* All records and buildable parts are given on spawn
+* Gramophone is no longer needed
 
 ### Special Rounds
 * Panzers will come every 4 rounds on solo and coop
@@ -217,15 +224,15 @@
 
 ### Crazy Place
 * Moving walls at disabled 
-* All gems spawn at spawned in
+* All gems are spawned
 
 ### Teleporters
-* Teleporters activate as soon as door leading to them is opened
+* Teleporters activate as soon as doors leading to them are opened
 * Teleporters in the crazy place can be used without being first used from the other side
 
 ### Shovel and Helmet
 * Shovels given on spawn
-* Golden shovel awarded after 5 digs
+* Golden shovel are awarded after 5 digs
 * Golden helmet chance increased from 5% to 20%
 
 ### Dig spots
@@ -240,18 +247,30 @@
 coop_pause
 night_mode
 character
+disable_player_quotes
+rapid_fire
 hud_timer
 hud_round_timer
 hud_health_bar
 hud_remaining
 hud_zone
-disable_player_quotes
 ```
 
 ## Custom Binds
 ```
 bind Q "toggle rapid_fire 1 0"
 bind F8 "toggle coop_pause 1 0"
+```
+
+## Config settings
+```
+seta hud_round_timer "1"
+seta hud_health_bar "1"
+seta hud_remaining "1"
+seta hud_zone "1"
+seta disable_player_quotes "1"
+seta night_mode "1"
+seta character "1"
 ```
 
 ## Insta Kill Rounds
