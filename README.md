@@ -243,18 +243,30 @@
 coop_pause
 night_mode
 character
+disable_player_quotes
+rapid_fire
 hud_timer
 hud_round_timer
 hud_health_bar
 hud_remaining
 hud_zone
-disable_player_quotes
 ```
 
 ## Custom Binds
 ```
 bind Q "toggle rapid_fire 1 0"
 bind F8 "toggle coop_pause 1 0"
+```
+
+## Config settings
+```
+seta hud_round_timer "1"
+seta hud_health_bar "1"
+seta hud_remaining "1"
+seta hud_zone "1"
+seta disable_player_quotes "1"
+seta night_mode "1"
+seta character "1"
 ```
 
 ## Insta Kill Rounds
