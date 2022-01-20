@@ -198,6 +198,10 @@
 ### Weapons
 * Pack-a-punch camo replaced with Mob of the Dead animated camo
 
+### Leroy
+* Leroy runs 25% longer when meleed with a Bowie Knife
+* Leroy runs 50% longer when meleed with Galvaknuckles
+
 ## Origins
 
 ### General
