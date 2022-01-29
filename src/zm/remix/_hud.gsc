@@ -607,11 +607,11 @@ get_zone_name()
 	{
 		if (zone == "culdesac_yellow_zone")
 		{
-			name = "Yellow House Cul-de-sac";
+			name = "Yellow House Middle";
 		}
 		else if (zone == "culdesac_green_zone")
 		{
-			name = "Green House Cul-de-sac";
+			name = "Green House Middle";
 		}
 		else if (zone == "truck_zone")
 		{

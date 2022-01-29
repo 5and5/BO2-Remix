@@ -19,6 +19,8 @@ set_movement_dvars()
 
     self setclientdvar("player_strafeSpeedScale", 1);
     self setclientdvar("player_sprintStrafeSpeedScale", 1);
+
+	// setDvar("sv_enablebounces", 1);
 }
 
 set_client_dvars()

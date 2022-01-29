@@ -6,12 +6,12 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "ConsoleApp1/1.0.0": {
+      "t6-compiler/1.0.0": {
         "dependencies": {
           "Irony": "1.0.0.0"
         },
         "runtime": {
-          "ConsoleApp1.dll": {}
+          "t6-compiler.dll": {}
         }
       },
       "Irony/1.0.0.0": {
@@ -25,7 +25,7 @@
     }
   },
   "libraries": {
-    "ConsoleApp1/1.0.0": {
+    "t6-compiler/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

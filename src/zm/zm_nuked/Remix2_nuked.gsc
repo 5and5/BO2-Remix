@@ -5,10 +5,13 @@
 
 #include scripts/zm/zm_nuked/remix/_nuked_perks;
 #include scripts/zm/zm_nuked/remix/_nuked_weapons;
+#include scripts/zm/zm_nuked/remix/_nuked_zones;
 
 
 main()
-{	
+{
+    // replaceFunc( maps/mp/zm_nuked::nuked_update_traversals, ::nuked_update_traversals );
+    
 	level.initial_spawn_nuked = true;
     level thread onplayerconnect();
 }
@@ -33,7 +36,7 @@ onplayerspawned()
 
         if(self.initial_spawn_nuked)
 		{
-            self.initial_spawn_nuked = true;
+            self.initial_spawn_nuked = false;
         }
 
         if(level.initial_spawn_nuked)
@@ -42,10 +45,12 @@ onplayerspawned()
 
 			flag_wait( "start_zombie_round_logic" );
    			wait 0.05;
+
+            // nuked_zone_changes();
+            remove_ground_spawns();
         }
     }
 }
-
 
 /*
 * *****************************************************

@@ -3,112 +3,77 @@
     // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
-		{
-			"label": "build all",
-			"type": "shell",
-			"command": "${cwd}/.vscode/ConsoleApp1.exe",
-			"args": [
-				"${workspaceFolder}\\scripts",
-				"${workspaceFolder}\\build"
-			],
-			"problemMatcher": [
-				{
-					"fileLocation": [
-						"absolute"
-					],
-					"pattern": [
-						{
-							"regexp": "(^Bad syntax)|(\\s\\d*)",
-							"message": 1,
-							"line": 4
-						},
-						{
-							"regexp": "(^.*:*.gsc)",
-							"file": 1
-						},
-						{
-							"regexp": "(WARNING)",
-							"severity": 1
-						}
-					]
-				}
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		},
-		{
-			"label": "build folder",
-			"type": "shell",
-			"command": "${cwd}/.vscode/ConsoleApp1.exe",
-			"args": [
-				"${fileDirname}",
-				"${workspaceFolder}\\build\\",
-				"${workspaceFolder}"
-			],
-			"problemMatcher": [
-				{
-					"fileLocation": [
-						"absolute"
-					],
-					"pattern": [
-						{
-							"regexp": "(^Bad syntax)|(\\s\\d*)",
-							"message": 1,
-							"line": 4
-						},
-						{
-							"regexp": "(^.*:*.gsc)",
-							"file": 1
-						},
-						{
-							"regexp": "(WARNING)",
-							"severity": 1
-						}
-					]
-				}
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		},
-		{
-			"label": "build file",
-			"type": "shell",
-			"command": "${cwd}/.vscode/ConsoleApp1.exe",
-			"args": [
-				"${file}",
-				"${workspaceFolder}\\build\\",
-				"${workspaceFolder}"
-			],
-			"problemMatcher": [
-				{
-					"fileLocation": [
-						"absolute"
-					],
-					"pattern": [
-						{
-							"regexp": "(^Bad syntax)|(\\s\\d*)",
-							"message": 1,
-							"line": 4
-						},
-						{
-							"regexp": "(^.*:*.gsc)",
-							"file": 1
-						},
-						{
-							"regexp": "(WARNING)",
-							"severity": 1
-						}
-					]
-				}
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		}
-	]
+
+        {
+            "label": "build all testing",
+            "type": "shell",
+            "command": "${cwd}/.vscode/t6-compiler.exe",
+            "args": [
+                "${workspaceFolder}\\src\\zm", "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Call of Duty Black Ops II Plutonuim\\storage\\t6\\scripts\\zm", "${workspaceFolder}\\src\\zm"
+            ],
+
+            "options": {"shell": {"executable": "cmd.exe","args": ["/C"]}},
+            "problemMatcher": [
+                //(^.*:*.gsc)|(^Bad syntax)|(WARNING)(:\s+)(.*)$|(\d*)\.$
+                {
+                    // The problem is owned by the cpp language service.
+                    //"owner": "gsc",
+                    // The file name for reported problems is relative to the opened folder.
+                    "fileLocation": ["absolute"],
+                    "owner": "CodScript",
+                    // The actual pattern to match problems in the output.
+                    "pattern":[
+                        {
+                            "regexp": "^(.*):(\\d+):(\\d+):(Error)\\s+(.*)$",
+                            "file": 1,
+                            "line": 2,
+                            "column": 3,
+                            "severity": 4,
+                            "message": 5
+                        }
+                    ]
+                }
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "build all online",
+            "type": "shell",
+            "command": "${cwd}/.vscode/t6-compiler.exe",
+            "args": [
+                "${workspaceFolder}\\src", "C:\\Users\\Riley\\AppData\\Local\\Plutonium\\storage\\t6\\scripts", "${workspaceFolder}\\src"
+            ],
+
+            "options": {"shell": {"executable": "cmd.exe","args": ["/C"]}},
+            "problemMatcher": [
+                //(^.*:*.gsc)|(^Bad syntax)|(WARNING)(:\s+)(.*)$|(\d*)\.$
+                {
+                    // The problem is owned by the cpp language service.
+                    //"owner": "gsc",
+                    // The file name for reported problems is relative to the opened folder.
+                    "fileLocation": ["absolute"],
+                    "owner": "CodScript",
+                    // The actual pattern to match problems in the output.
+                    "pattern":[
+                        {
+                            "regexp": "^(.*):(\\d+):(\\d+):(Error)\\s+(.*)$",
+                            "file": 1,
+                            "line": 2,
+                            "column": 3,
+                            "severity": 4,
+                            "message": 5
+                        }
+                    ]
+                }
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+
+    ]
 }

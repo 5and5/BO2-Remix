@@ -1,0 +1,69 @@
+###############################
+## GSC preprocessor by iCore ##
+##  moddb.com/members/icore  ##
+##       sharpkode.com       ##
+##       Version: 1.06       ##
+###############################
+
+For details about the program, check the project page here:
+http://moddb.com/downloads/pregsc
+http://moddb.com/tutorials/pregsc
+
+
+########## Changelog ##########
+
+1.06
+--------------------
+[+] Hexadecimal colors
+[+] Hexadecimal/octal numbers
+[+] elseif keyword
+[-] Recursive folder-creating is working
+
+1.05
+--------------------
+[+] extern blocks
+[+] -noforeach parameter
+[×] print_r is writing in the console too
+
+1.04
+--------------------
+[+] Enum type
+[+] Setting multiple variables
+[×] References are loaded from imported files
+[×] Faster file reading method
+[-] Many fixes and corrigations
+
+1.03
+--------------------
+Foreach:
+	[+] 'Start index' and 'size' parameter
+	[+] Current index can be named
+	[+] Can now be used with the 'as' keyword too, not only 'in'.
+	[+] -zeroarray parameter
+	[×] Enhanced in-game performance
+	[-] Can be used without curly brackets
+
+[+] do-while loop
+[+] print_r function to print an array for debugging
+[×] In debug mode, unneeded whitespaces will be removed
+[-] Inline functions are not surrounded by curly brackets anymore
+[-] Folder names in namespaces are not processed anymore as tokens
+
+1.02
+--------------------
+[+] Preprocessor directives
+[+] Importing
+[+] Inline functions
+[+] Apostrophe strings
+[+] Foreach
+[+] Filled array and map definitions
+[+] Default parameters
+[-] Handling more extreme conditions
+
+1.01
+--------------------
+[-] Reference variables are now detected better
+
+1.00
+--------------------
+[+] Release

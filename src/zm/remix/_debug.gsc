@@ -55,11 +55,14 @@ debug( debug )
 	// self thread print_origin();
 	// self thread print_doors();
 	// self thread print_debris();
+	// self thread print_zombie_spawners();
 
 	// self thread give_all_perks();
 	// self thread give_weapons( "blundergat_upgraded_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded_zm", "upgraded_tomahawk_zm");
 	// self thread give_tomahwak();
 	self thread give_weapon_camo( "raygun_mark2_upgraded_zm" );
+
+	
 }
 
 set_starting_round( round )
@@ -392,5 +395,27 @@ give_sallys()
 		self GiveWeapon( "c96_upgraded_zm", 0, self maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options( "c96_upgraded_zm" ) );
 		self GiveStartAmmo( "c96_upgraded_zm" );
 		self SwitchToWeapon( "c96_upgraded_zm" );
+	}
+}
+
+print_zombie_spawners()
+{
+	zkeys = getarraykeys( level.zones );
+	while ( 1 )
+	{
+		for ( z = 0; z < zkeys.size; z++ )
+		{
+			zone = level.zones[ zkeys[ z ] ];
+			for ( i = 0; i < zone.spawn_locations.size; i++ )
+			{
+				if ( DistanceSquared( self.origin, zone.spawn_locations[ i ].origin ) < 128*128 )
+				{
+					self iprintln( zone.spawn_locations[ i ].origin );
+					self iprintln( zone.spawn_locations[ i ].target );
+					print( zone.spawn_locations[ i ].origin );
+				}
+			}
+		}
+		wait 1;
 	}
 }
