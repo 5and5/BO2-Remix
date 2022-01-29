@@ -11,6 +11,7 @@
 ### Nuketown
 
 - Pack-A-Punch is always behind the Green House
+- Set box location
 
 ### Mob
 

@@ -11,6 +11,8 @@
 main()
 {
     // replaceFunc( maps/mp/zm_nuked::nuked_update_traversals, ::nuked_update_traversals );
+    // replaceFunc( maps/mp/zm_nuked_perks::perks_from_the_sky, perks_from_the_sky_override );
+	// replaceFunc( maps/mp/zm_nuked_perks::init_nuked_perks, init_nuked_perks_override );
     
 	level.initial_spawn_nuked = true;
     level thread onplayerconnect();

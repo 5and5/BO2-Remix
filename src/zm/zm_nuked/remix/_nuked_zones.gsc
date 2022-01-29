@@ -10,19 +10,18 @@ remove_ground_spawns()
 	{
 		for ( i = 0; i < zone.spawn_locations.size; i++ )
 		{
+            // ground spawns in spawn - only active when in backyards
 			if ( zone.spawn_locations[ i ].origin == (-781.24, -77.56, -56) || 
                  zone.spawn_locations[ i ].origin == (-429.3, 821.21, -64) ||
                  zone.spawn_locations[ i ].origin == (686.78, -174.01, -56.86) ||
                  zone.spawn_locations[ i ].origin == (47.39, 965.91, -64.94) )
 			{
-                
 				zone.spawn_locations[ i ].is_enabled = false;
 			}
 		}
-	}
+
+    }
 }
-
-
 
 nuked_zone_changes()
 {
