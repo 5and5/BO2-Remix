@@ -55,7 +55,7 @@ onplayerspawned()
 
         if(self.initial_spawn_highrise)
 		{
-            self.initial_spawn_highrise = true;
+            self.initial_spawn_highrise = false;
 
         }
 

@@ -55,7 +55,7 @@ onplayerspawned()
 
         if(self.initial_spawn_prison)
 		{
-            self.initial_spawn_prison = true;
+            self.initial_spawn_prison = false;
         }
 
         if(level.initial_spawn_prison)

@@ -42,7 +42,7 @@ onplayerspawned()
 
         if(self.initial_spawn_transit)
 		{
-            self.initial_spawn_transit = true;
+            self.initial_spawn_transit = false;
 
 			if ( level.scr_zm_map_start_location == "transit" && is_classic() )
 			{

@@ -34,7 +34,7 @@ onplayerspawned()
 
         if(self.initial_spawn_buried)
 		{
-            self.initial_spawn_buried = true;
+            self.initial_spawn_buried = false;
         }
 
         if(level.initial_spawn_buried)

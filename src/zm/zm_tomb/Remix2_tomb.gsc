@@ -60,7 +60,7 @@ onplayerspawned()
 
         if(self.initial_spawn_tomb)
 		{
-            self.initial_spawn_tomb = true;
+            self.initial_spawn_tomb = false;
         }
 
         if(level.initial_spawn_tomb)

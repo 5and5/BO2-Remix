@@ -26,12 +26,14 @@
 #include common_scripts/utility;
 
 
-override_sloth_damage_func() {
-    while(!isDefined(level.sloth)) {
+override_sloth_damage_func()
+{
+    while(!isDefined(level.sloth))
+	{
         wait(1);
     }
 
-    print("attaching new script to sloth");
+    // print("attaching new script to sloth");
     sloth = level.sloth;
     sloth.actor_damage_func = ::sloth_damage_func_custom;
 }
@@ -39,7 +41,7 @@ override_sloth_damage_func() {
 
 sloth_damage_func_custom( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime, boneindex )
 {
-    iprintln("super ow " + sweapon);
+    // iprintln("super ow " + sweapon);
 	if ( sweapon == "equip_headchopper_zm" )
 	{
 		self.damageweapon_name = sweapon;
@@ -87,15 +89,18 @@ sloth_damage_func_custom( einflictor, eattacker, idamage, idflags, smeansofdeath
 	return 0;
 }
 
-sloth_leg_pain_custom() {
-
-    if(self.damageweapon_name == "tazer_knuckles_zm") {
+sloth_leg_pain_custom()
+{
+    if(self.damageweapon_name == "tazer_knuckles_zm")
+	{
         self.leg_pain_time = getTime() + 6000;
     }
-    else if(self.damageweapon_name == "bowie_knife_zm") {
+    else if(self.damageweapon_name == "bowie_knife_zm")
+	{
         self.leg_pain_time = getTime() + 5000;
     }
-    else {
+    else 
+	{
         self.leg_pain_time = getTime() + 4000;
     }
 }
