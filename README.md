@@ -21,7 +21,7 @@
 ## How to Install
 
 - Download and install BO2 Plutonium [Plutonium Download](https://plutonium.pw/)
-- Download the [Remix Installer](https://github.com/5and5/BO2-Remix/releases/download/latest/BO2-Remix.zip)
+- Download the [Remix Installer](https://github.com/5and5/BO2-Remix/releases/download/v1.0.0/BO2-Remix-Installer.bat)
 - Double click on "BO2-Remix-Installer.bat" this will download the latest version of Remix and copy all the files into `%localappdata%\Plutonium\storage\t6\scripts`
 - Launch the game and enjoy!
 
