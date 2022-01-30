@@ -7,7 +7,7 @@
 
 set_dog_rounds()
 {
-	if( !is_classic() )
+	if( !is_classic() && level.script != "zm_nuked" )
 	{
 		enable_dog_rounds_custom();
 	}

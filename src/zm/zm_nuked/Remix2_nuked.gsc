@@ -240,19 +240,19 @@ perks_from_the_sky_override()
 	machine_triggers[ 4 ] trigger_off();
 
 	flag_wait( "initial_blackscreen_passed" );
-    wait_for_round_range( 2, 4 );
+    maps/mp/zm_nuked_perks::wait_for_round_range( 2, 4 );
 	wait randomintrange( 30, 60 );
 	bring_random_perk1( machines, machine_triggers );
-	wait_for_round_range( 4, 7 );
+	maps/mp/zm_nuked_perks::wait_for_round_range( 4, 7 );
 	wait randomintrange( 30, 60 );
 	bring_random_perk1( machines, machine_triggers );
-	wait_for_round_range( 8, 11 );
+	maps/mp/zm_nuked_perks::wait_for_round_range( 8, 11 );
 	wait randomintrange( 30, 60  );
 	bring_random_perk1( machines, machine_triggers );
-	wait_for_round_range( 12, 15 );
+	maps/mp/zm_nuked_perks::wait_for_round_range( 12, 15 );
 	wait randomintrange( 30, 60  );
 	bring_random_perk1( machines, machine_triggers );
-	wait_for_round_range( 15, 18 );
+	maps/mp/zm_nuked_perks::wait_for_round_range( 15, 18 );
 	wait randomintrange( 30, 60  );
 	bring_random_perk1( machines, machine_triggers );
 }
