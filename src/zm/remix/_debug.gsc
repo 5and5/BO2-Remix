@@ -60,7 +60,7 @@ debug( debug )
 	// self thread give_all_perks();
 	// self thread give_weapons( "blundergat_upgraded_zm", "blundersplat_upgraded_zm", "raygun_mark2_upgraded_zm", "upgraded_tomahawk_zm");
 	// self thread give_tomahwak();
-	self thread give_weapon_camo( "raygun_mark2_upgraded_zm" );
+	self thread give_weapon( "raygun_mark2_upgraded_zm" );
 
 	
 }
@@ -249,11 +249,11 @@ give_weapons( weapon1, weapon2, weapon3, equipment )
 
 }
 
-give_weapon_camo( weapon )
+give_weapon( weapon )
 {
 	flag_wait( "initial_blackscreen_passed" );
 
-	self giveweapon( weapon, 0, self calcweaponoptions( 40, 0, 0, 0 ) );
+	self giveweapon( weapon, 0, self calcweaponoptions( 39, 0, 0, 0 ) );
 }
 
 move_scriptmodel_with_dvar( model, origin, angles )
