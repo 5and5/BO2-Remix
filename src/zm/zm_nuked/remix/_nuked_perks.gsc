@@ -19,7 +19,6 @@ wait_for_round_range_custom( start_round, end_round ) //checked matches cerberus
 
 perks_from_the_sky_override()
 {
-    print("work");
 	level thread turn_perks_on();
 	top_height = 8000;
 	machines = [];

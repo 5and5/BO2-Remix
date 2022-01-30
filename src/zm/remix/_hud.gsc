@@ -1519,7 +1519,7 @@ tab_hud()
 		{
 			// self notify("player_pressed_scoreboard_button");
 			self notifyonplayercommand("player_pressed_scoreboard_button", "+scores");
-			iPrintLn("working");
+			// iPrintLn("working");
 		}
 		wait 0.05;
 	}
