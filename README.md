@@ -140,6 +140,7 @@
 
 ### Nuke Town
 
+- Set perk location for pap/jug to always be in the yellow house backyard `nuked_pap_spawn 1` to change it to the green house
 - Set perk order ( revive, jug, pap, speed, double tap)
 - Disable zombie spawns in the middle while in the backyard
 - Limited M27

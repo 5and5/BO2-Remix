@@ -10,8 +10,6 @@
 
 ### Nuketown
 
-- Pack-A-Punch is always behind the Green House
-
 ### Mob
 
 ### Die Rise
