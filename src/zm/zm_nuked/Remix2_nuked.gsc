@@ -10,9 +10,10 @@
 
 main()
 {
+    // replaceFunc( maps/mp/zm_nuked_perks::perks_from_the_sky, ::perks_from_the_sky_override_nothing );
     // replaceFunc( maps/mp/zm_nuked::nuked_update_traversals, ::nuked_update_traversals );
-    // replaceFunc( maps/mp/zm_nuked_perks::perks_from_the_sky, perks_from_the_sky_override );
-	// replaceFunc( maps/mp/zm_nuked_perks::init_nuked_perks, init_nuked_perks_override );
+	// replaceFunc( maps/mp/zm_nuked_perks::init_nuked_perks, ::init_nuked_perks_override );
+    replaceFunc( maps/mp/zm_nuked_perks::wait_for_round_range, ::wait_for_round_range_custom );
     
 	level.initial_spawn_nuked = true;
     level thread onplayerconnect();
@@ -43,13 +44,14 @@ onplayerspawned()
 
         if(level.initial_spawn_nuked)
         {
+            level thread perks_from_the_sky_override();
             level.initial_spawn_nuked = false;
 
 			flag_wait( "start_zombie_round_logic" );
    			wait 0.05;
 
-            // nuked_zone_changes();
             remove_ground_spawns();
+            init_nuked_perks_override();
         }
     }
 }

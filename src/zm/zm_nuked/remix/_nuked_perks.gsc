@@ -8,8 +8,18 @@
 #include maps/mp/gametypes_zm/_zm_gametype;
 #include maps/mp/zm_nuked_perks;
 
+
+wait_for_round_range_custom( start_round, end_round ) //checked matches cerberus output
+{
+	while ( 1 )
+	{
+		wait 100;
+	}
+}
+
 perks_from_the_sky_override()
 {
+    print("work");
 	level thread turn_perks_on();
 	top_height = 8000;
 	machines = [];
@@ -36,14 +46,14 @@ perks_from_the_sky_override()
 	machine_triggers[ 4 ] trigger_off();
 
 	flag_wait( "initial_blackscreen_passed" );
-	for( i = 0; i < 5; i++ )
+	for( i = 0; i < 4; i++ )
 	{
-        wait randomintrange( 1, 4 );
-        bring_random_perk( machines, machine_triggers );
+        wait 30;
+        bring_random_perk1( machines, machine_triggers );
 	}
 }
 
-bring_random_perk( machines, machine_triggers ) //checked matches cerberus output
+bring_random_perk1( machines, machine_triggers ) //checked matches cerberus output
 {
 	//Perk Indexes
 	/*
@@ -56,33 +66,30 @@ bring_random_perk( machines, machine_triggers ) //checked matches cerberus outpu
 	if ( !isDefined( level.machines_fallen ) )
 	{
 		level.machines_fallen = 0;
-		index = 4;
+		index = 3;
 	}
 	else if ( level.machines_fallen == 1 )
 	{
-		index = 2;
+		index = 4;
 	}
 	else if ( level.machines_fallen == 2 )
 	{
-		index = 0;
+		index = 2;
 	}
 	else if ( level.machines_fallen == 3 )
 	{
-		index = 3;
-	}
-	else if ( level.machines_fallen == 4 )
-	{
 		index = 1;
 	}
-	if ( level.machines_fallen > 4 )
-	{
-		return;
-	}
-	count = machines.size;
-	if ( count <= 0 )
-	{
-		return;
-	}
+
+	// if ( level.machines_fallen > 4 )
+	// {
+	// 	return;
+	// }
+	// count = machines.size;
+	// if ( count <= 0 )
+	// {
+	// 	return;
+	// }
     iPrintLn("index: " + index);
 	bring_perk( machines[ index ], machine_triggers[ index ] );
 	level.machines_fallen++;

@@ -135,6 +135,7 @@
 
 ### Nuke Town
 
+- Set perk order ( revive, jug, pap, speed, double tap)
 - Disable zombie spawns in the middle while in the backyard
 - Limited M27
 
@@ -231,8 +232,9 @@
 - Pack-a-punch camo replaced with Mob of the Dead animated camo
 
 ### Leroy
-* Leroy runs 25% longer when meleed with a Bowie Knife
-* Leroy runs 50% longer when meleed with Galvaknuckles
+
+- Leroy runs 25% longer when meleed with a Bowie Knife
+- Leroy runs 50% longer when meleed with Galvaknuckles
 
 ## Origins
 
