@@ -34,7 +34,6 @@
 - increase max points to 5 mil
 - reduce fall damage
 - have reset map_restart mid end screen
-- display time and round on end screen
 - increase explosive damage
 
 ### HUD
