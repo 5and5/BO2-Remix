@@ -2,6 +2,7 @@
 #include maps/mp/_utility;
 #include common_scripts/utility;
 #include maps/mp/zombies/_zm_blockers;
+#include maps/mp/zombies/_zm_magicbox;
 // #include maps/mp/zm_nuked_perks;
 
 #include scripts/zm/zm_nuked/remix/_nuked_weapons;
@@ -12,8 +13,9 @@ main()
 {
     replaceFunc( maps/mp/zm_nuked_perks::perks_from_the_sky, ::perks_from_the_sky_override );
     replaceFunc( maps/mp/zm_nuked_perks::init_nuked_perks, ::init_nuked_perks_override );
-    
+
 	level.initial_spawn_nuked = true;
+    level thread set_magicbox_location();
     level thread onplayerconnect();
 }
 
@@ -47,9 +49,51 @@ onplayerspawned()
 			flag_wait( "start_zombie_round_logic" );
    			wait 0.05;
 
+			limit_m72();
             remove_ground_spawns();
         }
     }
+}
+
+set_magicbox_location()
+{
+	if( getDvar("nuked_box") == "" )
+        setDvar("nuked_box", " ");
+	box = getDvar("nuked_box");
+
+	// choose box location
+	level.pap_at_green_house = false;
+	if(cointoss())
+		level.pap_at_green_house = true;
+	if(box == "green")
+		level.pap_at_green_house = true;
+	if(box == "yellow")
+		level.pap_at_green_house = false;
+
+	// set box location
+	flag_wait( "start_zombie_round_logic" );
+	wait 4;
+	if(level.pap_at_green_house == true)
+		start_chest = "start_chest1";
+	else
+		start_chest = "start_chest2";
+
+	for(i = 0; i < level.chests.size; i++)
+	{
+		if(level.chests[i].script_noteworthy == start_chest)
+			desired_chest_index = i; 
+		else if(level.chests[i].hidden == 0)
+			nondesired_chest_index = i;               	
+	}
+	if( isdefined(nondesired_chest_index) && (nondesired_chest_index < desired_chest_index))
+	{
+		level.chests[nondesired_chest_index] hide_chest();
+		level.chests[nondesired_chest_index].hidden = 1;
+
+		level.chests[desired_chest_index].hidden = 0;
+		level.chests[desired_chest_index] show_chest();
+		level.chest_index = desired_chest_index;
+	}            	
 }
 
 /*
@@ -93,7 +137,8 @@ init_nuked_perks_override() //checked changed to match cerberus output
 	level.nuked_perks[ 4 ].script_noteworthy = "specialty_weapupgrade";
 	level.nuked_perks[ 4 ].turn_on_notify = "Pack_A_Punch_on";
 	level.override_perk_targetname = "zm_perk_machine_override";
-    random_perk_structs = [];
+    
+	random_perk_structs = [];
 	perk_structs = getstructarray( "zm_random_machine", "script_noteworthy" );
 	for ( i = 0; i < perk_structs.size; i++ )
 	{
@@ -121,10 +166,7 @@ init_nuked_perks_override() //checked changed to match cerberus output
     example:
     level.random_perk_structs[ 0 ] = getstruct( perk_structs[ 9 ].target, "targetname" ); sets revive to "on corner of greenhouse in the first room"
 	*/
-    if( getDvar("nuked_pap_spawn") == "" )
-        setDvar("nuked_pap_spawn", 0);
-
-    if( getDvarInt("nuked_pap_spawn") )
+    if( level.pap_at_green_house )
     {
         level.random_perk_structs = [];
         level.random_perk_structs[ 0 ] = getstruct( perk_structs[ 9 ].target, "targetname" );
@@ -142,7 +184,7 @@ init_nuked_perks_override() //checked changed to match cerberus output
         level.random_perk_structs[ 1 ].script_noteworthy = level.nuked_perks[ 1 ].script_noteworthy;
         level.random_perk_structs[ 1 ].turn_on_notify = level.nuked_perks[ 1 ].turn_on_notify;
         level.struct_class_names[ "targetname" ][ "zm_perk_machine_override" ][ level.struct_class_names[ "targetname" ][ "zm_perk_machine_override" ].size ] = level.random_perk_structs[ 1 ];
-
+		
         level.random_perk_structs[ 2 ] = getstruct( perk_structs[ 6 ].target, "targetname" );
         level.random_perk_structs[ 2 ].targetname = "zm_perk_machine_override";
         level.random_perk_structs[ 2 ].model = level.nuked_perks[ 2 ].model;
@@ -209,7 +251,6 @@ init_nuked_perks_override() //checked changed to match cerberus output
         level.random_perk_structs[ 4 ].turn_on_notify = level.nuked_perks[ 4 ].turn_on_notify;
         level.struct_class_names[ "targetname" ][ "zm_perk_machine_override" ][ level.struct_class_names[ "targetname" ][ "zm_perk_machine_override" ].size ] = level.random_perk_structs[ 4 ];
     }
-
 }
 
 perks_from_the_sky_override()

@@ -140,9 +140,10 @@
 
 ### Nuke Town
 
-- Set perk location for pap/jug to always be in the yellow house backyard `nuked_pap_spawn 1` to change it to the green house
-- Set perk order ( revive, jug, pap, speed, double tap )
-- Disable zombie spawns in the middle while in the backyard
+- Pack-a-punch and jug will always spawn in the backyard that the box starts at
+- Set box starting location with `nuked_box yellow` or `nuked_box green`
+- Perks drop in the same order every game ( revive, jug, pap, speed cola, double tap )
+- Disabled zombies spawning in the middle while players are in either backyards
 - Limited M27
 
 ## Tranzit
