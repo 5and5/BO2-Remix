@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.1.8";
+	level.VERSION = "1.1.9";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
@@ -292,13 +292,17 @@ treasure_chest_weapon_spawn_override( chest, player, respin ) //checked changed 
 		{
 			level.weapons_needed += 2;
 		}
-		if( level.default_start_location == "processing" || level.default_start_location == "tomb" )
+		else if( level.default_start_location == "processing" || level.default_start_location == "tomb" )
 		{
 			level.weapons_needed += 1;
 		}
-		if( level.default_start_location == "prison" && level.players.size > 1 )
+		else if( level.default_start_location == "prison" && level.players.size == 2 )
 		{
 			level.weapons_needed += 1;
+		}
+		else if( level.default_start_location == "prison" && level.players.size > 2 )
+		{
+			level.weapons_needed += 4;
 		}
 	}
 
