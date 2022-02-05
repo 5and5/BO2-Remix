@@ -277,7 +277,7 @@ include_weapons_override() //checked changed to match cerberus output
 	include_weapon( "alcatraz_shield_zm", 0 );
 	add_limited_weapon( "m1911_zm", 4 );
 	add_limited_weapon( "minigun_alcatraz_zm", 1 );
-	//add_limited_weapon( "blundergat_zm", 1 );
+	add_limited_weapon( "blundergat_zm", 4 );
 	add_limited_weapon( "ray_gun_zm", 4 );
 	add_limited_weapon( "ray_gun_upgraded_zm", 4 );
 	include_weapon( "tower_trap_zm", 0 );
