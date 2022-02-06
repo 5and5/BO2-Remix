@@ -8,6 +8,8 @@
 #include maps/mp/zombies/_zm_craftables;
 #include maps/mp/zombies/_zm_equipment;
 #include maps/mp/zm_prison_sq_bg;
+#include maps/mp/zm_alcatraz_craftables;
+#include maps/mp/zombies/_zm_afterlife;
 
 #include scripts/zm/zm_prison/remix/_prison_plane;
 #include scripts/zm/zm_prison/remix/_prison_shield_bench;
@@ -27,7 +29,9 @@ main()
 	replaceFunc( maps/mp/zm_alcatraz_traps::player_acid_damage, ::player_acid_damage );
 	replaceFunc( maps/mp/zm_alcatraz_traps::player_acid_damage_cooldown, ::player_acid_damage_cooldown );
 	replaceFunc( maps/mp/zombies/_zm_weap_tomahawk::tomahawk_return_player, ::tomahawk_return_player );
-
+	// replaceFunc( maps/mp/zm_alcatraz_craftables::include_craftables, ::include_craftables );
+	// replaceFunc( maps/mp/zombies/_zm_afterlife::onpickup_plane, ::onpickup_plane );
+	
     level.initial_spawn_prison = true;
     level thread onplayerconnect();
 
@@ -445,3 +449,50 @@ wait_for_player_to_take_override( player, str_valid_weapon )
 	}
 }
 
+
+// check_solo_status()
+// {
+// 	level.is_forever_solo_game = 1;
+// }
+
+// init_player()
+// {
+// 	flag_wait( "initial_players_connected" );
+
+// 		if ( isDefined( level.is_forever_solo_game ) && level.is_forever_solo_game )
+// {
+// 	self.lives = 3;
+// }
+// else
+// {
+// 	self.lives = 1;
+// }
+// 	self setclientfieldtoplayer( "player_lives", self.lives );
+// 	self.afterlife = 0;
+// 	self.afterliferound = level.round_number;
+// 	self.afterlifedeaths = 0;
+// 	self thread afterlife_doors_close();
+// 	self thread afterlife_player_refill_watch();
+// }
+
+// afterlife_add()
+// {
+// 	if ( isDefined( level.is_forever_solo_game ) && level.is_forever_solo_game )
+// 	{
+// 		if ( self.lives < 3 )
+// 		{
+// 			self.lives++;
+// 			self thread afterlife_add_fx();
+// 		}
+// 	}
+// 	else
+// 	{
+// 		if ( self.lives < 1 )
+// 		{
+// 			self.lives++;
+// 			self thread afterlife_add_fx();
+// 		}
+// 	}
+// 	self playsoundtoplayer( "zmb_afterlife_add", self );
+// 	self setclientfieldtoplayer( "player_lives", self.lives );
+// }

@@ -204,14 +204,15 @@
 
 ### General
 
-- Blunder gat spawns in wardens office without collecting the 5 skulls
+- Blundergat spawns in wardens office without collecting 5 skulls
 - Set key to always spawn next to the cafeteria
 
 ### Buildables
 
-- All plane parts are given on spawn
+- All plane parts are given on spawn in solo only
 - Plane automatically refills
 - Zombie shield bench added inside wardens office
+- Zombie shield inside wardens has a 5 minute cooldown
 
 ### Traps
 

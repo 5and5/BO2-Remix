@@ -10,6 +10,8 @@
 
 ### Nuketown
 
+- powerup behind door respawns every 5 rounds
+
 ### Mob
 
 ### Die Rise

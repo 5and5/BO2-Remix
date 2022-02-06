@@ -38,7 +38,8 @@
 
 main()
 { 
-	level.VERSION = "1.1.9";
+	
+	level.VERSION = "1.2.0";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
@@ -278,7 +279,6 @@ treasure_chest_weapon_spawn_override( chest, player, respin ) //checked changed 
 		}
 	}
 
-
 	// first box level vars
 	if ( !isDefined(level.chest_max_move_usage) )
 	{
@@ -286,23 +286,19 @@ treasure_chest_weapon_spawn_override( chest, player, respin ) //checked changed 
 	}
 	if ( !isDefined(level.weapons_needed) )
 	{	
-		level.weapons_needed = 2;
+		level.weapons_needed = 2; // raygun + monkeys on most maps
 
-		if( level.players.size > 1 )
+		if( level.players.size > 1 ) // if coop double weapons needed
 		{
 			level.weapons_needed += 2;
 		}
-		else if( level.default_start_location == "processing" || level.default_start_location == "tomb" )
+		if( level.default_start_location == "processing" || level.default_start_location == "tomb" ) // buried and origins add one for war machine and slowgun
 		{
 			level.weapons_needed += 1;
 		}
-		else if( level.default_start_location == "prison" && level.players.size == 2 )
+		if( level.default_start_location == "prison" && level.players.size > 1 ) // mob add one for 2p and two for 3/4p for extra gats
 		{
-			level.weapons_needed += 1;
-		}
-		else if( level.default_start_location == "prison" && level.players.size > 2 )
-		{
-			level.weapons_needed += 4;
+			level.weapons_needed += level.players.size / 2;
 		}
 	}
 

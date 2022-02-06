@@ -633,7 +633,15 @@ buildable_get_last_piece()
 	}
 }
 
-// MOTD/Origins style buildables
+
+/*
+* *****************************************************
+*	
+* ********** MOTD/Origins style buildables ************
+*
+* *****************************************************
+*/
+
 buildcraftables()
 {
 	// need a wait or else some buildables dont build
@@ -645,7 +653,8 @@ buildcraftables()
 		{
 			buildcraftable( "alcatraz_shield_zm" );
 			buildcraftable( "packasplat" );
-			buildcraftable( "plane" );
+			if(level.is_forever_solo_game)
+				buildcraftable( "plane" );
 			changecraftableoption( 0 );
 		}
 		else if(level.scr_zm_map_start_location == "tomb")
