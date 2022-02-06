@@ -27,9 +27,6 @@
 
 ### Origins
 
-- reduce the chance of getting powerups from digging
-- set robot pattern
-
 ### general
 
 - increase max points to 5 mil

@@ -9,6 +9,7 @@
 #include maps/mp/zm_tomb_utility;
 #include maps/mp/zm_tomb_capture_zones;
 #include maps/mp/zm_tomb_challenges;
+#include maps/mp/zm_tomb_giant_robot;
 
 #include scripts/zm/remix/_debug;
 #include scripts/zm/zm_tomb/remix/_tomb_dig;
@@ -23,17 +24,18 @@ main()
 	replaceFunc( maps/mp/zm_tomb_dig::waittill_dug, ::waittill_dug );
 	replaceFunc( maps/mp/zm_tomb_dig::dig_up_powerup, ::dig_up_powerup );
 	replaceFunc( maps/mp/zm_tomb_dig::dig_get_rare_powerups, ::dig_get_rare_powerups );
+	replaceFunc( maps/mp/zm_tomb_dig::increment_player_perk_purchase_limit, ::increment_player_perk_purchase_limit );
 	replaceFunc( maps/mp/zm_tomb_main_quest::chambers_init, ::chambers_init );
 	replaceFunc( maps/mp/zombies/_zm_powerup_zombie_blood::make_zombie_blood_entity, ::make_zombie_blood_entity );
-	replaceFunc( maps/mp/zm_tomb_capture_zones::recapture_round_tracker, ::recapture_round_tracker_override );
 	replaceFunc( maps/mp/zm_tomb_craftables::sndplaystaffstingeronce, ::sndplaystaffstingeronce );
 	replaceFunc( maps/mp/zombies/_zm_weap_staff_lightning::staff_lightning_ball_damage_over_time, ::staff_lightning_ball_damage_over_time );
-	replaceFunc( maps/mp/zm_tomb_dig::increment_player_perk_purchase_limit, ::increment_player_perk_purchase_limit );
 	replaceFunc( maps/mp/zm_tomb_challenges::box_footprint_think, ::box_footprint_think );
-	replaceFunc( maps/mp/zm_tomb_capture_zones::pack_a_punch_think, ::pack_a_punch_think );
 	replaceFunc( maps/mp/zm_tomb_ee_side::check_for_change, ::check_for_change );
+	replaceFunc( maps/mp/zm_tomb_capture_zones::recapture_round_tracker, ::recapture_round_tracker_override );
+	replaceFunc( maps/mp/zm_tomb_capture_zones::pack_a_punch_think, ::pack_a_punch_think );
 	replaceFunc( maps/mp/zm_tomb_capture_zones::play_pap_anim, ::play_pap_anim );
-
+	replaceFunc( maps/mp/zm_tomb_capture_zones::robot_cycling, ::robot_cycling );
+	
     level.initial_spawn_tomb = true;
     level thread onplayerconnect();
 }
@@ -180,6 +182,85 @@ check_for_change()
 		else
 		{
 			wait 0.1;
+		}
+	}
+}
+
+robot_cycling()
+{
+	three_robot_round = 0;
+	last_robot = -1;
+	level thread giant_robot_intro_walk( 1 );
+	level waittill( "giant_robot_intro_complete" );
+	while ( 1 )
+	{
+		if ( level.round_number % 8 && three_robot_round != level.round_number )
+		{
+			flag_set( "three_robot_round" );
+		}
+		if ( flag( "ee_all_staffs_placed" ) && !flag( "ee_mech_zombie_hole_opened" ) )
+		{
+			flag_set( "three_robot_round" );
+		}
+		if ( flag( "three_robot_round" ) )
+		{
+			level.zombie_ai_limit = 22;
+			random_number = randomint( 3 );
+			if ( random_number == 2 )
+			{
+				level thread giant_robot_start_walk( 2 );
+			}
+			else
+			{
+				level thread giant_robot_start_walk( 2, 0 );
+			}
+			wait 5;
+			if ( random_number == 0 )
+			{
+				level thread giant_robot_start_walk( 0 );
+			}
+			else
+			{
+				level thread giant_robot_start_walk( 0, 0 );
+			}
+			wait 5;
+			if ( random_number == 1 )
+			{
+				level thread giant_robot_start_walk( 1 );
+			}
+			else
+			{
+				level thread giant_robot_start_walk( 1, 0 );
+			}
+			level waittill( "giant_robot_walk_cycle_complete" );
+			level waittill( "giant_robot_walk_cycle_complete" );
+			level waittill( "giant_robot_walk_cycle_complete" );
+			wait 5;
+			level.zombie_ai_limit = 24;
+			three_robot_round = level.round_number;
+			last_robot = -1;
+			flag_clear( "three_robot_round" );
+			continue;
+		}
+		else
+		{
+			if ( !flag( "activate_zone_nml" ) )
+			{
+				random_number = randomint( 2 );
+			}
+			else
+			{
+				random_number = randomint( 3 );
+			}
+			last_robot = random_number;
+			if( !isDefined( level.first_robot_round ) )
+			{
+				level.first_robot_round = 1;
+				random_number = 0;
+			}
+			level thread giant_robot_start_walk( random_number );
+			level waittill( "giant_robot_walk_cycle_complete" );
+			wait 5;
 		}
 	}
 }

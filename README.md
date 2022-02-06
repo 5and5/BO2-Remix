@@ -262,6 +262,11 @@
 - Teleporters activate as soon as doors leading to them are opened
 - Teleporters in the crazy place can be used without first being used from the other side
 
+### Robots
+
+- First robot always comes over tank station
+- Three robot rounds happen once every 8 rounds instead of 4 rounds
+
 ### Special Rounds
 
 - Panzers will come every 4 rounds on solo and coop
