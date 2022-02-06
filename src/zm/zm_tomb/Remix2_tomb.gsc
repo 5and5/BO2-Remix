@@ -194,7 +194,7 @@ robot_cycling()
 	level waittill( "giant_robot_intro_complete" );
 	while ( 1 )
 	{
-		if ( level.round_number % 8 && three_robot_round != level.round_number )
+		if ( level.round_number % 4 && three_robot_round != level.round_number )
 		{
 			flag_set( "three_robot_round" );
 		}

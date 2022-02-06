@@ -250,6 +250,7 @@
 
 - Tank has instant cool down
 - Pack-a-punch is always on
+- First robot always comes over tank station
 - Reduced soul boxes zombie requirement from 30 to 15
 
 ### Buildables
@@ -261,11 +262,6 @@
 
 - Teleporters activate as soon as doors leading to them are opened
 - Teleporters in the crazy place can be used without first being used from the other side
-
-### Robots
-
-- First robot always comes over tank station
-- Three robot rounds happen once every 8 rounds instead of 4 rounds
 
 ### Special Rounds
 
