@@ -257,6 +257,11 @@
 - All records and buildable parts are given on spawn
 - Gramophone is no longer needed
 
+### Teleporters
+
+- Teleporters activate as soon as doors leading to them are opened
+- Teleporters in the crazy place can be used without first being used from the other side
+
 ### Special Rounds
 
 - Panzers will come every 4 rounds on solo and coop
@@ -272,11 +277,6 @@
 
 - Moving walls at disabled
 - All gems are spawned
-
-### Teleporters
-
-- Teleporters activate as soon as doors leading to them are opened
-- Teleporters in the crazy place can be used without being first used from the other side
 
 ### Shovel and Helmet
 
@@ -357,7 +357,7 @@ seta character "1"
 - ZECxR3ap3r
 - Bandit
 - TTS
-- Naomi\_
+- Naomi
 - Chase
 - DoktorSAS
 - HuthTV

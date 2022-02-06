@@ -135,7 +135,7 @@ waittill_dug( s_dig_spot ) //checked changed to match cerberus output
 			}
 			else 
 			{
-				n_good_chance = 50;
+				n_good_chance = 40;
 				if ( player.dig_vars[ "n_spots_dug" ] == 0 || player.dig_vars[ "n_losing_streak" ] == 3 )
 				{
 					player.dig_vars[ "n_losing_streak" ] = 0;
@@ -157,7 +157,7 @@ waittill_dug( s_dig_spot ) //checked changed to match cerberus output
 							return;
 						}
 					}
-					n_good_chance = 70;
+					n_good_chance = 50;
 				}
 				n_prize_roll = randomint( 100 );
 				if ( n_prize_roll > n_good_chance )
