@@ -256,7 +256,7 @@ robot_cycling()
 			if( !isDefined( level.first_robot_round ) )
 			{
 				level.first_robot_round = 1;
-				random_number = 0;
+				random_number = 1; // tank station robot
 			}
 			level thread giant_robot_start_walk( random_number );
 			level waittill( "giant_robot_walk_cycle_complete" );
