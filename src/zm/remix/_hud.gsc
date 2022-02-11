@@ -219,7 +219,7 @@ round_timer_hud_watcher()
 	self endon("disconnect");
 	level endon( "end_game" );
 
-	create_dvar( "hud_health_bar", 0 );
+	create_dvar( "hud_round_timer", 0 );
 
 	while(1)
 	{
