@@ -3,14 +3,14 @@
 #include common_scripts/utility;
 #include maps\mp\_utility;
 
+#include scripts/zm/remix/_utility;
 
 all_hud_watcher()
 {	
 	self endon("disconnect");
 	level endon( "end_game" );
 
-	if( getDvar( "hud_all") == "" )
-		setDvar( "hud_all", 1 );
+	create_dvar( "hud_all", 0 );
 
 	while(1)
 	{	
@@ -90,8 +90,7 @@ timer_hud_watcher()
 	self endon("disconnect");
 	level endon( "end_game" );
 
-	if( getDvar( "hud_timer") == "" )
-		setDvar( "hud_timer", 1 );
+	create_dvar( "hud_timer", 1 );
 
 	while(1)
 	{	
@@ -220,8 +219,7 @@ round_timer_hud_watcher()
 	self endon("disconnect");
 	level endon( "end_game" );
 
-	if( getDvar( "hud_round_timer") == "" )
-		setDvar( "hud_round_timer", 0 );
+	create_dvar( "hud_health_bar", 0 );
 
 	while(1)
 	{
@@ -248,7 +246,7 @@ zombie_remaining_hud()
 
 	level waittill( "start_of_round" );
 
-    self.zombiesCounter = maps/mp/gametypes_zm/_hud_util::createFontString( "hudsmall" , 1.6 );
+    self.zombiesCounter = maps/mp/gametypes_zm/_hud_util::createFontString( "hudsmall" , 1.4 );
     self.zombiesCounter maps/mp/gametypes_zm/_hud_util::setPoint( "CENTER", "CENTER", "CENTER", 190 );
     self.zombiesCounter.alpha = 0;
     self.zombiesCounter.label = &"Zombies: ^1";
@@ -267,8 +265,7 @@ zombie_remaining_hud_watcher()
 	self endon("disconnect");
 	level endon( "end_game" );
 
-	if( getDvar( "hud_remaining") == "" )
-		setDvar( "hud_remaining", 0 );
+	create_dvar( "hud_remaining", 0 );
 
 	while(1)
 	{
@@ -290,59 +287,53 @@ health_bar_hud()
 {
 	self endon("disconnect");
 
-	if( getDvar( "hud_health_bar") == "" )
-		setDvar( "hud_health_bar", 0 );
+	create_dvar( "hud_health_bar", 0 );
 
 	flag_wait( "initial_blackscreen_passed" );
 
-	x = -364;
-	y = -68;
+	x = 62;
+	y = 135;
 	if (level.script == "zm_buried")
 	{
-		y -= 27;
+		y += 27;
 	}
 	else if (level.script == "zm_tomb")
 	{
 		y -= 60;
 	}
-	else
-	{
-		y -= 1;
-	}
 
-	health_bar = self createbar((1, 1, 1), level.primaryprogressbarwidth - 9, level.primaryprogressbarheight);
-	health_bar setpoint(undefined, "BOTTOM", x, y);
-	health_bar.hidewheninmenu = 1;
-	health_bar.bar.hidewheninmenu = 1;
-	health_bar.barframe.hidewheninmenu = 1;
+	self.health_bar = self createbar((1, 1, 1), level.primaryprogressbarwidth - 9, level.primaryprogressbarheight - 1);
+	self.health_bar setpoint_custom(undefined, "LEFT", x, y);
+	self.health_bar.hidewheninmenu = 1;
+	self.health_bar.bar.hidewheninmenu = 1;
+	self.health_bar.barframe.hidewheninmenu = 1;
 
-	health_bar_text = createfontstring("objective", 1.2);
-	health_bar_text setpoint("LEFT", "BOTTOM", x + 60, y);
-	health_bar_text.hidewheninmenu = 1;
+	self.health_bar_text = createfontstring("objective", 1.1);
+	self.health_bar_text setpoint_custom(undefined, "LEFT", x + 67, y - 0.5);
+	self.health_bar_text.hidewheninmenu = 1;
 
-
-	while (1)
+	while( 1 )
 	{
 		if( getDvarInt( "hud_health_bar" ) == 0)
 		{	
-			health_bar hideelem();
-			health_bar_text hideelem();
+			self.health_bar hideelem();
+			self.health_bar_text hideelem();
 		}
 		else
 		{
 			if( isDefined(self.e_afterlife_corpse) || isDefined( self.waiting_to_revive ) && self.waiting_to_revive == 1 || self maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
 			{
-				health_bar hideelem();
-				health_bar_text hideelem();
+				self.health_bar hideelem();
+				self.health_bar_text hideelem();
 			}
 			else
 			{
-				health_bar showelem();
-				health_bar_text showelem();
+				self.health_bar showelem();
+				self.health_bar_text showelem();
 			}
 
-			health_bar updatebar(self.health / self.maxhealth);
-			health_bar_text setvalue(self.health);
+			self.health_bar updatebar(self.health / self.maxhealth);
+			self.health_bar_text setvalue(self.health);
 		}
 
 		wait 0.05;
@@ -353,8 +344,7 @@ zone_hud()
 {
 	self endon("disconnect");
 
-	if( getDvar( "hud_zone") == "" )
-		setDvar( "hud_zone", 0 );
+	create_dvar( "hud_zone", 0 );
 
 	x = 7;
 	y = -111;
@@ -374,7 +364,7 @@ zone_hud()
 	self.zone_hud.vertalign = "user_bottom";
 	self.zone_hud.x += x;
 	self.zone_hud.y += y;
-	self.zone_hud.fontscale = 1.4;
+	self.zone_hud.fontscale = 1.3;
 	self.zone_hud.alpha = 0;
 	self.zone_hud.color = ( 1, 1, 1 );
 	self.zone_hud.hidewheninmenu = 1;
@@ -1426,122 +1416,6 @@ get_zone_name()
 	return name;
 }
 
-sort_array_by_priority( arr )
-{
-    for (i = 0; i < arr.size; i++)
-    {
-        min_idx = i;
-        for (j = i+1; j < n; j++)
-		{
-        	if (arr[j].priority < arr[min_idx].priority && arr[j].is_on == 1)
-           		min_idx = j;
-		}
- 
-		temp = arr[min_idx];
-		arr[min_idx] = arr[i];
-        arr[i] = temp;
-    }
-}
-
-get_array_index( name )
-{
-	for( i = 0; i < self.total_hud.size; i++)
-	{
-		if ( self.total_hud[i].name == name)
-			return i;
-	}
-}
-
-set_hud_alpha_location( hud, dvar, name )
-{
-	if( dvar )
-	{
-		hud.y = 2 + ( 15 * get_array_index( name ));
-		hud.alpha = 1;
-		hud.is_on = 1;
-	}
-	else
-	{
-		hud.alpha = 0;
-		hud.is_on = 0;
-	}
-}
-
-hud_watcher()
-{
-	self.total_hud = [];
-	// total_hud_on = [];
-
-	self.timer_hud.priority = 1;
-	self.round_timer_hud.priority = 2;
-
-	for( i = 0; i < total_hud.size; i++)
-	{
-		if( self.total_hud[i].is_on == 1)
-		{
-			self.total_hud_on[i] = 1;
-		}
-		for( i = 0; i < self.total_hud.size; i++)
-		{
-			if( total_hud_on[i] == 1)
-			{
-
-			}
-		}
-	}
-
-	if( getDvar( "hud_timer") == "" )
-		setDvar( "hud_timer", 0 );
-	if( getDvar( "hud_round_timer") == "" )
-		setDvar( "hud_round_timer", 0 );
-	while(1)
-	{
-		timer = getDvarInt("hud_timer"); 
-		round_timer = getDvarInt("hud_round_timer");
-
-		set_hud_alpha_location( self.timer_hud, timer, "timer");
-
-		if( timer )
-		{
-			self.timer_hud.y = 2 + ( 15 * get_array_index("timer"));
-			self.timer_hud.alpha = 1;
-			self.timer_hud.is_on = 1;
-		}
-		else
-		{
-			self.timer_hud.alpha = 0;
-			self.timer_hud.is_on = 0;
-		}
-		if( round_timer )
-		{
-			self.round_timer_hud.y = (2 + (15 * getDvarInt("hud_timer") ) );
-			self.round_timer_hud.alpha = 1;
-		}
-		else
-		{
-			self.round_timer_hud.alpha = 0;
-		}
-	}
-
-
-	while(1)
-	{
-		while( getDvarInt( "hud_round_timer" ) == 0 )
-		{
-			wait 0.1;
-		}
-		self.round_timer_hud.y = (2 + (15 * getDvarInt("hud_timer") ) );
-		self.round_timer_hud.alpha = 1;
-
-		while( getDvarInt( "hud_round_timer" ) >= 1 )
-		{
-			wait 0.1;
-		}
-		self.round_timer_hud.alpha = 0;
-
-	}
-}
-
 tab_hud()
 {
 	while(1)
@@ -1563,5 +1437,235 @@ waittill_player_pressed_scoreboard()
 		self waittill("player_pressed_scoreboard_button");
 		self.timer_hud.alpha = 0;
 		iPrintLn("?");
+	}
+}
+
+/*
+* *****************************************************
+*	
+* ********************* Utility ***********************
+*
+* *****************************************************
+*/
+
+setpoint_custom( point, relativepoint, xoffset, yoffset ) //checked matches cerberus output
+{
+
+	element = self getparent();
+
+	if ( !isDefined( xoffset ) )
+	{
+		xoffset = 0;
+	}
+	self.xoffset = xoffset;
+	if ( !isDefined( yoffset ) )
+	{
+		yoffset = 0;
+	}
+	self.yoffset = yoffset;
+	self.point = point;
+	self.alignx = "center";
+	self.aligny = "middle";
+	switch( point )
+	{
+		case "CENTER":
+			break;
+		case "TOP":
+			self.aligny = "top";
+			break;
+		case "BOTTOM":
+			self.aligny = "bottom";
+			break;
+		case "LEFT":
+			self.alignx = "left";
+			break;
+		case "RIGHT":
+			self.alignx = "right";
+			break;
+		case "TOPRIGHT":
+		case "TOP_RIGHT":
+			self.aligny = "top";
+			self.alignx = "right";
+			break;
+		case "TOPLEFT":
+		case "TOP_LEFT":
+			self.aligny = "top";
+			self.alignx = "left";
+			break;
+		case "TOPCENTER":
+			self.aligny = "top";
+			self.alignx = "center";
+			break;
+		case "BOTTOM RIGHT":
+		case "BOTTOM_RIGHT":
+			self.aligny = "bottom";
+			self.alignx = "right";
+			break;
+		case "BOTTOM LEFT":
+		case "BOTTOM_LEFT":
+			self.aligny = "bottom";
+			self.alignx = "left";
+			break;
+		default:
+			break;
+	}
+	if ( !isDefined( relativepoint ) )
+	{
+		relativepoint = point;
+	}
+	self.relativepoint = relativepoint;
+	relativex = "center";
+	relativey = "middle";
+	switch( relativepoint )
+	{
+		case "CENTER":
+			break;
+		case "TOP":
+			relativey = "top";
+			break;
+		case "BOTTOM":
+			relativey = "bottom";
+			break;
+		case "LEFT":
+			relativex = "user_left";
+			break;
+		case "RIGHT":
+			relativex = "user_right";
+			break;
+		case "TOPRIGHT":
+		case "TOP_RIGHT":
+			relativey = "top";
+			relativex = "user_right";
+			break;
+		case "TOPLEFT":
+		case "TOP_LEFT":
+			relativey = "top";
+			relativex = "user_left";
+			break;
+		case "TOPCENTER":
+			relativey = "top";
+			relativex = "center";
+			break;
+		case "BOTTOM RIGHT":
+		case "BOTTOM_RIGHT":
+			relativey = "bottom";
+			relativex = "user_right";
+			break;
+		case "BOTTOM LEFT":
+		case "BOTTOM_LEFT":
+			relativey = "bottom";
+			relativex = "user_left";
+			break;
+		default:
+			break;
+	}
+	if ( element == level.uiparent )
+	{
+		self.horzalign = relativex;
+		self.vertalign = relativey;
+	}
+	else
+	{
+		self.horzalign = element.horzalign;
+		self.vertalign = element.vertalign;
+	}
+	if ( relativex == element.alignx )
+	{
+		offsetx = 0;
+		xfactor = 0;
+	}
+	else if ( relativex == "center" || element.alignx == "center" )
+	{
+		offsetx = int( element.width / 2 );
+		if ( relativex == "left" || element.alignx == "right" )
+		{
+			xfactor = -1;
+		}
+		else
+		{
+			xfactor = 1;
+		}
+	}
+	else
+	{
+		offsetx = element.width;
+		if ( relativex == "left" )
+		{
+			xfactor = -1;
+		}
+		else
+		{
+			xfactor = 1;
+		}
+	}
+	self.x = element.x + ( offsetx * xfactor );
+	if ( relativey == element.aligny )
+	{
+		offsety = 0;
+		yfactor = 0;
+	}
+	else if ( relativey == "middle" || element.aligny == "middle" )
+	{
+		offsety = int( element.height / 2 );
+		if ( relativey == "top" || element.aligny == "bottom" )
+		{
+			yfactor = -1;
+		}
+		else
+		{
+			yfactor = 1;
+		}
+	}
+	else
+	{
+		offsety = element.height;
+		if ( relativey == "top" )
+		{
+			yfactor = -1;
+		}
+		else
+		{
+			yfactor = 1;
+		}
+	}
+	self.y = element.y + ( offsety * yfactor );
+	self.x += self.xoffset;
+	self.y += self.yoffset;
+	switch( self.elemtype )
+	{
+		case "bar":
+			setpointbar( point, relativepoint, xoffset, yoffset );
+			self.barframe setparent( self getparent() );
+			self.barframe setpoint_custom( point, relativepoint, xoffset, yoffset );
+			break;
+	}
+	self updatechildren();
+}
+
+hud_setter( hud, x, y )
+{
+	create_dvar( "x", x );
+	create_dvar( "y", y );
+
+	while( 1 )
+	{
+		x = getDvarInt( "x" );
+		y = getDvarInt( "y" );
+		hud setpoint_custom(undefined, "LEFT", x, y);
+		wait 0.1;
+	}
+}
+
+hud_setter2( hud, x, y )
+{
+	create_dvar( "x2", x );
+	create_dvar( "y2", y );
+
+	while( 1 )
+	{
+		x = getDvarInt( "x2" );
+		y = getDvarInt( "y2" );
+		hud setpoint_custom(undefined, "LEFT", x, y);
+		wait 0.1;
 	}
 }
