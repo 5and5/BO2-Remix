@@ -38,8 +38,7 @@
 
 main()
 { 
-	
-	level.VERSION = "1.2.2";
+	level.VERSION = "1.2.3";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
@@ -100,6 +99,7 @@ connected()
 			self set_movement_dvars();
 			self set_client_dvars();
 			self set_character_option();
+			self set_visionset();
 
 			self graphic_tweaks();
 			self thread night_mode();
@@ -128,6 +128,9 @@ connected()
 		{
 			level.inital_spawn = false;
 
+			level thread rotate_skydome();
+			level thread change_skydome();
+
 			set_dog_rounds();
 
 			level thread coop_pause();
@@ -139,7 +142,6 @@ connected()
    			wait 0.05;
 
 			set_startings_chests();
-			set_visionset();
 			set_claymores_max( 10 );
 
 			raygun_mark2_probabilty();
@@ -166,7 +168,7 @@ connected()
 /*
 * *****************************************************
 *	
-* ********************* Overrides **********************
+* ********************* Overrides *********************
 *
 * *****************************************************
 */

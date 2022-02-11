@@ -2,6 +2,8 @@
 
 ### Tranzit
 
+- jetgun bench need power
+
 #### Depot
 
 #### Farm
@@ -16,6 +18,7 @@
 
 ### Die Rise
 
+- fix zombies getting crushed by elevators / remove locking 3 spawn elevator
 - set perk locations (not working)
 
 ### Buried
@@ -27,8 +30,13 @@
 
 ### Origins
 
+- mark2 as box reward
+
 ### general
 
+- vision set fix
+- skybox rotation
+- remove flinch
 - increase max points to 5 mil
 - reduce fall damage
 - have reset map_restart mid end screen
@@ -36,8 +44,9 @@
 
 ### HUD
 
-- move zombie hud above health bar
-- setup an array of positions for hud
+- make a hud_all dvar
+- shrink health bar
+- make hud color customizable
 
 #### TAB Only
 
@@ -48,6 +57,8 @@
 - drop cycle
 
 ### Weapons
+
+- bo1 style wallbuys
 
 ### Power Ups
 

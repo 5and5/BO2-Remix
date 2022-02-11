@@ -2,7 +2,10 @@
 
 set_visionset()
 {
-	visionSetNaked( GetDvar( "mapname" ), 1.0 );
+	self useservervisionset(1);
+	self setvisionsetforplayer(GetDvar( "mapname" ), 1.0 );
+	// visionSetNaked( GetDvar( "mapname" ), 1.0 );
+	// self setvisionsetforplayer("", 0 );
 }
 
 graphic_tweaks()
@@ -149,4 +152,38 @@ visual_fix()
 		}
 	}
 	else return;
+}
+
+rotate_skydome()
+{
+	if ( level.script == "zm_tomb" )
+	{
+		return;
+	}
+	level.sky_rotation = 360;
+	for(;;)
+	{
+		level.sky_rotation -= 0.025;
+		if ( level.sky_rotation < 0 )
+		{
+			level.sky_rotation += 360;
+		}
+		setdvar( "r_skyRotation", level.sky_rotation );
+		wait 0.1;
+	}
+}
+
+change_skydome()
+{
+	level.sky_change = 6500;
+	for(;;)
+	{
+		level.sky_change += 1.626;
+		if ( level.sky_change > 25000 )
+		{
+			level.sky_change -= 23350;
+		}
+		setdvar( "r_skyColorTemp", level.sky_change );
+		wait 0.1;
+	}
 }
