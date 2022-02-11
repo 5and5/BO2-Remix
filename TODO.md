@@ -34,8 +34,6 @@
 
 ### general
 
-- vision set fix
-- skybox rotation
 - remove flinch
 - increase max points to 5 mil
 - reduce fall damage
@@ -44,7 +42,6 @@
 
 ### HUD
 
-- make a hud_all dvar
 - shrink health bar
 - make hud color customizable
 

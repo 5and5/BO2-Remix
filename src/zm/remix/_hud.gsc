@@ -3,6 +3,37 @@
 #include common_scripts/utility;
 #include maps\mp\_utility;
 
+
+all_hud_watcher()
+{	
+	self endon("disconnect");
+	level endon( "end_game" );
+
+	if( getDvar( "hud_all") == "" )
+		setDvar( "hud_all", 1 );
+
+	while(1)
+	{	
+		while( getDvarInt( "hud_all" ) == 0 )
+		{
+			wait 0.1;
+		}
+		self setClientDvar( "hud_round_timer", 1 );
+		self setClientDvar( "hud_remaining", 1 );
+		self setClientDvar( "hud_zone", 1 );
+		self setClientDvar( "hud_health_bar", 1 );
+
+		while( getDvarInt( "hud_all" ) >= 1 )
+		{
+			wait 0.1;
+		}
+		self setClientDvar( "hud_round_timer", 0 );
+		self setClientDvar( "hud_remaining", 0 );
+		self setClientDvar( "hud_zones", 0 );
+		self setClientDvar( "hud_health_bar", 0 );
+	}
+}
+
 timer_hud()
 {	
 	self endon("disconnect");
