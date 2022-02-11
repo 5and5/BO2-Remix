@@ -1416,6 +1416,36 @@ get_zone_name()
 	return name;
 }
 
+color_hud_watcher()
+{
+	self endon("disconnect");
+
+	create_dvar( "hud_color", "1 1 1" );
+	prev_color = "1 1 1";
+
+	while( 1 )
+	{
+		while( color == prev_color )
+		{
+			color = getDvar( "hud_color" );
+			wait 0.1;
+		}
+
+		colors = strTok( color, " ");
+		if( colors.size != 3 )
+			continue;
+
+		prev_color = color;
+
+		self.timer_hud.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
+		self.round_timer_hud.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
+		self.health_bar.bar.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
+		self.health_bar_text.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
+		self.zombiesCounter.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
+		self.zone_hud.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
+	}
+}
+
 tab_hud()
 {
 	while(1)

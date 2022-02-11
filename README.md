@@ -74,6 +74,8 @@
 - SPH - appears after round 50
 - Zombies remaining counter
 - Current zone
+- All hud can be turned on with `hud_all 1`
+- Hud color can be changed with `hud_color 1 1 1` "1" can be any value from 0 to 1
 
 ### Power Ups
 
@@ -305,11 +307,13 @@ night_mode
 character
 disable_player_quotes
 rapid_fire
+hud_all
 hud_timer
 hud_round_timer
 hud_health_bar
 hud_remaining
 hud_zone
+hud_color
 ```
 
 ## Custom Binds

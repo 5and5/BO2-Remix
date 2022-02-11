@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.2.5";
+	level.VERSION = "1.2.6";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
@@ -109,6 +109,7 @@ connected()
 			self thread zombie_remaining_hud();
 			self thread zone_hud();
 			self thread all_hud_watcher();
+			self thread color_hud_watcher();
 
 			self thread inspect_weapon();
 

@@ -42,9 +42,6 @@
 
 ### HUD
 
-- shrink health bar
-- make hud color customizable
-
 #### TAB Only
 
 - Round timer
