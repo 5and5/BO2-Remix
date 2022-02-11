@@ -7,6 +7,7 @@
 #include maps/mp/zombies/_zm_weap_claymore;
 #include maps/mp/zombies/_zm_melee_weapon;
 #include maps/mp/zombies/_zm_buildables;
+#include maps/mp/zombies/_zm_magicbox;
 
 
 buildable_increase_trigger_radius()
@@ -156,4 +157,52 @@ buildabletrigger_update_prompt_custom( player ) //checked matches cerberus outpu
 		self setcursorhint( self.stub.cursor_hint, self.stub.cursor_hint_weapon );
 	}
 	return can_use;
+}
+
+ammo_give_override( weapon ) //checked changed to match cerberus output
+{
+	give_ammo = 0;
+	if ( !is_offhand_weapon( weapon ) )
+	{
+		weapon = get_weapon_with_attachments( weapon );
+		if ( isDefined( weapon ) )
+		{
+			stockmax = 0;
+			stockmax = weaponstartammo( weapon );
+			clipcount = self getweaponammoclip( weapon );
+			currstock = self getammocount( weapon );
+			if ( ( currstock - clipcount ) >= stockmax )
+			{
+				give_ammo = 0;
+			}
+			else
+			{
+				give_ammo = 1;
+			}
+		}
+	}
+	else if ( self has_weapon_or_upgrade( weapon ) )
+	{
+		if ( self getammocount( weapon ) < weaponmaxammo( weapon ) )
+		{
+			give_ammo = 1;
+		}
+	}
+	if ( give_ammo )
+	{
+		self play_sound_on_ent( "purchase" );
+		self givemaxammo( weapon );
+		alt_weap = weaponaltweaponname( weapon );
+		if ( alt_weap != "none" )
+		{
+			self givemaxammo( alt_weap );
+		}
+		self setweaponammoclip( weapon, weaponclipsize( weapon ) );
+	
+		return 1;
+	}
+	if ( !give_ammo )
+	{
+		return 0;
+	}
 }
