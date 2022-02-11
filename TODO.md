@@ -30,8 +30,6 @@
 
 ### Origins
 
-- mark2 as box reward
-
 ### general
 
 - remove flinch
@@ -51,8 +49,6 @@
 - drop cycle
 
 ### Weapons
-
-- bo1 style wallbuys
 
 ### Power Ups
 

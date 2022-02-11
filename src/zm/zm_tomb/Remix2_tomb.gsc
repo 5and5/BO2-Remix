@@ -35,7 +35,8 @@ main()
 	replaceFunc( maps/mp/zm_tomb_capture_zones::pack_a_punch_think, ::pack_a_punch_think );
 	replaceFunc( maps/mp/zm_tomb_capture_zones::play_pap_anim, ::play_pap_anim );
 	replaceFunc( maps/mp/zm_tomb_giant_robot::robot_cycling, ::robot_cycling );
-	
+	replaceFunc( maps/mp/zm_tomb_challenges::challenges_init, ::challenges_init_override );
+
     level.initial_spawn_tomb = true;
     level thread onplayerconnect();
 }

@@ -258,6 +258,7 @@
 - Pack-a-punch is always on
 - First robot always comes over tank station
 - Reduced soul boxes zombie requirement from 30 to 15
+- Replace the 115 packed weapon reward with a Raygun Mark 2
 
 ### Buildables
 

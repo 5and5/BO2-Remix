@@ -8,6 +8,8 @@
 #include maps/mp/zombies/_zm_weap_staff_fire;
 #include maps/mp/zombies/_zm_weap_staff_air;
 #include maps/mp/zombies/_zm_weap_staff_lightning;
+#include maps/mp/zombies/_zm_challenges;
+#include maps/mp/zm_tomb_challenges;
 
 
 sndplaystaffstingeronce( type ) //checked matches cerberus output
@@ -81,6 +83,73 @@ staff_lightning_ball_damage_over_time( e_source, e_target, e_attacker ) //checke
 		e_target.is_being_zapped = 0;
 		e_target setclientfield( "lightning_arc_fx", 0 );
 	}
+}
+
+challenges_init_override() //checked matches cerberus output
+{
+	level.challenges_add_stats = ::tomb_challenges_add_stats_custom;
+	maps/mp/zombies/_zm_challenges::init();
+}
+
+tomb_challenges_add_stats_custom() //checked matches cerberus output
+{
+	n_kills = 115;
+	n_zone_caps = 6;
+	n_points_spent = 30000;
+	n_boxes_filled = 4;
+	/*
+/#
+	if ( getDvarInt( "zombie_cheat" ) > 0 )
+	{
+		n_kills = 1;
+		n_zone_caps = 2;
+		n_points_spent = 500;
+		n_boxes_filled = 1;
+#/
+	}
+	*/
+	print("gfsg");
+	add_stat( "zc_headshots", 0, &"ZM_TOMB_CH1", n_kills, undefined, ::reward_packed_weapon_custom );
+	add_stat( "zc_zone_captures", 0, &"ZM_TOMB_CH2", n_zone_caps, undefined, ::reward_powerup_max_ammo );
+	add_stat( "zc_points_spent", 0, &"ZM_TOMB_CH3", n_points_spent, undefined, ::reward_double_tap, ::track_points_spent );
+	add_stat( "zc_boxes_filled", 1, &"ZM_TOMB_CHT", n_boxes_filled, undefined, ::reward_one_inch_punch, ::init_box_footprints );
+}
+
+reward_packed_weapon_custom( player, s_stat ) //checked matches cerberus output
+{
+	if ( !isDefined( s_stat.str_reward_weapon ) )
+	{
+		// a_weapons = array( "raygun_mark2_upgraded_zm" );
+		s_stat.str_reward_weapon = maps/mp/zombies/_zm_weapons::get_upgrade_weapon( "raygun_mark2_upgraded_zm" );
+	}
+	m_weapon = spawn( "script_model", self.origin );
+	m_weapon.angles = self.angles + vectorScale( ( 0, 1, 0 ), 180 );
+	m_weapon playsound( "zmb_spawn_powerup" );
+	m_weapon playloopsound( "zmb_spawn_powerup_loop", 0.5 );
+	str_model = getweaponmodel( s_stat.str_reward_weapon );
+	options = player maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options( s_stat.str_reward_weapon );
+	m_weapon useweaponmodel( s_stat.str_reward_weapon, str_model, options );
+	wait_network_frame();
+	if ( !reward_rise_and_grab( m_weapon, 50, 2, 2, 10 ) )
+	{
+		return 0;
+	}
+	weapon_limit = get_player_weapon_limit( player );
+	primaries = player getweaponslistprimaries();
+	if ( isDefined( primaries ) && primaries.size >= weapon_limit )
+	{
+		player maps/mp/zombies/_zm_weapons::weapon_give( s_stat.str_reward_weapon );
+	}
+	else
+	{
+		player giveweapon( s_stat.str_reward_weapon, 0, player maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options( s_stat.str_reward_weapon ) );
+		player givestartammo( s_stat.str_reward_weapon );
+	}
+	player switchtoweapon( s_stat.str_reward_weapon );
+	m_weapon stoploopsound( 0.1 );
+	player playsound( "zmb_powerup_grabbed" );
+	m_weapon delete();
+	return 1;
 }
 
 // fire_staff_area_of_effect( e_attacker, str_weapon )
