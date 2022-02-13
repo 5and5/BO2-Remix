@@ -37,15 +37,12 @@
 - reduce fall damage
 - have reset map_restart mid end screen
 - increase explosive damage
+- trap timer
 
 ### HUD
 
 #### TAB Only
 
-- Round timer
-- Shield
-- traps
-- Remaining
 - drop cycle
 
 ### Weapons

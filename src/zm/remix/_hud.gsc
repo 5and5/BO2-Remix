@@ -38,6 +38,8 @@ timer_hud()
 {	
 	self endon("disconnect");
 
+	create_dvar( "hud_timer", 1 );
+
 	self.timer_hud = newClientHudElem(self);
 	self.timer_hud.alignx = "left";
 	self.timer_hud.aligny = "top";
@@ -90,8 +92,6 @@ timer_hud_watcher()
 	self endon("disconnect");
 	level endon( "end_game" );
 
-	create_dvar( "hud_timer", 1 );
-
 	while(1)
 	{	
 		while( getDvarInt( "hud_timer" ) == 0 )
@@ -112,6 +112,8 @@ timer_hud_watcher()
 round_timer_hud()
 {
 	self endon("disconnect");
+
+	create_dvar( "hud_round_timer", 0 );
 
 	self.round_timer_hud = newClientHudElem(self);
 	self.round_timer_hud.alignx = "left";
@@ -219,8 +221,6 @@ round_timer_hud_watcher()
 	self endon("disconnect");
 	level endon( "end_game" );
 
-	create_dvar( "hud_round_timer", 0 );
-
 	while(1)
 	{
 		while( getDvarInt( "hud_round_timer" ) == 0 )
@@ -246,15 +246,15 @@ zombie_remaining_hud()
 
 	level waittill( "start_of_round" );
 
-    self.zombiesCounter = maps/mp/gametypes_zm/_hud_util::createFontString( "hudsmall" , 1.4 );
-    self.zombiesCounter maps/mp/gametypes_zm/_hud_util::setPoint( "CENTER", "CENTER", "CENTER", 190 );
-    self.zombiesCounter.alpha = 0;
-    self.zombiesCounter.label = &"Zombies: ^1";
+    self.zombie_counter_hud = maps/mp/gametypes_zm/_hud_util::createFontString( "hudsmall" , 1.4 );
+    self.zombie_counter_hud maps/mp/gametypes_zm/_hud_util::setPoint( "CENTER", "CENTER", "CENTER", 190 );
+    self.zombie_counter_hud.alpha = 0;
+    self.zombie_counter_hud.label = &"Zombies: ^1";
 	self thread zombie_remaining_hud_watcher();
 
     while( 1 )
     {
-        self.zombiesCounter setValue( ( maps/mp/zombies/_zm_utility::get_round_enemy_array().size + level.zombie_total ) );
+        self.zombie_counter_hud setValue( ( maps/mp/zombies/_zm_utility::get_round_enemy_array().size + level.zombie_total ) );
         
         wait 0.05; 
     }
@@ -273,13 +273,13 @@ zombie_remaining_hud_watcher()
 		{
 			wait 0.1;
 		}
-		self.zombiesCounter.alpha = 1;
+		self.zombie_counter_hud.alpha = 1;
 
 		while( getDvarInt( "hud_remaining" ) >= 1 )
 		{
 			wait 0.1;
 		}
-		self.zombiesCounter.alpha = 0;
+		self.zombie_counter_hud.alpha = 0;
 	}
 }
 
@@ -340,13 +340,48 @@ health_bar_hud()
 	}
 }
 
+trap_timer_hud()
+{
+	if( level.script != "zm_prison" || !level.hud_trap_timer )
+		return;
+
+	self endon( "disconnect" );
+
+	self.traptimer_hud = newclienthudelem( self );
+	self.traptimer_hud.alignx = "left";
+	self.traptimer_hud.aligny = "top";
+	self.traptimer_hud.horzalign = "user_left";
+	self.traptimer_hud.vertalign = "user_top";
+	self.traptimer_hud.x += 4;
+	self.traptimer_hud.y += (2 + (15 * (getDvarInt("hud_timer") + getDvarInt("hud_round_timer")) ) + self.timer_hud_offset );
+	self.traptimer_hud.fontscale = 1.4;
+	self.traptimer_hud.alpha = 0;
+	self.traptimer_hud.color = ( 1, 1, 1 );
+	self.traptimer_hud.hidewheninmenu = 1;
+	self.traptimer_hud.hidden = 0;
+	self.traptimer_hud.label = &"";
+
+	while( 1 )
+	{
+		level waittill( "trap_activated" );
+		if( !level.trap_activated )
+		{
+			wait 0.5;
+			self.traptimer_hud.alpha = 1;
+			self.traptimer_hud settimer( 50 );
+			wait 50;
+			self.traptimer_hud.alpha = 0;
+		}
+	}
+}
+
 zone_hud()
 {
 	self endon("disconnect");
 
 	create_dvar( "hud_zone", 0 );
 
-	x = 7;
+	x = 8;
 	y = -111;
 	if (level.script == "zm_buried")
 	{
@@ -1441,7 +1476,7 @@ color_hud_watcher()
 		self.round_timer_hud.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
 		self.health_bar.bar.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
 		self.health_bar_text.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
-		self.zombiesCounter.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
+		self.zombie_counter_hud.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
 		self.zone_hud.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
 	}
 }

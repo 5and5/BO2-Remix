@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.2.8";
+	level.VERSION = "1.2.9";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
@@ -57,7 +57,6 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_weapons::weapon_give, ::weapon_give );
 	replaceFunc( maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options, ::get_pack_a_punch_weapon_options_override );
 	replaceFunc( maps/mp/zombies/_zm_weapons::ammo_give, ::ammo_give_override );
-
 	replaceFunc( maps/mp/zombies/_zm_weap_claymore::claymore_safe_to_plant, ::claymore_safe_to_plant );
 	replaceFunc( maps/mp/zombies/_zm_pers_upgrades_functions::pers_treasure_chest_choosespecialweapon, ::pers_treasure_chest_choosespecialweapon_override );
 	replaceFunc( maps/mp/zombies/_zm::actor_damage_override, ::actor_damage_override_override );
@@ -107,6 +106,7 @@ connected()
 			self thread night_mode();
 
 	    	self thread timer_hud();
+			self thread trap_timer_hud();
 			self thread health_bar_hud();
 			self thread zombie_remaining_hud();
 			self thread zone_hud();

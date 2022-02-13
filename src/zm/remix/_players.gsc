@@ -1,6 +1,9 @@
-// #include maps/mp/gametypes_zm/_hud_util;
-// #include maps/mp/zombies/_zm_utility;
+#include maps/mp/gametypes_zm/_hud_util;
+#include maps/mp/zombies/_zm_utility;
 #include common_scripts/utility;
+
+#include scripts/zm/remix/_utility;
+
 
 set_players_score( score )
 {
@@ -38,8 +41,7 @@ set_client_dvars()
 
 set_character_option()
 {
-	if( getDvar("character") == "" )
-		setDvar("character", 0 );
+	create_dvar( "character", 0 );
 
 	if ( level.force_team_characters != 1 && getDvar("mapname") != "zm_tomb" && getDvar("mapname") != "zm_prison" ) 
 	{	
@@ -86,17 +88,16 @@ inspect_weapon()
 
 rapid_fire()
 {
-    if( getDvar( "rapid_fire") == "" )
-    	setDvar( "rapid_fire", 0 );
+	create_dvar( "rapid_fire", 0 );
     
     self endon("disconnect");
     for(;;)
     {
-        if( getDvarInt( "rapid_fire" ) == 0 )
+        if( !getDvarInt( "rapid_fire" ) )
         {
             wait 0.05;
         }
-        if( getDvarInt( "rapid_fire" ) >= 1 )
+        if( getDvarInt( "rapid_fire" ) )
         {
             self waittill("weapon_fired", weap);
             primaries = self GetWeaponsListPrimaries();
@@ -120,13 +121,12 @@ rapid_fire()
 
 disable_player_quotes()
 {
-	if( getDvar( "disable_player_quotes") == "" )
-    	setDvar( "disable_player_quotes", 0 );
+	create_dvar( "disable_player_quotes", 0 );
     
     self endon("disconnect");
     for(;;)
     {
-		if( getDvarInt( "disable_player_quotes" ) == 1 )
+		if( getDvarInt( "disable_player_quotes" ) )
 		{
 			self.isspeaking = 1;
 		}
