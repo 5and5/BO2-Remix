@@ -30,6 +30,8 @@
 
 ### Origins
 
+- make fire staff insta kill
+
 ### general
 
 - remove flinch
@@ -40,6 +42,8 @@
 - trap timer
 
 ### HUD
+
+- add trap dvar
 
 #### TAB Only
 

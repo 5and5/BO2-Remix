@@ -653,8 +653,7 @@ buildcraftables()
 		{
 			buildcraftable( "alcatraz_shield_zm" );
 			buildcraftable( "packasplat" );
-			if(level.is_forever_solo_game)
-				buildcraftable( "plane" );
+			buildcraftable( "plane" );
 			changecraftableoption( 0 );
 		}
 		else if(level.scr_zm_map_start_location == "tomb")
@@ -868,5 +867,38 @@ enemies_ignore_equipments()
 	{
 		maps/mp/zombies/_zm_equipment::enemies_ignore_equipment(equipment);
 		equipment = getNextArrayKey(level.zombie_include_equipment, equipment);
+	}
+}
+
+
+
+prison_plane_set_need_all_pieces()
+{
+	if(!(is_classic() && level.scr_zm_map_start_location == "prison"))
+	{
+		return;
+	}
+
+	level.zombie_craftablestubs["plane"].need_all_pieces = 1;
+	level.zombie_craftablestubs["refuelable_plane"].need_all_pieces = 1;
+}
+
+prison_plane_set_pieces_shared()
+{
+	if(!(is_classic() && level.scr_zm_map_start_location == "prison"))
+	{
+		return;
+	}
+
+	foreach(stub in level.zombie_include_craftables)
+	{
+		if(stub.name == "plane" || stub.name == "refuelable_plane")
+		{
+			foreach(piece in stub.a_piecestubs)
+			{
+				piece.is_shared = 1;
+				piece.client_field_state = undefined;
+			}
+		}
 	}
 }

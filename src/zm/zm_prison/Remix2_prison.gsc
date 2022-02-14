@@ -15,6 +15,7 @@
 #include scripts/zm/zm_prison/remix/_prison_shield_bench;
 #include scripts/zm/zm_prison/remix/_prison_traps;
 #include scripts/zm/zm_prison/remix/_prison_zones;
+#include scripts/zm/remix/_buildables;
 
 
 main()
@@ -70,7 +71,11 @@ onplayerspawned()
 
 			mob_zone_changes();
 			prison_tower_trap_changes();
-			thread open_warden_fence();
+
+			prison_plane_set_need_all_pieces();
+			prison_plane_set_pieces_shared();
+
+			level thread open_warden_fence();
 			level thread prison_auto_refuel_plane();
         }
     }
