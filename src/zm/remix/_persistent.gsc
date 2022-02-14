@@ -2,7 +2,7 @@
 #include maps/mp/zombies/_zm_stats;
 #include maps/mp/zombies/_zm_pers_upgrades_functions;
 
-set_perisitent_stats()
+set_persistent_stats()
 {
 	if( !isVictisMap() )
 		return;
