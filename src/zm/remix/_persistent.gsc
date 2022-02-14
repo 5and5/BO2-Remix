@@ -1,4 +1,5 @@
 #include common_scripts/utility;
+#include maps/mp/_utility;
 #include maps/mp/zombies/_zm_stats;
 #include maps/mp/zombies/_zm_pers_upgrades_functions;
 
@@ -40,7 +41,6 @@ set_perma_perks() // Huthtv
 	}
 }
 
-
 set_bank_points()
 {
 	if(self.account_value < 250)
@@ -49,7 +49,6 @@ set_bank_points()
 		self.account_value = 250;
 	}
 }
-
 
 set_fridge_weapon()
 {
