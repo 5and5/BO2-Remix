@@ -121,7 +121,7 @@ rapid_fire()
 
 disable_player_quotes()
 {
-	create_dvar( "disable_player_quotes", 0 );
+	create_dvar( "disable_player_quotes", 1 );
     
     self endon("disconnect");
     for(;;)

@@ -118,8 +118,7 @@ connected()
 			self thread max_ammo_refill_clip();
 			self thread carpenter_repair_shield();
 
-			self thread give_perma_perks();
-			self thread give_bank_fridge();
+			self thread set_persistent_stats();
 
 			self thread mulekick_additional_perks();
 			self thread staminup_additional_perks();

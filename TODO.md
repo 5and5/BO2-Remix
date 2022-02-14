@@ -16,6 +16,8 @@
 
 ### Mob
 
+- buff tomahawk
+
 ### Die Rise
 
 - fix zombies getting crushed by elevators / remove locking 3 spawn elevator
@@ -41,6 +43,9 @@
 - increase explosive damage
 
 ### HUD
+
+- add trap timer to color func
+- make health bar color dvar
 
 #### TAB Only
 
