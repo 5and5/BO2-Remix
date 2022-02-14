@@ -22,6 +22,7 @@ all_hud_watcher()
 		self setClientDvar( "hud_remaining", 1 );
 		self setClientDvar( "hud_zone", 1 );
 		self setClientDvar( "hud_health_bar", 1 );
+		self setClientDvar( "hud_trap_timer", 1 );
 
 		while( getDvarInt( "hud_all" ) >= 1 )
 		{
@@ -31,6 +32,7 @@ all_hud_watcher()
 		self setClientDvar( "hud_remaining", 0 );
 		self setClientDvar( "hud_zones", 0 );
 		self setClientDvar( "hud_health_bar", 0 );
+		self setClientDvar( "hud_trap_timer", 0 );
 	}
 }
 
@@ -342,8 +344,10 @@ health_bar_hud()
 
 trap_timer_hud()
 {
-	if( level.script != "zm_prison" || !level.hud_trap_timer )
+	if( level.script != "zm_prison" )
 		return;
+
+	create_dvar( "hud_trap_timer", 0 );
 
 	self endon( "disconnect" );
 
@@ -361,16 +365,21 @@ trap_timer_hud()
 	self.traptimer_hud.hidden = 0;
 	self.traptimer_hud.label = &"";
 
+	flag_wait( "afterlife_start_over" );
 	while( 1 )
 	{
 		level waittill( "trap_activated" );
-		if( !level.trap_activated )
+		
+		if( getDvarInt( "hud_trap_timer" ) ) 
 		{
-			wait 0.5;
-			self.traptimer_hud.alpha = 1;
-			self.traptimer_hud settimer( 50 );
-			wait 50;
-			self.traptimer_hud.alpha = 0;
+			if( !level.trap_activated )
+			{
+				wait 0.5;
+				self.traptimer_hud.alpha = 1;
+				self.traptimer_hud settimer( 50 );
+				wait 50;
+				self.traptimer_hud.alpha = 0;
+			}
 		}
 	}
 }

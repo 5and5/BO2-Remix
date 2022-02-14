@@ -39,11 +39,8 @@
 - reduce fall damage
 - have reset map_restart mid end screen
 - increase explosive damage
-- trap timer
 
 ### HUD
-
-- add trap dvar
 
 #### TAB Only
 
