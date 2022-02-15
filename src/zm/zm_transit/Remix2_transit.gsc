@@ -14,10 +14,11 @@ main()
 {
 	replacefunc(maps/mp/zombies/_zm_perks::perk_machine_spawn_init, ::perk_machine_spawn_init_override);
 	replacefunc(maps/mp/zombies/_zm_weap_jetgun::handle_overheated_jetgun, ::handle_overheated_jetgun);
+	replacefunc(maps/mp/zombies/_zm_weap_jetgun::jetgun_check_enemies_in_range, ::jetgun_check_enemies_in_range);
 	replacefunc(maps/mp/zombies/_zm_blockers::door_think, ::door_think);
 	replacefunc(maps/mp/zm_transit_ai_screecher::portal_use, ::portal_use);
 	replacefunc(maps/mp/zm_transit_ai_screecher::player_wait_land, ::player_wait_land);
-	
+
 	level.initial_spawn_transit = true;
     level thread onplayerconnect();
 }

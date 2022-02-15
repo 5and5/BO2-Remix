@@ -1,3 +1,4 @@
+#include maps\mp\zombies\_zm_weap_jetgun;
 
 jetgun_fast_cooldown()
 {
@@ -91,4 +92,88 @@ handle_overheated_jetgun()
             self.jetgun_heatval = 0;
 		}
 	}
+}
+
+jetgun_check_enemies_in_range( zombie, view_pos, drag_range_squared, gib_range_squared, grind_range_squared, cylinder_radius_squared, forward_view_angles, end_pos, invert )
+{
+	if ( !isDefined( zombie ) )
+	{
+		return;
+	}
+	if ( zombie enemy_killed_by_jetgun() )
+	{
+		return;
+	}
+	if ( isDefined( zombie.is_avogadro ) && zombie.is_avogadro )
+	{
+		return;
+	}
+	if ( isDefined( zombie.isdog ) && zombie.isdog )
+	{
+		return;
+	}
+	if ( isDefined( zombie.isscreecher ) && zombie.isscreecher )
+	{
+		return;
+	}
+	if ( isDefined( self.animname ) && self.animname == "quad_zombie" )
+	{
+		return;
+	}
+	test_origin = zombie getcentroid();
+	test_range_squared = distancesquared( view_pos, test_origin );
+	if ( test_range_squared > drag_range_squared )
+	{
+		zombie jetgun_debug_print( "range", ( 1, 0, 1 ) );
+		return;
+	}
+	normal = vectornormalize( test_origin - view_pos );
+	dot = vectordot( forward_view_angles, normal );
+	if ( abs( dot ) < 0.7 )
+	{
+		zombie jetgun_debug_print( "dot", ( 1, 0, 1 ) );
+		return;
+	}
+	radial_origin = pointonsegmentnearesttopoint( view_pos, end_pos, test_origin );
+	if ( distancesquared( test_origin, radial_origin ) > cylinder_radius_squared )
+	{
+		zombie jetgun_debug_print( "cylinder", ( 1, 0, 1 ) );
+		return;
+	}
+	if ( zombie damageconetrace( view_pos, self ) == 0 )
+	{
+		zombie jetgun_debug_print( "cone", ( 1, 0, 1 ) );
+		return;
+	}
+	if ( test_range_squared < grind_range_squared )
+	{
+		level.jetgun_fling_enemies[ level.jetgun_fling_enemies.size ] = zombie;
+		level.jetgun_grind_enemies[ level.jetgun_grind_enemies.size ] = dot < 0;
+	}
+	else
+	{
+        if ( !isDefined( zombie.ai_state ) || zombie.ai_state != "find_flesh" && zombie.ai_state != "zombieMoveOnBus" )
+        {
+            return;
+        }
+        if ( isDefined( zombie.in_the_ground ) && zombie.in_the_ground )
+        {
+            return;
+        }
+
+		if ( test_range_squared < drag_range_squared && dot > 0 )
+		{
+			level.jetgun_drag_enemies[ level.jetgun_drag_enemies.size ] = zombie;
+		}
+	}
+}
+
+is_jetgun_firing()
+{
+    if(!self attackButtonPressed())
+    {
+        return 0;
+    }
+
+	return abs( self get_jetgun_engine_direction() ) > 0.2;
 }
