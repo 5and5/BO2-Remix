@@ -357,7 +357,7 @@ trap_timer_hud()
 	self.traptimer_hud.horzalign = "user_left";
 	self.traptimer_hud.vertalign = "user_top";
 	self.traptimer_hud.x += 4;
-	self.traptimer_hud.y += (2 + (15 * (getDvarInt("hud_timer") + getDvarInt("hud_round_timer")) ) + self.timer_hud_offset );
+	self.traptimer_hud.y += (2 + (15 * (getDvarInt("hud_timer") + getDvarInt("hud_round_timer") ) ) + self.timer_hud_offset );
 	self.traptimer_hud.fontscale = 1.4;
 	self.traptimer_hud.alpha = 0;
 	self.traptimer_hud.color = ( 1, 1, 1 );
@@ -1460,6 +1460,12 @@ get_zone_name()
 	return name;
 }
 
+color_hud()
+{
+	self thread color_hud_watcher();
+	self thread color_health_bar_watcher();
+}
+
 color_hud_watcher()
 {
 	self endon("disconnect");
@@ -1483,10 +1489,34 @@ color_hud_watcher()
 
 		self.timer_hud.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
 		self.round_timer_hud.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
-		self.health_bar.bar.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
 		self.health_bar_text.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
-		self.zombie_counter_hud.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
 		self.zone_hud.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
+		// self.zombie_counter_hud.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
+	}
+}
+
+color_health_bar_watcher()
+{
+	self endon("disconnect");
+
+	create_dvar( "hud_color_health", "1 1 1" );
+	prev_color = "1 1 1";
+
+	while( 1 )
+	{
+		while( color == prev_color )
+		{
+			color = getDvar( "hud_color_health" );
+			wait 0.1;
+		}
+
+		colors = strTok( color, " ");
+		if( colors.size != 3 )
+			continue;
+
+		prev_color = color;
+
+		self.health_bar.bar.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
 	}
 }
 

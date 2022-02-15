@@ -61,4 +61,6 @@
 
 ### Bugs
 
+- gats dont reduce ammo on pap
+
 ### Errors

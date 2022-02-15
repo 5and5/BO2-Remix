@@ -3,7 +3,7 @@
 #include common_scripts/utility;
 #include maps/mp/_utility;
 
-mob_zone_changes()
+prison_zone_changes()
 {
     if(is_classic())
     {

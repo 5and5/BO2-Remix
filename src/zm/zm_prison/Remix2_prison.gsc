@@ -69,13 +69,12 @@ onplayerspawned()
 
 			flag_wait( "start_zombie_round_logic" );
 
-			mob_zone_changes();
+			prison_zone_changes();
 			prison_tower_trap_changes();
-
 			prison_plane_set_need_all_pieces();
 			prison_plane_set_pieces_shared();
 
-			level thread open_warden_fence();
+			level thread prison_open_warden_fence();
 			level thread prison_auto_refuel_plane();
         }
     }
@@ -99,7 +98,7 @@ setup_master_key()
 	}
 }
 
-open_warden_fence()
+prison_open_warden_fence()
 {
 	m_lock = getent( "masterkey_lock_2", "targetname" );
 	m_lock delete();
