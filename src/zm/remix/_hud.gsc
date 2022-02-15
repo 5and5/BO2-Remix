@@ -36,6 +36,19 @@ all_hud_watcher()
 	}
 }
 
+set_hud_offset()
+{
+	if (level.script == "zm_tomb" )
+	{
+		self.timer_hud_offset = 10;
+	}
+	else
+	{
+		self.timer_hud_offset = 0;	
+	}
+	self.zone_hud_offset = 15;
+}
+
 timer_hud()
 {	
 	self endon("disconnect");
@@ -74,19 +87,6 @@ timer_hud()
 		self.round_timer_hud.alpha = 0;
 		wait 0.1;
 	}
-}
-
-set_hud_offset()
-{
-	if (level.script == "zm_tomb" )//|| level.script == "zm_prison")
-	{
-		self.timer_hud_offset = 10;
-	}
-	else
-	{
-		self.timer_hud_offset = 0;	
-	}
-	self.zone_hud_offset = 15;
 }
 
 timer_hud_watcher()
@@ -351,35 +351,35 @@ trap_timer_hud()
 
 	self endon( "disconnect" );
 
-	self.traptimer_hud = newclienthudelem( self );
-	self.traptimer_hud.alignx = "left";
-	self.traptimer_hud.aligny = "top";
-	self.traptimer_hud.horzalign = "user_left";
-	self.traptimer_hud.vertalign = "user_top";
-	self.traptimer_hud.x += 4;
-	self.traptimer_hud.y += (2 + (15 * (getDvarInt("hud_timer") + getDvarInt("hud_round_timer") ) ) + self.timer_hud_offset );
-	self.traptimer_hud.fontscale = 1.4;
-	self.traptimer_hud.alpha = 0;
-	self.traptimer_hud.color = ( 1, 1, 1 );
-	self.traptimer_hud.hidewheninmenu = 1;
-	self.traptimer_hud.hidden = 0;
-	self.traptimer_hud.label = &"";
+	self.trap_timer_hud = newclienthudelem( self );
+	self.trap_timer_hud.alignx = "left";
+	self.trap_timer_hud.aligny = "top";
+	self.trap_timer_hud.horzalign = "user_left";
+	self.trap_timer_hud.vertalign = "user_top";
+	self.trap_timer_hud.x += 4;
+	self.trap_timer_hud.y += (2 + (15 * (getDvarInt("hud_timer") + getDvarInt("hud_round_timer") ) ) + self.timer_hud_offset );
+	self.trap_timer_hud.fontscale = 1.4;
+	self.trap_timer_hud.alpha = 0;
+	self.trap_timer_hud.color = ( 1, 1, 1 );
+	self.trap_timer_hud.hidewheninmenu = 1;
+	self.trap_timer_hud.hidden = 0;
+	self.trap_timer_hud.label = &"";
 
 	flag_wait( "afterlife_start_over" );
 	while( 1 )
 	{
 		level waittill( "trap_activated" );
 		
-		if( getDvarInt( "hud_trap_timer" ) ) 
+		if( !getDvarInt( "hud_trap_timer" ) )
+			continue; 
+	
+		if( !level.trap_activated )
 		{
-			if( !level.trap_activated )
-			{
-				wait 0.5;
-				self.traptimer_hud.alpha = 1;
-				self.traptimer_hud settimer( 50 );
-				wait 50;
-				self.traptimer_hud.alpha = 0;
-			}
+			self.trap_timer_hud.y = (2 + (15 * (getDvarInt("hud_timer") + getDvarInt("hud_round_timer") ) ) + self.timer_hud_offset );
+			self.trap_timer_hud.alpha = 1;
+			self.trap_timer_hud settimer( 50 );
+			wait 50;
+			self.trap_timer_hud.alpha = 0;
 		}
 	}
 }
@@ -1491,6 +1491,7 @@ color_hud_watcher()
 		self.round_timer_hud.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
 		self.health_bar_text.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
 		self.zone_hud.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
+		self.trap_timer_hud.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
 		// self.zombie_counter_hud.color = ( string_to_float(colors[0]), string_to_float(colors[1]), string_to_float(colors[2]) );
 	}
 }
