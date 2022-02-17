@@ -171,3 +171,8 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 
 	return idamage;
 }
+
+set_max_score( score )
+{
+	level.scoreLimit = score;
+}

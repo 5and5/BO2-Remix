@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.3.4";
+	level.VERSION = "1.3.5";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
@@ -144,6 +144,7 @@ connected()
 			flag_wait( "start_zombie_round_logic" );
    			wait 0.05;
 
+			set_max_score( 5000005 );
 			set_startings_chests();
 			set_claymores_max( 10 );
 

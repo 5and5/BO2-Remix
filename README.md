@@ -70,7 +70,7 @@
 - Current zone
 - Trap timer
 - All hud can be turned on with `hud_all 1`
-- Hud color can be changed with `hud_color 1 1 1` "1" can be any value from 0 to 1
+- Hud text color can be changed with `hud_color 1 1 1` "1" can be any value from 0 to 1
 - Health bar hud color can be changed with `hud_color_health 1 1 1` "1" can be any value from 0 to 1
 
 ### Player
@@ -78,6 +78,7 @@
 - Starting points set to 555
 - Explosive damage scaling increased
 - Reduced fall damage
+- Increased max points to 5000005
 
 ### Power Ups
 
@@ -143,13 +144,14 @@
 
 ### Town
 
-- Speed cola moved
-- Olympia replaced with an mp5
+- Speed cola moved to tombstone location
+- Tombstone removed
+- Olympia wall buy replaced with an mp5
 - Claymores added
 
 ### Nuke Town
 
-- Pack-a-punch and jug will always spawn in the backyard that the box starts at
+- Pack-a-punch and jug will always land in the backyard that the box starts at
 - Set box starting location with `nuked_box yellow` or `nuked_box green`
 - Perks drop in the same order every game ( revive, jug, pap, speed cola, double tap )
 - Disabled zombies spawning in the middle while players are in either backyards

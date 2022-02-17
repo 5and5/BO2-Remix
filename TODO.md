@@ -38,14 +38,9 @@
 
 - remove flinch
 - increase max points to 5 mil
-- reduce fall damage
 - have reset map_restart mid end screen
-- increase explosive damage
 
 ### HUD
-
-- add trap timer to color func
-- make health bar color dvar
 
 #### TAB Only
 
