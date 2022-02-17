@@ -34,7 +34,6 @@
 
 - Zombies start running at round 1
 - Walkers removed
-- Starting points set to 555
 - Coop pause
 - Three weapon slots by default
 - Zombies health scales more linearly
@@ -46,6 +45,7 @@
 
 - Tweaked graphics
 - Tweaked vision set
+- Rotating skybox
 - Fog disabled
 - Night mode option with `night_mode 1` dvar
 
@@ -68,8 +68,16 @@
 - SPH - appears after round 50
 - Zombies remaining counter
 - Current zone
+- Trap timer
 - All hud can be turned on with `hud_all 1`
 - Hud color can be changed with `hud_color 1 1 1` "1" can be any value from 0 to 1
+- Health bar hud color can be changed with `hud_color_health 1 1 1` "1" can be any value from 0 to 1
+
+### Player
+
+- Starting points set to 555
+- Explosive damage scaling increased
+- Reduced fall damage
 
 ### Power Ups
 
@@ -109,6 +117,7 @@
 ### Weapons
 
 - Increased wall weapon buy distance
+- Buying wall weapon ammo fills clip
 
 ### Equipment
 

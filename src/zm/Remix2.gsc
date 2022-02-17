@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.3.3";
+	level.VERSION = "1.3.4";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
@@ -147,6 +147,7 @@ connected()
 			set_startings_chests();
 			set_claymores_max( 10 );
 
+			reduce_player_fall_damage();
 			raygun_mark2_probabilty();
 			remove_fire_sales();
 
