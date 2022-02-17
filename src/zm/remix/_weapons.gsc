@@ -206,3 +206,149 @@ ammo_give_override( weapon ) //checked changed to match cerberus output
 		return 0;
 	}
 }
+
+actor_damage_override_override( inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime, boneindex ) //checked changed to match cerberus output //checked against bo3 _zm.gsc partially changed to match
+{
+	if ( !isDefined( self ) || !isDefined( attacker ) )
+	{
+		return damage;
+	}
+	if ( weapon == "tazer_knuckles_zm" || weapon == "jetgun_zm" )
+	{
+		self.knuckles_extinguish_flames = 1;
+	}
+	else if ( weapon != "none" )
+	{
+		self.knuckles_extinguish_flames = undefined;
+	}
+	if ( isDefined( attacker.animname ) && attacker.animname == "quad_zombie" )
+	{
+		if ( isDefined( self.animname ) && self.animname == "quad_zombie" )
+		{
+			return 0;
+		}
+	}
+	if ( !isplayer( attacker ) && isDefined( self.non_attacker_func ) )
+	{
+		if ( is_true( self.non_attack_func_takes_attacker ) )
+		{
+			return self [[ self.non_attacker_func ]]( damage, weapon, attacker );
+		}
+		else
+		{
+			return self [[ self.non_attacker_func ]]( damage, weapon );
+		}
+	}
+	if ( !isplayer( attacker ) && !isplayer( self ) )
+	{
+		return damage;
+	}
+	if ( !isDefined( damage ) || !isDefined( meansofdeath ) )
+	{
+		return damage;
+	}
+	if ( meansofdeath == "" )
+	{
+		return damage;
+	}
+	old_damage = damage;
+	final_damage = damage;
+	if ( isDefined( self.actor_damage_func ) )
+	{
+		final_damage = [[ self.actor_damage_func ]]( inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime, boneindex );
+	}
+	if ( attacker.classname == "script_vehicle" && isDefined( attacker.owner ) )
+	{
+		attacker = attacker.owner;
+	}
+	if ( is_true( self.in_water ) )
+	{
+		if ( int( final_damage ) >= self.health )
+		{
+			self.water_damage = 1;
+		}
+	}
+	attacker thread maps/mp/gametypes_zm/_weapons::checkhit( weapon );
+	if ( attacker maps/mp/zombies/_zm_pers_upgrades_functions::pers_mulit_kill_headshot_active() && is_headshot( weapon, shitloc, meansofdeath ) )
+	{
+		final_damage *= 2;
+	}
+	if ( is_true( level.headshots_only ) && isDefined( attacker ) && isplayer( attacker ) )
+	{
+		//changed to match bo3 _zm.gsc behavior
+		if ( meansofdeath == "MOD_MELEE" && shitloc == "head" || meansofdeath == "MOD_MELEE" && shitloc == "helmet" )
+		{
+			return int( final_damage );
+		}
+		if ( is_explosive_damage( meansofdeath ) )
+		{
+			return int( final_damage );
+		}
+		else if ( !is_headshot( weapon, shitloc, meansofdeath ) )
+		{
+			return 0;
+		}
+	}
+
+
+	if ( ( weapon == "blundergat_zm" || weapon == "blundergat_upgraded_zm" ) && ( meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET" ) )
+	{
+		final_damage = (self.maxhealth / 12) + 5;
+		if(damage >= final_damage)
+		{
+			final_damage = damage;
+		}
+	}
+	if( weapon == "claymore_zm" ) 
+	{
+		if( meansofdeath == "MOD_GRENADE" || meansofdeath == "MOD_GRENADE_SPLASH" )
+		{
+			if(flags == 5) // fix for grenades doing increased damage when holding claymores
+			{
+				final_damage = int(self.maxhealth / 2) + 55;
+			}
+			if(damage >= final_damage)
+			{
+				final_damage = damage;
+			}
+		}
+	}
+	if( attacker HasPerk("specialty_deadshot") && meansofdeath == "MOD_PISTOL_BULLET" || meansofdeath == "MOD_RIFLE_BULLET" && WeaponClass(weapon) != "spread" && sHitLoc == "head" || sHitLoc == "helmet" || sHitLoc == "neck" )
+	{
+		final_damage = int(final_damage * 2);
+	}
+
+	// damage scaling for explosive weapons
+	// consistent damage and scales for zombies farther away from explosion better
+	if(meansofdeath == "MOD_GRENADE" || meansofdeath == "MOD_GRENADE_SPLASH" || meansofdeath == "MOD_PROJECTILE" || meansofdeath == "MOD_PROJECTILE_SPLASH")
+	{
+		// no damage scaling for these wonder weps
+		if(weapon != "claymore_zm")
+		{
+			// stop damage scaling past round 100
+			scalar = level.round_number;
+			if(scalar > 100)
+			{
+				scalar = 100;
+			}
+
+			final_damage += 30 * scalar;
+		}
+	}
+
+	// if ( weapon == "quadrotorturret_zm" )
+	// {
+	// 	final_damage = int(self.maxhealth / 3) + 55;
+	// }
+
+	// if(weapon == "zombie_bullet_crouch_zm" && meansofdeath == "MOD_RIFLE_BULLET")
+	// {
+	// 	final_damage = int(self.maxhealth / 2) + 55;
+	// }
+
+	// print("damage: "  + damage);
+	// print("final damage: "  + final_damage);
+
+	// inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime, boneindex
+	return int( final_damage );
+}

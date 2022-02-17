@@ -2,7 +2,7 @@
 #include common_scripts/utility;
 #include maps/mp/_utility;
 
-turrent_buff()
+turret_buff()
 {
 	level.equipment_turret_needs_power = 0;
 }

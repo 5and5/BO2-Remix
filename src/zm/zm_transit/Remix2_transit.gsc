@@ -69,7 +69,7 @@ onplayerspawned()
 				disable_screechers();
 				spawn_lightpost_portals();
 				transit_zone_changes();
-				turrent_buff();
+				turret_buff();
 				electric_trap_buff();
 			}
         }
