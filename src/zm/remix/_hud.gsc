@@ -297,7 +297,7 @@ health_bar_hud()
 	y = 135;
 	if (level.script == "zm_buried")
 	{
-		y += 27;
+		y -= 26;
 	}
 	else if (level.script == "zm_tomb")
 	{
