@@ -53,9 +53,8 @@ buildbuildables()
 		}
 		else if(level.scr_zm_map_start_location == "processing")
 		{
-			level waittill( "buildables_setup" ); // wait for buildables to randomize
-			wait 0.05;
-
+			// level waittill( "buildables_setup" ); // doesn't work on newer version of pluto for some reason...
+			wait 2;
 			level.buildables_available = array("subwoofer_zm", "springpad_zm", "headchopper_zm", "turbine");
 
 			//removebuildable( "keys_zm" );
