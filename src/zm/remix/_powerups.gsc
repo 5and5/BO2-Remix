@@ -45,7 +45,7 @@ carpenter_repair_shield()
     }
 }
 
-remove_fire_sales()
+disable_fire_sales()
 {
 	level.zombie_powerups[ "fire_sale" ].func_should_drop_with_regular_powerups = ::func_should_drop_fire_sale_override;
 }
@@ -62,6 +62,30 @@ func_should_drop_fire_sale_override() //checked partially changed to match cerbe
 *
 * *****************************************************
 */
+
+free_perk_powerup( item ) //checked changed to match cerberus output
+{
+	players = get_players();
+	for ( i = 0; i < players.size; i++ )
+	{
+		if ( !players[ i ] maps/mp/zombies/_zm_laststand::player_is_in_laststand() && players[ i ].sessionstate != "spectator" )
+		{
+			player = players[ i ];
+			if ( isDefined( item.ghost_powerup ) )
+			{
+				player maps/mp/zombies/_zm_stats::increment_client_stat( "buried_ghost_perk_acquired", 0 );
+				player maps/mp/zombies/_zm_stats::increment_player_stat( "buried_ghost_perk_acquired" );
+				player notify( "player_received_ghost_round_free_perk" );
+			}
+			free_perk = player maps/mp/zombies/_zm_perks::give_random_perk();
+		}
+	}
+	// increase perk limit
+	if ( level.perk_purchase_limit < 8 )
+	{
+		level.perk_purchase_limit++;
+	}
+}
 
 nuke_powerup( drop_item, player_team ) //checked changed to match cerberus output
 {

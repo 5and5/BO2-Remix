@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.3.5";
+	level.VERSION = "1.3.6";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
@@ -150,13 +150,12 @@ connected()
 
 			reduce_player_fall_damage();
 			raygun_mark2_probabilty();
-			remove_fire_sales();
 
-			electric_trap_always_kill();
+			disable_fire_sales();
 			disable_high_round_walkers();
 			disable_electric_cherry_on_laststand();
 			
-			enable_free_perks_before_power();
+			electric_trap_always_kill();
 			perk_machine_find_change();
 
 			level thread buildbuildables();
@@ -873,38 +872,6 @@ full_ammo_powerup( drop_item, player ) //checked changed to match cerberus outpu
 		i++;
 	}
 	level thread full_ammo_on_hud( drop_item, player.team );
-}
-
-free_perk_powerup( item ) //checked changed to match cerberus output
-{
-	players = get_players();
-	for ( i = 0; i < players.size; i++ )
-	{
-		if ( !players[ i ] maps/mp/zombies/_zm_laststand::player_is_in_laststand() && players[ i ].sessionstate != "spectator" )
-		{
-			player = players[ i ];
-			if ( isDefined( item.ghost_powerup ) )
-			{
-				player maps/mp/zombies/_zm_stats::increment_client_stat( "buried_ghost_perk_acquired", 0 );
-				player maps/mp/zombies/_zm_stats::increment_player_stat( "buried_ghost_perk_acquired" );
-				player notify( "player_received_ghost_round_free_perk" );
-			}
-			else
-			{
-				free_perk = player maps/mp/zombies/_zm_perks::give_random_perk();
-			}
-			if ( is_true( level.disable_free_perks_before_power ) )
-			{
-				player thread disable_perk_before_power( free_perk );
-			}
-
-			// increase perk limit
-			if ( level.perk_purchase_limit < 8 )
-			{
-				level.perk_purchase_limit++;
-			}
-		}
-	}
 }
 
 pers_treasure_chest_choosespecialweapon_override( player ) //checked changed to match cerberus output

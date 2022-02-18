@@ -29,6 +29,7 @@
 - spawn turbine workbench by saloon
 - buff trample steam and head chopper
 - have turbines break instead of slowly loss power
+- booze always respawns in cell
 
 ### Origins
 
@@ -37,7 +38,6 @@
 ### general
 
 - remove flinch
-- increase max points to 5 mil
 - have reset map_restart mid end screen
 
 ### HUD
