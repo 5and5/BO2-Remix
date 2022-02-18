@@ -246,6 +246,10 @@
 
 ## Buried
 
+### General
+
+- Vultureaid will always be the last perk given
+
 ### Weapons
 
 - Pack-a-punch camo replaced with Mob of the Dead animated camo
