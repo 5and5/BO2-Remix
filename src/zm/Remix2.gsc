@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.3.6";
+	level.VERSION = "1.3.7";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
@@ -154,7 +154,7 @@ connected()
 			disable_fire_sales();
 			disable_high_round_walkers();
 			disable_electric_cherry_on_laststand();
-			
+
 			electric_trap_always_kill();
 			perk_machine_find_change();
 

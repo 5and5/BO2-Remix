@@ -61,6 +61,7 @@ onplayerspawned()
 
 			spawn_custom_wallbuys();
 			town_remove_speedcola();
+			town_remove_tombstone();
 
 			if ( level.scr_zm_map_start_location == "transit" && is_classic() )
 			{
