@@ -4,9 +4,9 @@
 #include maps/mp/zombies/_zm;
 #include maps/mp/zombies/_zm_perks;
 
-remove_tombstone()
+town_remove_tombstone()
 {
-	if ( (level.scr_zm_map_start_location != "town" && !is_classic() ) || level.players.size == 1)
+	if ( level.scr_zm_map_start_location != "town" )
 		return;
 
 	vending_triggers = getentarray( "zombie_vending", "targetname" );

@@ -30,6 +30,7 @@
 - buff trample steam and head chopper
 - have turbines break instead of slowly loss power
 - booze always respawns in cell
+- witches give all perks other than vultureaid
 
 ### Origins
 

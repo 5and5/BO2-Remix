@@ -482,6 +482,211 @@ elevator_initial_wait( elevator, minwait, maxwait, delaybeforeleaving )
 	}
 }
 
+
+
+faller_location_logic_override()
+{
+	wait 1;
+	faller_spawn_points = getstructarray( "faller_location", "script_noteworthy" );
+	leaper_spawn_points = getstructarray( "leaper_location", "script_noteworthy" );
+	spawn_points = arraycombine( faller_spawn_points, leaper_spawn_points, 1, 0 );
+	dist_check = 35840;//16384;
+	elevator_names = getarraykeys( level.elevators );
+	elevators = [];
+	for(i = 0; i < elevator_names.size; i++)
+	{
+		elevators[i] = getent("elevator_" + elevator_names[i] + "_body", "targetname");
+	}
+	elevator_volumes = [];
+	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_1b", "targetname" );
+	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_1c", "targetname" );
+	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_1d", "targetname" );
+	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_3a", "targetname" );
+	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_3b", "targetname" );
+	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_3c", "targetname" );
+	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_3d", "targetname" );
+	level.elevator_volumes = elevator_volumes;
+	while ( 1 )
+	{
+		foreach(point in spawn_points)
+		{
+			contin = 0;
+			should_block = 0;
+			foreach(elevator in elevators)
+			{
+				if(distancesquared(elevator.origin + (0, 0 ,50), point.origin) <= dist_check)
+				{
+					should_block = 1;
+				}
+			}
+			if(should_block)
+			{
+				point.is_enabled = 0;
+				point.is_blocked = 1;
+				contin = 1;
+			}
+			if(isdefined(point.is_blocked) && point.is_blocked && !contin)
+			{
+				point.is_blocked = 0;
+			}
+			if(!isdefined(point.zone_name))
+			{
+				contin = 1;
+			}
+			zone = level.zones[point.zone_name];
+			if(zone.is_enabled && zone.is_active && zone.is_spawning_allowed && !contin)
+			{
+				point.is_enabled = 1;
+			}
+		}
+		players = get_players();
+		foreach(volume in elevator_volumes)
+		{
+			should_disable = 0;
+			foreach(player in players)
+			{
+				if(is_player_valid(player))
+				{
+					if(player istouching(volume))
+					{
+						should_disable = 1;
+					}
+				}
+			}
+			if(should_disable)
+			{
+				disable_elevator_spawners(volume, spawn_points);
+			}
+		}
+		wait 0.5;
+	}
+}
+
+elevator_think( elevator )
+{
+	current_floor = elevator.body.current_location;
+	delaybeforeleaving = 5;
+	skipinitialwait = 0;
+	speed = 100;
+	minwait = 5;
+	maxwait = 20;
+	flag_wait("perks_ready");
+	if(isdefined(elevator.body.force_starting_floor))
+	{
+		elevator.body.current_level = "" + elevator.body.force_starting_floor;
+		elevator.body.origin = elevator.floors[elevator.body.current_level].origin;
+		if(isdefined(elevator.body.force_starting_origin_offset))
+		{
+			elevator.body.origin = elevator.body.origin + (0, 0, elevator.body.force_starting_origin_offset);
+		}
+	}
+	elevator.body.can_move = 1;
+	elevator elevator_set_moving(0);
+	elevator elevator_enable_paths(elevator.body.current_level);
+	if(elevator.body.perk_type == "vending_revive")
+	{
+		minwait = level.packapunch_timeout;
+		maxwait = minwait + 10;
+		elevator thread quick_revive_solo_watch();
+	}
+	if(elevator.body.perk_type == "vending_revive" && flag("solo_game"))
+	{
+	}
+	else
+	{
+		flag_wait("power_on");
+	}
+	elevator.body perkelevatordoor(1);
+	next = undefined;
+	while(1)
+	{
+		start_location = 0;
+		if(isdefined(elevator.body.force_starting_floor))
+		{
+			skipinitialwait = 1;
+		}
+		elevator.body.departing = 1;
+		if(!is_true(elevator.body.lock_doors))
+		{
+			elevator.body setanim(level.perk_elevators_anims[elevator.body.perk_type][1]);
+		}
+		predict_floor(elevator, next, speed);
+		if(!is_true(skipinitialwait))
+		{
+			elevator_initial_wait(elevator, minwait, maxwait, delaybeforeleaving);
+			if(!is_true(elevator.body.lock_doors))
+			{
+				elevator.body setanim(level.perk_elevators_anims[elevator.body.perk_type][1]);
+			}
+		}
+		next = elevator_next_floor(elevator, next, 0);
+		if(isdefined(elevator.floors["" + next + 1]))
+		{
+			elevator.body.next_level = "" + next + 1;
+		}
+		else
+		{
+			start_location = 1;
+			elevator.body.next_level = "0";
+		}
+		floor_stop = elevator.floors[elevator.body.next_level];
+		floor_goal = undefined;
+		cur_level_start_pos = elevator.floors[elevator.body.next_level].starting_position;
+		start_level_start_pos = elevator.floors[elevator.body.starting_floor].starting_position;
+		if(elevator.body.next_level == elevator.body.starting_floor || isdefined(cur_level_start_pos) && isdefined(start_level_start_pos) && cur_level_start_pos == start_level_start_po)
+		{
+			floor_goal = cur_level_start_pos;
+		}
+		else
+		{
+			floor_goal = floor_stop.origin;
+		}
+		dist = distance(elevator.body.origin, floor_goal);
+		time = dist / speed;
+		if(dist > 0)
+		{
+			if(elevator.body.origin[2] > floor_goal[2])
+			{
+				clientnotify(elevator.name + "_d");
+			}
+			else
+			{
+				clientnotify(elevator.name + "_u");
+			}
+		}
+		if(is_true(start_location))
+		{
+			elevator.body thread squashed_death_alarm();
+			if(!skipinitialwait)
+			{
+				wait(3);
+			}
+		}
+		skipinitialwait = 0;
+		elevator.body.current_level = elevator.body.next_level;
+		elevator notify("floor_changed");
+		elevator elevator_disable_paths(elevator.body.current_level);
+		elevator.body.departing = 0;
+		elevator elevator_set_moving(1);
+		if(dist > 0)
+		{
+			elevator.body moveto(floor_goal, time, time * 0.25, time * 0.25);
+			if(isdefined(elevator.body.trig))
+			{
+				elevator.body thread elev_clean_up_corpses();
+			}
+			elevator.body thread elevator_move_sound();
+			elevator.body waittill_any("movedone", "forcego");
+		}
+		elevator elevator_set_moving(0);
+		elevator elevator_enable_paths(elevator.body.current_level);
+		if(elevator.body.perk_type == "vending_revive" && !flag("solo_game") && !flag("power_on"))
+		{
+			flag_wait("power_on");
+		}
+	}
+}
+
 elev_remove_corpses_override()
 {
 	// playfx( level._effect[ "zomb_gib" ], self.origin );
