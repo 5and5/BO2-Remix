@@ -90,6 +90,7 @@
 - Double points timer stacks
 - Nukes kill zombies faster
 - Perk bottles give extra perk slot
+- Effect added to the first drop of a new powerup cycle
 
 ### Perks
 
@@ -248,7 +249,7 @@
 
 ### General
 
-- Vultureaid will always be the last perk given
+- Vultureaid will always be the last perk given by the witches
 
 ### Weapons
 

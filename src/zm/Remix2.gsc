@@ -38,9 +38,10 @@
 
 main()
 { 
-	level.VERSION = "1.3.9";
+	level.VERSION = "1.4.0";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
+	replaceFunc( maps/mp/zombies/_zm_powerups::get_next_powerup, ::get_next_powerup_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_powerup, ::insta_kill_powerup_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_on_hud, ::insta_kill_on_hud_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::double_points_powerup, ::double_points_powerup_override );
@@ -67,6 +68,10 @@ main()
 
     level.inital_spawn = true;
     level thread onConnect();
+}
+init()
+{
+	level._effect["fx_zombie_powerup_caution_wave"] = loadfx("misc/fx_zombie_powerup_caution_wave");
 }
 onConnect()
 {
@@ -164,10 +169,10 @@ connected()
 			buildable_increase_trigger_radius();
 			wallbuy_increase_trigger_radius();
 			level thread wallbuy_dynamic_increase_trigger_radius();
-
 		}
 	}
 }
+
 
 /*
 * *****************************************************
