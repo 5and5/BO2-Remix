@@ -311,9 +311,17 @@
 - Hidden perk bottle dig spots respawn every round
 - Hidden perk bottles give all 9 perk slots
 
+## Strat Tester
+
+- Enable strat tester with `strat_tester 1`
+- Choose desired round with `strat_round X` default is 70
+- All perks are given
+- All weapons are given
+
 ## Custom Dvars
 
 ```
+strat_tester
 coop_pause
 night_mode
 character
