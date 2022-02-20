@@ -28,8 +28,14 @@
 - have all initial spawns by the slide
 - spawn turbine workbench by saloon
 - buff trample steam and head chopper
+- make sub always kills
 - have turbines break instead of slowly loss power
-- booze always respawns in cell
+- leeroy kills zombies
+- better spawns in church
+- worse spawns at jug
+- add semtex wall buy
+- fountain broken by default
+- witch round
 
 ### Origins
 

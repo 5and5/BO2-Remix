@@ -46,9 +46,9 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_powerups::insta_kill_on_hud, ::insta_kill_on_hud_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::double_points_powerup, ::double_points_powerup_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::point_doubler_on_hud, ::point_doubler_on_hud_override );
-	replaceFunc( maps/mp/zombies/_zm_powerups::full_ammo_powerup, ::full_ammo_powerup );
-	replaceFunc( maps/mp/zombies/_zm_powerups::free_perk_powerup, ::free_perk_powerup );
-	replaceFunc( maps/mp/zombies/_zm_powerups::nuke_powerup, ::nuke_powerup );
+	replaceFunc( maps/mp/zombies/_zm_powerups::full_ammo_powerup, ::full_ammo_powerup_override );
+	replaceFunc( maps/mp/zombies/_zm_powerups::free_perk_powerup, ::free_perk_powerup_override );
+	replaceFunc( maps/mp/zombies/_zm_powerups::nuke_powerup, ::nuke_powerup_override );
 	replaceFunc( maps/mp/zombies/_zm_utility::disable_player_move_states, ::disable_player_move_states_override );
 	replaceFunc( maps/mp/zombies/_zm_utility::set_run_speed, ::set_run_speed_override );
 	replaceFunc( maps/mp/zombies/_zm_utility::get_player_weapon_limit, ::get_player_weapon_limit );
@@ -752,73 +752,6 @@ weapon_give( weapon, is_upgrade, magic_box, nosound ) //checked changed to match
 	}
 
 	self play_weapon_vo( weapon, magic_box );
-}
-
-full_ammo_powerup( drop_item, player ) //checked changed to match cerberus output
-{
-	players = get_players( player.team );
-	if ( isdefined( level._get_game_module_players ) )
-	{
-		players = [[ level._get_game_module_players ]]( player );
-	}
-	i = 0;
-	while ( i < players.size )
-	{
-		if ( players[ i ] maps/mp/zombies/_zm_laststand::player_is_in_laststand() )
-		{
-			i++;
-			continue;
-		}
-		primary_weapons = players[ i ] getweaponslist( 1 );
-		players[ i ] notify( "zmb_max_ammo" );
-		players[ i ] notify( "zmb_lost_knife" );
-		players[ i ] notify( "zmb_disable_claymore_prompt" );
-		players[ i ] notify( "zmb_disable_spikemore_prompt" );
-		x = 0;
-		while ( x < primary_weapons.size )
-		{
-			if ( level.headshots_only && is_lethal_grenade(primary_weapons[ x ] ) )
-			{
-				x++;
-				continue;
-			}
-			if ( isdefined( level.zombie_include_equipment ) && isdefined( level.zombie_include_equipment[ primary_weapons[ x ] ] ) )
-			{
-				x++;
-				continue;
-			}
-			if ( isdefined( level.zombie_weapons_no_max_ammo ) && isdefined( level.zombie_weapons_no_max_ammo[ primary_weapons[ x ] ] ) )
-			{
-				x++;
-				continue;
-			}
-			if ( players[ i ] hasweapon( primary_weapons[ x ] ) )
-			{
-				players[ i ] givemaxammo( primary_weapons[ x ] );
-
-				if ( players[ i ] hasweapon( "blundergat_upgraded_zm" ) )
-				{
-					players[ i ] setweaponammostock( "blundergat_upgraded_zm", 80 );
-				}
-				else if ( players[ i ] hasweapon( "blundergat_zm" ) )
-				{
-					players[ i ] setweaponammostock( "blundergat_zm", 80 );
-				}
-
-				if ( players[ i ] hasweapon( "blundersplat_upgraded_zm" ) )
-				{
-					players[ i ] setweaponammostock( "blundersplat_upgraded_zm", 100 );
-				}
-				else if ( players[ i ] hasweapon( "blundersplat_zm" ) )
-				{
-					players[ i ] setweaponammostock( "blundersplat_zm", 100 );
-				}
-			}
-			x++;
-		}
-		i++;
-	}
-	level thread full_ammo_on_hud( drop_item, player.team );
 }
 
 pers_treasure_chest_choosespecialweapon_override( player ) //checked changed to match cerberus output

@@ -13,8 +13,8 @@ graphic_tweaks()
 	if( level.script != "zm_tomb")
 		self setclientdvar("r_fog", 0);
 	self setclientdvar("r_dof_enable", 0);
-	// self setclientdvar("r_lodBiasRigid", -1000); // casues error
-	// self setclientdvar("r_lodBiasSkinned", -1000);
+	self setclientdvar("r_lodBiasRigid", -1000); // casues error
+	self setclientdvar("r_lodBiasSkinned", -1000);
 	self setClientDvar("r_lodScaleRigid", 1);
 	self setClientDvar("r_lodScaleSkinned", 1);
 	self setclientdvar("sm_sunquality", 2);
