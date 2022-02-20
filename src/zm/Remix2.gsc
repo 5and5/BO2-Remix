@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.4.0";
+	level.VERSION = "1.4.1";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::get_next_powerup, ::get_next_powerup_override );
@@ -567,64 +567,6 @@ treasure_chest_weapon_spawn_override( chest, player, respin ) //checked changed 
 	self notify( "box_spin_done" );
 }
 
-ai_calculate_health_override( round_number ) //checked changed to match cerberus output
-{
-	if( is_classic() ) // insta kill rounds staring at 115 then every 2 rounds after
-	{
-		if( (round_number >= 115) && (round_number % 2) )
-		{
-			level.zombie_health = 150;
-			return;
-		}
-	}
-	else // insta kill rounds staring at 75  on survial maps then every 2 rounds after
-	{
-		if( (round_number >= 75) && (round_number % 2) )
-		{
-			level.zombie_health = 150;
-			return;
-		}
-	}
-
-	// more linearly health formula - health is about the same at 60
-	if( round_number > 50 )
-	{	
-		round = (round_number - 50);
-		multiplier = 1;
-		zombie_health = 0;
-
-		for( i = 0; i < round; i++ )
-		{
-			multiplier++;
-			zombie_health += int(5000 + (200 * multiplier) );
-		}
-		level.zombie_health = int(zombie_health + 51780); // round 51 zombies health
-
-		// iprintln( "health: " + level.zombie_health );
-	}
-	else
-	{
-		level.zombie_health = level.zombie_vars[ "zombie_health_start" ];
-		i = 2;
-		while ( i <= round_number )
-		{
-			if ( i >= 10 )
-			{
-				old_health = level.zombie_health;
-				level.zombie_health = level.zombie_health + int( level.zombie_health * level.zombie_vars[ "zombie_health_increase_multiplier" ] );
-				if ( level.zombie_health < old_health )
-				{
-					level.zombie_health = old_health;
-					return;
-				}
-				i++;
-				continue;
-			}
-			level.zombie_health = int( level.zombie_health + level.zombie_vars[ "zombie_health_increase" ] );
-			i++;
-		}
-	}
-}
 
 get_player_weapon_limit( player ) //checked matches cerberus output
 {

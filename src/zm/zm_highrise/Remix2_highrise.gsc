@@ -19,16 +19,16 @@ main()
 {
     replaceFunc( maps/mp/zombies/_zm_ai_leaper::leaper_round_tracker, ::leaper_round_tracker_override ); 
 	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::explode_to_near_zombies, ::explode_to_near_zombies_override );
-	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::add_slippery_spot, ::add_slippery_spot );
-	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::slip_bolt, ::slip_bolt );
-	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::pool_of_goo, ::pool_of_goo );
 	replaceFunc( maps/mp/zm_highrise_elevators::elevator_depart_early, ::elevator_depart_early );
 	replaceFunc( maps/mp/zm_highrise_elevators::elevator_initial_wait, ::elevator_initial_wait );
+	// replaceFunc( maps/mp/zombies/_zm_weap_slipgun::add_slippery_spot, ::add_slippery_spot );
+	// replaceFunc( maps/mp/zombies/_zm_weap_slipgun::slip_bolt, ::slip_bolt );
+	// replaceFunc( maps/mp/zombies/_zm_weap_slipgun::pool_of_goo, ::pool_of_goo );
+
     // replaceFunc( maps/mp/zm_highrise_elevators::faller_location_logic, ::faller_location_logic_override );
     // replaceFunc( maps/mp/zm_highrise_elevators::elevator_think, ::elevator_think );
-
-    // replaceFunc( maps/mp/zm_highrise_elevators::elevator_disable_paths, ::elevator_disable_paths_override );
 	// replaceFunc( maps/mp/zombies/_zm_ai_faller::do_zombie_emerge, ::do_zombie_emerge_override );
+    // replaceFunc( maps/mp/zm_highrise_elevators::elevator_disable_paths, ::elevator_disable_paths_override );
 	// replaceFunc( maps/mp/zm_highrise_elevators::elev_remove_corpses, ::elev_remove_corpses_override );
 
     level.initial_spawn_highrise = true;
@@ -59,7 +59,6 @@ onplayerspawned()
         if(self.initial_spawn_highrise)
 		{
             self.initial_spawn_highrise = false;
-
         }
 
         if(level.initial_spawn_highrise)
@@ -79,8 +78,14 @@ onplayerspawned()
 			level thread patch_shaft();
 
 			elevator_key_on_use_override();
+			disable_board_repair();
         }
     }
+}
+
+disable_board_repair()
+{
+	level.no_board_repair = true;
 }
 
 debug_print()

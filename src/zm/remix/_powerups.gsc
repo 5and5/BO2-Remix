@@ -189,7 +189,7 @@ powerup_drop_override( drop_point ) //checked partially changed to match cerberu
 		return;
 	}
 	rand_drop = randomint( 100 );
-	if ( rand_drop > 99 ) // 2 -> 3
+	if ( rand_drop > 3 ) // 2 -> 3
 	{
 		if ( !level.zombie_vars[ "zombie_drop_item" ] )
 		{
@@ -231,7 +231,6 @@ powerup_drop_override( drop_point ) //checked partially changed to match cerberu
 	}
 
 	// play fx on last drop of cycle
-	// if( level.zombie_powerup_index == 0 )
 	if( is_true(level.last_powerup) )
 	{
 		// playfx(level._effect[ "upgrade_aquired" ], powerup.origin);

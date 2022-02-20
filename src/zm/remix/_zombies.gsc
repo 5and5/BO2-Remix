@@ -12,11 +12,6 @@ disable_high_round_walkers()
 	level.speed_change_round = undefined;
 }
 
-set_run_speed_override()
-{
-	self.zombie_move_speed = "sprint";
-}
-
 /*
 * *****************************************************
 *	
@@ -24,6 +19,71 @@ set_run_speed_override()
 *
 * *****************************************************
 */
+
+set_run_speed_override()
+{
+	self.zombie_move_speed = "sprint";
+}
+
+ai_calculate_health_override( round_number ) //checked changed to match cerberus output
+{
+	if( is_classic() ) // insta kill rounds staring at 115 then every 2 rounds after
+	{
+		if( (round_number >= 115) && (round_number % 2) )
+		{
+			level.zombie_health = 150;
+			return;
+		}
+	}
+	else // insta kill rounds staring at 75  on survial maps then every 2 rounds after
+	{
+		if( (round_number >= 75) && (round_number % 2) )
+		{
+			level.zombie_health = 150;
+			return;
+		}
+	}
+
+	// more linearly health formula - health is about the same at 60
+	if( round_number > 50 )
+	{	
+		round = (round_number - 50);
+		multiplier = 1;
+		zombie_health = 0;
+
+		for( i = 0; i < round; i++ )
+		{
+			multiplier++;
+			zombie_health += int(5000 + (200 * multiplier) );
+		}
+		level.zombie_health = int(zombie_health + 51780); // round 51 zombies health
+
+		// level.zombie_health = 150;
+		// iprintln( "health: " + level.zombie_health );
+	}
+	else
+	{
+		level.zombie_health = level.zombie_vars[ "zombie_health_start" ];
+		i = 2;
+		while ( i <= round_number )
+		{
+			if ( i >= 10 )
+			{
+				old_health = level.zombie_health;
+				level.zombie_health = level.zombie_health + int( level.zombie_health * level.zombie_vars[ "zombie_health_increase_multiplier" ] );
+				if ( level.zombie_health < old_health )
+				{
+					level.zombie_health = old_health;
+					return;
+				}
+				i++;
+				continue;
+			}
+			level.zombie_health = int( level.zombie_health + level.zombie_vars[ "zombie_health_increase" ] );
+			i++;
+		}
+	}
+}
 
 round_think_override( restart ) //checked changed to match cerberus output
 {

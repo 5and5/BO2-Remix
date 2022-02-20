@@ -490,7 +490,7 @@ faller_location_logic_override()
 	faller_spawn_points = getstructarray( "faller_location", "script_noteworthy" );
 	leaper_spawn_points = getstructarray( "leaper_location", "script_noteworthy" );
 	spawn_points = arraycombine( faller_spawn_points, leaper_spawn_points, 1, 0 );
-	dist_check = 35840;//16384;
+	dist_check = 16384;//35840;//16384;
 	elevator_names = getarraykeys( level.elevators );
 	elevators = [];
 	for(i = 0; i < elevator_names.size; i++)
@@ -508,9 +508,9 @@ faller_location_logic_override()
 	level.elevator_volumes = elevator_volumes;
 	while ( 1 )
 	{
+		// print(spawn_points.size);
 		foreach(point in spawn_points)
 		{
-			contin = 0;
 			should_block = 0;
 			foreach(elevator in elevators)
 			{
@@ -523,22 +523,23 @@ faller_location_logic_override()
 			{
 				point.is_enabled = 0;
 				point.is_blocked = 1;
-				contin = 1;
+				continue;
 			}
-			if(isdefined(point.is_blocked) && point.is_blocked && !contin)
+			if(isdefined(point.is_blocked) && point.is_blocked)
 			{
 				point.is_blocked = 0;
 			}
 			if(!isdefined(point.zone_name))
 			{
-				contin = 1;
+				continue;
 			}
 			zone = level.zones[point.zone_name];
-			if(zone.is_enabled && zone.is_active && zone.is_spawning_allowed && !contin)
+			if(zone.is_enabled && zone.is_active && zone.is_spawning_allowed)
 			{
 				point.is_enabled = 1;
 			}
 		}
+
 		players = get_players();
 		foreach(volume in elevator_volumes)
 		{
@@ -706,7 +707,7 @@ do_zombie_emerge_override( spot ) //checked changed to match cerberus output
 	self thread watch_for_elevator_during_faller_spawn_custom();
 	self zombie_faller_emerge( spot );
 	self.create_eyes = 1;
-	wait 0.1;
+	wait 0.05;
 	self notify( "risen", spot.script_string );
 	self zombie_faller_enable_location();
 }
@@ -737,7 +738,7 @@ watch_for_elevator_during_faller_spawn_custom()
 		}
 		if ( should_gib )
 		{
-			playfx( level._effect[ "zomb_gib" ], self.origin );
+			// playfx( level._effect[ "zomb_gib" ], self.origin );
 			if ( isDefined( self.has_been_damaged_by_player ) && !self.has_been_damaged_by_player && isDefined( self.is_leaper ) && !self.is_leaper )
 			{
 				level.zombie_total++;
@@ -749,17 +750,21 @@ watch_for_elevator_during_faller_spawn_custom()
 			}
 			else
 			{
-				// level.elevator_kills++;
-				// iPrintLn("Elevator kills: " + level.elevator_kills);
-				// self.deathanim = "zm_death";
-                self dodamage( self.health + 100, self.origin );
-				// self delete();
+				if( isDefined( self ) )
+				{
+					level.elevator_kills++;
+					iPrintLn("Elevator kills: " + level.elevator_kills);
+					self stopanimscripted();
+					self.deathanim = "zm_death";
+					self delete();
+                	// self dodamage( self.health + 100, self.origin );
+				}
 			}
 			return;
 		}
 		else
 		{
-			wait 0.1;
+			wait 0.05;
 		}
 	}
 }
