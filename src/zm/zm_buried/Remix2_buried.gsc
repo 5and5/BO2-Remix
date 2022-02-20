@@ -10,7 +10,6 @@
 main()
 {
     replaceFunc( maps/mp/zombies/_zm_perks::give_random_perk, ::give_random_perk );
-    override_sloth_damage_func();
 
     level.initial_spawn_buried = true;
     level thread onplayerconnect();
@@ -42,6 +41,9 @@ onplayerspawned()
         if(level.initial_spawn_buried)
         {
             level.initial_spawn_buried = false;
+
+			override_sloth_damage_func();
+			remove_barricade_jug();
         }
     }
 }

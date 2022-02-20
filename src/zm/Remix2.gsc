@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.4.1";
+	level.VERSION = "1.4.2";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::get_next_powerup, ::get_next_powerup_override );

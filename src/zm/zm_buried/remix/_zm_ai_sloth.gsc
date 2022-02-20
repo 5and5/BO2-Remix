@@ -24,20 +24,25 @@
 #include maps/mp/zombies/_zm_utility;
 #include maps/mp/_utility;
 #include common_scripts/utility;
+#include maps/mp/zm_buried_gamemodes;
 
+
+remove_barricade_jug()
+{
+	deleteSlothBarricade( "juggernaut_alley" );
+}
 
 override_sloth_damage_func()
 {
     while(!isDefined(level.sloth))
 	{
-        wait(1);
+        wait 1;
     }
 
     // print("attaching new script to sloth");
     sloth = level.sloth;
     sloth.actor_damage_func = ::sloth_damage_func_custom;
 }
-
 
 sloth_damage_func_custom( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime, boneindex )
 {
