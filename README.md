@@ -252,6 +252,10 @@
 - Vultureaid will always be the last perk given by the witches
 - Removed barricade in front of jug
 
+### Buildables
+
+- Spawned turbine workbench by candy shop
+
 ### Weapons
 
 - Pack-a-punch camo replaced with Mob of the Dead animated camo

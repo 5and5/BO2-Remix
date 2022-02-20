@@ -26,14 +26,13 @@
 ### Buried
 
 - have all initial spawns by the slide
-- spawn turbine workbench by saloon
-- buff trample steam and head chopper
+- worse spawns at jug
 - make sub always kills
 - have turbines break instead of slowly loss power
-- leeroy kills zombies
-- better spawns in church
-- worse spawns at jug
 - add semtex wall buy
+- buff trample steam and head chopper
+- better spawns in church
+- leeroy kills zombies
 - fountain broken by default
 - witch round
 

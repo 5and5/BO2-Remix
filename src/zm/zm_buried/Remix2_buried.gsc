@@ -5,11 +5,17 @@
 #include maps/mp/zombies/_zm_perks;
 
 #include scripts/zm/remix/_debug;
-#include scripts/zm/zm_buried/remix/_zm_ai_sloth;
+#include scripts/zm/zm_buried/remix/_buried_ai_sloth;
+#include scripts/zm/zm_buried/remix/_buried_buildables;
+#include scripts/zm/zm_buried/remix/_buried_weapons;
+#include scripts/zm/zm_buried/remix/_buried_zones;
+
 
 main()
 {
     replaceFunc( maps/mp/zombies/_zm_perks::give_random_perk, ::give_random_perk );
+
+	level thread spawn_turbine_bench( (457.209, -489, 8.125), ( 0, 0, 0 ) );
 
     level.initial_spawn_buried = true;
     level thread onplayerconnect();
@@ -36,6 +42,10 @@ onplayerspawned()
         if(self.initial_spawn_buried)
 		{
             self.initial_spawn_buried = false;
+
+			//debug
+			// self thread print_origin();
+			// self thread teleport_players((-293.211, -1193.89, 187.517));
         }
 
         if(level.initial_spawn_buried)

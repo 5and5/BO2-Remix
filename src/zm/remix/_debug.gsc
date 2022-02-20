@@ -371,7 +371,7 @@ print_origin()
 print_doors()
 {
     zombie_doors = getEntArray( "zombie_door", "targetname" );
-    while ( true )
+    while ( 1 )
     {
 		foreach ( door in zombie_doors )
 		{
