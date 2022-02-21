@@ -160,30 +160,35 @@ rotate_skydome()
 	{
 		return;
 	}
-	level.sky_rotation = 360;
+	
+	x = 360;
+	
+	self endon("disconnect");
 	for(;;)
 	{
-		level.sky_rotation -= 0.025;
-		if ( level.sky_rotation < 0 )
+		x -= 0.025;
+		if ( x < 0 )
 		{
-			level.sky_rotation += 360;
+			x += 360;
 		}
-		setdvar( "r_skyRotation", level.sky_rotation );
+		self setclientdvar( "r_skyRotation", x );
 		wait 0.1;
 	}
 }
 
 change_skydome()
 {
-	level.sky_change = 6500;
+	x = 6500;
+	
+	self endon("disconnect");
 	for(;;)
 	{
-		level.sky_change += 1.626;
-		if ( level.sky_change > 25000 )
+		x += 1.626;
+		if ( x > 25000 )
 		{
-			level.sky_change -= 23350;
+			x -= 23350;
 		}
-		setdvar( "r_skyColorTemp", level.sky_change );
+		self setclientdvar( "r_skyColorTemp", x );
 		wait 0.1;
 	}
 }
