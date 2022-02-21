@@ -7,6 +7,7 @@
 spawn_turbine_bench( origin, angles )
 {
 	level endon("end_game");
+	level endon("disconnect");
 
 	precachemodel( "collision_clip_64x64x64" );
 	bench = spawn("script_model", origin);
@@ -42,12 +43,14 @@ spawn_turbine_bench( origin, angles )
 update_hint_string( trig )
 {
 	level endon("end_game");
+	level endon("disconnect");
 
 	while( 1 )
 	{
 		foreach(player in level.players)
 		{	
-			if ( isDefined( player.buildableturbine.owner.name ) && player.buildableturbine.owner.name == player.name || player hasweapon( "equip_turbine_zm" ))
+			//if ( isDefined( player.buildableturbine.owner ) && player.buildableturbine.owner.name == player.name || player hasweapon( "equip_turbine_zm" ) )
+			if( player hasWeapon( "equip_turbine_zm" ) )
 			{
 				trig SetHintString("Took Turbine");
 			}
