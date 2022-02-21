@@ -39,14 +39,12 @@ override_sloth_damage_func()
         wait 1;
     }
 
-    // print("attaching new script to sloth");
     sloth = level.sloth;
     sloth.actor_damage_func = ::sloth_damage_func_custom;
 }
 
 sloth_damage_func_custom( einflictor, eattacker, idamage, idflags, smeansofdeath, sweapon, vpoint, vdir, shitloc, psoffsettime, boneindex )
 {
-    // iprintln("super ow " + sweapon);
 	if ( sweapon == "equip_headchopper_zm" )
 	{
 		self.damageweapon_name = sweapon;

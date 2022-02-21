@@ -13,12 +13,12 @@
 
 main()
 {
-    replaceFunc( maps/mp/zombies/_zm_perks::give_random_perk, ::give_random_perk );
-
-	level thread spawn_turbine_bench( (457.209, -489, 8.125), ( 0, 0, 0 ) );
+    replaceFunc( maps/mp/zombies/_zm_perks::give_random_perk, ::give_random_perk_override );
 
     level.initial_spawn_buried = true;
     level thread onplayerconnect();
+	
+	level thread spawn_turbine_bench( (457.209, -489, 8.125), ( 0, 0, 0 ) );
 }
 
 onplayerconnect()
@@ -52,8 +52,8 @@ onplayerspawned()
         {
             level.initial_spawn_buried = false;
 
-			override_sloth_damage_func();
 			remove_barricade_jug();
+			level thread override_sloth_damage_func();
         }
     }
 }
@@ -67,7 +67,7 @@ onplayerspawned()
 * *****************************************************
 */
 
-give_random_perk() //checked partially changed to match cerberus output
+give_random_perk_override() //checked partially changed to match cerberus output
 {
 	random_perk = undefined;
 	vending_triggers = getentarray( "zombie_vending", "targetname" );
