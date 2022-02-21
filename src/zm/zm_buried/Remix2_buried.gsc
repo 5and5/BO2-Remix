@@ -53,6 +53,7 @@ onplayerspawned()
             level.initial_spawn_buried = false;
 
 			remove_barricade_jug();
+			buried_zone_changes();
 			level thread override_sloth_damage_func();
         }
     }
