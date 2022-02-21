@@ -363,7 +363,16 @@ print_origin()
 {
 	while ( 1 )
 	{
-		print( self.origin );
+		print( "origin " + self.origin );
+		wait 2;
+	}
+}
+
+print_angles()
+{
+	while ( 1 )
+	{
+		print( "angles " + self.angles );
 		wait 2;
 	}
 }

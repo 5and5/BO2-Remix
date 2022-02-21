@@ -25,7 +25,6 @@
 
 ### Buried
 
-- have all initial spawns by the slide
 - make sub always kills
 - have turbines break instead of slowly loss power
 - add semtex wall buy

@@ -249,6 +249,7 @@
 
 ### General
 
+- Initial spawns changed to be closer to the slide
 - Vultureaid will always be the last perk given by the witches
 - Removed barricade in front of jug
 - Nerfed jug spawn zone
