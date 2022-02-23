@@ -3,6 +3,7 @@
 #include common_scripts/utility;
 #include maps/mp/_utility;
 #include maps/mp/zombies/_zm_equip_subwoofer;
+#include maps/mp/zombies/_zm_equip_turbine;
 
 
 spawn_turbine_bench( origin, angles )
@@ -74,7 +75,7 @@ update_hint_string( trig )
 
 burst_zombie_override( weapon, player )
 {
-if ( !isDefined( self ) || !isalive( self ) )
+	if ( !isDefined( self ) || !isalive( self ) )
 	{
 		return;
 	}
@@ -122,7 +123,7 @@ knockdown_zombie_override( weapon, gib, onlydamage )
 	}
 }
 
-turbinepowerdiminish( origin, powerradius ) //checked changed to match cerberus output
+turbinepowerdiminish_override( origin, powerradius ) //checked changed to match cerberus output
 {
 	self endon( "death" );
 	self endon( "disconnect" );
@@ -139,19 +140,13 @@ turbinepowerdiminish( origin, powerradius ) //checked changed to match cerberus 
 				case 3:
 					break;
 				case 2:
+					break;
+				case 1:
 					self.turbine_power_on = 1;
 					wait randomintrange( 12, 20 );
 					self turbinepoweroff( origin, powerradius );
 					self.turbine_power_on = 0;
 					wait randomintrange( 3, 8 );
-					self turbinepoweron( origin, powerradius );
-					break;
-				case 1:
-					self.turbine_power_on = 1;
-					wait randomintrange( 3, 7 );
-					self turbinepoweroff( origin, powerradius );
-					self.turbine_power_on = 0;
-					wait randomintrange( 6, 12 );
 					self turbinepoweron( origin, powerradius );
 					break;
 			}

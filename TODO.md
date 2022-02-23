@@ -25,7 +25,6 @@
 
 ### Buried
 
-- make sub always kills
 - have turbines break instead of slowly loss power
 - add semtex wall buy
 - buff trample steam and head chopper

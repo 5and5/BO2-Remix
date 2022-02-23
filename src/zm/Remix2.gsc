@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.4.7";
+	level.VERSION = "1.4.8";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::get_next_powerup, ::get_next_powerup_override );
@@ -65,6 +65,7 @@ main()
 	replaceFunc( maps/mp/zombies/_zm::round_think, ::round_think_override );
 	replaceFunc( maps/mp/zombies/_zm::ai_calculate_health, ::ai_calculate_health_override );
 	replaceFunc( maps/mp/zombies/_zm_pers_upgrades_functions::pers_nube_should_we_give_raygun, ::pers_nube_should_we_give_raygun );
+	// replaceFunc( maps/mp/zombies/_zm_utility::wait_network_frame, ::wait_network_frame_override );
 
     level.inital_spawn = true;
     level thread onConnect();
@@ -181,6 +182,24 @@ connected()
 *
 * *****************************************************
 */
+
+wait_network_frame_override() // fix for increased spawn rate
+{
+	if ( numremoteclients() )
+	{
+		snapshot_ids = getsnapshotindexarray();
+		acked = undefined;
+		while ( !isDefined( acked ) )
+		{
+			level waittill( "snapacknowledged" );
+			acked = snapshotacknowledged( snapshot_ids );
+		}
+	}
+	else
+	{
+		wait 0.1;
+	}
+}
 
 disable_player_move_states_override( forcestancechange ) //checked matches cerberus output
 {
