@@ -25,8 +25,6 @@
 
 ### Buried
 
-- have turbines break instead of slowly loss power
-- add semtex wall buy
 - buff trample steam and head chopper
 - better spawns in church
 - leeroy kills zombies

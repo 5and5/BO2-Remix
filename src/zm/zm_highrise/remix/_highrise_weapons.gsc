@@ -2,5 +2,5 @@
 
 spawn_semtex_wallbuy()
 {
-    spawn_wallbuy_weapon( ( 0, 270, 0 ), (2119, 1826, 3115), "sticky_grenade_zm_fx", "sticky_grenade_zm", "t6_wpn_claymore_world", "sticky_grenade", "weapon_upgrade" );
+    spawn_wallbuy_weapon( ( 0, 270, 0 ), (2119, 1826, 3115), "sticky_grenade_zm_fx", "sticky_grenade_zm", "t6_wpn_grenade_sticky_grenade_world", "sticky_grenade", "weapon_upgrade" );
 }
