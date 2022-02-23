@@ -121,3 +121,41 @@ knockdown_zombie_override( weapon, gib, onlydamage )
 		self.subwoofer_death = 1;
 	}
 }
+
+turbinepowerdiminish( origin, powerradius ) //checked changed to match cerberus output
+{
+	self endon( "death" );
+	self endon( "disconnect" );
+	self endon( "equip_turbine_zm_taken" );
+	self.buildableturbine endon( "death" );
+	while ( !is_true( self.buildableturbine.dying ) )
+	{
+		if ( isDefined( self.turbine_power_level ) && isDefined( self.buildableturbine ) )
+		{
+			switch( self.turbine_power_level )
+			{
+				case 4:
+					break;
+				case 3:
+					break;
+				case 2:
+					self.turbine_power_on = 1;
+					wait randomintrange( 12, 20 );
+					self turbinepoweroff( origin, powerradius );
+					self.turbine_power_on = 0;
+					wait randomintrange( 3, 8 );
+					self turbinepoweron( origin, powerradius );
+					break;
+				case 1:
+					self.turbine_power_on = 1;
+					wait randomintrange( 3, 7 );
+					self turbinepoweroff( origin, powerradius );
+					self.turbine_power_on = 0;
+					wait randomintrange( 6, 12 );
+					self turbinepoweron( origin, powerradius );
+					break;
+			}
+			wait 0.05;
+		}
+	}
+}
