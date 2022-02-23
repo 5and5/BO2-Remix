@@ -38,6 +38,12 @@
 
 - make fire staff insta kill
 
+### Bonus Survival Maps
+
+- tunnel
+- dinner
+- power
+
 ### general
 
 - remove flinch
