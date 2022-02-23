@@ -257,6 +257,7 @@
 ### Buildables
 
 - Spawned turbine workbench by candy shop
+- Subwoofer always flings zombies
 
 ### Weapons
 
