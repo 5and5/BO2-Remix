@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.4.8";
+	level.VERSION = "1.4.9";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::get_next_powerup, ::get_next_powerup_override );
@@ -67,13 +67,15 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_pers_upgrades_functions::pers_nube_should_we_give_raygun, ::pers_nube_should_we_give_raygun );
 	// replaceFunc( maps/mp/zombies/_zm_utility::wait_network_frame, ::wait_network_frame_override );
 
-    level.inital_spawn = true;
+    level.initial_spawn = true;
     level thread onConnect();
 }
+
 init()
 {
 	level._effect["fx_zombie_powerup_caution_wave"] = loadfx("misc/fx_zombie_powerup_caution_wave");
 }
+
 onConnect()
 {
     for (;;)
@@ -82,6 +84,7 @@ onConnect()
         player thread connected();
     }
 }
+
 connected()
 {
     level endon( "game_ended" );
@@ -119,23 +122,22 @@ connected()
 			self thread color_hud();
 			self thread all_hud_watcher();
 
-			self thread inspect_weapon();
-
 			self thread max_ammo_refill_clip();
 			self thread carpenter_repair_shield();
 
+			self thread disable_player_quotes();
 			self thread set_persistent_stats();
 
 			self thread mulekick_additional_perks();
 			self thread staminup_additional_perks();
 
+			self thread inspect_weapon();
 			self thread rapid_fire();
-			self thread disable_player_quotes();
         }
 
-        if(level.inital_spawn)
+        if(level.initial_spawn)
 		{
-			level.inital_spawn = false;
+			level.initial_spawn = false;
 
 			set_dog_rounds();
 
