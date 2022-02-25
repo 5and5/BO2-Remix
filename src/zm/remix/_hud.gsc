@@ -7,6 +7,9 @@
 
 all_hud_watcher()
 {	
+	if( isDefined( level.STRAT_TESTER_VERSION ) )
+		return;
+
 	self endon("disconnect");
 	level endon( "end_game" );
 
@@ -51,6 +54,8 @@ set_hud_offset()
 
 timer_hud()
 {	
+	if( isDefined( level.STRAT_TESTER_VERSION ) )
+		return;
 	self endon("disconnect");
 
 	create_dvar( "hud_timer", 1 );
@@ -113,6 +118,9 @@ timer_hud_watcher()
 
 round_timer_hud()
 {
+	if( isDefined( level.STRAT_TESTER_VERSION ) )
+		return;
+
 	self endon("disconnect");
 
 	create_dvar( "hud_round_timer", 0 );
@@ -243,6 +251,9 @@ round_timer_hud_watcher()
 
 zombie_remaining_hud()
 {
+	if( isDefined( level.STRAT_TESTER_VERSION ) )
+		return;
+
 	self endon( "disconnect" );
 	level endon( "end_game" );
 
@@ -264,6 +275,9 @@ zombie_remaining_hud()
 
 zombie_remaining_hud_watcher()
 {	
+	if( isDefined( level.STRAT_TESTER_VERSION ) )
+		return;
+
 	self endon("disconnect");
 	level endon( "end_game" );
 
@@ -287,6 +301,9 @@ zombie_remaining_hud_watcher()
 
 health_bar_hud()
 {
+	if( isDefined( level.STRAT_TESTER_VERSION ) )
+		return;
+
 	self endon("disconnect");
 
 	create_dvar( "hud_health_bar", 0 );
@@ -344,7 +361,7 @@ health_bar_hud()
 
 trap_timer_hud()
 {
-	if( level.script != "zm_prison" )
+	if( level.script != "zm_prison" || isDefined( level.STRAT_TESTER_VERSION ))
 		return;
 
 	create_dvar( "hud_trap_timer", 0 );
@@ -386,6 +403,9 @@ trap_timer_hud()
 
 zone_hud()
 {
+	if( isDefined( level.STRAT_TESTER_VERSION ) )
+		return;
+		
 	self endon("disconnect");
 
 	create_dvar( "hud_zone", 0 );

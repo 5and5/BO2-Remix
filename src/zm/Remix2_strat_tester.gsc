@@ -25,6 +25,7 @@ settings()
 {
 	// Settings
 	level.start_round = 70; 			// what round the game starts at
+	level.start_delay = 10;				// time till zombies start spawning
 	level.power_on = 1; 				// turns power on
 	level.perks_on_revive = 1; 			// give perks back on revive
 	level.perks_on_spawn = 1; 			// give perks on spawn
@@ -50,7 +51,7 @@ main()
 
 init()
 {
-	level.STRAT_TESTER_VERSION = "0.8";
+	level.STRAT_TESTER_VERSION = "0.9";
     level.init = 0;
 	settings();
     level thread onConnect();
@@ -107,6 +108,7 @@ connected()
 
             enable_cheats();
 
+			level thread start_round_delay( 15 );
             level thread turn_on_power();
             level thread set_starting_round();
 			level thread remove_boards_from_windows();
@@ -179,6 +181,77 @@ set_starting_round()
     level.zombie_move_speed = 130;
 	level.zombie_vars[ "zombie_spawn_delay" ] = 0.08;
 	level.round_number = level.start_round;
+}
+
+start_round_delay( delay )
+{
+	create_dvar("start_delay", 10);
+	flag_clear("spawn_zombies");
+
+	flag_wait("initial_blackscreen_passed");
+
+	if( isDvarAllowed( "start_delay" ) )
+		level.start_delay = getDvarInt( "start_delay" );
+
+	level thread round_pause( level.start_delay );
+}
+
+zombie_spawn_wait(time)
+{
+	level endon("end_game");
+	level endon( "restart_round" );
+
+	flag_clear("spawn_zombies");
+
+	wait time;
+
+	flag_set("spawn_zombies");
+	level notify("start_delay_over");
+}
+
+round_pause( delay )
+{
+	if ( !IsDefined( delay ) )
+	{
+		delay = 30;
+	}
+
+	level.countdown_hud = create_simple_hud();
+	level.countdown_hud.alignx = "center";
+	level.countdown_hud.aligny = "top";
+	level.countdown_hud.horzalign = "user_center";
+	level.countdown_hud.vertalign = "user_top";
+	level.countdown_hud.fontscale = 32;
+	level.countdown_hud setshader( "hud_chalk_1", 64, 64 );
+	level.countdown_hud SetValue( delay );
+	level.countdown_hud.color = ( 1, 1, 1 );
+	level.countdown_hud.alpha = 0;
+	level.countdown_hud FadeOverTime( 2.0 );
+	level.countdown_hud.color = ( 0.21, 0, 0 );
+	level.countdown_hud.alpha = 1;
+	wait 2;
+	level thread zombie_spawn_wait( delay );
+
+	while (delay >= 1)
+	{
+		wait 1;
+		delay--;
+		level.countdown_hud SetValue( delay );
+	}
+
+	// Zero!  Play end sound
+	players = GetPlayers();
+	for (i=0; i<players.size; i++ )
+	{
+		players[i] playlocalsound( "zmb_perks_packa_ready" );
+	}
+
+	level.countdown_hud FadeOverTime( 1.0 );
+	level.countdown_hud.color = (1,1,1);
+	level.countdown_hud.alpha = 0;
+	wait( 1.0 );
+
+	level.countdown_hud destroy_hud();
 }
 
 remove_boards_from_windows()
@@ -917,9 +990,6 @@ set_hud_offset()
 
 timer_hud_watcher()
 {
-	if( isDefined( level.VERSION ) )
-		return;
-
 	self endon("disconnect");
 	level endon( "end_game" );
 
@@ -942,9 +1012,6 @@ timer_hud_watcher()
 
 round_timer_hud()
 {
-	if( isDefined( level.VERSION ) )
-		return;
-
 	self endon("disconnect");
 
 	self.round_timer_hud = newClientHudElem(self);
@@ -965,6 +1032,7 @@ round_timer_hud()
 
 	level.FADE_TIME = 0.2;
 
+	level waittill("start_delay_over");
 	while( 1 )
 	{
 		zombies_this_round = level.zombie_total + get_round_enemy_array().size;
@@ -1073,9 +1141,6 @@ display_sph( time, hordes )
 
 zombie_remaining_hud()
 {
-	if( isDefined( level.VERSION ) )
-		return;
-
 	self endon( "disconnect" );
 	level endon( "end_game" );
 
@@ -1153,7 +1218,7 @@ trap_timer_hud()
 
 zone_hud()
 {
-	if( !level.hud_zone_names || isDefined( level.VERSION ) )
+	if( !level.hud_zone_names )
 		return;
 
 	self endon("disconnect");
