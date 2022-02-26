@@ -25,7 +25,7 @@ settings()
 {
 	// Settings
 	level.start_round = 70; 			// what round the game starts at
-	level.start_delay = 10;				// time till zombies start spawning
+	level.start_delay = 15;				// time till zombies start spawning
 	level.power_on = 1; 				// turns power on
 	level.perks_on_revive = 1; 			// give perks back on revive
 	level.perks_on_spawn = 1; 			// give perks on spawn
@@ -108,7 +108,7 @@ connected()
 
             enable_cheats();
 
-			level thread start_round_delay( 15 );
+			level thread start_round_delay( level.start_delay );
             level thread turn_on_power();
             level thread set_starting_round();
 			level thread remove_boards_from_windows();
@@ -150,27 +150,6 @@ enable_cheats()
 	level.player_out_of_playable_area_monitor = 0;
 }
 
-turn_on_power() //by xepixtvx
-{	
-	if( !level.power_on )
-		return;
-
-	flag_wait( "initial_blackscreen_passed" );
-	wait 5;
-	trig = getEnt( "use_elec_switch", "targetname" );
-	powerSwitch = getEnt( "elec_switch", "targetname" );
-	powerSwitch notSolid();
-	trig setHintString( &"ZOMBIE_ELECTRIC_SWITCH" );
-	trig setVisibleToAll();
-	trig notify( "trigger", self );
-	trig setInvisibleToAll();
-	powerSwitch rotateRoll( -90, 0, 3 );
-	level thread maps/mp/zombies/_zm_perks::perk_unpause_all_perks();
-	powerSwitch waittill( "rotatedone" );
-	flag_set( "power_on" );
-	level setClientField( "zombie_power_on", 1 ); 
-}
-
 set_starting_round()
 {
 	create_dvar( "start_round", 70 );
@@ -185,13 +164,13 @@ set_starting_round()
 
 start_round_delay( delay )
 {
-	create_dvar("start_delay", 10);
+	create_dvar("start_delay", delay);
+	if( isDvarAllowed( "start_delay" ) )
+		level.start_delay = getDvarInt( "start_delay" );
+		
 	flag_clear("spawn_zombies");
 
 	flag_wait("initial_blackscreen_passed");
-
-	if( isDvarAllowed( "start_delay" ) )
-		level.start_delay = getDvarInt( "start_delay" );
 
 	level thread round_pause( level.start_delay );
 }
@@ -262,6 +241,27 @@ remove_boards_from_windows()
 	flag_wait( "initial_blackscreen_passed" );
 
 	maps/mp/zombies/_zm_blockers::open_all_zbarriers();
+}
+
+turn_on_power() //by xepixtvx
+{	
+	if( !level.power_on )
+		return;
+
+	flag_wait( "initial_blackscreen_passed" );
+	wait 5;
+	trig = getEnt( "use_elec_switch", "targetname" );
+	powerSwitch = getEnt( "elec_switch", "targetname" );
+	powerSwitch notSolid();
+	trig setHintString( &"ZOMBIE_ELECTRIC_SWITCH" );
+	trig setVisibleToAll();
+	trig notify( "trigger", self );
+	trig setInvisibleToAll();
+	powerSwitch rotateRoll( -90, 0, 3 );
+	level thread maps/mp/zombies/_zm_perks::perk_unpause_all_perks();
+	powerSwitch waittill( "rotatedone" );
+	flag_set( "power_on" );
+	level setClientField( "zombie_power_on", 1 ); 
 }
 
 turn_power_on_and_open_doors_custom() //checked changed at own discretion
@@ -1031,7 +1031,6 @@ round_timer_hud()
 	self thread round_timer_hud_watcher();
 
 	level.FADE_TIME = 0.2;
-
 	level waittill("start_delay_over");
 	while( 1 )
 	{
@@ -1183,7 +1182,7 @@ zombie_remaining_hud_watcher()
 
 trap_timer_hud()
 {
-	if( level.script != "zm_prison" || !level.hud_trap_timer || isDefined( level.VERSION ) )
+	if( level.script != "zm_prison" || !level.hud_trap_timer )
 		return;
 
 	self endon( "disconnect" );
