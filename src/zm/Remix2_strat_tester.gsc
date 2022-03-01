@@ -32,7 +32,7 @@ settings()
 	level.weapons_on_spawn = 1;			// give weapons on spawn
 	level.remove_boards = 1;			// remove all boards from windows
 	level.open_doors = 0;				// opens all power doors
-	level.strat_tester = 1;				// enable strat tester
+	level.strat_tester = 0;				// enable strat tester
 
 	// HUD
 	level.hud_timer = 0; 				// total game timer

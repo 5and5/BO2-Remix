@@ -12,7 +12,7 @@
 
 
 main()
-{
+{ 
     replaceFunc( maps/mp/zombies/_zm_perks::give_random_perk, ::give_random_perk_override );
 	replaceFunc( maps/mp/zombies/_zm_equip_subwoofer::knockdown_zombie, ::knockdown_zombie_override );
 	replaceFunc( maps/mp/zombies/_zm_equip_subwoofer::burst_zombie, ::burst_zombie_override );

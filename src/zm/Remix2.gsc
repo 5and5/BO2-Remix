@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.4.9";
+	level.VERSION = "1.5.0";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::get_next_powerup, ::get_next_powerup_override );
@@ -187,20 +187,7 @@ connected()
 
 wait_network_frame_override() 
 {
-	if ( numremoteclients() )
-	{
-		snapshot_ids = getsnapshotindexarray();
-		acked = undefined;
-		while ( !isDefined( acked ) )
-		{
-			level waittill( "snapacknowledged" );
-			acked = snapshotacknowledged( snapshot_ids );
-		}
-	}
-	else
-	{
-		wait 0.05;
-	}
+	wait 0.05;
 }
 
 disable_player_move_states_override( forcestancechange ) //checked matches cerberus output
