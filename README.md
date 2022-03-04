@@ -257,7 +257,8 @@
 ### Buildables
 
 - Spawned turbine workbench by candy shop
-- Subwoofer always flings zombies
+- Subwoofer gives powerups
+- Subwoofer has increased range
 - Turbine starts dying at 17% instead of 50% power
 
 ### Weapons

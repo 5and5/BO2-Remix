@@ -15,6 +15,8 @@ main()
 { 
     replaceFunc( maps/mp/zombies/_zm_perks::give_random_perk, ::give_random_perk_override );
 	replaceFunc( maps/mp/zombies/_zm_equip_subwoofer::knockdown_zombie, ::knockdown_zombie_override );
+	replaceFunc( maps/mp/zombies/_zm_equip_subwoofer::fling_zombie, ::fling_zombie_override );
+	
 	replaceFunc( maps/mp/zombies/_zm_equip_subwoofer::burst_zombie, ::burst_zombie_override );
 	replaceFunc( maps/mp/zombies/_zm_equip_turbine::turbinepowerdiminish, ::turbinepowerdiminish_override );
 
@@ -54,7 +56,7 @@ onplayerspawned()
 			//debug
 			// self thread print_origin();
 			// self thread print_angles();
-			// self thread teleport_players((-293.211, -1193.89, 187.517));
+			self thread teleport_players((-293.211, -1193.89, 187.517));
         }
 
         if(level.initial_spawn_buried)

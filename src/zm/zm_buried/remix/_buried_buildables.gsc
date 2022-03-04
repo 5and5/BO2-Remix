@@ -4,6 +4,7 @@
 #include maps/mp/_utility;
 #include maps/mp/zombies/_zm_equip_subwoofer;
 #include maps/mp/zombies/_zm_equip_turbine;
+#include maps/mp/zombies/_zm_powerups;
 
 
 spawn_turbine_bench( origin, angles )
@@ -86,6 +87,33 @@ burst_zombie_override( weapon, player )
 		return;
 	}
 	self dodamage( self.health + 666, weapon.origin );
+	self powerup_drop( self.origin );
+	player notify( "zombie_subwoofer_kill" );
+	if ( self.health <= 0 )
+	{
+		if ( isDefined( onlydamage ) && !onlydamage )
+		{
+			self startragdoll();
+			self setclientfield( "subwoofer_flings_zombie", 1 );
+		}
+		self.subwoofer_death = 1;
+	}
+}
+
+fling_zombie_override( weapon, fling_vec, player, onlydamage )
+{
+	if ( !isDefined( self ) || !isalive( self ) )
+	{
+		return;
+	}
+	if ( isDefined( self.subwoofer_fling_func ) )
+	{
+		self thread [[ self.subwoofer_fling_func ]]( weapon, fling_vec );
+		player notify( "zombie_subwoofer_kill" );
+		return;
+	}
+	self dodamage( self.health + 666, weapon.origin );
+	self powerup_drop( self.origin );
 	player notify( "zombie_subwoofer_kill" );
 	if ( self.health <= 0 )
 	{
@@ -107,11 +135,10 @@ knockdown_zombie_override( weapon, gib, onlydamage )
 	if ( isDefined( self.subwoofer_fling_func ) )
 	{
 		self thread [[ self.subwoofer_fling_func ]]( weapon, fling_vec );
-		player notify( "zombie_subwoofer_kill" );
 		return;
 	}
 	self dodamage( self.health + 666, weapon.origin );
-	player notify( "zombie_subwoofer_kill" );
+	self powerup_drop( self.origin );
 	if ( self.health <= 0 )
 	{
 		if ( isDefined( onlydamage ) && !onlydamage )

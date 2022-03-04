@@ -25,7 +25,6 @@
 
 ### Buried
 
-- sub gives drops
 - buff trample steam and head chopper - on a timer that recharges - zombies ignore
 - better spawns in church
 - leeroy kills zombies
@@ -61,6 +60,7 @@
 
 ### Bugs
 
+- check rotating skybox
 - gats dont reduce ammo on pap
 
 ### Errors
