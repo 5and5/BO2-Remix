@@ -21,9 +21,10 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::explode_to_near_zombies, ::explode_to_near_zombies_override );
 	replaceFunc( maps/mp/zm_highrise_elevators::elevator_depart_early, ::elevator_depart_early );
 	replaceFunc( maps/mp/zm_highrise_elevators::elevator_initial_wait, ::elevator_initial_wait );
-	// replaceFunc( maps/mp/zombies/_zm_weap_slipgun::add_slippery_spot, ::add_slippery_spot );
-	// replaceFunc( maps/mp/zombies/_zm_weap_slipgun::slip_bolt, ::slip_bolt );
-	// replaceFunc( maps/mp/zombies/_zm_weap_slipgun::pool_of_goo, ::pool_of_goo );
+	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::add_slippery_spot, ::add_slippery_spot );
+	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::slip_bolt, ::slip_bolt );
+	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::pool_of_goo, ::pool_of_goo );
+	replaceFunc( maps/mp/zombies/_zm_pers_upgrades::setup_pers_upgrade_boards, ::setup_pers_upgrade_boards );
 
     // replaceFunc( maps/mp/zm_highrise_elevators::faller_location_logic, ::faller_location_logic_override );
     // replaceFunc( maps/mp/zm_highrise_elevators::elevator_think, ::elevator_think );
@@ -65,6 +66,8 @@ onplayerspawned()
         {
             level.initial_spawn_highrise = false;
 
+			setDvar( "sv_enableBounces", 1 );
+
 			slipgun_disable_reslip();
 			slipgun_always_kill();
 			slipgun_kills_while_away();
@@ -78,7 +81,8 @@ onplayerspawned()
 			level thread patch_shaft();
 
 			elevator_key_on_use_override();
-			disable_board_repair();
+			remove_ground_spawns();
+			// disable_board_repair();
         }
     }
 }
@@ -110,6 +114,16 @@ debug_print()
 *
 * *****************************************************
 */
+
+setup_pers_upgrade_boards() //checked matches cerberus output
+{
+	if ( is_true( level.pers_upgrade_boards ) )
+	{
+		level.pers_boarding_round_start = 203;
+		level.pers_boarding_number_of_boards_required = 74;
+		pers_register_upgrade( "board", ::pers_upgrade_boards_active, "pers_boarding", level.pers_boarding_number_of_boards_required, 0 );
+	}
+}
 
 leaper_round_tracker_override()
 {	

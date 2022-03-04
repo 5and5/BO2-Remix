@@ -165,6 +165,7 @@
 - Denizens disabled
 - All light post portals are always active
 - Pap door is always open
+- Removed iron boards
 
 ### Zones
 
@@ -195,6 +196,7 @@
 
 - Limited where players can camp while in the shaft
 - Zombies no longer jump across to trample steam zone
+- Disabled ground spawner in square room
 
 ### Elevators
 
@@ -202,7 +204,7 @@
 - Standing on elevators make them move quicker
 - Key is given on spawn
 - Key can be used unlimited amount of times
-- Key can lock elevator in current position
+- Key can lock elevator in set positions
 
 ### Weapons
 

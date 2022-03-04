@@ -43,6 +43,7 @@
 
 ### general
 
+- add raygun perma perk on every map
 - remove flinch
 - have reset map_restart mid end screen
 

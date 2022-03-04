@@ -150,9 +150,11 @@ onuseplantobject_elevatorkey( player )
 			}
 			else if ( self.buildables_available_index == 3 )
 			{
+				elevator.body.elevator_stop = 0;
+				elevator.body.force_starting_floor = 3;
+				elevator.body notify( "forcego" );
 				elevator.body.elevator_stop = 1;
 			}
-			
 		}
 	}
 }
@@ -482,87 +484,6 @@ elevator_initial_wait( elevator, minwait, maxwait, delaybeforeleaving )
 	}
 }
 
-
-
-faller_location_logic_override()
-{
-	wait 1;
-	faller_spawn_points = getstructarray( "faller_location", "script_noteworthy" );
-	leaper_spawn_points = getstructarray( "leaper_location", "script_noteworthy" );
-	spawn_points = arraycombine( faller_spawn_points, leaper_spawn_points, 1, 0 );
-	dist_check = 16384;//35840;//16384;
-	elevator_names = getarraykeys( level.elevators );
-	elevators = [];
-	for(i = 0; i < elevator_names.size; i++)
-	{
-		elevators[i] = getent("elevator_" + elevator_names[i] + "_body", "targetname");
-	}
-	elevator_volumes = [];
-	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_1b", "targetname" );
-	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_1c", "targetname" );
-	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_1d", "targetname" );
-	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_3a", "targetname" );
-	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_3b", "targetname" );
-	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_3c", "targetname" );
-	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_3d", "targetname" );
-	level.elevator_volumes = elevator_volumes;
-	while ( 1 )
-	{
-		// print(spawn_points.size);
-		foreach(point in spawn_points)
-		{
-			should_block = 0;
-			foreach(elevator in elevators)
-			{
-				if(distancesquared(elevator.origin + (0, 0 ,50), point.origin) <= dist_check)
-				{
-					should_block = 1;
-				}
-			}
-			if(should_block)
-			{
-				point.is_enabled = 0;
-				point.is_blocked = 1;
-				continue;
-			}
-			if(isdefined(point.is_blocked) && point.is_blocked)
-			{
-				point.is_blocked = 0;
-			}
-			if(!isdefined(point.zone_name))
-			{
-				continue;
-			}
-			zone = level.zones[point.zone_name];
-			if(zone.is_enabled && zone.is_active && zone.is_spawning_allowed)
-			{
-				point.is_enabled = 1;
-			}
-		}
-
-		players = get_players();
-		foreach(volume in elevator_volumes)
-		{
-			should_disable = 0;
-			foreach(player in players)
-			{
-				if(is_player_valid(player))
-				{
-					if(player istouching(volume))
-					{
-						should_disable = 1;
-					}
-				}
-			}
-			if(should_disable)
-			{
-				disable_elevator_spawners(volume, spawn_points);
-			}
-		}
-		wait 0.5;
-	}
-}
-
 elevator_think( elevator )
 {
 	current_floor = elevator.body.current_location;
@@ -736,7 +657,7 @@ watch_for_elevator_during_faller_spawn_custom()
 			}
 			_k1531 = getNextArrayKey( _a1531, _k1531 );
 		}
-		if ( should_gib )
+		if ( 0 )
 		{
 			// playfx( level._effect[ "zomb_gib" ], self.origin );
 			if ( isDefined( self.has_been_damaged_by_player ) && !self.has_been_damaged_by_player && isDefined( self.is_leaper ) && !self.is_leaper )
@@ -752,11 +673,12 @@ watch_for_elevator_during_faller_spawn_custom()
 			{
 				if( isDefined( self ) )
 				{
-					level.elevator_kills++;
-					iPrintLn("Elevator kills: " + level.elevator_kills);
-					self stopanimscripted();
-					self.deathanim = "zm_death";
-					self delete();
+					
+					// level.elevator_kills++;
+					// iPrintLn("Elevator kills: " + level.elevator_kills);
+					// self stopanimscripted();
+					// self.deathanim = "zm_death";
+					// self delete();
                 	// self dodamage( self.health + 100, self.origin );
 				}
 			}
@@ -767,4 +689,99 @@ watch_for_elevator_during_faller_spawn_custom()
 			wait 0.05;
 		}
 	}
+}
+
+faller_location_logic_override()
+{
+	print("override");
+	wait 1;
+	// faller_spawn_points = getstructarray( "faller_location", "script_noteworthy" );
+	// leaper_spawn_points = getstructarray( "leaper_location", "script_noteworthy" );
+	// spawn_points = arraycombine( faller_spawn_points, leaper_spawn_points, 1, 0 );
+	spawn_points = getstructarray( "faller_location", "script_noteworthy" );
+	dist_check = 35840;//16384;
+	elevator_names = getarraykeys( level.elevators );
+	elevators = [];
+	for(i = 0; i < elevator_names.size; i++)
+	{
+		elevators[i] = getent("elevator_" + elevator_names[i] + "_body", "targetname");
+	}
+	elevator_volumes = [];
+	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_1b", "targetname" );
+	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_1c", "targetname" );
+	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_1d", "targetname" );
+	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_3a", "targetname" );
+	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_3b", "targetname" );
+	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_3c", "targetname" );
+	elevator_volumes[ elevator_volumes.size ] = getent( "elevator_3d", "targetname" );
+	level.elevator_volumes = elevator_volumes;
+
+	while ( 1 )
+	{
+		foreach(point in spawn_points)
+		{
+			should_block = 0;
+			foreach(elevator in elevators)
+			{
+				if(distancesquared(elevator.origin + (0, 0 ,50), point.origin) <= dist_check)
+				{
+					should_block = 1;
+				}
+			}
+			if(should_block)
+			{
+				point.is_enabled = 0;
+				point.is_blocked = 1;
+				continue;
+			}
+			if(isdefined(point.is_blocked) && point.is_blocked)
+			{
+				point.is_blocked = 0;
+			}
+			if(!isdefined(point.zone_name))
+			{
+				continue;
+			}
+			zone = level.zones[point.zone_name];
+			if(zone.is_enabled && zone.is_active && zone.is_spawning_allowed)
+			{
+				point.is_enabled = 1;
+			}
+		}
+
+		players = get_players();
+		foreach(volume in elevator_volumes)
+		{
+			should_disable = 0;
+			foreach(player in players)
+			{
+				if(is_player_valid(player))
+				{
+					if(player istouching(volume))
+					{
+						should_disable = 1;
+					}
+				}
+			}
+			if(should_disable)
+			{
+				disable_elevator_spawners(volume, spawn_points);
+			}
+		}
+		wait 0.5;
+	}
+}
+
+remove_ground_spawns()
+{ 
+	foreach ( zone in level.zones )
+	{
+		for ( i = 0; i < zone.spawn_locations.size; i++ )
+		{
+			if ( zone.spawn_locations[ i ].origin == (1664, 1408, 3050.32) )
+			{
+				zone.spawn_locations[ i ].is_enabled = false;
+			}
+		}
+    }
 }
