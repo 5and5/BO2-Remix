@@ -113,6 +113,7 @@ connected()
 
 			self graphic_tweaks();
 			self thread night_mode();
+			self thread rotate_skydome();
 
 	    	self thread timer_hud();
 			self thread trap_timer_hud();
@@ -141,7 +142,6 @@ connected()
 
 			set_dog_rounds();
 
-			level thread rotate_skydome();
 			level thread change_skydome();
 
 			level thread coop_pause();
