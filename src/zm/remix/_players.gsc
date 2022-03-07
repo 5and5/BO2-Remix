@@ -190,7 +190,7 @@ add_to_player_score( points, add_to_total ) //checked matches cerberus output
 	self.pers[ "score" ] = self.score;
 	if ( add_to_total )
 	{
-		self.score_total += self.score;
+		self.score_total += points;
 	}
-	self incrementplayerstat( "score", self.score );
+	self incrementplayerstat( "score", points );
 }
