@@ -203,16 +203,16 @@
 - Elevator wait time changed from 5-20 to 7-12 seconds
 - Standing on elevators make them move quicker
 - Key is given on spawn
-- Key can be used unlimited amount of times
-- Key can lock elevator in set positions
+- Key is given 20 seconds after used
+- Key can lock elevators in a pre set position
 
 ### Weapons
 
 - Semtex wallbuy added by b23r
 - Sliquifier kills till round 255
 - Sliquifier continues to chain while put away
-- Sliquifier goo removed
-<!-- * Sliquifier no longer drops extra goo -->
+- Sliquifier no longer drops extra goo
+<!-- - Sliquifier goo removed -->
 
 ## Mob of the Dead
 

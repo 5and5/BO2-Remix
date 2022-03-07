@@ -345,7 +345,6 @@ choose_buildable( player )
 			// slot = self.buildablestruct.buildable_slot;
 			// player maps/mp/zombies/_zm_buildables::player_set_buildable_piece(piece, slot);
 
-			// self.locked = !self.locked;
 			if ( self.buildables_available_index == 0 )
 			{
 				self.hint_string = "Hold ^3&&1^7 to call the perk";

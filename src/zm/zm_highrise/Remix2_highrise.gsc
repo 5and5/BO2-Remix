@@ -21,10 +21,10 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::explode_to_near_zombies, ::explode_to_near_zombies_override );
 	replaceFunc( maps/mp/zm_highrise_elevators::elevator_depart_early, ::elevator_depart_early );
 	replaceFunc( maps/mp/zm_highrise_elevators::elevator_initial_wait, ::elevator_initial_wait );
-	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::add_slippery_spot, ::add_slippery_spot );
-	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::slip_bolt, ::slip_bolt );
-	replaceFunc( maps/mp/zombies/_zm_weap_slipgun::pool_of_goo, ::pool_of_goo );
 	replaceFunc( maps/mp/zombies/_zm_pers_upgrades::setup_pers_upgrade_boards, ::setup_pers_upgrade_boards );
+	// replaceFunc( maps/mp/zombies/_zm_weap_slipgun::add_slippery_spot, ::add_slippery_spot );
+	// replaceFunc( maps/mp/zombies/_zm_weap_slipgun::slip_bolt, ::slip_bolt );
+	// replaceFunc( maps/mp/zombies/_zm_weap_slipgun::pool_of_goo, ::pool_of_goo );
 
     // replaceFunc( maps/mp/zm_highrise_elevators::faller_location_logic, ::faller_location_logic_override );
     // replaceFunc( maps/mp/zm_highrise_elevators::elevator_think, ::elevator_think );
