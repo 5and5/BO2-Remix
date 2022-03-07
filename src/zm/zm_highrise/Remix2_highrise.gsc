@@ -23,7 +23,7 @@ main()
 	replaceFunc( maps/mp/zm_highrise_elevators::elevator_depart_early, ::elevator_depart_early );
 	replaceFunc( maps/mp/zm_highrise_elevators::elevator_initial_wait, ::elevator_initial_wait );
 	replaceFunc( maps/mp/zombies/_zm_pers_upgrades::setup_pers_upgrade_boards, ::setup_pers_upgrade_boards );
-	
+
 	// replaceFunc( maps/mp/zombies/_zm_equip_springpad::springpad_expired, ::springpad_expired_override );
 	// replaceFunc( maps/mp/zombies/_zm_equip_springpad::targeting_thread, ::targeting_thread_override );
 
@@ -71,7 +71,7 @@ onplayerspawned()
         {
             level.initial_spawn_highrise = false;
 
-			setDvar( "sv_enableBounces", 1 );
+			// setDvar( "sv_enableBounces", 1 );
 
 			slipgun_disable_reslip();
 			slipgun_always_kill();

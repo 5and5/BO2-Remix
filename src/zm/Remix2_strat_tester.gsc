@@ -43,12 +43,6 @@ settings()
 	level.hud_health_bar = 0;			// not added yet
 }
 
-main()
-{
-	// Pluto only
-    // replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
-}
-
 init()
 {
 	level.STRAT_TESTER_VERSION = "0.9";
