@@ -16,10 +16,10 @@
 
 ### Mob
 
-- buff tomahawk
-
 ### Die Rise
 
+- add delay on getting key back
+- rework calling elevator
 - fix zombies getting crushed by elevators / remove locking 3 spawn elevator
 - set perk locations (not working)
 
@@ -51,8 +51,6 @@
 
 #### TAB Only
 
-- drop cycle
-
 ### Weapons
 
 ### Power Ups
@@ -61,7 +59,7 @@
 
 ### Bugs
 
-- check rotating skybox
+- fix point cap
 - gats dont reduce ammo on pap
 
 ### Errors

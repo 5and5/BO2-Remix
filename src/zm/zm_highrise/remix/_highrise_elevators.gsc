@@ -10,14 +10,13 @@
 
 give_elevator_key()
 {
-    level endon("end_game");
     self endon("disconnect");
 
     for(;;)
     {
         if (isDefined(self maps/mp/zombies/_zm_buildables::player_get_buildable_piece()) && self maps/mp/zombies/_zm_buildables::player_get_buildable_piece() == "keys_zm")
         {
-            wait 1;
+            wait 20;
         }
         else
         {

@@ -189,7 +189,7 @@ powerup_drop_override( drop_point ) //checked partially changed to match cerberu
 		return;
 	}
 	rand_drop = randomint( 100 );
-	if ( rand_drop > 3 ) // 2 -> 3
+	if ( rand_drop > 3 ) // 3% to 4%
 	{
 		if ( !level.zombie_vars[ "zombie_drop_item" ] )
 		{
