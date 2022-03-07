@@ -172,7 +172,25 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 	return idamage;
 }
 
-set_max_score( score )
+add_to_player_score( points, add_to_total ) //checked matches cerberus output
 {
-	level.scoreLimit = score;
+	if ( !isDefined( add_to_total ) )
+	{
+		add_to_total = 1;
+	}
+	if ( !isDefined( points ) || level.intermission )
+	{
+		return;
+	}
+	self.score += points;
+	if( self.score > 500005 )
+	{
+		self.score = 500005;
+	}
+	self.pers[ "score" ] = self.score;
+	if ( add_to_total )
+	{
+		self.score_total += self.score;
+	}
+	self incrementplayerstat( "score", self.score );
 }

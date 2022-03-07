@@ -18,8 +18,6 @@
 
 ### Die Rise
 
-- add delay on getting key back
-- rework calling elevator
 - fix zombies getting crushed by elevators / remove locking 3 spawn elevator
 - set perk locations (not working)
 
@@ -59,7 +57,6 @@
 
 ### Bugs
 
-- fix point cap
 - gats dont reduce ammo on pap
 
 ### Errors

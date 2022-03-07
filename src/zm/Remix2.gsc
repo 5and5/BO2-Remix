@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.5.4";
+	level.VERSION = "1.5.5";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::get_next_powerup, ::get_next_powerup_override );
@@ -66,6 +66,8 @@ main()
 	replaceFunc( maps/mp/zombies/_zm::ai_calculate_health, ::ai_calculate_health_override );
 	replaceFunc( maps/mp/zombies/_zm_pers_upgrades_functions::pers_nube_should_we_give_raygun, ::pers_nube_should_we_give_raygun );
 	replaceFunc( maps/mp/zombies/_zm_utility::wait_network_frame, ::wait_network_frame_override );
+	replaceFunc( maps/mp/zombies/_zm_score::add_to_player_score, ::add_to_player_score );
+	
 
     level.initial_spawn = true;
     level thread onConnect();
@@ -152,7 +154,6 @@ connected()
 			flag_wait( "start_zombie_round_logic" );
    			wait 0.05;
 
-			set_max_score( 5000005 );
 			set_startings_chests();
 			set_claymores_max( 10 );
 

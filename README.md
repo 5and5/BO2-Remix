@@ -78,7 +78,7 @@
 - Starting points set to 555
 - Explosive damage scaling increased
 - Reduced fall damage
-- Increased max points to 5000005
+- Increased max points to 500005
 
 ### Power Ups
 
