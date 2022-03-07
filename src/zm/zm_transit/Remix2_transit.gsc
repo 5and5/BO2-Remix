@@ -72,6 +72,7 @@ onplayerspawned()
 				transit_zone_changes();
 				turret_buff();
 				electric_trap_buff();
+				transit_no_power();
 			}
         }
     }

@@ -2,8 +2,6 @@
 
 ### Tranzit
 
-- jetgun bench need power
-
 #### Depot
 
 #### Farm

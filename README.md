@@ -185,6 +185,11 @@
 - Jetgun recharges while away
 - Jetgun returns to bench when over heated
 
+### No Power
+
+- Enable no power game with `no_power 1`
+- This disables turbine workbench and jetgun
+
 ## Die Rise
 
 ### General
@@ -325,7 +330,8 @@
 ## Strat Tester
 
 - Enable strat tester with `strat_tester 1`
-- Choose desired round with `strat_round X` default is 70
+- Choose desired start round with `strat_round X` default is 70
+- Choose desired start delay with `strat_delay X` default is 15
 - All perks are given
 - All weapons are given
 
@@ -334,6 +340,7 @@
 ```
 strat_tester
 coop_pause
+no_power
 night_mode
 character
 disable_player_quotes
