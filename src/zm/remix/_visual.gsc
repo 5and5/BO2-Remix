@@ -192,3 +192,28 @@ change_skydome()
 		wait 0.1;
 	}
 }
+
+eye_color_watcher()
+{	
+	if( getDvar( "eye_color") == "" )
+		setDvar( "eye_color", 0 );
+
+	wait 1;
+
+	while(1)
+	{
+		while( getDvarInt( "eye_color" ) == 0 )
+		{
+			wait 0.1;
+		}
+		level setclientfield( "zombie_eye_change", 1 );
+    	sndswitchannouncervox( "richtofen" );
+
+		while( getDvarInt( "eye_color" ) == 1 )
+		{
+			wait 0.1;
+		}
+		level setclientfield( "zombie_eye_change", 0 );
+		sndswitchannouncervox( "sam" );
+	}
+}

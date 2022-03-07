@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.5.6";
+	level.VERSION = "1.5.7";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::get_next_powerup, ::get_next_powerup_override );
@@ -67,8 +67,8 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_pers_upgrades_functions::pers_nube_should_we_give_raygun, ::pers_nube_should_we_give_raygun );
 	replaceFunc( maps/mp/zombies/_zm_utility::wait_network_frame, ::wait_network_frame_override );
 	replaceFunc( maps/mp/zombies/_zm_score::add_to_player_score, ::add_to_player_score );
+	// replaceFunc( getFunction( "maps/mp/zombies/_zm_equip_springpad", "springpad_expired" ), ::springpad_expired );
 	
-
     level.initial_spawn = true;
     level thread onConnect();
 }
@@ -145,6 +145,7 @@ connected()
 			set_dog_rounds();
 
 			level thread change_skydome();
+			level thread eye_color_watcher();
 
 			level thread coop_pause();
 			level thread fake_reset();
@@ -165,7 +166,7 @@ connected()
 			disable_electric_cherry_on_laststand();
 
 			electric_trap_always_kill();
-			perk_machine_find_change();
+			perk_machine_quarter_change();
 
 			level thread buildbuildables();
 			level thread buildcraftables();

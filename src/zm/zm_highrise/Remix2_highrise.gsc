@@ -7,6 +7,7 @@
 #include maps/mp/zombies/_zm_pers_upgrades_functions;
 #include maps/mp/zombies/_zm_pers_upgrades;
 
+#include scripts/zm/remix/_buildables;
 #include scripts/zm/remix/_debug;
 #include scripts/zm/zm_highrise/remix/_highrise_elevators;
 #include scripts/zm/zm_highrise/remix/_highrise_slipgun;
@@ -22,6 +23,10 @@ main()
 	replaceFunc( maps/mp/zm_highrise_elevators::elevator_depart_early, ::elevator_depart_early );
 	replaceFunc( maps/mp/zm_highrise_elevators::elevator_initial_wait, ::elevator_initial_wait );
 	replaceFunc( maps/mp/zombies/_zm_pers_upgrades::setup_pers_upgrade_boards, ::setup_pers_upgrade_boards );
+	
+	// replaceFunc( maps/mp/zombies/_zm_equip_springpad::springpad_expired, ::springpad_expired_override );
+	// replaceFunc( maps/mp/zombies/_zm_equip_springpad::targeting_thread, ::targeting_thread_override );
+
 	// replaceFunc( maps/mp/zombies/_zm_weap_slipgun::add_slippery_spot, ::add_slippery_spot );
 	// replaceFunc( maps/mp/zombies/_zm_weap_slipgun::slip_bolt, ::slip_bolt );
 	// replaceFunc( maps/mp/zombies/_zm_weap_slipgun::pool_of_goo, ::pool_of_goo );

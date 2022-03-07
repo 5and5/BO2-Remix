@@ -16,7 +16,6 @@
 
 ### Die Rise
 
-- fix zombies getting crushed by elevators / remove locking 3 spawn elevator
 - set perk locations (not working)
 
 ### Buried

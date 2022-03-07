@@ -45,7 +45,7 @@ staminup_additional_perks()
 	
 }
 
-perk_machine_find_change()
+perk_machine_quarter_change()
 {
 	if(level.script == "zm_tomb")
 		return;

@@ -47,7 +47,8 @@
 - Tweaked vision set
 - Rotating skybox
 - Fog disabled
-- Night mode option with `night_mode 1` dvar
+- Night mode option with `night_mode 1`
+- Change zombies eye color with `eye_color 1`
 
 ### Patches
 
@@ -56,9 +57,9 @@
 - Fridge has AN94 or War Machine depending on the map
 - Set box starting locations
 - Round 255 round cap removed
-- Remove player quotes `disable_player_quotes 1` dvar
-- In game fast ray `rapid_fire 1` dvar
-- Characters can be selected with `character` dvar
+- Remove player quotes `disable_player_quotes 1`
+- In game fast ray `rapid_fire 1`
+- Characters can be selected with `character`
 
 ### HUD
 
@@ -76,9 +77,8 @@
 ### Player
 
 - Starting points set to 555
-- Explosive damage scaling increased
+- Max points set to 500005
 - Reduced fall damage
-- Increased max points to 500005
 
 ### Power Ups
 
@@ -118,6 +118,7 @@
 
 ### Weapons
 
+- Explosive damage scaling increased
 - Increased wall weapon buy distance
 - Buying wall weapon ammo fills clip
 
