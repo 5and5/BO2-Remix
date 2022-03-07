@@ -56,7 +56,7 @@ onplayerspawned()
 			//debug
 			// self thread print_origin();
 			// self thread print_angles();
-			self thread teleport_players((-293.211, -1193.89, 187.517));
+			// self thread teleport_players((-293.211, -1193.89, 187.517));
         }
 
         if(level.initial_spawn_buried)
