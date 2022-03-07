@@ -131,24 +131,6 @@ onuseplantobject_elevatorkey( player )
 			}
 			else if ( self.buildables_available_index == 1 )
 			{
-				if ( floor == 0 || floor == 1 || floor == 2 )
-				{
-					floor = floor + 1;
-				}
-				else if ( floor == 5 || floor == 4 || floor == 3)
-				{
-					floor = floor - 1;
-				}
-				elevator.body.elevator_stop = 0;
-				elevator.body.force_starting_floor = floor;
-				elevator.body notify( "forcego" );
-			}
-			else if ( self.buildables_available_index == 2 )
-			{
-				elevator.body.elevator_stop = 0;
-			}
-			else if ( self.buildables_available_index == 3 )
-			{
 				elevator.body.elevator_stop = 0;
 				elevator.body.force_starting_floor = 3;
 				elevator.body notify( "forcego" );
@@ -304,7 +286,7 @@ choose_buildable( player )
 
 	if (!isDefined(level.buildables_index_max))
 	{
-		level.buildables_index_max = 3;
+		level.buildables_index_max = 1;
 	}
 	if (!isDefined(self.buildables_available_index))
 	{
@@ -369,14 +351,6 @@ choose_buildable( player )
 				self.hint_string = "Hold ^3&&1^7 to call the perk";
 			}
 			else if ( self.buildables_available_index == 1 )
-			{
-				self.hint_string = "Hold ^3&&1^7 to call the elevator";
-			}
-			else if ( self.buildables_available_index == 2 )
-			{
-				self.hint_string = "Hold ^3&&1^7 to unlock the elevator";
-			}
-			else if ( self.buildables_available_index == 3 )
 			{
 				self.hint_string = "Hold ^3&&1^7 to lock the elevator";
 			}
