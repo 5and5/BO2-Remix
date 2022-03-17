@@ -9,6 +9,7 @@
 #include maps/mp/zombies/_zm_weapons;
 #include maps/mp/zombies/_zm;
 #include maps/mp/zombies/_zm_equip_springpad;
+#include maps/mp/zombies/_zm_equipment;
 
 electric_trap_always_kill()
 {
@@ -858,30 +859,4 @@ remove_buildable_pieces( buildable_name )
 			return;
 		}
 	}
-}
-
-enemies_ignore_equipments()
-{
-	equipment = getFirstArrayKey(level.zombie_include_equipment);
-	while (isDefined(equipment))
-	{
-		maps/mp/zombies/_zm_equipment::enemies_ignore_equipment(equipment);
-		equipment = getNextArrayKey(level.zombie_include_equipment, equipment);
-	}
-}
-
-/*
-* *****************************************************
-*	
-* ********************* Overrides *********************
-*
-* *****************************************************
-*/
-
-springpad_expired_override( weapon )
-{
-	iPrintLn("gas");
-	// weapon maps/mp/zombies/_zm_equipment::dropped_equipment_destroy( 1 );
-	// self maps/mp/zombies/_zm_equipment::equipment_release( "equip_springpad_zm" );
-	// self.springpad_kills = 0;
 }

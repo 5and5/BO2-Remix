@@ -5,6 +5,7 @@
 #include maps/mp/zombies/_zm_perks;
 
 #include scripts/zm/remix/_debug;
+#include scripts/zm/remix/_buildables_trample_steam;
 #include scripts/zm/zm_buried/remix/_buried_ai_sloth;
 #include scripts/zm/zm_buried/remix/_buried_buildables;
 #include scripts/zm/zm_buried/remix/_buried_weapons;
@@ -19,6 +20,9 @@ main()
 	
 	replaceFunc( maps/mp/zombies/_zm_equip_subwoofer::burst_zombie, ::burst_zombie_override );
 	replaceFunc( maps/mp/zombies/_zm_equip_turbine::turbinepowerdiminish, ::turbinepowerdiminish_override );
+
+	// replaceFunc( maps/mp/zombies/_zm_equip_springpad::springpadthink, ::springpadthink_override );
+	// replaceFunc( maps/mp/zombies/_zm_equipment::item_attract_zombies, ::item_attract_zombies_override );
 
     level.initial_spawn_buried = true;
     level thread onplayerconnect();
