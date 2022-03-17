@@ -9,6 +9,8 @@
 #include maps/mp/zombies/_zm_buildables;
 #include maps/mp/zombies/_zm_magicbox;
 
+#include scripts/zm/remix/_utility;
+
 
 buildable_increase_trigger_radius()
 {
@@ -351,4 +353,79 @@ actor_damage_override_override( inflictor, attacker, damage, flags, meansofdeath
 
 	// inflictor, attacker, damage, flags, meansofdeath, weapon, vpoint, vdir, shitloc, psoffsettime, boneindex
 	return int( final_damage );
+}
+
+set_anim_pap_camo_dvars()
+{
+	create_dvar("anim_pap_camo_mob", 1);
+	create_dvar("anim_pap_camo_buried", 1);
+	create_dvar("anim_pap_camo_origins", 0);
+}
+
+get_pack_a_punch_weapon_options_override( weapon ) //checked changed to match cerberus output
+{
+	if ( !isDefined( self.pack_a_punch_weapon_options ) )
+	{
+		self.pack_a_punch_weapon_options = [];
+	}
+	if ( !is_weapon_upgraded( weapon ) )
+	{
+		return self calcweaponoptions( 0, 0, 0, 0, 0 );
+	}
+	if ( isDefined( self.pack_a_punch_weapon_options[ weapon ] ) )
+	{
+		return self.pack_a_punch_weapon_options[ weapon ];
+	}
+	smiley_face_reticle_index = 1;
+	base = get_base_name( weapon );
+	camo_index = 39;
+	if ( level.script == "zm_prison" && getDvarInt("anim_pap_camo_mob") )
+	{
+		camo_index = 40;
+	}
+	else if ( level.script == "zm_buried" && getDvarInt("anim_pap_camo_buried") )
+	{
+		camo_index = 40;
+	}
+	else if ( level.script == "zm_tomb" )
+	{
+		if( getDvarInt("anim_pap_camo_origins") )
+			camo_index = 40;
+		else
+			camo_index = 45;
+	}
+	lens_index = randomintrange( 0, 6 );
+	reticle_index = randomintrange( 0, 16 );
+	reticle_color_index = randomintrange( 0, 6 );
+	plain_reticle_index = 16;
+	r = randomint( 10 );
+	use_plain = r < 3;
+	if ( base == "saritch_upgraded_zm" )
+	{
+		reticle_index = smiley_face_reticle_index;
+	}
+	else if ( use_plain )
+	{
+		reticle_index = plain_reticle_index;
+	}
+	scary_eyes_reticle_index = 8;
+	purple_reticle_color_index = 3;
+	if ( reticle_index == scary_eyes_reticle_index )
+	{
+		reticle_color_index = purple_reticle_color_index;
+	}
+	letter_a_reticle_index = 2;
+	pink_reticle_color_index = 6;
+	if ( reticle_index == letter_a_reticle_index )
+	{
+		reticle_color_index = pink_reticle_color_index;
+	}
+	letter_e_reticle_index = 7;
+	green_reticle_color_index = 1;
+	if ( reticle_index == letter_e_reticle_index )
+	{
+		reticle_color_index = green_reticle_color_index;
+	}
+	self.pack_a_punch_weapon_options[ weapon ] = self calcweaponoptions( camo_index, lens_index, reticle_index, reticle_color_index );
+	return self.pack_a_punch_weapon_options[ weapon ];
 }

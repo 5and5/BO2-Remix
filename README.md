@@ -271,7 +271,7 @@
 
 ### Weapons
 
-- Pack-a-punch camo replaced with Mob of the Dead animated camo
+- Pack-a-punch camo replaced with Mob of the Dead animated camo `anim_pap_camo_buried 0` to disable
 
 ### Leroy
 
@@ -308,6 +308,7 @@
 
 - Staffs can be upgraded without doing the easter egg steps
 - Upgraded lighting does infinite damage
+- Pack-a-punch camo can be replaced with Mob of the Dead animated camo `anim_pap_camo_origins 1`
 
 ### Crazy Place
 
@@ -346,6 +347,9 @@ night_mode
 character
 disable_player_quotes
 rapid_fire
+anim_pap_camo_mob
+anim_pap_camo_buried
+anim_pap_camo_origins
 hud_all
 hud_timer
 hud_round_timer
