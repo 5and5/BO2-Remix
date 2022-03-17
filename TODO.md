@@ -2,6 +2,9 @@
 
 ### Tranzit
 
+- add cooldown to jetgun bench
+- buff electric trap
+
 #### Depot
 
 #### Farm
@@ -23,9 +26,6 @@
 - buff trample steam and head chopper - on a timer that recharges - zombies ignore
 - remove gas from vulture aid
 - better spawns in church
-- leeroy kills zombies
-- fountain broken by default
-- witch round
 
 ### Origins
 

@@ -222,6 +222,34 @@ player_damage_override( einflictor, eattacker, idamage, idflags, smeansofdeath, 
 	return idamage;
 }
 
+disable_player_move_states_override( forcestancechange ) //checked matches cerberus output
+{
+	self allowcrouch( 1 );
+	self allowlean( 0 );
+	self allowads( 0 );
+	self allowsprint( 1 );
+	self allowprone( 0 );
+	self allowmelee( 0 );
+	if ( isDefined( forcestancechange ) && forcestancechange == 1 )
+	{
+		if ( self getstance() == "prone" )
+		{
+			self setstance( "crouch" );
+		}
+	}
+}
+
+get_player_weapon_limit( player ) //checked matches cerberus output
+{
+	// if ( isDefined( level.get_player_weapon_limit ) )
+	// {
+	// 	return [[ level.get_player_weapon_limit ]]( player );
+	// }
+	weapon_limit = 3;
+
+	return weapon_limit;
+}
+
 add_to_player_score( points, add_to_total ) //checked matches cerberus output
 {
 	if ( !isDefined( add_to_total ) )
