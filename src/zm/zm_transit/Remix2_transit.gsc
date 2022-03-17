@@ -73,6 +73,7 @@ onplayerspawned()
 				turret_buff();
 				electric_trap_buff();
 				transit_no_power();
+				// level thread jetgun_pickup_cooldown();
 			}
         }
     }

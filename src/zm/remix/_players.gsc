@@ -239,7 +239,7 @@ disable_player_move_states_override( forcestancechange ) //checked matches cerbe
 	}
 }
 
-get_player_weapon_limit( player ) //checked matches cerberus output
+get_player_weapon_limit_override( player ) //checked matches cerberus output
 {
 	// if ( isDefined( level.get_player_weapon_limit ) )
 	// {
@@ -250,7 +250,7 @@ get_player_weapon_limit( player ) //checked matches cerberus output
 	return weapon_limit;
 }
 
-add_to_player_score( points, add_to_total ) //checked matches cerberus output
+add_to_player_score_override( points, add_to_total ) //checked matches cerberus output
 {
 	if ( !isDefined( add_to_total ) )
 	{

@@ -16,7 +16,7 @@ set_claymores_max( max )
 * *****************************************************
 */
 
-claymore_safe_to_plant()
+claymore_safe_to_plant_override()
 {
 	foreach( player in level.players )
 	{

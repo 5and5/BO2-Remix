@@ -1,4 +1,20 @@
 #include maps\mp\zombies\_zm_weap_jetgun;
+#include maps\mp\zombies\_zm_buildables;
+
+jetgun_pickup_cooldown()
+{
+	while( !isDefined(level.jetgun_buildable) )
+	{
+		wait 0.1;
+	}
+	level.zombie_include_buildables[ "jetgun_zm" ].triggerthink
+	// level.jetgun_buildable.trigger_hintstring = ;
+}
+
+jetgunbuildable_custom()
+{
+
+}
 
 jetgun_fast_cooldown()
 {

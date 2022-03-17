@@ -600,7 +600,7 @@ afterlife_weapon_limit_check( limited_weapon )
 	return 0;
 }
 
-treasure_chest_move( player_vox )
+treasure_chest_move_override( player_vox )
 {
 	level waittill( "weapon_fly_away_start" );
 	players = get_players();

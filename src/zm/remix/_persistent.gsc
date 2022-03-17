@@ -80,7 +80,7 @@ isVictisMap()
 	}	
 }
 
-pers_nube_should_we_give_raygun( player_has_weapon, player, weapon_buy ) //checked partially changed to match cerberus output //changed at own discretion
+pers_nube_should_we_give_raygun_override( player_has_weapon, player, weapon_buy ) //checked partially changed to match cerberus output //changed at own discretion
 {
 	if ( !maps/mp/zombies/_zm_pers_upgrades::is_pers_system_active() )
 	{
