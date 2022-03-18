@@ -5,7 +5,7 @@
 #include maps/mp/zombies/_zm_perks;
 
 #include scripts/zm/remix/_debug;
-#include scripts/zm/remix/_buildables_trample_steam;
+#include scripts/zm/remix/_equipment;
 #include scripts/zm/zm_buried/remix/_buried_ai_sloth;
 #include scripts/zm/zm_buried/remix/_buried_buildables;
 #include scripts/zm/zm_buried/remix/_buried_weapons;

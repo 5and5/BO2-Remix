@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.6.2";
+	level.VERSION = "1.6.3";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::get_next_powerup, ::get_next_powerup_override );
@@ -58,7 +58,6 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_weapons::weapon_give, ::weapon_give_override );
 	replaceFunc( maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options, ::get_pack_a_punch_weapon_options_override );
 	replaceFunc( maps/mp/zombies/_zm_weapons::ammo_give, ::ammo_give_override );
-	replaceFunc( maps/mp/zombies/_zm_weap_claymore::claymore_safe_to_plant, ::claymore_safe_to_plant_override );
 	replaceFunc( maps/mp/zombies/_zm::actor_damage_override, ::actor_damage_override_override );
 	replaceFunc( maps/mp/zombies/_zm_spawner::zombie_rise_death, ::zombie_rise_death_override );
 	replaceFunc( maps/mp/zombies/_zm::round_think, ::round_think_override );

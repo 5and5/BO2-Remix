@@ -7,7 +7,7 @@ jetgun_pickup_cooldown()
 	{
 		wait 0.1;
 	}
-	level.zombie_include_buildables[ "jetgun_zm" ].triggerthink
+	// level.zombie_include_buildables[ "jetgun_zm" ].triggerthink;
 	// level.jetgun_buildable.trigger_hintstring = ;
 }
 
