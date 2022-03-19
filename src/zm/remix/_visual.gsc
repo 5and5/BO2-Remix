@@ -204,14 +204,14 @@ eye_color_watcher()
 
 	while(1)
 	{
-		while( getDvarInt( "eye_color" ) == 0 )
+		while( !getDvarInt( "eye_color" ) )
 		{
 			wait 0.1;
 		}
 		level setclientfield( "zombie_eye_change", 1 );
     	sndswitchannouncervox( "richtofen" );
 
-		while( getDvarInt( "eye_color" ) == 1 )
+		while( getDvarInt( "eye_color" ) )
 		{
 			wait 0.1;
 		}
