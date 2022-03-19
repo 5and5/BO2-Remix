@@ -53,14 +53,14 @@ night_mode_watcher()
 
 	while(1)
 	{
-		while( getDvarInt( "night_mode" ) == 0 )
+		while( !getDvarInt( "night_mode" ) )
 		{
 			wait 0.1;
 		}
 		self thread enable_night_mode();
 		self thread visual_fix();
 
-		while( getDvarInt( "night_mode" ) == 1 )
+		while( getDvarInt( "night_mode" ) )
 		{
 			wait 0.1;
 		}
