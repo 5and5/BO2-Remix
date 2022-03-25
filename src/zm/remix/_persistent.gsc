@@ -17,8 +17,8 @@ set_persistent_stats()
 
 set_perma_perks() // Huthtv
 {
-	persistent_upgrades = array("pers_revivenoperk", "pers_multikill_headshots", "pers_insta_kill", "pers_jugg", "pers_perk_lose_counter", "pers_sniper_counter", "pers_box_weapon_counter");
-	
+	persistent_upgrades = array("pers_revivenoperk", "pers_multikill_headshots", "pers_insta_kill", "pers_jugg", "pers_perk_lose_counter", "pers_sniper_counter", "pers_box_weapon_counter", "pers_nube_counter");
+
 	persistent_upgrade_values = [];
 	persistent_upgrade_values["pers_revivenoperk"] = 17;
 	persistent_upgrade_values["pers_multikill_headshots"] = 5;
@@ -28,6 +28,7 @@ set_perma_perks() // Huthtv
 	persistent_upgrade_values["pers_sniper_counter"] = 1;
 	persistent_upgrade_values["pers_box_weapon_counter"] = 5;
 	persistent_upgrade_values["pers_flopper_counter"] = 1;
+	persistent_upgrade_values["pers_nube_counter"] = 1;
 	if(level.script == zm_buried)
 		persistent_upgrades = combinearrays(persistent_upgrades, array("pers_flopper_counter"));
 

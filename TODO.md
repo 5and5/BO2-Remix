@@ -33,19 +33,19 @@
 
 ### Bonus Survival Maps
 
+- lua map launcher
 - tunnel
 - dinner
 - power
 
 ### general
 
+- lua hud color
 - add raygun perma perk on every map
 - remove flinch
 - have reset map_restart mid end screen
 
 ### HUD
-
-#### TAB Only
 
 ### Weapons
 
