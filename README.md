@@ -302,7 +302,7 @@
 
 - Panzers will come every 4 rounds on solo and coop
 - Generator zombies can come every 4 rounds
-- Generator zombies come will come the same round as you turn on 4 or more generators
+- Generator zombies will come the same round as you turn on 4 or more generators
 
 ### Weapons
 
