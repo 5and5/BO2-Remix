@@ -87,6 +87,109 @@ extra_perk_spawns() //custom function
 		level.busPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
 		level.busPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
 	}
+	else if (level.customMap == "diner")
+	{
+		level.dinerPerkArray = array( "specialty_armorvest", "specialty_rof", "specialty_longersprint",
+									  "specialty_weapupgrade", "specialty_quickrevive" );
+								
+		level.dinerPerks[ "specialty_armorvest" ] = spawnstruct();
+		level.dinerPerks[ "specialty_armorvest" ].origin = ( -3634, -7464, -58 );
+		level.dinerPerks[ "specialty_armorvest" ].angles = ( 0, 176, 0 );
+		level.dinerPerks[ "specialty_armorvest" ].model = "zombie_vending_jugg";
+		level.dinerPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
+		level.dinerPerks[ "specialty_rof" ] = spawnstruct();
+		level.dinerPerks[ "specialty_rof" ].origin = ( -4170, -7610, -61 );
+		level.dinerPerks[ "specialty_rof" ].angles = ( 0, -90, 0 );
+		level.dinerPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
+		level.dinerPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
+		level.dinerPerks[ "specialty_longersprint" ] = spawnstruct();
+		level.dinerPerks[ "specialty_longersprint" ].origin = ( -4576, -6704, -61 );
+		level.dinerPerks[ "specialty_longersprint" ].angles = ( 0, 4, 0 );
+		level.dinerPerks[ "specialty_longersprint" ].model = "zombie_vending_marathon";
+		level.dinerPerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
+		level.dinerPerks[ "specialty_weapupgrade" ] = spawnstruct();
+		level.dinerPerks[ "specialty_weapupgrade" ].origin = ( -6351, -7778, 227 );
+		level.dinerPerks[ "specialty_weapupgrade" ].angles = ( 0, 175, 0 );
+		level.dinerPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
+		level.dinerPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
+		level.dinerPerks[ "specialty_quickrevive" ] = spawnstruct();
+		level.dinerPerks[ "specialty_quickrevive" ].origin = ( -5424, -7920, -64 );
+		level.dinerPerks[ "specialty_quickrevive" ].angles = ( 0, 137, 0 );
+		level.dinerPerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
+		level.dinerPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+	}
+	else if (level.customMap == "power")
+	{
+		level.powerStationPerkArray = array( "specialty_armorvest", "specialty_rof", "specialty_fastreload",
+											"specialty_longersprint", "specialty_weapupgrade", "specialty_quickrevive" );
+								
+		level.powerStationPerks[ "specialty_armorvest" ] = spawnstruct();
+		level.powerStationPerks[ "specialty_armorvest" ].origin = ( 10746, 7282, -557 );
+		level.powerStationPerks[ "specialty_armorvest" ].angles = ( 0, -132, 0 );
+		level.powerStationPerks[ "specialty_armorvest" ].model = "zombie_vending_jugg";
+		level.powerStationPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
+		level.powerStationPerks[ "specialty_rof" ] = spawnstruct();
+		level.powerStationPerks[ "specialty_rof" ].origin = ( 11879, 7296, -755 );
+		level.powerStationPerks[ "specialty_rof" ].angles = ( 0, -138, 0 );
+		level.powerStationPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
+		level.powerStationPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
+		level.powerStationPerks[ "specialty_fastreload" ] = spawnstruct();
+		level.powerStationPerks[ "specialty_fastreload" ].origin = ( 11568, 7723, -755 );
+		level.powerStationPerks[ "specialty_fastreload" ].angles = ( 0, -1, 0 );
+		level.powerStationPerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
+		level.powerStationPerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
+		level.powerStationPerks[ "specialty_longersprint" ] = spawnstruct();
+		level.powerStationPerks[ "specialty_longersprint" ].origin = ( 10856, 7879, -576 );
+		level.powerStationPerks[ "specialty_longersprint" ].angles = ( 0, -35, 0 );
+		level.powerStationPerks[ "specialty_longersprint" ].model = "zombie_vending_marathon";
+		level.powerStationPerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
+		level.powerStationPerks[ "specialty_weapupgrade" ] = spawnstruct();
+		level.powerStationPerks[ "specialty_weapupgrade" ].origin = ( 12625, 7434, -755 );
+		level.powerStationPerks[ "specialty_weapupgrade" ].angles = ( 0, 162, 0 );
+		level.powerStationPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
+		level.powerStationPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
+		level.powerStationPerks[ "specialty_quickrevive" ] = spawnstruct();
+		level.powerStationPerks[ "specialty_quickrevive" ].origin = ( 11156, 8120, -575 );
+		level.powerStationPerks[ "specialty_quickrevive" ].angles = ( 0, -4, 0 );
+		level.powerStationPerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
+		level.powerStationPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+	}
+	else if (level.customMap == "tunnel")
+	{
+		level.tunnelPerkArray = array( "specialty_armorvest", "specialty_rof", "specialty_fastreload", "specialty_longersprint",
+									   "specialty_weapupgrade", "specialty_quickrevive" );
+								
+		level.tunnelPerks[ "specialty_armorvest" ] = spawnstruct();
+		level.tunnelPerks[ "specialty_armorvest" ].origin = ( -11541, -2630, 194 );
+		level.tunnelPerks[ "specialty_armorvest" ].angles = ( 0, -180, 0 );
+		level.tunnelPerks[ "specialty_armorvest" ].model = "zombie_vending_jugg";
+		level.tunnelPerks[ "specialty_armorvest" ].script_noteworthy = "specialty_armorvest";
+		level.tunnelPerks[ "specialty_rof" ] = spawnstruct();
+		level.tunnelPerks[ "specialty_rof" ].origin = ( -11170, -590, 196 );
+		level.tunnelPerks[ "specialty_rof" ].angles = ( 0, -10, 0 );
+		level.tunnelPerks[ "specialty_rof" ].model = "zombie_vending_doubletap2";
+		level.tunnelPerks[ "specialty_rof" ].script_noteworthy = "specialty_rof";
+		level.tunnelPerks[ "specialty_fastreload" ] = spawnstruct();
+		level.tunnelPerks[ "specialty_fastreload" ].origin = ( -11373, -1674, 192 );
+		level.tunnelPerks[ "specialty_fastreload" ].angles = ( 0, -89, 0 );
+		level.tunnelPerks[ "specialty_fastreload" ].model = "zombie_vending_sleight";
+		level.tunnelPerks[ "specialty_fastreload" ].script_noteworthy = "specialty_fastreload";
+		level.tunnelPerks[ "specialty_longersprint" ] = spawnstruct();
+		level.tunnelPerks[ "specialty_longersprint" ].origin = ( -11681, -734, 228 );
+		level.tunnelPerks[ "specialty_longersprint" ].angles = ( 0, -19, 0 );
+		level.tunnelPerks[ "specialty_longersprint" ].model = "zombie_vending_marathon";
+		level.tunnelPerks[ "specialty_longersprint" ].script_noteworthy = "specialty_longersprint";
+		level.tunnelPerks[ "specialty_weapupgrade" ] = spawnstruct();
+		level.tunnelPerks[ "specialty_weapupgrade" ].origin = ( -11301, -2096, 184 );
+		level.tunnelPerks[ "specialty_weapupgrade" ].angles = ( 0, 115, 0 );
+		level.tunnelPerks[ "specialty_weapupgrade" ].model = "p6_anim_zm_buildable_pap_on";
+		level.tunnelPerks[ "specialty_weapupgrade" ].script_noteworthy = "specialty_weapupgrade";
+		level.tunnelPerks[ "specialty_quickrevive" ] = spawnstruct();
+		level.tunnelPerks[ "specialty_quickrevive" ].origin = ( -10780, -2565, 224 );
+		level.tunnelPerks[ "specialty_quickrevive" ].angles = ( 0, 270, 0 );
+		level.tunnelPerks[ "specialty_quickrevive" ].model = "zombie_vending_quickrevive";
+		level.tunnelPerks[ "specialty_quickrevive" ].script_noteworthy = "specialty_quickrevive";
+	}
 }
 
 /*
@@ -170,6 +273,27 @@ perk_machine_spawn_init_override() //modified function
 		foreach( perk in level.busPerkArray )
 		{
 			pos[pos.size] = level.busPerks[ perk ];
+		}
+	}
+	else if ( isDefined(level.customMap) && level.customMap == "power" )
+	{
+		foreach ( perk in level.powerStationPerkArray )
+		{
+			pos[ pos.size ] = level.powerStationPerks[ perk ];
+		}
+	}
+	else if ( isDefined(level.customMap) && level.customMap =="diner" )
+	{
+		foreach ( perk in level.dinerPerkArray )
+		{
+			pos[ pos.size ] = level.dinerPerks[ perk ];
+		}
+	}
+	else if ( isDefined(level.customMap) && level.customMap == "tunnel" && isdefined(level.disableBSMMagic) && !level.disableBSMMagic )
+	{
+		foreach ( perk in level.tunnelPerkArray )
+		{
+			pos[ pos.size ] = level.tunnelPerks[ perk ];
 		}
 	}
 

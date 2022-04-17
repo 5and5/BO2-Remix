@@ -9,7 +9,7 @@
             "type": "shell",
             "command": "${cwd}/.vscode/t6-compiler.exe",
             "args": [
-                "${workspaceFolder}\\src\\zm", "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Call of Duty Black Ops II Plutonuim\\storage\\t6\\scripts\\zm", "${workspaceFolder}\\src\\zm"
+                "${workspaceFolder}\\src\\scripts\\zm", "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Call of Duty Black Ops II Plutonuim\\storage\\t6\\scripts\\zm", "${workspaceFolder}\\src\\scripts\\zm"
             ],
 
             "options": {"shell": {"executable": "cmd.exe","args": ["/C"]}},
@@ -44,7 +44,7 @@
             "type": "shell",
             "command": "${cwd}/.vscode/t6-compiler.exe",
             "args": [
-                "${workspaceFolder}\\src", "C:\\Users\\Riley\\AppData\\Local\\Plutonium\\storage\\t6\\scripts", "${workspaceFolder}\\src"
+                "${workspaceFolder}\\src\\scripts", "C:\\Users\\Riley\\AppData\\Local\\Plutonium\\storage\\t6\\scripts", "${workspaceFolder}\\src\\scripts"
             ],
 
             "options": {"shell": {"executable": "cmd.exe","args": ["/C"]}},

@@ -28,6 +28,9 @@ spawn_lightpost_portals()
 
 create_portals()
 {
+	if( isDefined(level.customMap) && level.customMap != "vanilla" )
+		return;
+
 	ground_pos = groundpos( self.origin );
 	if ( !isDefined( self.hole ) )
 	{
