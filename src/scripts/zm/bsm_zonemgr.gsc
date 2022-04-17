@@ -6,7 +6,7 @@
 
 main()
 {
-	if(GetDvar("customMap") == "vanilla")
+	if(level.customMap == "vanilla")
 		return;
 	replacefunc(maps/mp/zombies/_zm_zonemgr::manage_zones, ::manage_zones);
 }

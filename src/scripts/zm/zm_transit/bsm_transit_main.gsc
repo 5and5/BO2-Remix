@@ -6,13 +6,13 @@
 
 main()
 {
-	if(GetDvar("customMap") == "vanilla")
+	if(level.customMap == "vanilla")
 		return;
 	replacefunc(maps/mp/zombies/_zm_ai_avogadro::avogadro_spawning_logic, ::avogadro_spawning_logic);
-	replacefunc(maps/mp/zm_transit_utility::solo_tombstone_removal, ::solo_tombstone_removal);
 	replacefunc(maps/mp/zm_transit_classic::diner_hatch_access, ::diner_hatch_access);
 	replacefunc(maps/mp/zm_transit_standard_farm::farm_treasure_chest_init, ::treasure_chest_init);
 	replacefunc(maps/mp/zm_transit_standard_station::station_treasure_chest_init, ::treasure_chest_init);
+	replacefunc(maps/mp/zombies/_zm_pers_upgrades::pers_upgrade_init, ::pers_upgrade_init);
 }
 
 init()
@@ -27,6 +27,7 @@ init()
 	level thread maps/mp/zm_transit::delete_bus_pieces();
 }
 
+
 treasure_chest_init()
 {
 	return;
@@ -37,7 +38,7 @@ avogadro_spawning_logic()
 	return;
 }
 
-solo_tombstone_removal()
+pers_upgrade_init()
 {
 	return;
 }

@@ -23,7 +23,10 @@
 
 main()
 {
-	level.customMap = GetDvar("customMap");
+	set_customMap_var();
+	
+	if(getDvar("customMap") == "vanilla")
+		return;
 	replacefunc(maps/mp/gametypes_zm/_zm_gametype::game_objects_allowed, ::game_objects_allowed);
 	replacefunc(maps/mp/gametypes_zm/_zm_gametype::onspawnplayer, ::onspawnplayer);
 	replacefunc(maps/mp/gametypes_zm/_zm_gametype::get_player_spawns_for_gametype, ::get_player_spawns_for_gametype);
@@ -34,6 +37,19 @@ main()
 init()
 {
 	init_barriers_for_custom_maps();
+}
+
+set_customMap_var()
+{
+	if( level.scr_zm_map_start_location == "transit" && is_classic() )
+	{
+		print("yesy");
+		level.customMap = GetDvar("customMap");
+	} else {
+		print("no");
+		setDvar("customMap", "vanilla");
+		level.customMap = "vanilla";
+	}
 }
 
 add_map_location_gamemode( mode, location, precache_func, main_func ) //checked matches cerberus output
@@ -843,14 +859,14 @@ onspawnplayer( predictedspawn ) //modified function
 				spawnpoints[ spawnpoints.size ] = level.houseSpawnpoints[ i ];
 			}
 		}
-		else if ( getDvar("customMap") == "town" )
+		else if ( level.customMap == "town" )
 		{
 			for( i = 0; i < level.townSpawnpoints.size; i++ )
 			{
 				spawnpoints[ spawnpoints.size ] = level.townSpawnpoints[ i ];
 			}
 		}
-		else if ( getDvar("customMap") == "farm" )
+		else if ( level.customMap == "farm" )
 		{
 			for( i = 0; i < level.farmSpawnpoints.size; i++ )
 			{
@@ -1071,7 +1087,7 @@ get_player_spawns_for_gametype() //modified function
 		}
 		return custom_spawns;
 	}
-	else if(getDvar("customMap") == "town")
+	else if(level.customMap == "town")
 	{
 		for(i=0;i<level.townSpawnpoints.size;i++)
 		{
@@ -1079,7 +1095,7 @@ get_player_spawns_for_gametype() //modified function
 		}
 		return custom_spawns;
 	}
-	else if(getDvar("customMap") == "farm")
+	else if(level.customMap == "farm")
 	{
 		for(i=0;i<level.farmSpawnpoints.size;i++)
 		{

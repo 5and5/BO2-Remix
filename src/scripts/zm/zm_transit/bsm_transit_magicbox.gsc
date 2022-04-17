@@ -149,14 +149,14 @@ init_magicbox() //modified function
 	}
 	else
 	{
-		if(getDvar("customMap") == "farm" )
+		if(level.customMap == "farm" )
 		{
 			chest1 = getstruct( "farm_chest", "script_noteworthy" );
 			level.chests = [];
 			level.chests[ level.chests.size ] = chest1;
 			treasure_chest_init( "farm_chest" );
 		}
-		else if(getDvar("customMap") == "busdepot" )
+		else if(level.customMap == "busdepot" )
 		{
 			chest1 = getstruct( "depot_chest", "script_noteworthy" );
 			level.chests = [];
