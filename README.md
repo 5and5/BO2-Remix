@@ -329,6 +329,16 @@
 - Hidden perk bottle dig spots respawn every round
 - Hidden perk bottles give all 9 perk slots
 
+## Custom Survival Maps
+
+### Tranzit
+
+#### Tunnel
+
+#### Diner
+
+#### Power Station
+
 ## Strat Tester
 
 - Enable strat tester with `strat_tester 1`
