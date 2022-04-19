@@ -1,44 +1,3 @@
--- Custom
-
--- Tranzit
-CoD.PrivateGameLobby.CustomSurvivals = {}
-CoD.PrivateGameLobby.CustomSurvivals[1] = {}
-CoD.PrivateGameLobby.CustomSurvivals[1].id = "customMap"
-CoD.PrivateGameLobby.CustomSurvivals[1].name = "CUSTOM SURVIVAL MAPS"
-CoD.PrivateGameLobby.CustomSurvivals[1].hintText = "Select Survival Map."
-CoD.PrivateGameLobby.CustomSurvivals[1].labels = {}
-CoD.PrivateGameLobby.CustomSurvivals[1].labels[1] = "DISABLED"
-CoD.PrivateGameLobby.CustomSurvivals[1].labels[2] = "POWER STATION"
-CoD.PrivateGameLobby.CustomSurvivals[1].labels[3] = "DINER"
-CoD.PrivateGameLobby.CustomSurvivals[1].labels[4] = "TUNNEL"
-CoD.PrivateGameLobby.CustomSurvivals[1].values = {}
-CoD.PrivateGameLobby.CustomSurvivals[1].values[1] = "vanilla"
-CoD.PrivateGameLobby.CustomSurvivals[1].values[2] = "power"
-CoD.PrivateGameLobby.CustomSurvivals[1].values[3] = "diner"
-CoD.PrivateGameLobby.CustomSurvivals[1].values[4] = "tunnel"
-CoD.PrivateGameLobby.CustomSurvivals[1].maps = {}
-CoD.PrivateGameLobby.CustomSurvivals[1].maps[1] = "zm_transit"
-CoD.PrivateGameLobby.CustomSurvivals[1].gameTypes = {}
-CoD.PrivateGameLobby.CustomSurvivals[1].gameTypes[1] = "zclassic"
-
--- Buried
-CoD.PrivateGameLobby.CustomSurvivals = {}
-CoD.PrivateGameLobby.CustomSurvivals[1] = {}
-CoD.PrivateGameLobby.CustomSurvivals[1].id = "customMap"
-CoD.PrivateGameLobby.CustomSurvivals[1].name = "CUSTOM SURVIVAL MAPS"
-CoD.PrivateGameLobby.CustomSurvivals[1].hintText = "Select Survival Map."
-CoD.PrivateGameLobby.CustomSurvivals[1].labels = {}
-CoD.PrivateGameLobby.CustomSurvivals[1].labels[1] = "DISABLED"
-CoD.PrivateGameLobby.CustomSurvivals[1].labels[2] = "MAZE"
-CoD.PrivateGameLobby.CustomSurvivals[1].values = {}
-CoD.PrivateGameLobby.CustomSurvivals[1].values[1] = "vanilla"
-CoD.PrivateGameLobby.CustomSurvivals[1].values[2] = "maze"
-CoD.PrivateGameLobby.CustomSurvivals[1].maps = {}
-CoD.PrivateGameLobby.CustomSurvivals[1].maps[1] = "zm_buried"
-CoD.PrivateGameLobby.CustomSurvivals[1].gameTypes = {}
-CoD.PrivateGameLobby.CustomSurvivals[1].gameTypes[1] = "zclassic"
--- Custom End
-
 CoD.PrivateGameLobby.GameTypeSettings = {}
 CoD.PrivateGameLobby.GameTypeSettings[1] = {}
 CoD.PrivateGameLobby.GameTypeSettings[1].id = "zmDifficulty"
@@ -131,9 +90,6 @@ CoD.PrivateGameLobby.GameTypeSettings[4].values[1] = 0
 CoD.PrivateGameLobby.GameTypeSettings[4].values[2] = 1
 CoD.PrivateGameLobby.GameTypeSettings[4].gameTypes = {}
 CoD.PrivateGameLobby.GameTypeSettings[4].gameTypes[1] = "zcleansed"
-CoD.PrivateGameLobby.DvarDefaults = {}
-CoD.PrivateGameLobby.DvarDefaults["sv_cheats"] = 0
--- CoD.PrivateGameLobby.DvarDefaults["zombies_minplayers"] = 1
 -- CoD.PrivateGameLobby.Dvars = {}
 -- CoD.PrivateGameLobby.Dvars[1] = {}
 -- CoD.PrivateGameLobby.Dvars[1].id = "zombies_minplayers"
@@ -157,28 +113,29 @@ CoD.PrivateGameLobby.DvarDefaults["sv_cheats"] = 0
 -- CoD.PrivateGameLobby.Dvars[1].values[6] = 6
 -- CoD.PrivateGameLobby.Dvars[1].values[7] = 7
 -- CoD.PrivateGameLobby.Dvars[1].values[8] = 8
-CoD.PrivateGameLobby.DvarDefaults["sv_allowAimAssist"] = 1
-CoD.PrivateGameLobby.Dvars = {}
+-- CoD.PrivateGameLobby.Dvars = {}
+-- CoD.PrivateGameLobby.Dvars[1] = {}
+-- CoD.PrivateGameLobby.Dvars[1].id = "sv_allowAimAssist"
+-- CoD.PrivateGameLobby.Dvars[1].name = Engine.Localize("MENU_TARGET_ASSIST_CAPS")
+-- CoD.PrivateGameLobby.Dvars[1].hintText = "Allow aim assist option for all controller players."
+-- CoD.PrivateGameLobby.Dvars[1].labels = {}
+-- CoD.PrivateGameLobby.Dvars[1].labels[1] = "MENU_DISABLED_CAPS"
+-- CoD.PrivateGameLobby.Dvars[1].labels[2] = "MENU_ENABLED_CAPS"
+-- CoD.PrivateGameLobby.Dvars[1].values = {}
+-- CoD.PrivateGameLobby.Dvars[1].values[1] = 0
+-- CoD.PrivateGameLobby.Dvars[1].values[2] = 1
+CoD.PrivateGameLobby.DvarDefaults = {}
+CoD.PrivateGameLobby.DvarDefaults["sv_cheats"] = 0
 CoD.PrivateGameLobby.Dvars[1] = {}
-CoD.PrivateGameLobby.Dvars[1].id = "sv_allowAimAssist"
-CoD.PrivateGameLobby.Dvars[1].name = Engine.Localize("MENU_TARGET_ASSIST_CAPS")
-CoD.PrivateGameLobby.Dvars[1].hintText = "Allow aim assist option for all controller players."
+CoD.PrivateGameLobby.Dvars[1].id = "sv_cheats"
+CoD.PrivateGameLobby.Dvars[1].name = "CHEATS"
+CoD.PrivateGameLobby.Dvars[1].hintText = "Enable cheats on server."
 CoD.PrivateGameLobby.Dvars[1].labels = {}
 CoD.PrivateGameLobby.Dvars[1].labels[1] = "MENU_DISABLED_CAPS"
 CoD.PrivateGameLobby.Dvars[1].labels[2] = "MENU_ENABLED_CAPS"
 CoD.PrivateGameLobby.Dvars[1].values = {}
 CoD.PrivateGameLobby.Dvars[1].values[1] = 0
 CoD.PrivateGameLobby.Dvars[1].values[2] = 1
-CoD.PrivateGameLobby.Dvars[2] = {}
-CoD.PrivateGameLobby.Dvars[2].id = "sv_cheats"
-CoD.PrivateGameLobby.Dvars[2].name = "CHEATS"
-CoD.PrivateGameLobby.Dvars[2].hintText = "Enable cheats on server."
-CoD.PrivateGameLobby.Dvars[2].labels = {}
-CoD.PrivateGameLobby.Dvars[2].labels[1] = "MENU_DISABLED_CAPS"
-CoD.PrivateGameLobby.Dvars[2].labels[2] = "MENU_ENABLED_CAPS"
-CoD.PrivateGameLobby.Dvars[2].values = {}
-CoD.PrivateGameLobby.Dvars[2].values[1] = 0
-CoD.PrivateGameLobby.Dvars[2].values[2] = 1
 CoD.PrivateGameLobby.ButtonPrompt_TeamPrev = function (f1_arg0, ClientInstance)
 	if Engine.PartyHostIsReadyToStart() == true then
 		return 

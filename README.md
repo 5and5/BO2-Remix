@@ -17,16 +17,23 @@
 ### Automatic Installer
 
 - Download and install BO2 Plutonium [Plutonium Download](https://plutonium.pw/)
-- Download the [Remix Installer](https://github.com/5and5/BO2-Remix/releases/download/Installer/BO2-Remix-Installer.bat)
+- Download the latest version of [Remix Installer](https://github.com/5and5/BO2-Remix/releases/download/Installer/BO2-Remix-Installer.bat)
 - Double click on "BO2-Remix-Installer.bat" this will download the latest version of Remix and copy all the files into `%localappdata%\Plutonium\storage\t6`
 - Launch the game and enjoy!
 
 ### Manual Installation
 
 - Download and install BO2 Plutonium [Plutonium Download](https://plutonium.pw/)
-- Download the [Remix](https://github.com/5and5/BO2-Remix/releases/download/latest/BO2-Remix.zip)
-- Open "BO2-Remix.zip" and copy the "zm" folder into `%localappdata%\Plutonium\storage\t6`
+- Download the latest version of [Remix](https://github.com/5and5/BO2-Remix/releases/download/latest/BO2-Remix.zip)
+- Open "BO2-Remix.zip" and copy everything into `%localappdata%\Plutonium\storage\t6`
 - Launch the game and enjoy!
+
+### Custom Survival Maps Installation
+
+- Go here for more [information](https://github.com/5and5/BO2-Remix-Custom-Survival-Maps)
+- Download [Remix Custom Survival Maps](https://github.com/5and5/BO2-Remix-Custom-Survival-Maps/releases/download/r3.0/BO2-Remix-Custom-Survival-Maps.zip)
+- Open "BO2-Remix-Custom-Survival-Maps.zip" and copy everything into `%localappdata%\Plutonium\storage\t6`
+- Launch the game and use the in game menu to choose a map
 
 ## Change Notes
 
@@ -328,16 +335,6 @@
 - Hidden perk bottle dig spots are visible without zombie blood
 - Hidden perk bottle dig spots respawn every round
 - Hidden perk bottles give all 9 perk slots
-
-## Custom Survival Maps
-
-### Tranzit
-
-#### Tunnel
-
-#### Diner
-
-#### Power Station
 
 ## Strat Tester
 
