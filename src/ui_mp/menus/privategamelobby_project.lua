@@ -1,4 +1,6 @@
 -- Custom
+
+-- Tranzit
 CoD.PrivateGameLobby.CustomSurvivals = {}
 CoD.PrivateGameLobby.CustomSurvivals[1] = {}
 CoD.PrivateGameLobby.CustomSurvivals[1].id = "customMap"
@@ -16,6 +18,23 @@ CoD.PrivateGameLobby.CustomSurvivals[1].values[3] = "diner"
 CoD.PrivateGameLobby.CustomSurvivals[1].values[4] = "tunnel"
 CoD.PrivateGameLobby.CustomSurvivals[1].maps = {}
 CoD.PrivateGameLobby.CustomSurvivals[1].maps[1] = "zm_transit"
+CoD.PrivateGameLobby.CustomSurvivals[1].gameTypes = {}
+CoD.PrivateGameLobby.CustomSurvivals[1].gameTypes[1] = "zclassic"
+
+-- Buried
+CoD.PrivateGameLobby.CustomSurvivals = {}
+CoD.PrivateGameLobby.CustomSurvivals[1] = {}
+CoD.PrivateGameLobby.CustomSurvivals[1].id = "customMap"
+CoD.PrivateGameLobby.CustomSurvivals[1].name = "CUSTOM SURVIVAL MAPS"
+CoD.PrivateGameLobby.CustomSurvivals[1].hintText = "Select Survival Map."
+CoD.PrivateGameLobby.CustomSurvivals[1].labels = {}
+CoD.PrivateGameLobby.CustomSurvivals[1].labels[1] = "DISABLED"
+CoD.PrivateGameLobby.CustomSurvivals[1].labels[2] = "MAZE"
+CoD.PrivateGameLobby.CustomSurvivals[1].values = {}
+CoD.PrivateGameLobby.CustomSurvivals[1].values[1] = "vanilla"
+CoD.PrivateGameLobby.CustomSurvivals[1].values[2] = "maze"
+CoD.PrivateGameLobby.CustomSurvivals[1].maps = {}
+CoD.PrivateGameLobby.CustomSurvivals[1].maps[1] = "zm_buried"
 CoD.PrivateGameLobby.CustomSurvivals[1].gameTypes = {}
 CoD.PrivateGameLobby.CustomSurvivals[1].gameTypes[1] = "zclassic"
 -- Custom End

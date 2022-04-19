@@ -10,6 +10,9 @@
 
 set_startings_chests()
 {
+	if( isDefined( level.customMap ) && level.customMap != "vanilla" )
+		return;
+
 	switch(level.scr_zm_map_start_location)
 	{
 		case "tomb":
