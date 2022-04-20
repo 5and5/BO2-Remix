@@ -80,8 +80,11 @@ onplayerspawned()
 			set_panzer_rounds();
 			disable_walls_moving();
 
-			level thread enable_all_teleporters();
-			level thread spawn_gems_in_chambers();
+			if(GetDvar("customMap") == "vanilla")
+			{
+				level thread enable_all_teleporters();
+				level thread spawn_gems_in_chambers();
+			}
         }
     }
 }

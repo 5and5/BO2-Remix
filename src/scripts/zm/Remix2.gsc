@@ -139,6 +139,12 @@ connected()
 		{
 			level.initial_spawn = false;
 
+			if(GetDvar("customMap") == "")
+			{
+				SetDvar("customMap", "vanilla");
+				level.customMap = GetDvar("customMap");
+			}
+
 			set_dog_rounds();
 
 			level thread change_skydome();
