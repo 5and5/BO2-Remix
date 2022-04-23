@@ -188,10 +188,10 @@ display_round_time(time, hordes, dog_round, leaper_round)
 	self.round_timer_hud FadeOverTime(level.FADE_TIME);
 	self.round_timer_hud.alpha = 1;
 
-	for ( i = 0; i < 20 + (20 * sph_off); i++ ) // wait 10s or 5s
+	for ( i = 0; i < 100 + (100 * sph_off); i++ ) // wait 10s or 5s
 	{
 		self.round_timer_hud setTimer(timer_for_hud);
-		wait 0.25;
+		wait 0.05;
 	}
 
 	self.round_timer_hud FadeOverTime(level.FADE_TIME);

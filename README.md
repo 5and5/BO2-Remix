@@ -33,7 +33,7 @@
 - Go here for more [information](https://github.com/5and5/BO2-Remix-Custom-Survival-Maps)
 - Download [Remix Custom Survival Maps](https://github.com/5and5/BO2-Remix-Custom-Survival-Maps/releases/download/r3.0/BO2-Remix-Custom-Survival-Maps.zip)
 - Open "BO2-Remix-Custom-Survival-Maps.zip" and copy everything into `%localappdata%\Plutonium\storage\t6`
-- Launch the game and use the in game menu to choose a map
+- Double click on "Plutonum.bat" to launch the game. If you launch the game using the normal launcher it will replace the menu file.
 
 ## Change Notes
 
@@ -63,8 +63,8 @@
 - Perma Perks given
 - Fridge has AN94 or War Machine depending on the map
 - Set box starting locations
+- First box
 - Round 255 round cap removed
-- Remove player quotes `disable_player_quotes 1`
 - In game fast ray `rapid_fire 1`
 - Characters can be selected with `character`
 

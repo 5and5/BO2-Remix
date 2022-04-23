@@ -13,6 +13,8 @@
 
 ### Nuketown
 
+- add nuketown reimagined gun
+
 - powerup behind door respawns every 5 rounds
 
 ### Mob
@@ -44,6 +46,7 @@
 - add raygun perma perk on every map
 - remove flinch
 - have reset map_restart mid end screen
+- 5 perk limit
 
 ### HUD
 
