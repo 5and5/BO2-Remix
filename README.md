@@ -35,6 +35,10 @@
 - Open "BO2-Remix-Custom-Survival-Maps.zip" and copy everything into `%localappdata%\Plutonium\storage\t6`
 - Double click on "Plutonum.bat" to launch the game. If you launch the game using the normal launcher it will replace the menu file.
 
+## Official Release
+
+- Version 1.6.9 and above
+
 ## Change Notes
 
 ### General
