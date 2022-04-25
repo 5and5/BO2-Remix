@@ -1491,6 +1491,7 @@ color_hud_watcher()
 	self endon("disconnect");
 
 	create_dvar( "hud_color", "1 1 1" );
+	color = getDvar( "hud_color" );
 	prev_color = "1 1 1";
 
 	while( 1 )
@@ -1521,6 +1522,7 @@ color_health_bar_watcher()
 	self endon("disconnect");
 
 	create_dvar( "hud_color_health", "1 1 1" );
+	color = getDvar( "hud_color_health" );
 	prev_color = "1 1 1";
 
 	while( 1 )

@@ -2,6 +2,11 @@
 #include maps/mp/zombies/_zm_utility;
 #include maps/mp/_utility;
 
+increase_perk_limit( limit )
+{
+	level.perk_purchase_limit = limit;
+}
+
 mulekick_additional_perks()
 {
 	self endon( "disconnect" );

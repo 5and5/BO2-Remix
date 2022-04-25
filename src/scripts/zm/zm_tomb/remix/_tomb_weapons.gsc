@@ -108,7 +108,6 @@ tomb_challenges_add_stats_custom() //checked matches cerberus output
 #/
 	}
 	*/
-	print("gfsg");
 	add_stat( "zc_headshots", 0, &"ZM_TOMB_CH1", n_kills, undefined, ::reward_packed_weapon_custom );
 	add_stat( "zc_zone_captures", 0, &"ZM_TOMB_CH2", n_zone_caps, undefined, ::reward_powerup_max_ammo );
 	add_stat( "zc_points_spent", 0, &"ZM_TOMB_CH3", n_points_spent, undefined, ::reward_double_tap, ::track_points_spent );

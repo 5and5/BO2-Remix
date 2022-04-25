@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.6.8";
+	level.VERSION = "1.6.9";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::get_next_powerup, ::get_next_powerup_override );
@@ -162,6 +162,7 @@ connected()
 			set_anim_pap_camo_dvars();
 			set_claymores_max( 10 );
 
+			increase_perk_limit( 5 );
 			reduce_player_fall_damage();
 			raygun_mark2_probabilty();
 
