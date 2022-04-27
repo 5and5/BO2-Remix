@@ -14,6 +14,10 @@
 
 ## How to Install
 
+### YouTube Video
+
+- [Video Tutorial](https://www.youtube.com/watch?v=Qf6AKY7nXg8)
+
 ### Automatic Installer
 
 - Download and install BO2 Plutonium [Plutonium Download](https://plutonium.pw/)
