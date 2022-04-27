@@ -38,7 +38,7 @@
 
 main()
 { 
-	level.VERSION = "1.6.9";
+	level.VERSION = "1.7.0";
 
 	replaceFunc( maps/mp/zombies/_zm_powerups::powerup_drop, ::powerup_drop_override );
 	replaceFunc( maps/mp/zombies/_zm_powerups::get_next_powerup, ::get_next_powerup_override );
@@ -59,12 +59,15 @@ main()
 	replaceFunc( maps/mp/zombies/_zm_weapons::get_pack_a_punch_weapon_options, ::get_pack_a_punch_weapon_options_override );
 	replaceFunc( maps/mp/zombies/_zm_weapons::ammo_give, ::ammo_give_override );
 	replaceFunc( maps/mp/zombies/_zm::actor_damage_override, ::actor_damage_override_override );
+	replaceFunc( maps/mp/zombies/_zm::take_additionalprimaryweapon, ::take_additionalprimaryweapon_overrride );
 	replaceFunc( maps/mp/zombies/_zm_spawner::zombie_rise_death, ::zombie_rise_death_override );
 	replaceFunc( maps/mp/zombies/_zm::round_think, ::round_think_override );
 	replaceFunc( maps/mp/zombies/_zm::ai_calculate_health, ::ai_calculate_health_override );
 	replaceFunc( maps/mp/zombies/_zm_pers_upgrades_functions::pers_nube_should_we_give_raygun, ::pers_nube_should_we_give_raygun_override );
 	replaceFunc( maps/mp/zombies/_zm_utility::wait_network_frame, ::wait_network_frame_override );
 	replaceFunc( maps/mp/zombies/_zm_score::add_to_player_score, ::add_to_player_score_override );
+
+	
 	
     level.initial_spawn = true;
     level thread onConnect();

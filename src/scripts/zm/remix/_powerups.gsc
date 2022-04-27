@@ -437,3 +437,8 @@ point_doubler_on_hud_override( drop_item, player_team ) //checked matches cerber
 	level.zombie_vars[ player_team ][ "zombie_powerup_point_doubler_on" ] = 1;
 	level thread time_remaining_on_point_doubler_powerup( player_team );
 }
+
+take_additionalprimaryweapon_overrride() //checked changed to match cerberus output
+{
+
+}
