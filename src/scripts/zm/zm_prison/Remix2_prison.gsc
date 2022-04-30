@@ -73,6 +73,7 @@ onplayerspawned()
 			prison_tower_trap_changes();
 			prison_plane_set_need_all_pieces();
 			prison_plane_set_pieces_shared();
+			prison_disable_lightning();
 
 			level thread prison_open_warden_fence();
 			level thread prison_auto_refuel_plane();
@@ -159,7 +160,15 @@ wait_for_initial_conditions()
 	// t_reward_pickup thread give_sq_bg_reward();
 }
 
+prison_disable_lightning()
+{
+    level._callbacks[ "on_player_connect" ][ 16 ] = ::player_lightning_manager_override;
+}
 
+player_lightning_manager_override()
+{
+    self setclientfieldtoplayer( "toggle_lightning", 0 );
+}
 
 /*
 * *****************************************************
