@@ -13,7 +13,7 @@ all_hud_watcher()
 	self endon("disconnect");
 	level endon( "end_game" );
 
-	create_dvar( "hud_all", 0 );
+	create_dvar( "hud_all", 1 );
 
 	while(1)
 	{	
@@ -123,7 +123,7 @@ round_timer_hud()
 
 	self endon("disconnect");
 
-	create_dvar( "hud_round_timer", 0 );
+	create_dvar( "hud_round_timer", 1 );
 
 	self.round_timer_hud = newClientHudElem(self);
 	self.round_timer_hud.alignx = "left";
@@ -172,7 +172,7 @@ round_timer_hud()
 
 display_round_time(time, hordes, dog_round, leaper_round)
 {
-	timer_for_hud = time - 0.05;
+	timer_for_hud = time - 0.1;
 
 	sph_off = 1;
 	if(level.round_number > 50 && !dog_round && !leaper_round)
@@ -281,7 +281,7 @@ zombie_remaining_hud_watcher()
 	self endon("disconnect");
 	level endon( "end_game" );
 
-	create_dvar( "hud_remaining", 0 );
+	create_dvar( "hud_remaining", 1 );
 
 	while(1)
 	{
@@ -306,7 +306,7 @@ health_bar_hud()
 
 	self endon("disconnect");
 
-	create_dvar( "hud_health_bar", 0 );
+	create_dvar( "hud_health_bar", 1 );
 
 	flag_wait( "initial_blackscreen_passed" );
 
@@ -408,7 +408,7 @@ zone_hud()
 		
 	self endon("disconnect");
 
-	create_dvar( "hud_zone", 0 );
+	create_dvar( "hud_zone", 1 );
 
 	x = 8;
 	y = -111;
