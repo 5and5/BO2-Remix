@@ -14,7 +14,6 @@
 ### Nuketown
 
 - add nuketown reimagined gun
-
 - powerup behind door respawns every 5 rounds
 
 ### Mob
@@ -25,28 +24,17 @@
 
 ### Buried
 
-- buff trample steam and head chopper - on a timer that recharges - zombies ignore
-- remove gas from vulture aid
-- better spawns in church
-
 ### Origins
 
 - make fire staff insta kill
 
 ### Bonus Survival Maps
 
-- lua map launcher
-- tunnel
-- dinner
-- power
-
 ### general
 
-- lua hud color
 - add raygun perma perk on every map
 - remove flinch
 - have reset map_restart mid end screen
-- 5 perk limit
 
 ### HUD
 
