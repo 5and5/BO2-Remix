@@ -217,11 +217,10 @@
 
 ### Elevators
 
-- Elevator wait time changed from 5-20 to 7-12 seconds
+- Wait time changed from 5-20 to 7-12 seconds
 - Standing on elevators make them move quicker
-- Key is given on spawn
-- Key is given 20 seconds after used
-- Key can lock elevators in a pre set position
+- Key is given on spawn and regiven 20 seconds after use
+- Key can be used to lock and unlock elevators
 
 ### Weapons
 

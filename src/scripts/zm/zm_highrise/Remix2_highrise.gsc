@@ -86,7 +86,7 @@ onplayerspawned()
 			level thread patch_shaft();
 
 			elevator_key_on_use_override();
-			remove_ground_spawns();
+			// remove_ground_spawns();
 			// disable_board_repair();
         }
     }
